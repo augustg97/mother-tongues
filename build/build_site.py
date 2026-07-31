@@ -55,15 +55,14 @@ def gate_fields() -> None:
     missing = [f for f in REQUIRED_FIELDS if not os.path.exists(os.path.join(fd, f))]
     if missing:
         die(f"missing field files: {missing} — run build_fields.py")
-    total = 0.0
-    for r, _, fs in os.walk(WEB):
-        for f in fs:
-            total += os.path.getsize(os.path.join(r, f))
-    total /= 1e6
-    print(f"   {len(REQUIRED_FIELDS)} fields present · web/ total {total:.1f} MB "
-          f"(budget {BUDGET_MB:.0f} MB)")
-    if total > BUDGET_MB:
-        die(f"web/ is {total:.1f} MB, over the {BUDGET_MB:.0f} MB budget in SCOPE §11")
+    print(f"   {len(REQUIRED_FIELDS)} fields present")
+    # The SIZE check lives in publish(), not here: later gates WRITE files into web/, so
+    # measuring the budget at this point would check a directory that does not exist yet.
+
+
+def _web_size_mb() -> float:
+    return sum(os.path.getsize(os.path.join(r, f))
+               for r, _, fs in os.walk(WEB) for f in fs) / 1e6
 
 
 def gate_registration() -> None:
@@ -93,6 +92,74 @@ def gate_registration() -> None:
           f"(Everest {at(27.99,86.93):.0f} m, Dead Sea {at(31.5,35.5):.0f} m)")
 
 
+def gate_attribution() -> None:
+    """A5. The shipped ledger must BE the module's output, byte for byte.
+
+    A hand-written sources list in an About panel is not an attribution ledger: it drifts from
+    the ingest the first time a source is added, and nobody notices, because nothing checks it.
+    So the module is the authority and this regenerates the shipped file from it. If they ever
+    differ, that difference is the bug — publish the regenerated one and fail loudly.
+    """
+    print("3b. attribution ledger")
+    sys.path.insert(0, MODELING)
+    import attribution
+    attribution._selftest()
+    want = attribution.to_json()
+    p = os.path.join(WEB, "data", "attribution.json")
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    got = open(p, encoding="utf-8").read() if os.path.exists(p) else None
+    if got != want:
+        open(p, "w", encoding="utf-8").write(want)
+        if got is not None:
+            die("web/data/attribution.json had drifted from attribution.py. It has been "
+                "REGENERATED — inspect the diff, then re-run. (A stale ledger means the app "
+                "was crediting sources it no longer uses, or failing to credit ones it does.)")
+        print("   generated web/data/attribution.json")
+    sa = attribution.share_alike_ingested()
+    print(f"   {len(attribution.ingested())} sources ingested, all licence-verified · "
+          f"{len(sa)} ShareAlike{' — our emitted data inherits SA' if sa else ''}")
+
+
+def gate_coverage() -> None:
+    """B4/D8. Recompute coverage from the SHIPPED rasters every build, so the number in the
+    About panel is a measurement of the artefact rather than a remembered figure."""
+    print("3c. coverage, measured from the shipped rasters")
+    p = subprocess.run([sys.executable, os.path.join(MODELING, "coverage.py")],
+                       capture_output=True, text=True)
+    if p.returncode != 0:
+        print(p.stdout[-1200:]); print(p.stderr[-1200:])
+        die("coverage.py failed against the shipped rasters")
+    for ln in p.stdout.strip().splitlines():
+        if ln.startswith(("land", "today", "before")):
+            print("   " + ln)
+
+
+def gate_no_year_on_before_contact() -> None:
+    """A4, enforced rather than trusted.
+
+    Rule 15: the earlier snapshot is a per-region STATE, not a year. Contact runs from the
+    1490s to the twentieth century and never happened in some places, so printing one year on
+    that snapshot would be the frame error of the project. `frames.snapshot_label` refuses it
+    in Python — but the app's labels are authored in HTML and JS, where nothing was checking.
+    This greps the shipped surfaces for a four-digit year near the snapshot control.
+    """
+    print("3d. no year on the before-contact snapshot")
+    import re as _re
+    bad = []
+    for f in ("index.html", os.path.join("js", "app.js")):
+        s = open(os.path.join(WEB, f), encoding="utf-8").read()
+        for m in _re.finditer(r"before[ _]?contact", s, _re.I):
+            window = s[max(0, m.start() - 90):m.end() + 90]
+            for y in _re.finditer(r"\b1[4-9]\d\d\b|\b20[0-2]\d\b", window):
+                # A century range in prose ("the 1490s to the twentieth century") is the
+                # honest statement, not the error; a bare year label is the error.
+                if "s to the" not in window and "ranges from" not in window:
+                    bad.append(f"{f}: '{y.group()}' next to '{m.group()}'")
+    if bad:
+        die("a year is rendered on the before-contact snapshot (rule 15): " + "; ".join(bad))
+    print("   clean — the earlier snapshot is labelled as a state, not a date")
+
+
 def stamp() -> str:
     """Bump the data version in web/index.html BEFORE anything is copied."""
     print("4. data-version stamp")
@@ -110,6 +177,10 @@ def stamp() -> str:
 
 def publish(v: str) -> None:
     print("5. web/ -> docs/")
+    total = _web_size_mb()
+    print(f"   web/ total {total:.1f} MB (budget {BUDGET_MB:.0f} MB)")
+    if total > BUDGET_MB:
+        die(f"web/ is {total:.1f} MB, over the {BUDGET_MB:.0f} MB budget in SCOPE §11")
     if os.path.exists(DOCS):
         shutil.rmtree(DOCS)
     shutil.copytree(WEB, DOCS)
@@ -129,4 +200,7 @@ if __name__ == "__main__":
     gate_selftests()
     gate_fields()
     gate_registration()
+    gate_attribution()
+    gate_coverage()
+    gate_no_year_on_before_contact()
     publish(stamp())

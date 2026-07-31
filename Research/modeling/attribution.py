@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""attribution.py — the attribution ledger, and the machine that keeps it honest.
+
+Register item A5. SCOPE §12 D3 permits ShareAlike, which has a consequence most projects
+discover late: **ShareAlike obligations are only dischargeable if you know what you took.**
+So the ledger is not prose in an About panel — prose drifts from the ingest silently. It is
+this module, and `build_site.py` refuses to publish unless the shipped JSON is byte-identical
+to what this module generates.
+
+Each row is a source that is IN THE SHIPPED BUILD. Not a source we might use, not one the
+survey found: one whose bytes reached `web/`. `ingested=False` rows are carried so that a
+future round adding them has the row already written and checked.
+
+Why `verified` is a field: a licence I have read at the source is a different kind of fact
+from a licence I remember. The selftest refuses to let an ingested source ship unverified —
+which is what forced the Ecoregions licence to be read at source rather than assumed.
+
+stdlib only. Run: python3 attribution.py
+"""
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass, field
+from typing import List
+
+# Licences that SCOPE §12 D3 excludes outright. Matched as substrings of the licence id,
+# so "CC-BY-NC-SA-3.0" is caught by "NC" without needing every permutation enumerated.
+FORBIDDEN_TOKENS = ("-NC", "NONCOMMERCIAL", "-ND", "NODERIV")
+SA_TOKENS = ("-SA", "SHAREALIKE")
+
+
+@dataclass
+class Source:
+    key: str
+    title: str
+    creators: str
+    year: str
+    licence: str
+    licence_url: str
+    source_url: str
+    attribution: str          # the exact string the licence requires us to display
+    layer: str                # which field of the model it becomes
+    ingested: bool
+    verified: bool            # has the licence been read at the source, this project?
+    note: str = ""
+
+    @property
+    def share_alike(self) -> bool:
+        u = self.licence.upper()
+        return any(t in u for t in SA_TOKENS)
+
+
+# ---------------------------------------------------------------------------------------
+# The ledger. Order is display order in the About panel.
+# ---------------------------------------------------------------------------------------
+LEDGER: List[Source] = [
+    Source(
+        key="glottolog",
+        title="Glottolog 5.3",
+        creators="Hammarström, Harald; Forkel, Robert; Haspelmath, Martin; Bank, Sebastian",
+        year="2026",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://doi.org/10.5281/zenodo.18840967",
+        attribution=("Glottolog 5.3 — Hammarström, Forkel, Haspelmath & Bank (2026), "
+                     "Max Planck Institute for Evolutionary Anthropology. CC-BY-4.0."),
+        layer="the language spine: glottocode, family, coordinates, vitality, attestation",
+        ingested=True, verified=True,
+        note=("7,674 spoken-L1 languages of 8,618 language-level languoids; 7,672 with "
+              "coordinates. Filtered on `category`, never on `Level` — see A6."),
+    ),
+    Source(
+        key="glottography",
+        title="Glottography",
+        creators=("Ranacher, Peter; Forkel, Robert; Efrat-Kowalsky, Nour; Urban, Matthias; "
+                  "and the Glottography contributors"),
+        year="2025",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://doi.org/10.1038/s41597-025-05828-6",
+        attribution=("Glottography — Ranacher, Forkel, Efrat-Kowalsky, Urban et al., "
+                     "Scientific Data 12:1466 (2025). CC-BY-4.0, 26 component datasets."),
+        layer="language areas — the polygons the language field is rasterised from",
+        ingested=True, verified=True,
+        note=("26 of 29 dataset repositories. THREE ARE CC-BY-NC AND EXCLUDED — "
+              "bowern2021australia, haynie2019modern, wurm1981pacific — against the "
+              "collection paper's own blanket CC-BY claim. The gate reads licence text, "
+              "because GitHub's licence API returns NOASSERTION for all three."),
+    ),
+    Source(
+        key="etopo1",
+        title="ETOPO1 Ice Surface, 1 arc-minute",
+        creators="Amante, Christopher; Eakins, Barry W. — NOAA NGDC",
+        year="2009",
+        licence="public-domain",
+        licence_url="https://www.ngdc.noaa.gov/mgg/global/",
+        source_url="https://doi.org/10.7289/V5C8276M",
+        attribution=("ETOPO1 1 Arc-Minute Global Relief Model — Amante & Eakins (2009), "
+                     "NOAA National Geophysical Data Center. Public domain."),
+        layer="elevation and bathymetry — the substrate the whole surface is lit from",
+        ingested=True, verified=True,
+        note="US federal work, no licence required. 10800×21600 int16, ice surface.",
+    ),
+    Source(
+        key="ghspop",
+        title="GHS-POP R2023A, 2020 epoch, 30 arcsec",
+        creators="Schiavina, Marcello; Freire, Sergio; MacManus, Kytt — European Commission JRC",
+        year="2023",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE",
+        attribution=("GHS-POP R2023A — Schiavina, Freire & MacManus (2023), European "
+                     "Commission Joint Research Centre. CC-BY-4.0."),
+        layer="speaker density — the luminance channel of the language field",
+        ingested=True, verified=True,
+        note=("The WGS84 (EPSG:4326) product, NOT the Mollweide one — which is why no "
+              "reprojection is exercised in this build. Placed by its own geotransform: it "
+              "spans 178.20° of latitude, not 180, and assuming 180 put 70 people/km² on "
+              "Everest's summit and lost 340 million people."),
+    ),
+    Source(
+        key="ecoregions",
+        title="Ecoregions 2017",
+        creators=("Dinerstein, Eric; Olson, David; Joshi, Anup; Vynne, Carly; Burgess, "
+                  "Neil D.; et al. — RESOLVE"),
+        year="2017",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://ecoregions.appspot.com/",
+        attribution=("Ecoregions 2017 © RESOLVE — Dinerstein et al., \"An Ecoregion-Based "
+                     "Approach to Protecting Half the Terrestrial Realm\", BioScience 67(6): "
+                     "534–545 (2017). CC-BY-4.0."),
+        layer="biome — the land material, and the project's current proxy for growing season",
+        ingested=True, verified=True,
+        note=("847 ecoregions, 14 biomes + rock/ice. Keyed on the shapefile's own BIOME_NUM, "
+              "never on a re-derived index — a remap disagreeing with its own label array is "
+              "how the Sahara came to report itself as 'ice, rock or water'. ⚠ Biome is a "
+              "PROXY for growing season, not growing season: register item C3."),
+    ),
+    # ---- carried, not yet ingested: the row exists before the bytes do -------------------
+    Source(
+        key="udhr",
+        title="UDHR in XML",
+        creators="Muller, Eric (ed.), from UN translations",
+        year="2026",
+        licence="NO-LICENCE-STATEMENT",
+        licence_url="",
+        source_url="https://github.com/eric-muller/udhr",
+        attribution="Universal Declaration of Human Rights translations, UDHR in XML (E. Muller).",
+        layer="parallel prose — the text tier (register D2)",
+        ingested=False, verified=True,
+        note=("446 distinct languages, 49 scripts. HAS NO LICENCE FILE. Ships only under the "
+              "user's recorded decision SCOPE §12 D2, behind a single feature flag so it is "
+              "removable in one commit, with per-block provenance and a takedown path. "
+              "An email to the maintainer is register item F1."),
+    ),
+    Source(
+        key="phoible",
+        title="PHOIBLE 2.0",
+        creators="Moran, Steven; McCloy, Daniel (eds.)",
+        year="2019",
+        licence="CC-BY-SA-3.0",
+        licence_url="https://creativecommons.org/licenses/by-sa/3.0/",
+        source_url="https://phoible.org/",
+        attribution=("PHOIBLE 2.0 — Moran & McCloy (eds.), 2019, Max Planck Institute for "
+                     "the Science of Human History. CC-BY-SA-3.0."),
+        layer="phonology (v2+)",
+        ingested=False, verified=True,
+        note=("ShareAlike, and therefore the first source that makes SCOPE §12 D3 bite: the "
+              "moment this is ingested, our emitted phonology data inherits SA."),
+    ),
+]
+
+
+def ingested() -> List[Source]:
+    return [s for s in LEDGER if s.ingested]
+
+
+def share_alike_ingested() -> List[Source]:
+    return [s for s in ingested() if s.share_alike]
+
+
+def to_json() -> str:
+    """The exact bytes the app ships. `build_site.py` compares against this."""
+    rows = [{k: v for k, v in asdict(s).items() if k != "note"} | {"note": s.note,
+             "share_alike": s.share_alike} for s in LEDGER]
+    return json.dumps({"ledger": rows,
+                       "sa_ingested": [s.key for s in share_alike_ingested()]},
+                      indent=1, ensure_ascii=False, sort_keys=False)
+
+
+def _selftest() -> None:
+    keys = [s.key for s in LEDGER]
+    assert len(keys) == len(set(keys)), "duplicate ledger key"
+
+    for s in LEDGER:
+        u = s.licence.upper()
+        # 1. the policy, enforced rather than remembered.
+        bad = [t for t in FORBIDDEN_TOKENS if t in u]
+        assert not bad, f"{s.key}: SCOPE §12 D3 excludes {bad} — {s.licence}"
+        # 2. an attribution string that is a string, not a placeholder.
+        assert len(s.attribution) > 30, f"{s.key}: attribution too short to discharge CC-BY"
+        assert "to be filled" not in s.attribution.lower(), f"{s.key}: placeholder attribution"
+        assert s.creators and s.year, f"{s.key}: CC-BY needs a creator and a date"
+        # 3. anything whose bytes are in the build must have a licence read at the source.
+        if s.ingested:
+            assert s.verified, f"{s.key} is INGESTED but its licence is unverified"
+            assert s.licence_url or s.licence in ("public-domain", "CC0-1.0"), \
+                f"{s.key}: no licence URL"
+            assert "NO-LICENCE" not in u, \
+                f"{s.key} has no licence statement and cannot be ingested without a §12 decision"
+        # 4. the attribution must actually name the thing it attributes.
+        assert s.title.split()[0].rstrip(",") in s.attribution, \
+            f"{s.key}: attribution does not name the source"
+
+    # 5. the five fields the shipped build actually reads. If a sixth source reaches web/,
+    #    this fails and forces a row — which is the whole point of the ledger.
+    assert sorted(s.key for s in ingested()) == \
+        ["ecoregions", "etopo1", "ghspop", "glottography", "glottolog"], \
+        "the ingested set changed without a ledger row"
+
+    # 6. SA discipline: nothing SA is in the build yet, so nothing SA is claimed.
+    assert share_alike_ingested() == [], \
+        "an SA source is now ingested: our emitted data inherits SA (SCOPE §12 D3) — " \
+        "state it in the About panel before this assertion is relaxed"
+
+    json.loads(to_json())
+    print("attribution.py selftest OK")
+
+
+if __name__ == "__main__":
+    _selftest()
+    print(f"\n{len(LEDGER)} sources · {len(ingested())} ingested · "
+          f"{len(share_alike_ingested())} ShareAlike in the build")
+    for s in LEDGER:
+        flag = "SHIPPED " if s.ingested else "carried "
+        sa = " [SA]" if s.share_alike else ""
+        print(f"  {flag}{s.key:14s} {s.licence:22s}{sa} {s.layer[:52]}")

@@ -474,6 +474,12 @@ async function boot() {
   state.meta = meta;
   fetch(V('data/languages.json')).then(r => r.json()).then(d => { state.langs = d; })
     .catch(() => { state.langs = null; });
+  // Credits and coverage are small; fetch them alongside and let About render whatever
+  // arrived. If either fails the panel says so rather than quietly crediting nobody.
+  fetch(V('data/attribution.json')).then(r => r.json()).then(d => { state.attribution = d; })
+    .catch(() => { state.attribution = null; });
+  fetch(V('data/coverage.json')).then(r => r.json()).then(d => { state.coverage = d; })
+    .catch(() => { state.coverage = null; });
   await loadTex('terrain', 'fields/terrain.png', 0);
   state.ready = true; render();                    // a usable world as soon as terrain lands
   $('#loading').style.display = 'none';
@@ -484,7 +490,60 @@ async function boot() {
   await loadTex('lang_t', 'fields/lang_t.png', 3);
   render();
   buildAbout();
+  // B4: the coverage limit belongs on the frame, not only in the About panel. A viewer must be
+  // able to tell mapped ground from unmapped without opening anything.
+  if (state.coverage) {
+    $('#legend').insertAdjacentHTML('beforeend',
+      '<div style="margin-top:5px;border-top:1px solid rgba(140,160,152,.16);padding-top:5px">' +
+      '<b>' + (state.coverage.today.frac_of_land_area * 100).toFixed(0) + '% of land</b> has a ' +
+      'mapped language area. Unpainted land is missing data, not empty ground.</div>');
+  }
   updateReadout(state.centre[0], state.centre[1]);
+}
+
+// The Sources list is GENERATED from the shipped attribution ledger, never typed here.
+// A hand-written credits list drifts from the ingest the first time a source changes and
+// nothing catches it; the build refuses to publish unless the shipped ledger is byte-identical
+// to `Research/modeling/attribution.py`. Register item A5.
+function sourcesHtml() {
+  const L = state.attribution && state.attribution.ledger;
+  if (!L) return '<p class="warn">The attribution ledger failed to load. ' +
+    'Sources are credited in <code>web/data/attribution.json</code>.</p>';
+  const rows = L.filter(s => s.ingested).map(s =>
+    '<li><b>' + esc(s.title) + '</b> — ' + esc(s.layer) + '. <i>' + esc(s.licence) + '</i>' +
+    (s.share_alike ? ' <b>(ShareAlike: our data inherits it)</b>' : '') +
+    '<div class="fine" style="margin-top:2px">' + esc(s.attribution) +
+    (s.note ? ' <span style="opacity:.72">' + esc(s.note) + '</span>' : '') + '</div></li>'
+  ).join('');
+  const carried = L.filter(s => !s.ingested);
+  return '<ul>' + rows + '</ul>' + (carried.length
+    ? '<p class="fine">Held but not in this build, with their rows already written and ' +
+      'checked: ' + carried.map(s => esc(s.title) + ' (' + esc(s.licence) + ')').join(' · ') +
+      '.</p>' : '');
+}
+
+// Measured from the shipped rasters at build time, not from the catalogue. "62.5% of languages
+// have a polygon" is a fact about Glottography; a viewer looking at the map wants to know
+// whether the ground under their eye is data or absence, which is a different number.
+function coverageHtml() {
+  const c = state.coverage;
+  if (!c) return '';
+  const t = c.today, b = c.before_contact;
+  const pc = x => (x * 100).toFixed(0) + '%';
+  const win = Object.entries(c.by_window_today).sort((p, q) => q[1] - p[1])
+    .map(([k, v]) => esc(k) + ' ' + (v == null ? '—' : pc(v))).join(' · ');
+  return '<p><b>' + pc(t.frac_of_land_area) + ' of the world\'s land area</b> has a mapped ' +
+    'language area under it, and <b>' + pc(t.frac_of_population) + ' of the world\'s people</b> ' +
+    'stand on that ground — coverage is best exactly where people are. Before contact: ' +
+    pc(b.frac_of_land_area) + ' of land, ' + pc(b.frac_of_population) + ' of people. ' +
+    'Both are measured from the rasters this page just loaded.</p>' +
+    '<p class="fine">By window (today, bounding boxes rather than regions): ' + win + '. ' +
+    'The gaps are real gaps in the record — Siberia is the worst of them — not gaps in the ' +
+    'languages. Turn on “Mark land with no polygon” to see them on the map.</p>';
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
 function buildAbout() {
@@ -520,15 +579,8 @@ function buildAbout() {
   'have coordinates. Other authorities count differently — about 7,100, or 7,927 ISO codes — ' +
   'because the language/dialect line is drawn for non-linguistic reasons as often as linguistic ' +
   'ones. There is no single correct number and this atlas does not pretend there is.</p>' +
-  '<h3>Sources</h3><ul>' +
-  '<li><b>Glottolog 5.3</b> — classification, coordinates, vitality, description. CC-BY 4.0.</li>' +
-  '<li><b>Glottography</b> (Ranacher, Forkel, Efrat-Kowalsky, Urban et al., <i>Scientific Data</i> ' +
-  '12:1466, 2025) — language areas, CC-BY 4.0 for the 26 datasets used. <b>Three component ' +
-  'datasets are CC-BY-NC and are excluded</b> by a gate that reads licence text, because the ' +
-  'collection\'s own paper describes them all as CC-BY.</li>' +
-  '<li><b>ETOPO1</b> ice-surface, 1 arc-minute — elevation. Public domain, NOAA.</li>' +
-  '<li><b>GHS-POP R2023A</b>, 2020 epoch, 30 arcsec — population. CC-BY 4.0, European Commission JRC.</li>' +
-  '<li><b>RESOLVE Ecoregions 2017</b> — biome. CC-BY 4.0.</li></ul>' +
+  '<h3>How much of the ground is data</h3>' + coverageHtml() +
+  '<h3>Sources</h3>' + sourcesHtml() +
   '<p class="fine">Elevation is encoded 16-bit linear over −11000…+9000 m. That was measured, not ' +
   'inherited: an 8-bit signed-square-root encoding tuned for sea level would have created relief ' +
   'steps of 1.95° against a true median slope of 1.34° in the New Guinea highlands — steeper than ' +
