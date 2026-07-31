@@ -85,11 +85,11 @@ Read-only; they change nothing.
 
 ## Status
 
-**v0.2 — round 1 complete, 2026-07-31.**
+**v1.0 — round 2 complete and DEPLOYED, 2026-07-31.**
 
-*Round 1, the datum-and-substrate round* — produced four runnable self-testing modules, one white
-paper, two authored figures, and four staged changes. **All selftests pass.** Nothing is in the app
-yet, by design: the research folder does not change the app.
+*Round 1* produced four self-testing modules, one white paper, two authored figures and four staged
+changes. *Round 2* amended the claim, built the substrate and the language field, and shipped:
+**https://augustg97.github.io/mother-tongues/** — live stamp verified.
 
 **The round's headline is a partial falsification of the project's own claim.** Terrain correlates
 with linguistic richness at only **+0.141** (**+0.108** controlling for latitude), while latitude

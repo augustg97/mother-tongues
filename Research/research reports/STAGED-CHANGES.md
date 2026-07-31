@@ -13,7 +13,9 @@ ordered by measured value rather than register number.
 **Cost:** <rebuild time, if any>
 ```
 
-*Round 1, 2026-07-31.*
+*Round 1, 2026-07-31.* — **Tier 1 items 1–4 and Tier 3 item 5 were APPLIED in round 2 and are
+live. They are kept below as the record of what was staged and on what evidence; the register's
+APPLIED table carries the measurements that landed.**
 
 ## Tier 1 — measured, high value, ready now
 

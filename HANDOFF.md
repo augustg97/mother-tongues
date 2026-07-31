@@ -17,26 +17,29 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Round 1 is COMPLETE.** The blocking question is now the user's, not the code's.
+**Rounds 1 and 2 are COMPLETE and v1 is LIVE:** https://augustg97.github.io/mother-tongues/
 
-**0. C5 — settle the claim. BLOCKING.** Round 1 measured the project's own headline claim and it
-does not hold. Terrain correlates with linguistic richness at **+0.141** (**+0.108** controlling for
-latitude); **|latitude| reaches −0.582** — about 4x stronger. In **Papunesia (+0.024)** and **Africa
-(+0.006)** terrain explains nothing, and Papunesia is the region SCOPE §3's visual sentence names as
-the exemplar. Robust at 1°/2°/4°/6°. `research reports/WP-01` proposes amended wording for SCOPE §1
-and §3. **Do not build the substrate against the old visual sentence.**
+The substrate exists and clears rule 0: the surface is composed per pixel from four field rasters,
+of the real Earth, and a viewer can read family, speaker density and biome off it. What is left is
+depth, not foundation.
 
-**1. C3 — get a growing-season / climate field.** Now the top substantive item: the spine is
-measuring the secondary variable.
+**Next, in priority order:**
 
-**2. C6 — re-estimate with a zero-inflated count model.** 1,672 of 6,143 land cells hold a
-language; a rank correlation on density is a first look, not the shipped statistic.
+**1. D6 — autonyms. P1, and it breaks a standing rule.** Cards currently show Glottolog *reference
+names*. Rule 11 requires the autonym first. The card discloses this, which is honest but not a fix.
+No CC-BY autonym source is wired; this needs a source decision.
 
-**3. E1 — the census witness.** Carried over from round 1; not done, and it stays P1.
+**2. C3 — real growing-season data.** Biome is shipping as the greenness channel and it is a
+*proxy*. The claim is about growing season; measure against the real variable.
 
-**Then `/model-build`** applies `research reports/STAGED-CHANGES.md` Tier 1 (16-bit encoding,
-`frames.py`, the licence gate, the category filter) and builds **B1**, the lit substrate. Its gate
-is a full-frame screenshot assessed against SCOPE §3's sentence *as amended*.
+**3. C6 — the count model.** 1,672 of 6,143 land cells hold a language; the shipped correlation is
+still a rank correlation on density.
+
+**4. E1 — the census witness.** Planned for round 1, still not built. It is the instrument later
+disputes get settled with.
+
+**5. D7 / D8 — resolution and coverage honesty.** Small islands are under-resolved at ~10 km, and
+polygon coverage is patchy at pixel scale inside covered regions.
 
 ## Reference material and the measurement harness
 
@@ -56,8 +59,8 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **none — never deployed**
-- Committed and not deployed: everything; **five commits**, nothing has shipped
+- Last live deploy: **stamp 1785515158**, verified live
+- Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
   `web/fields/` is empty; `build/` has only a README. **The field engine does not exist yet.** That

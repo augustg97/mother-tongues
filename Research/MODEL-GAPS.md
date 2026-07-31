@@ -23,7 +23,15 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 | item | what shipped | measured |
 |---|---|---|
-| — | **nothing is in the app yet.** Round 1 was a research round; four changes are staged in `research reports/STAGED-CHANGES.md` for `/model-build` | — |
+| **B3** | 16-bit elevation, linear −11000…+9000, one channel | terracing equals the source DEM's own floor: **4.0% / 1.9% / 39.0% / 0.5%** in the four SCOPE §3 regions |
+| **B1** | the lit-terrain substrate: relief shaded per pixel from the field's gradient, water as a depth-attenuated surface, biome as the land material | 8/8 named places registered, re-read from the **shipped** PNG by the build gate |
+| **B2** | the language field: family hue × population luminance × diversity granularity, composed per pixel | **1,391,303 px** covered today, **1,330,358** before contact; max diversity **43** / **41** |
+| **C5** | the amended claim, in SCOPE §1/§3 and in the About panel with its numbers | — |
+| **C3** *(partial)* | biome as the greenness channel — 847 ecoregions, 15 classes | 2,762,246 px. ⚠ Biome is a *proxy* for growing season, not growing season itself; C3 stays open |
+| **A1** | `frames.py` imported by the ingest | selftest passes |
+| **A3** | the licence gate drives the ingest allowlist | **26 of 29** repos ingested, 3 NC excluded by name |
+| **A6** | Glottolog filtered by `category` | **7,672** spoken-L1 with coordinates, not 8,304 |
+| **deploy** | `build_site.py` as the only route; live on Pages | gate: 4/4 selftests · 16.7 MB of 30 · 6/6 registration on the shipped raster · live stamp verified |
 
 ---
 
@@ -67,6 +75,12 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 | C8 | P2 | **NEW.** Settlement time-depth, a C1 predictor with no ready source. Derive per region from the archaeological and aDNA literature; carry its wide uncertainty | `Research/`, diversity field | SURVEY §6 |
 
 ## D. Cards, texts and voices
+
+| # | P | item | touches | from |
+|---|---|---|---|---|
+| **D6** | **P1** | **NEW, and it breaks a standing rule.** The cards show Glottolog *reference names*, not autonyms. CLAUDE.md rule 11 and SCOPE §7 require the autonym first, and no autonym source is wired. The card says so explicitly rather than passing an exonym off as a language's own name — but that is a disclosure, not a fix | cards, `build/` | round 2 |
+| **D7** | P2 | **NEW.** The grid is 4096×2048 (~10 km): small-island languages are under-resolved — a probe in the Vanuatu channel returns open ocean. Small archipelagos need either a finer grid or a point-symbol fallback that is honestly marked | `build/`, shader | round 2 |
+| **D8** | P2 | **NEW.** Polygon coverage inside covered regions is patchy at pixel scale — parts of the New Guinea highlands return "no polygon" while neighbours are covered. Quantify coverage per macroarea and surface it, rather than leaving it to the toggle | `build/`, About | round 2 |
 
 | # | P | item | touches | from |
 |---|---|---|---|---|
