@@ -33,12 +33,16 @@ Research/
 All runnable, all self-testing. Each prints a worked demonstration.
 
 ```bash
-cd Research/modeling && python {{MODULE}}.py
+cd Research/modeling && python3 audit_all.py     # all four
+cd Research/modeling && python3 diversity.py     # or one at a time
 ```
 
 | module | what it is | current state |
 |---|---|---|
-| | | selftest passes |
+| `frames.py` | the canonical frame: glottocode identity, autonym-first names, (value, year, source) counts, Mollweide↔WGS84 | **selftest passes.** Round-trip residual 2.8e-08 m |
+| `licences.py` | the ingest licence gate, classified from licence TEXT | **selftest passes.** 26 of 29 shippable, 3 NC excluded by name |
+| `encoding.py` | measures the vertical encoding before it is chosen | **selftest passes.** 16-bit reaches the DEM's own floor |
+| `diversity.py` | the spine: does richness follow terrain? | **selftest passes.** First measurement done, and it partly falsifies the claim |
 
 ## The audits
 
@@ -46,19 +50,22 @@ Read-only; they change nothing.
 
 | script | catches | current result |
 |---|---|---|
-| | | |
+| `frames.py:_selftest` | ISO used as a key; a bare speaker count; a year on the earlier snapshot; a slur promoted to a card title; out-of-domain projection | passes |
+| `licences.py:_selftest` | an NC repo leaking into the allowlist; the dataset count moving upstream | passes |
+| `encoding.py:_selftest` | a non-monotone encoding; a DEM read with the wrong orientation | passes |
+| `diversity.py:_selftest` | the category filter silently doing nothing; duplicate glottocodes; a confound surviving a partial correlation | passes |
 
 ## The dossiers
 
 | file | covers |
 |---|---|
-| | |
+| — | no dossier this round. Round 1 was measurement-led: the four modules and `WP-01` carry the findings, and a literature dossier on environment-versus-diversity is item C4 |
 
 ## The white papers
 
 | paper | thesis |
 |---|---|
-| | |
+| `WP-01-terrain-is-not-most-of-the-explanation.md` | The headline claim overstates terrain. Latitude beats it ~4x, and in Papunesia and Africa terrain explains nothing. The claim must change — and the honest version is stronger |
 
 ---
 
@@ -78,17 +85,70 @@ Read-only; they change nothing.
 
 ## Status
 
-**v0.1 — kickoff only, 2026-07-31.**
+**v0.2 — round 1 complete, 2026-07-31.**
 
-*Round 0* — the scoping interview and the source survey. No models or audits written yet; the app
-is the scaffold shell. `SOURCE-SURVEY.md` is complete and unusually load-bearing, because the
-survey ran *before* the plate was chosen and changed it twice.
+*Round 1, the datum-and-substrate round* — produced four runnable self-testing modules, one white
+paper, two authored figures, and four staged changes. **All selftests pass.** Nothing is in the app
+yet, by design: the research folder does not change the app.
 
-See [`MODEL-GAPS.md`](MODEL-GAPS.md) for the **26 open items, 12 at P1**.
+**The round's headline is a partial falsification of the project's own claim.** Terrain correlates
+with linguistic richness at only **+0.141** (**+0.108** controlling for latitude), while latitude
+itself reaches **−0.582** — roughly 4x stronger. In Papunesia (**+0.024**) and Africa (**+0.006**)
+the terrain effect is indistinguishable from zero. Robust at 1°/2°/4°/6°. SCOPE §1's claim that
+terrain is "most of the explanation" and §3's promise that the shimmer "visibly follows the terrain"
+both have to change — see `research reports/WP-01`.
+
+The round also settled the encoding it was asked to settle: **16-bit linear −11000…+9000**, which
+reaches the source DEM's own quantisation floor and therefore contributes no terracing of its own.
+The inherited signed-sqrt encoding would have created steps **1.4x steeper than the real terrain**
+in the highlands.
+
+See [`MODEL-GAPS.md`](MODEL-GAPS.md) for the **31 items, 13 at P1**.
 
 ---
 
-## Round 1 — the datum-and-substrate round, in priority order
+## Round 1 — COMPLETE. What it did, in the order it was planned
+
+| planned | outcome |
+|---|---|
+| A1 `frames.py` | **DELIVERED**, selftest passes |
+| A2 Mollweide→WGS84 | **DELIVERED**, residual 2.8e-08 m recorded |
+| A3 licence gate | **DELIVERED**, 26/29 shippable, 3 excluded by name |
+| B3 encoding measurement | **MEASURED**, 16-bit chosen, staged |
+| B1/B2 substrate + language field | **staged, not built** — app work, handed to `/model-build` |
+| C1 diversity model | **first measurement delivered**, and it changed the claim |
+| E1 census witness | **NOT DONE** — see below |
+
+**Not done, and why:** E1, the census witness. Round 1 ran out of room after the C1 result forced
+a white paper and a claim amendment. It stays P1 and moves to round 2. Also not done: a literature
+dossier (C4) and the growing-season field (C3), the latter now the register's top substantive item.
+
+---
+
+## Round 2 — in priority order
+
+**0. Settle C5 first.** The claim amendment is blocking and it is the user's call. Everything
+downstream of the claim is provisional until it is settled, including the visual bar that `/model-build`
+will be measured against.
+
+**1. C3 — get a climate field.** Growing-season length or an equivalent. The spine is currently
+measuring the secondary variable, and this is the highest-value substantive item in the register.
+
+**2. C6 — re-estimate with a count model.** Poisson or negative binomial, land area as an offset,
+zero-inflation handled: 1,672 of 6,143 land cells hold a language. The rank correlation is a first
+look, not the statistic that ships.
+
+**3. E1 — the census witness**, carried over. Built early because it settles later disputes.
+
+**4. C7 — relief-per-kilometre** as an alternative ruggedness measure, and C4, the literature check.
+
+**Then `/model-build`** takes `STAGED-CHANGES.md` Tier 1 into the app: the 16-bit encoding, the
+frames module, the licence gate and the category filter — and builds B1, the lit substrate, whose
+gate is a screenshot against SCOPE §3's sentence (as amended).
+
+---
+
+## The original round-1 plan, for the record
 
 The ordering is not negotiable: **frames before joins, substrate before layers, spine before
 polish.** Two prior projects reached "feature complete" on flat ground and were assessed as charts.

@@ -23,7 +23,7 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 | item | what shipped | measured |
 |---|---|---|
-| — | nothing yet; the app is the scaffold shell | — |
+| — | **nothing is in the app yet.** Round 1 was a research round; four changes are staged in `research reports/STAGED-CHANGES.md` for `/model-build` | — |
 
 ---
 
@@ -31,9 +31,13 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 | # | P | item | touches | from |
 |---|---|---|---|---|
-| **A1** | **P1** | **`frames.py` with selftests**: glottocode as the key, ISO 639-3 as alias only, autonym-first name resolution with an exonym/historical-exonym alias table, and the (value, year, source) triple for every speaker count. **No two sources may be joined before this exists.** | build ingest, every card | SCOPE §6 |
-| **A2** | **P1** | **Reproject GHS-POP from Mollweide to WGS84 once at ingest and record the residual.** The one live coordinate-frame trap in the project — population and polygons arrive in different grids | `build/`, population field | SURVEY §2 |
-| A3 | **P1** | **Per-repo licence gate on the Glottography ingest.** 3 of 34 component repos are CC-BY-NC and must be excluded by machine, not by memory; the platform paper's blanket CC-BY claim is wrong | `build/`, polygon ingest | SURVEY §1 |
+| **A1** | **P1** | `frames.py` with selftests: glottocode as key, ISO 639-3 as alias only, autonym-first names, (value, year, source) counts | build ingest, every card | SCOPE §6 |
+| | | **DELIVERED.** `Research/modeling/frames.py`, stdlib only, selftest passes. Enforces: ISO rejected as a key; a count without year+source refuses construction; the axis label for the earlier snapshot cannot print a year; a name set never promotes a slur to the title | | |
+| **A2** | **P1** | Reproject Mollweide→WGS84 once at ingest and record the residual | `build/`, population field | SURVEY §2 |
+| | | **DELIVERED, MEASURED: 2.8 × 10⁻⁸ m** worst round-trip over a 180×52 global lattice. Hand-rolled (no pyproj here), which turned out better — the residual is recorded and out-of-domain points **raise** rather than extrapolate. Antimeridian pinned: `_wrap180(+180) = −180`, so x is negative at +180 | | |
+| A3 | **P1** | Per-repo licence gate on the polygon ingest | `build/`, polygon ingest | SURVEY §1 |
+| | | **DELIVERED. 26 of 29 shippable, 3 excluded by name.** Correction to the survey's framing: it is 29 *dataset* repos, not 34 — five are infrastructure. GitHub's licence API returns `NOASSERTION` for all three NC repos, so the gate reads licence **text** | | |
+| **A6** | **P2** | **NEW.** Filter Glottolog by `category`, never by `Level`: `Level == language` yields 8,618 but only **7,674** are spoken L1 — a 12% inflation that would put 227 sign languages and 380 bookkeeping placeholders on a terrain-diversity surface | `build/` ingest | round 1 |
 | A4 | P2 | The **before-contact snapshot carries no year**. Enforce in code that no year label can be rendered for it, and attach per-region contact dates to cards instead | time engine, cards | SCOPE §6 |
 | A5 | P3 | **D3 attribution ledger** kept current: a row per ShareAlike source with its exact attribution string, checked by the build gate so it cannot go stale | `SOURCE-SURVEY.md` §1, About panel | SCOPE §12 D3 |
 
@@ -43,7 +47,8 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 |---|---|---|---|---|
 | **B1** | **P1** | **The lit-terrain substrate**: elevation encoded for the *land* relief band, relief shaded per pixel from the field's gradient, water as a surface. **Before any language layer.** Screenshot and assess against the SCOPE §3 sentence | `web/`, shader | WORKING-RULES §13, SCOPE §3 |
 | **B2** | **P1** | **The language field**: family hue × population luminance × diversity granularity, composed per pixel. The moment this reads as a rendered world rather than a chart is the moment the project exists | shader, `build/` | SCOPE §3 |
-| B3 | **P1** | **Vertical encoding decision, measured before it is chosen.** Histogram how many quantisation levels fall in the land relief band that actually carries the shimmer. Do not inherit an encoding tuned for a different range | `build/fieldpack`-equivalent | TRAPS §B1–B2 |
+| B3 | **P1** | Vertical encoding decision, measured before it is chosen | `build/fieldpack`-equivalent | TRAPS §B1–B2 |
+| | | **MEASURED → STAGED.** The inherited signed-sqrt ±8000 8-bit encoding has a **62.7 m** quantum at 2000 m, creating steps of **1.95°** against a true median slope of **1.34°** in the New Guinea highlands — it invents more relief than the terrain has. Terracing: 30.9% (inherited) vs **4.0%** at 16-bit, and the raw DEM's own floor is also **4.0%**, so at 16-bit the encoding contributes nothing. **Decision: single 16-bit channel, linear −11000…+9000.** 16.8 MB at 4096×2048, paid once because terrain is static here | | |
 | B4 | P2 | Coarse-fallback territories render **visibly differently** from real polygons — a viewer must be able to tell 62.5% from the remainder without reading About | shader, legend | SURVEY §3 |
 | B5 | P2 | Procedural sub-grid detail keyed to a shipped material coordinate, so zoom reveals structure rather than running out of it | shader | ARCHITECTURE-PATTERNS §7 |
 
@@ -51,10 +56,15 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 | # | P | item | touches | from |
 |---|---|---|---|---|
-| **C1** | **P1** | **The diversity model and its per-cell residual audit**, scored against observed richness with **no averaging**. This is the spine; without it the atlas is an inventory | `Research/modeling/`, diversity field | SCOPE §4 |
-| C2 | **P1** | **The method risk is ours.** No global continuous linguistic surface has ever been built — only regional dialectometry by kriging. Read that literature before choosing an interpolation, and record why the chosen method was chosen | `Research/`, C1 | SURVEY §7 |
-| C3 | P2 | **Settlement time-depth**, a C1 predictor with no ready source. Derive per region from the archaeological and aDNA literature; its uncertainty is wide and must be carried | `Research/`, diversity field | SURVEY §6 |
-| C4 | P2 | Reproduce published environment-versus-diversity relationships as the first external check on C1 | audits | SCOPE §8 |
+| **C1** | **P1** | The diversity model and its per-cell residual audit | `Research/modeling/`, diversity field | SCOPE §4 |
+| | | **FIRST MEASUREMENT DELIVERED, and it partly falsifies the claim.** Spearman(ruggedness, richness density) = **+0.141**; **+0.108** with \|latitude\| partialled out; \|latitude\| alone = **−0.582**. Latitude beats terrain ~4×. Per macroarea: N America +0.238, Eurasia +0.173, S America +0.145, Australia +0.113, **Papunesia +0.024, Africa +0.006**. Robust at 1°/2°/4°/6°. See `WP-01` |
+| **C5** | **P1** | **NEW, BLOCKING.** Amend SCOPE §1's claim and §3's visual sentence: terrain is **not** "most of the explanation", and the shimmer does **not** visibly follow the terrain in Papunesia — the region §3 names. Proposed replacements in `WP-01` §4. **Needs the user's assent; SCOPE is the contract** | `SCOPE.md`, About panel | round 1 |
+| **C3** | **P1** | **PROMOTED from P2.** Acquire a growing-season / climate field. It is now the highest-value item in the register: without it the spine measures the wrong variable, and the model cannot make the claim it should be making | `Research/`, diversity field | round 1 |
+| **C6** | **P1** | **NEW.** Re-estimate with a zero-inflated count model (Poisson / negative binomial, land area as offset). Only **1,672 of 6,143** land cells hold a language, so a rank correlation on density is a first look, not the shipped statistic | `Research/modeling/diversity.py` | round 1 |
+| C2 | P2 | **PARTLY ADDRESSED.** The method risk is real and now quantified: no global continuous linguistic surface exists, and our first terrain-only correlation is weak. Read the regional dialectometry literature before choosing an interpolation | `Research/`, C1 | SURVEY §7 |
+| C7 | P2 | **NEW.** Try relief-per-kilometre instead of elevation standard deviation. The current measure may be answering "are there mountains in this cell" rather than "is the ground rough where people live" | `diversity.py` | round 1 |
+| C4 | P2 | Reproduce published environment-versus-diversity relationships as the external check on C1 | audits | SCOPE §8 |
+| C8 | P2 | **NEW.** Settlement time-depth, a C1 predictor with no ready source. Derive per region from the archaeological and aDNA literature; carry its wide uncertainty | `Research/`, diversity field | SURVEY §6 |
 
 ## D. Cards, texts and voices
 
@@ -87,6 +97,21 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 ---
 
+**What round 1 checked and found CLEAN** — so the next round does not re-litigate it:
+
+- **Glottolog's counts reproduce exactly** from the CLDF tables: 27,177 languoids · 8,618
+  language-level · 7,674 spoken L1 · 13,706 dialects · 4,853 family-level · 227 sign · 380
+  bookkeeping. The ingest is not misreading the source.
+- **The licence gate's classifier refuses correctly** on synthetic input, including the case that
+  matters: CC-BY-**NC**-SA is excluded on the NC, not admitted on the SA.
+- **The DEM's orientation is correct** — asserted against Everest, the Dead Sea, the mid-Atlantic
+  and the East Antarctic plateau, because a test satisfied by the wrong hemisphere is a real
+  prior-project bug.
+- **The cell-size sweep found no MAUP artefact.** The weak terrain correlation and the strong
+  latitude correlation both hold at 1°, 2°, 4° and 6°.
+- **16-bit is sufficient, not merely better.** It reaches the source DEM's own quantisation floor,
+  so there is nothing to gain from more precision. Do not revisit.
+
 **What the survey did NOT find** — recorded so the next round does not re-litigate it:
 
 - **No open polygon source beyond Glottography.** WLMS, Ethnologue, GADM and UNESCO were each
@@ -99,11 +124,15 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 ---
 
-**Count: 26 items — 12 at P1.** The ones that would move the model furthest, in order:
+**Count after round 1: 31 items — 13 at P1.** Delivered: A1, A2, A3, B3 (measured), C1 (first
+measurement), A6. New: C5, C6, C7, C8. Promoted: C3 to P1.
 
-1. **A1** — `frames.py`. Nothing may be joined before it, and every later bug traces here.
-2. **B1 + B2** — the lit substrate and the language field. Until the frame reads as a rendered
-   world, no other item matters; this is what the work is judged on.
-3. **C1** — the diversity model with its per-cell residual audit. The spine.
-4. **A2** — the Mollweide→WGS84 reprojection with a recorded residual.
+The ones that would move the model furthest, in order:
+
+1. **C5 — amend the claim.** Blocking, and it is the user's call. Everything downstream of the
+   claim is provisional until it is settled.
+2. **C3 — get a climate field.** The spine is currently measuring the secondary variable.
+3. **B1 + B2** — the lit substrate and the language field, now unblocked by B3's encoding decision.
+   Until the frame reads as a rendered world, no other item matters.
+4. **C6** — re-estimate with a count model; the density correlation is a first look.
 5. **E1** — the census witness, built early because it settles every later dispute.
