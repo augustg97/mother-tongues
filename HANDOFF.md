@@ -17,27 +17,26 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Round 1 — the datum-and-substrate round** (`Research/README.md` has the full ordering).
-It is not negotiable: **frames before joins, substrate before layers, spine before polish.**
+**Round 1 is COMPLETE.** The blocking question is now the user's, not the code's.
 
-1. **A1 — `Research/modeling/frames.py` with selftests.** Glottocode as key, ISO 639-3 as alias
-   only, autonym-first name resolution with alias tables, (value, year, source) for counts.
-   *Nothing may be joined until this passes.*
-2. **A2 + A3 — the ingest gates.** Reproject GHS-POP Mollweide→WGS84 once, record the residual.
-   Gate the Glottography ingest per-repo so the three CC-BY-NC sets are excluded by machine.
-3. **B3 → B1 — measure, then build the substrate.** Histogram quantisation levels in the *land*
-   relief band before choosing an encoding. Then the lit-terrain substrate, screenshotted against
-   the SCOPE §3 sentence. **This is the round's gate.**
-4. **B2 — the language field**, composed per pixel.
-5. **C1 + C2 — the diversity model and its per-cell residual audit.**
-6. **E1 — the census witness**, early, because it settles later disputes.
+**0. C5 — settle the claim. BLOCKING.** Round 1 measured the project's own headline claim and it
+does not hold. Terrain correlates with linguistic richness at **+0.141** (**+0.108** controlling for
+latitude); **|latitude| reaches −0.582** — about 4x stronger. In **Papunesia (+0.024)** and **Africa
+(+0.006)** terrain explains nothing, and Papunesia is the region SCOPE §3's visual sentence names as
+the exemplar. Robust at 1°/2°/4°/6°. `research reports/WP-01` proposes amended wording for SCOPE §1
+and §3. **Do not build the substrate against the old visual sentence.**
 
-<!-- If the user set an explicit loop, state it verbatim and state its stopping condition,
-     because a loop overrides the standing "always deploy every round" rule:
+**1. C3 — get a growing-season / climate field.** Now the top substantive item: the spine is
+measuring the secondary variable.
 
-> "keep going and making improvements until <condition>. After making updates, compare against
->  <reference>, then assess honestly. If yes, deploy; if no, continue and repeat."
--->
+**2. C6 — re-estimate with a zero-inflated count model.** 1,672 of 6,143 land cells hold a
+language; a rank correlation on density is a first look, not the shipped statistic.
+
+**3. E1 — the census witness.** Carried over from round 1; not done, and it stays P1.
+
+**Then `/model-build`** applies `research reports/STAGED-CHANGES.md` Tier 1 (16-bit encoding,
+`frames.py`, the licence gate, the category filter) and builds **B1**, the lit substrate. Its gate
+is a full-frame screenshot assessed against SCOPE §3's sentence *as amended*.
 
 ## Reference material and the measurement harness
 
@@ -57,13 +56,17 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **none — never deployed** (commit `—`)
-- Committed and not deployed: everything; three commits exist and nothing has shipped
+- Last live deploy: **none — never deployed**
+- Committed and not deployed: everything; **five commits**, nothing has shipped
 - Uncommitted: nothing (check `git status`)
-- App: the scaffold's hybrid shell at `web/`, serving on port 8146 — **verified rendering**
-  (title, chapters, layers, timeline, one placeholder dot). `web/fields/` is empty; `build/` has
-  only a README. **The field engine does not exist yet**, and the shell is deliberately the
-  dots-on-flat-ground placeholder that rule 0 exists to replace.
+- App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
+  `web/fields/` is empty; `build/` has only a README. **The field engine does not exist yet.** That
+  is correct: round 1 was a research round and the research folder does not change the app.
+- Research: **four self-testing modules, all passing** — `frames.py`, `licences.py`, `encoding.py`,
+  `diversity.py`, plus `audit_all.py` which runs all four (4/4 PASS). One white paper (`WP-01`), two
+  authored figures in `Research/figures/authored/`, four changes staged in `STAGED-CHANGES.md`.
+- Source data in `data/` (gitignored, ~750 MB): Glottolog 5.3 CLDF, the polygon collection's licence
+  classification, ETOPO1 ice-surface 1-arc-minute.
 
 ## What this round found
 
