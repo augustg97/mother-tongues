@@ -53,21 +53,55 @@ The general protocol lives in `/Users/augustgweon/Modeling Studio`. Its skills a
 10. **"Unknown" is a legitimate return**, and where a fallback is unavoidable the UI labels it as
     a fallback.
 
-{{PROJECT_SPECIFIC_RULES}}
+11. **Autonym first, always.** Every language is named by what its speakers call it, in its own
+    script, with the English exonym second and any historical exonym marked as historical. Many
+    exonyms are colonial or slurs. Display order is enforced **in code**, not left to data entry.
+    This is the ethics of the project and it is not a formatting preference.
+
+12. **No language is mapped against its community's stated wish**, and only openly licensed,
+    community-released material is ingested. The audio gap (~6–8% of languages) exists because
+    archives withhold recordings **as a condition of consent** — that is the system working. Ship
+    what is clean, state the coverage, name the archives, **link out rather than mirror**.
+
+13. **Never one number for how many languages exist.** State the splitting authority, show the
+    alternative counts. The count is a political artefact, not a measurement.
+
+14. **Every speaker count is a triple — (value, year, source).** A bare number is not a datum
+    here; sources copy each other's decades-old figures forward.
+
+15. **The "before contact" snapshot carries no year.** It is a per-region state; contact ranges from
+    the 1490s to the 20th century and never happened in some places. Per-region contact dates go on
+    cards. Printing one year on that snapshot would be the frame error of the project.
+
+16. **ShareAlike is permitted (data and images); NonCommercial and NoDerivatives are not**
+    (SCOPE §12 D3). Consequence: **our emitted data inherits SA.** Every SA source gets a row in the
+    attribution ledger in `Research/SOURCE-SURVEY.md` §1 *before* it is ingested.
 
 ---
 
 ## The canonical frame
 
-{{CANONICAL_FRAME}}
+**Glottocode** is the identity key — ISO 639-3 is an alias only, because it has no "ancient" type
+(Latin, Sumerian and Akkadian are all coded *historical*) and its coverage differs by hundreds of
+entries. **WGS84** coordinates; GHS-POP arrives in **Mollweide** and must be reprojected once at
+ingest with the residual recorded — the one live coordinate-frame trap here. **Names**:
+autonym-first with an alias table. **Counts**: (value, year, source). **Time**: two snapshots, and
+the earlier one is a state, not a year.
 
-Every source is converted into it. The conversions are in {{CONVERSION_CODE}}. **Never combine
+Every source is converted into it. The conversions are in `Research/modeling/frames.py`, with selftests. **Never combine
 two sources without checking they are in the same frame** — this is the most expensive class of
 bug in this kind of project.
 
 ## The evidence boundary
 
-{{EVIDENCE_BOUNDARY}}
+Three, each with designed UI behaviour (SCOPE §5): the **linguistic horizon** at ~8–10 ka, past
+which the model draws *nothing* while terrain keeps rendering; the **documentation boundary**, drawn
+as a field so a thinly surveyed region renders as thinly surveyed rather than as linguistically
+uniform; and the **vintage boundary** on speaker counts, carried as the year of each estimate.
+
+Measured coverage limits, from the survey: real polygons for **62.5%** of living languages ·
+**nine** pre-Common-Era languages have an area · **38.6%** of extinct languages do · **~12%** can be
+animated from a dated tree · population floor **1975** · audio **6–8%**.
 
 Past it, the model is inference and the UI says so.
 
@@ -76,12 +110,34 @@ Past it, the model is inference and the UI says so.
 ## Commands
 
 ```bash
-{{COMMANDS}}
+# run the app locally (preview config in ~/.claude/launch.json, port 8146)
+python3 -m http.server 8146 --directory "/Users/augustgweon/Mother Tongues/web"
+
+# the research loop
+cd Research/modeling && python3 frames.py       # selftests — must pass before any join
+python3 audit_all.py                            # the gate
+
+# deploy (only route, once build_site.py exists)
+python3 build/build_site.py && git add -A && git commit && git push
+# then verify the live data-version stamp
 ```
 
 ## Traps that have each cost real time here
 
-{{TRAPS}}
+- **The scaffold's own layout bug, already fixed here and upstream:** the app shell belongs in
+  `web/` (which `launch.json` serves), and `.gitignore` must anchor `/data/` — an unanchored
+  `data/` also matches `web/data/` and silently ships a site that renders nothing.
+- **The scaffold shell is dots on flat ground.** That is a placeholder, and replacing it with a
+  rendered surface is the whole job. Do not add a feature layer to it (rule 0).
+- **Glottolog's three "how many languages" numbers are all correct** — ~27,177 languoids, 8,618
+  language-level, 7,674 spoken L1 — and get conflated constantly. Label which one is in use.
+- **3 of Glottography's 34 repos are CC-BY-NC.** The platform paper says the whole set is CC-BY.
+  It is wrong. Gate per repository licence file, by machine.
+- **PanLex is CC-BY-NC-SA, not CC0** — a common and costly assumption.
+- **One Phlorest tree's branch-length unit yields 692,970 years.** Do not trust the unit field;
+  sanity-check every tree against its source.
+- **The parallel-prose corpus has no licence** and ships under a recorded decision (SCOPE §12 D2)
+  behind a feature flag. Keep it removable in one commit.
 
 Plus the standing ones: a process backgrounded with `&` inside a tool call dies when that call
 ends; a waiter on a `pgrep` pattern can match itself — wait on a **PID**; a static host can serve
