@@ -1,0 +1,87 @@
+/* Mother Tongues — the UI sits ON the rendered world; it never becomes the world. */
+:root{
+  --ink:#e8ecea; --dim:#93a09b; --panel:rgba(11,15,14,.82); --edge:rgba(140,160,152,.18);
+  --accent:#6fd0bd;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#080b0a;color:var(--ink);
+  font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+#gl{position:fixed;inset:0;display:block;cursor:grab}
+#gl:active{cursor:grabbing}
+
+#loading{position:fixed;inset:0;display:grid;place-items:center;color:var(--dim);
+  letter-spacing:.06em;text-transform:uppercase;font-size:11px;pointer-events:none}
+
+#topbar{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;
+  align-items:flex-start;padding:14px 18px;pointer-events:none;z-index:2;
+  background:linear-gradient(rgba(4,7,6,.72),rgba(4,7,6,0))}
+#title{pointer-events:auto}
+#title h1{margin:0;font-size:15px;letter-spacing:.16em;font-weight:600}
+#aboutBtn{cursor:pointer;color:var(--dim);font-size:12px;margin-left:4px}
+#aboutBtn:hover{color:var(--accent)}
+#subtitle{color:var(--dim);font-size:11.5px;margin-top:2px;max-width:44ch}
+
+#readout{pointer-events:auto;text-align:right;display:grid;gap:1px;
+  font-variant-numeric:tabular-nums}
+.ro{display:grid;grid-template-columns:auto auto;gap:10px;justify-content:end;align-items:baseline}
+.ro span{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.ro b{font-weight:500;font-size:12px;min-width:11ch;text-align:right}
+
+#leftrail{position:fixed;left:14px;top:78px;width:212px;display:grid;gap:10px;z-index:3}
+#rightrail{position:fixed;right:14px;top:132px;width:224px;display:grid;gap:10px;z-index:3}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;
+  padding:10px 11px;backdrop-filter:blur(9px)}
+.panel-h{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
+  margin-bottom:7px}
+.panel.hidden{display:none}
+
+#rightrail label{display:flex;align-items:center;gap:7px;padding:2.5px 0;cursor:pointer;
+  font-size:12px;color:#d3dbd8}
+#rightrail label:hover{color:#fff}
+input[type=checkbox]{accent-color:var(--accent);width:12px;height:12px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.ends{display:flex;justify-content:space-between;color:var(--dim);font-size:9.5px;
+  text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.note{margin-top:5px;color:var(--accent);font-size:11px}
+
+#tour{display:grid;gap:2px;max-height:42vh;overflow:auto}
+#tour button{all:unset;cursor:pointer;padding:4px 6px;border-radius:2px;font-size:11.5px;
+  color:#cdd6d2}
+#tour button:hover{background:rgba(111,208,189,.13);color:#fff}
+
+.legend{display:grid;gap:4px;font-size:11px;color:var(--dim)}
+.legend b{color:var(--ink);font-weight:600}
+
+#card,#about{position:fixed;z-index:9;background:var(--panel);border:1px solid var(--edge);
+  border-radius:4px;backdrop-filter:blur(14px);overflow:auto}
+#card{left:50%;bottom:22px;transform:translateX(-50%);width:min(560px,92vw);max-height:56vh;
+  padding:16px 18px}
+#about{left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,94vw);max-height:82vh;
+  padding:20px 24px}
+.ax{position:absolute;top:8px;right:11px;cursor:pointer;color:var(--dim);font-size:17px;
+  line-height:1}
+.ax:hover{color:#fff}
+#card h2,#about h2{margin:2px 0 8px;font-size:17px;font-weight:600}
+#about h3{margin:16px 0 5px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:500}
+#about p,#about li{color:#cfd8d4;font-size:12.5px}
+#about ul{margin:5px 0;padding-left:18px}
+#about li{margin-bottom:4px}
+.eyebrow{font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
+.warn{background:rgba(217,130,95,.11);border-left:2px solid #d9825f;padding:6px 9px;
+  margin:8px 0;font-size:11.5px;color:#e6d6cd}
+#card table{width:100%;border-collapse:collapse;margin:6px 0}
+#card td{padding:3.5px 0;border-bottom:1px solid rgba(140,160,152,.11);font-size:12px;
+  vertical-align:top}
+#card td:first-child{color:var(--dim);width:38%;text-transform:lowercase}
+.tier{margin-top:9px;color:var(--dim);font-size:11px;line-height:1.5}
+.fine{color:var(--dim);font-size:11px;margin-top:12px}
+code{font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
+
+@media (max-width:900px){
+  #leftrail{left:8px;top:auto;bottom:8px;width:calc(50vw - 12px)}
+  #rightrail{right:8px;top:auto;bottom:8px;width:calc(50vw - 12px)}
+  #readout .ro:nth-child(n+4){display:none}
+  #tour{max-height:22vh}
+}

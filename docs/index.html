@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="data-version" content="1785514991">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mother Tongues — every human language, on the ground it is spoken on</title>
+<link rel="stylesheet" href="css/styles.css?v=1785514991">
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+
+<div id="topbar">
+  <div id="title">
+    <h1>MOTHER TONGUES <span id="aboutBtn" title="About, and what this does not know">ⓘ</span></h1>
+    <div id="subtitle">Every human language we know of, on the ground it is spoken on</div>
+  </div>
+  <div id="readout">
+    <div class="ro"><span>place</span><b id="roPlace">—</b></div>
+    <div class="ro"><span>family</span><b id="roFam">—</b></div>
+    <div class="ro"><span>languages here</span><b id="roDiv">—</b></div>
+    <div class="ro"><span>biome</span><b id="roBiome">—</b></div>
+    <div class="ro"><span>people</span><b id="roPop">—</b></div>
+    <div class="ro"><span>ground</span><b id="roElev">—</b></div>
+  </div>
+</div>
+
+<div id="leftrail">
+  <div class="panel">
+    <div class="panel-h">SNAPSHOT</div>
+    <input id="snap" type="range" min="0" max="1" step="0.005" value="1">
+    <div class="ends"><span>before contact</span><span>today</span></div>
+    <div class="note" id="snapNote">today</div>
+  </div>
+  <div class="panel">
+    <div class="panel-h">TOUR</div>
+    <div id="tour"></div>
+  </div>
+</div>
+
+<div id="rightrail">
+  <div class="panel">
+    <div class="panel-h">LAYERS</div>
+    <label><input type="checkbox" id="lLang" checked> Language field</label>
+    <label><input type="checkbox" id="lDiv" checked> Diversity shimmer</label>
+    <label><input type="checkbox" id="lPop" checked> Speaker density</label>
+    <label><input type="checkbox" id="lGreen" checked> Biome &amp; greenness</label>
+    <label><input type="checkbox" id="lRelief" checked> Lit relief</label>
+    <label><input type="checkbox" id="lDoc"> Documentation status</label>
+    <label><input type="checkbox" id="lCoarse"> Mark land with no polygon</label>
+  </div>
+  <div class="panel">
+    <div class="panel-h">READING THIS</div>
+    <div class="legend" id="legend"></div>
+  </div>
+</div>
+
+<div class="panel hidden" id="card"><div class="ax" id="cardX">×</div><div id="cardBody"></div></div>
+<div class="panel hidden" id="about"><div class="ax" id="aboutX">×</div><div id="aboutBody"></div></div>
+<div id="loading">rendering the surface…</div>
+
+<script src="js/app.js?v=1785514991"></script>
+</body>
+</html>

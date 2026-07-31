@@ -18,13 +18,23 @@ source survey ran before this kickoff — see `Research/SOURCE-SURVEY.md`.*
 >
 > Zoom to anywhere inhabited and it tells you what is spoken there, what was spoken there before,
 > and how the two are related. Zoom out and the shape of human diversity appears — and it is not
-> spread evenly. It is piled up in a few mountain ranges, river deltas and island chains, and thin
-> across the great plains and empires. **The terrain is not the backdrop to that pattern; it is most
-> of the explanation.**
+> spread evenly. **The first thing that explains it is climate**: how long the growing season is,
+> and how many people a landscape can feed year-round. Terrain matters too, but less, and unevenly
+> — visible in Eurasia and North America, effectively absent in Africa and the Pacific. The atlas
+> draws both, and draws **where neither explains what is there**, because that residual is where
+> history has to be told instead.
 
 A viewer should leave able to say **why linguistic diversity is where it is** — and should find that
-the surface itself makes the answer visible, because the model draws languages as speakers on
-terrain rather than as labels on a map.
+the surface itself makes the answer visible, because the model draws languages as speakers on real
+ground rather than as labels on a map.
+
+> **Amended 2026-07-31 (round 1, register C5).** The original claim read *"the terrain is not the
+> backdrop to that pattern; it is most of the explanation."* Round 1 measured it and it does not
+> hold: ruggedness↔richness Spearman **+0.141** (**+0.108** controlling for |latitude|) against
+> **−0.582** for |latitude| itself, and **+0.024 in Papunesia / +0.006 in Africa** — the two regions
+> the claim leaned on hardest. Robust at 1°/2°/4°/6°. See `Research/research reports/WP-01`.
+> Amended under the user's instruction to complete the register; the wording is the one proposed in
+> WP-01 §4 and is a one-edit revert if they disagree.
 
 ## 2. Extent
 
@@ -63,16 +73,21 @@ mountain range, they are seeing the actual mountain range that caused it.
 **The visual bar, as a testable sentence:**
 
 > At continental zoom the New Guinea highlands and the Caucasus **shimmer** into many small
-> language territories while the North China Plain is one vast smooth field — and the shimmer
-> visibly follows the terrain, lit from the elevation field, with no traced borders anywhere.
+> language territories while the North China Plain is one vast smooth field — and the viewer can
+> see, from the same frame, that the shimmer tracks **the green** far more closely than the relief.
+> Lit from the elevation field, with no traced borders anywhere.
 
 **Three concrete facts a viewer must be able to read off a full-frame screenshot with no legend:**
 
 1. **which language family dominates here** — from hue;
 2. **roughly how many people speak it here** — from luminance, because the field is bright where
    people are and dark where nobody lives;
-3. **whether the ground is rugged** — from the lit relief underneath, and therefore whether the
-   diversity pattern above it is explained.
+3. **whether this is a long-growing-season place** — from the biome/greenness channel, which is the
+   variable that actually predicts the shimmer.
+
+*(Amended 2026-07-31 with the claim, register C5. The original third fact was "whether the ground is
+rugged"; terrain is still rendered and still readable, but it is no longer the fact the model asks a
+viewer to read, because it is not the fact that explains the pattern.)*
 
 Checked every round against WORKING-RULES §13c. **The family tree, the phylogenies and any
 similarity space are secondary views**, reached by selecting a language from the surface. None of
