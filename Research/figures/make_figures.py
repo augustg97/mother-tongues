@@ -128,7 +128,10 @@ def figure_encoding() -> str:
         d.text((x, y0 + 226 - hgt), f"{v:.1f}%", fill=FG)
     fy = y0 + 240 - floor * scale
     d.line([x0 - 12, fy, W - 30, fy], fill=FG)
-    d.text((W - 300, fy - 16), f"source floor {floor:.1f}%  (DEM's own 1 m quantum)", fill=FG)
+    # Caption goes ABOVE the line and hard right, clear of the bars and their value
+    # labels — the first version collided with the last bar's "4.0%".
+    d.text((W - 330, fy - 30), f"source floor {floor:.1f}%", fill=FG)
+    d.text((W - 330, fy - 17), "the DEM's own 1 m quantum", fill=DIM)
     d.text((40, 360), "The 16-bit encodings reach the source floor exactly: at that point the "
                       "encoding contributes nothing.", fill=FG)
     os.makedirs(OUT, exist_ok=True)
