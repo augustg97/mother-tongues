@@ -7,7 +7,10 @@
 html,body{margin:0;height:100%;overflow:hidden;background:#080b0a;color:var(--ink);
   font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
   -webkit-font-smoothing:antialiased}
-#gl{position:fixed;inset:0;display:block;cursor:grab}
+/* A canvas is a REPLACED element: inset:0 alone does NOT stretch it, because width:auto
+   resolves to the intrinsic (attribute) width. Give it viewport units so the CSS size is
+   independent of the attribute — that breaks the resize feedback loop at the source. */
+#gl{position:fixed;top:0;left:0;width:100vw;height:100vh;display:block;cursor:grab}
 #gl:active{cursor:grabbing}
 
 #loading{position:fixed;inset:0;display:grid;place-items:center;color:var(--dim);

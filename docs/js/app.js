@@ -229,20 +229,19 @@ function loadTex(name, url, unit) {
 // Measuring cv.clientWidth created a feedback loop: buffer = client*dpr grew the element,
 // which grew client, which grew the buffer: 1280 -> 2560 -> 5120 -> 19200 px.
 function viewportSize() {
-  const d = document.documentElement;
-  return [window.innerWidth || d.clientWidth || 0, window.innerHeight || d.clientHeight || 0];
+  // Safe to read the canvas here: CSS sizes it in viewport units, so clientWidth does NOT
+  // depend on cv.width. Never write cv.style.width from this — that is the loop.
+  return [cv.clientWidth || window.innerWidth || 0, cv.clientHeight || window.innerHeight || 0];
 }
 let sizeRetry = 0;
 function resize() {
   const [w, h] = viewportSize();
-  if (w < 2 || h < 2) {                       // layout not settled — retry, do not invent
+  if (w < 2 || h < 2) {
     if (sizeRetry++ < 120) requestAnimationFrame(() => { resize(); render(); });
     return false;
   }
   sizeRetry = 0;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  cv.style.width = w + 'px';
-  cv.style.height = h + 'px';
   const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
   if (cv.width !== cw || cv.height !== ch) { cv.width = cw; cv.height = ch; }
   return true;
