@@ -1,31 +1,31 @@
 {
  "grid": [
-  4096,
-  2048
+  8192,
+  4096
  ],
- "land_px": 2762246,
- "land_area_frac_of_grid": 0.2869,
+ "land_px": 11042375,
+ "land_area_frac_of_grid": 0.28687,
  "today": {
-  "covered_px": 1365259,
-  "frac_of_land_area": 0.6482,
-  "frac_of_population": 0.7327,
-  "max_languages_in_one_cell": 43
+  "covered_px": 7360460,
+  "frac_of_land_area": 0.866,
+  "frac_of_population": 0.9694,
+  "max_languages_within_20km": 13
  },
  "before_contact": {
-  "covered_px": 1304430,
-  "frac_of_land_area": 0.6121,
-  "frac_of_population": 0.7109,
-  "max_languages_in_one_cell": 41
+  "covered_px": 6934218,
+  "frac_of_land_area": 0.8162,
+  "frac_of_population": 0.9369,
+  "max_languages_within_20km": 13
  },
  "by_window_today": {
-  "Siberia": 0.307,
-  "Sahara": 0.847,
-  "Amazon basin": 0.607,
-  "New Guinea": 0.603,
-  "Australia": 0.867,
-  "Great Plains": 0.537,
-  "India": 0.893,
-  "Congo basin": 1.0
+  "Siberia": 0.998,
+  "Sahara": 0.925,
+  "Amazon basin": 0.997,
+  "New Guinea": 0.802,
+  "Australia": 0.999,
+  "Great Plains": 1.0,
+  "India": 0.999,
+  "Congo basin": 0.853
  },
  "note": "Measured from the shipped rasters, not from the pipeline. Land is defined by the biome field. Fractions are cos(latitude)-weighted, so they are areas rather than pixel counts. Windows are bounding boxes, not regions."
 }

@@ -1,30 +1,37 @@
 /* Mother Tongues — the field engine.
  *
- * WORKING-RULES §13 / CLAUDE.md rule 0: the substrate is composed PER PIXEL in a
- * fragment shader from real fields, of the real Earth, and must be legible. Nothing here
- * draws a dot on flat ground.
+ * WORKING-RULES §13 / CLAUDE.md rule 0: the substrate is composed PER PIXEL in a fragment
+ * shader from real fields, of the real Earth, and must be legible. Nothing here draws a dot
+ * on flat ground.
  *
- * Fields (see build/build_fields.py):
- *   terrain.png  R,G = elevation 16-bit  ·  B = biome id  ·  A = population, log-companded
- *   lang_c.png   R = family idx  ·  G = diversity  ·  B = documentation  ·  A = coverage
- *   lang_t.png   the same, before contact
+ * A TILE PYRAMID, not one global raster. The master grid is 16384x8192 — 2.44 km at the
+ * equator, 76% of ETOPO1's native resolution — which is 215 MB as a single elevation PNG and
+ * therefore not a thing anyone can load. Level 0 (2048x1024, ~4 MB for all four fields) paints
+ * the world immediately; levels 1-3 stream in for whatever the viewer is actually looking at.
+ * A tile that has not arrived is drawn from its nearest loaded ancestor, so detail sharpens
+ * rather than popping in from nothing.
+ *
+ * Fields per tile (see build/build_tiles.py):
+ *   terrain  R,G = elevation 16-bit  ·  B = snow cover  ·  A = 255
+ *   env      R = biome id  ·  G = population, log-companded  ·  B = NDVI greenness  ·  A = 255
+ *   lang_c   R = family idx  ·  G = diversity  ·  B = documentation  ·  A = coverage
+ *   lang_t   the same, before contact
  *
  * The two snapshots CROSSFADE. The earlier one carries no year, ever — it is a per-region
- * state, not a date (SCOPE §6). The slider's left end says "before contact" and nothing
- * in the UI prints a year for it.
+ * state, not a date (SCOPE §6, rule 15), and the build gate greps for a year next to it.
  */
 'use strict';
 
-// TRAPS D2: a static host can serve a stale asset after a successful push, and the app
-// then runs perfectly on yesterday's data. Every fetch carries the stamp from <meta>.
+// TRAPS D2: a static host can serve a stale asset after a successful push, and the app then
+// runs perfectly on yesterday's data. Every fetch carries the stamp from <meta>.
 const DATA_V = (document.querySelector('meta[name=data-version]') || {}).content || '0';
 const V = u => u + (u.includes('?') ? '&' : '?') + 'v=' + DATA_V;
 
-const GRID_W = 4096, GRID_H = 2048;
 const Z_LO = -11000.0, Z_HI = 9000.0;
+const FIELDS = ['terrain', 'env', 'lang_c', 'lang_t'];
 
-// Indexed by Ecoregions2017 BIOME_NUM, unchanged. Keeping the source's own ids means the
-// label array and the raster cannot drift apart.
+// Indexed by Ecoregions2017 BIOME_NUM. Keeping the source's own ids means the label array and
+// the raster cannot drift apart — they did once, and the Sahara reported itself as rock & ice.
 const BIOMES = [
   'unclassified',                    //  0
   'tropical moist broadleaf forest', //  1
@@ -50,47 +57,70 @@ const MED = ['long grammar', 'grammar', 'grammar sketch', 'phonology or wordlist
 
 const VS = `
 attribute vec2 a;
-varying vec2 uv;
-void main(){ uv = a*0.5+0.5; gl_Position = vec4(a,0.0,1.0); }`;
+uniform vec4 uTile;          // lon0, lat0 (top), dLon, dLat
+uniform vec2 uCentre;
+uniform float uSpan, uAspect;
+varying vec2 vA;
+varying vec2 vLL;
+void main(){
+  vA = a;
+  float lon = uTile.x + a.x * uTile.z;
+  float lat = uTile.y - a.y * uTile.w;
+  vLL = vec2(lon, lat);
+  float xn = (lon - uCentre.x) / (uSpan * 0.5);
+  float yn = (lat - uCentre.y) / (uSpan / uAspect * 0.5);
+  gl_Position = vec4(xn, yn, 0.0, 1.0);
+}`;
 
 const FS = `
 precision highp float;
-varying vec2 uv;
+varying vec2 vA;
+varying vec2 vLL;
 uniform sampler2D terrain, env, langC, langT;
-uniform vec2 res, grid, centre;
-uniform float span, mixT;
+uniform vec4 uSrc;            // where this tile's core sits inside the bound texture
+uniform vec2 uSrcGrid;        // world pixels of the SOURCE level (for ground distances)
+uniform float uStep;          // one source texel, in texture coordinates
+uniform float mixT, uSpan, uDetail;
 uniform float oLang, oDiv, oPop, oGreen, oRelief, oDoc, oCoarse;
 
-vec2 lonlat(vec2 frag){
-  float aspect = res.x / res.y;
-  vec2 d = (frag - 0.5) * vec2(span, span / aspect);
-  return vec2(centre.x + d.x, centre.y + d.y);   // uv.y=0 is the BOTTOM in GL
-}
-vec2 texcoord(vec2 ll){
-  return vec2(fract((ll.x + 180.0) / 360.0), (90.0 - ll.y) / 180.0);
-}
+vec2 T(vec2 a){ return uSrc.xy + a * uSrc.zw; }
+
 float elevAt(vec2 t){
   vec4 c = texture2D(terrain, t);
-  float v = c.r * 65280.0 / 65535.0 + c.g * 255.0 / 65535.0;
-  return v * (Z_HI_ - Z_LO_) + Z_LO_;
+  return (c.r * 65280.0 / 65535.0 + c.g * 255.0 / 65535.0) * (Z_HI_ - Z_LO_) + Z_LO_;
 }
+
+// Value noise. Cheap, stable under pan, and enough to carry sub-texel structure.
+float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float s = 0.0, a = 0.5;
+  for(int k = 0; k < 5; k++){ s += a * vnoise(p); p *= 2.03; a *= 0.5; }
+  return s;
+}
+
 vec3 biomeColour(float id){
   int i = int(floor(id * 255.0 + 0.5));
-  if(i ==  1) return vec3(0.055,0.235,0.100);   // tropical moist broadleaf
-  if(i ==  2) return vec3(0.170,0.290,0.115);   // tropical dry broadleaf
-  if(i ==  3) return vec3(0.095,0.245,0.145);   // tropical conifer
-  if(i ==  4) return vec3(0.145,0.300,0.135);   // temperate broadleaf
-  if(i ==  5) return vec3(0.105,0.240,0.160);   // temperate conifer
-  if(i ==  6) return vec3(0.115,0.200,0.150);   // boreal / taiga
-  if(i ==  7) return vec3(0.445,0.440,0.180);   // tropical grassland & savanna
-  if(i ==  8) return vec3(0.455,0.440,0.240);   // temperate grassland
-  if(i ==  9) return vec3(0.215,0.355,0.225);   // flooded grassland
-  if(i == 10) return vec3(0.330,0.345,0.250);   // montane grassland
-  if(i == 11) return vec3(0.355,0.375,0.355);   // tundra
-  if(i == 12) return vec3(0.395,0.360,0.160);   // mediterranean
-  if(i == 13) return vec3(0.615,0.520,0.320);   // desert & xeric
-  if(i == 14) return vec3(0.105,0.300,0.225);   // mangrove
-  if(i == 15) return vec3(0.810,0.830,0.850);   // rock & ice
+  if(i ==  1) return vec3(0.055,0.235,0.100);
+  if(i ==  2) return vec3(0.170,0.290,0.115);
+  if(i ==  3) return vec3(0.095,0.245,0.145);
+  if(i ==  4) return vec3(0.145,0.300,0.135);
+  if(i ==  5) return vec3(0.105,0.240,0.160);
+  if(i ==  6) return vec3(0.115,0.200,0.150);
+  if(i ==  7) return vec3(0.445,0.440,0.180);
+  if(i ==  8) return vec3(0.455,0.440,0.240);
+  if(i ==  9) return vec3(0.215,0.355,0.225);
+  if(i == 10) return vec3(0.330,0.345,0.250);
+  if(i == 11) return vec3(0.355,0.375,0.355);
+  if(i == 12) return vec3(0.395,0.360,0.160);
+  if(i == 13) return vec3(0.615,0.520,0.320);
+  if(i == 14) return vec3(0.105,0.300,0.225);
+  if(i == 15) return vec3(0.810,0.830,0.850);
   return vec3(0.300,0.320,0.300);
 }
 vec3 familyColour(float idx){
@@ -103,32 +133,92 @@ vec3 familyColour(float idx){
 }
 
 void main(){
-  vec2 ll = lonlat(uv);
+  vec2 ll = vLL;
   if(ll.y > 90.0 || ll.y < -90.0){ gl_FragColor = vec4(0.035,0.045,0.055,1.0); return; }
-  vec2 t = texcoord(ll);
-  vec4 E = texture2D(env, t);          // R = biome, G = population
+  vec2 t = T(vA);
+  vec4 E = texture2D(env, t);          // R biome · G population · B NDVI
+  vec4 TT = texture2D(terrain, t);     // B snow cover
   float z = elevAt(t);
 
-  vec2 px = 1.0 / grid;
-  float zE = elevAt(t + vec2(px.x,0.0)), zW = elevAt(t - vec2(px.x,0.0));
-  float zN = elevAt(t - vec2(0.0,px.y)), zS = elevAt(t + vec2(0.0,px.y));
+  // ---- ground normal, from the field's own gradient, in real metres -------------------
+  float zE = elevAt(t + vec2(uStep,0.0)), zW = elevAt(t - vec2(uStep,0.0));
+  float zN = elevAt(t - vec2(0.0,uStep)), zS = elevAt(t + vec2(0.0,uStep));
   float mLat = 111320.0;
-  float mLon = mLat * max(cos(radians(ll.y)), 0.02);
-  float dx = (zE - zW) / (2.0 * (360.0/grid.x) * mLon);
-  float dy = (zN - zS) / (2.0 * (180.0/grid.y) * mLat);
-  float exg = mix(30.0, 4.0, clamp((360.0 - span)/358.0, 0.0, 1.0));
-  vec3 nrm = normalize(vec3(-dx*exg, dy*exg, 1.0));
+  // ⚠ POLAR SINGULARITY. A degree of longitude shrinks to nothing at the pole, so dividing by
+  // cos(lat) sends the east-west gradient to infinity there: slope pinned at 1.0 across the
+  // last rows of Antarctica, which suppressed the snow term and left a tan band along the
+  // bottom of the world. Past ~81 degrees the longitudinal gradient carries no information at
+  // this grid spacing, so clamp it rather than compute a number that is not meaningful.
+  float mLon = mLat * max(cos(radians(ll.y)), 0.15);
+  float dx = (zE - zW) / (2.0 * (360.0/uSrcGrid.x) * mLon);
+  float dy = (zN - zS) / (2.0 * (180.0/uSrcGrid.y) * mLat);
+  float slope = clamp(length(vec2(dx,dy)) * 4.0, 0.0, 1.0);
+
+  // Vertical exaggeration falls as you zoom in: at 360 deg the relief must read at all, at
+  // 2 deg the true gradient is already legible and exaggeration turns hills into spikes.
+  float exg = mix(26.0, 3.2, clamp((360.0 - uSpan)/358.0, 0.0, 1.0));
+
+  // ---- procedural sub-grid detail (register B5) ---------------------------------------
+  // uDetail rises above zero only once a screen pixel is FINER than a source texel, i.e.
+  // only where the data has genuinely run out. It never overrides measured relief; it adds
+  // texture at a scale the data cannot describe, and its character is keyed to the material
+  // so dunes appear in sand and mottle in forest. Nothing here invents a landform.
+  vec2 wp = vec2(ll.x, ll.y) * 220.0;
+  float det = 0.0, nrough = 0.0;
+  if(uDetail > 0.01){
+    float b = floor(E.r * 255.0 + 0.5);
+    float f1 = fbm(wp);
+    det = f1;
+    if(b > 12.5 && b < 13.5){
+      // Sand carries a weak directional grain. An earlier version gave it half the
+      // amplitude of the whole detail term and it read as diagonal corduroy across the
+      // Great Basin — a pattern, not a texture. Keep it as a small perturbation of the
+      // noise, never as a wave in its own right.
+      det = mix(f1, f1 * 0.82 + 0.18 * (0.5 + 0.5 * sin(wp.x * 1.7 + wp.y * 0.6 + f1 * 9.0)), 0.6);
+    }
+    nrough = (det - 0.5) * uDetail * (0.18 + 0.42 * slope);
+  }
+
+  vec3 nrm = normalize(vec3(-dx*exg - nrough*0.9, dy*exg + nrough*0.9, 1.0));
   vec3 sun = normalize(vec3(-0.45, 0.55, 0.70));
   float lam = clamp(dot(nrm, sun), 0.0, 1.0);
-  float shade = mix(1.0, 0.40 + 0.85*lam, oRelief);
+  // A sky term as well as a sun term: pure Lambert makes every north face pitch black, which
+  // is not what ground looks like under an atmosphere.
+  float sky = 0.5 + 0.5 * nrm.z;
+  float shade = mix(1.0, 0.30 + 0.62*lam + 0.26*sky, oRelief);
 
   vec3 col;
   if(z <= 0.0){
     float d = clamp(-z/6000.0, 0.0, 1.0);
-    col = mix(vec3(0.075,0.180,0.235), vec3(0.016,0.043,0.082), pow(d,0.45));
-    col += 0.045 * smoothstep(0.03, 0.0, d);
+    col = mix(vec3(0.098,0.225,0.285), vec3(0.014,0.038,0.075), pow(d,0.42));
+    col += 0.045 * smoothstep(0.03, 0.0, d);             // the shelf edge
+    // Sea floor relief, faint: the ocean is not a flat blue plate.
+    col *= 1.0 + 0.30 * (lam - 0.5) * smoothstep(0.9, 0.15, d);
   } else {
-    col = mix(vec3(0.34,0.33,0.29), biomeColour(E.r), oGreen) * shade;
+    // ---- land material ----------------------------------------------------------------
+    // Biome says WHAT this is; NDVI says how much is actually growing. Flat biome colour
+    // alone is a choropleth. Measured greenness varies per pixel, so the ground does too.
+    vec3 bc = biomeColour(E.r);
+    float ndvi = E.b;                                     // PEAK greenness over the year
+    // Unvegetated ground is THIS biome's ground, darker — not a single desert-soil colour.
+    // A fixed warm soil put sand-coloured ground under Siberian taiga and Arctic tundra
+    // wherever NDVI was low or missing: 5.1% of all land. The biome classification already
+    // says what the ground is made of, so bare ground keeps its own material and only loses
+    // the green. Greenness then modulates WITHIN the biome instead of replacing it.
+    vec3 bare = bc * (0.58 + 0.22 * det);
+    vec3 lush = bc * (0.85 + 0.75 * ndvi);
+    vec3 mat  = mix(bare, lush, clamp((ndvi - 0.06) * 2.4, 0.0, 1.0));
+    // Steep ground sheds soil and vegetation. This is why mountains have grey faces.
+    mat = mix(mat, vec3(0.44,0.42,0.40) * (0.85 + 0.3*det), slope * 0.45);
+    col = mix(vec3(0.34,0.33,0.29), mat, oGreen);
+
+    // Measured snow cover, not an invented snowline.
+    float snow = TT.b;
+    float sn = clamp(snow * 1.25 - 0.10, 0.0, 1.0) * (1.0 - 0.35 * slope);
+    col = mix(col, vec3(0.90,0.93,0.96), sn * 0.92);
+
+    col *= shade;
+    col *= 1.0 + 0.07 * (det - 0.5) * uDetail;           // micro variation in albedo
 
     vec4 LC = texture2D(langC, t), LT = texture2D(langT, t);
     float wT = 1.0 - mixT;
@@ -143,19 +233,19 @@ void main(){
       float grain = 0.0;
       if(oDiv > 0.5 && divv > 1.0){
         float f = 7.0 + 34.0 * clamp(divv/14.0, 0.0, 1.0);
-        vec2 q = t * grid;
+        vec2 q = vec2(ll.x, -ll.y) * (uSrcGrid.x / 360.0);
         grain = (sin(q.x*f)*sin(q.y*f) + 0.6*sin((q.x+q.y)*f*0.61)) * 0.5;
         grain *= 0.13 * clamp(divv/6.0, 0.0, 1.0);
       }
-      float a = clamp(0.32 + 0.44*clamp(divv/8.0, 0.0, 1.0), 0.0, 0.86) * covSharp;
+      float a = clamp(0.30 + 0.42*clamp(divv/8.0, 0.0, 1.0), 0.0, 0.84) * covSharp;
       col = mix(col, fc*pop*shade*(1.0+grain), a);
 
       if(oDoc > 0.5 && docv >= 4.0){
-        float s = sin((t.x + t.y) * grid.x * 0.5);
+        float s = sin((ll.x + ll.y) * 30.0);
         col = mix(col, vec3(0.88,0.55,0.32), 0.22*step(0.55, s));
       }
     } else if(oCoarse > 0.5){
-      float s = sin((t.x - t.y) * grid.x * 0.35);
+      float s = sin((ll.x - ll.y) * 24.0);
       col = mix(col, vec3(0.60,0.20,0.20), 0.16*step(0.65, s));
     }
   }
@@ -171,7 +261,7 @@ if (!gl) { $('#loading').textContent = 'This browser has no WebGL.'; throw new E
 const state = {
   centre: [12, 0], span: 360, mixT: 1,
   layers: { lang: 1, div: 1, pop: 1, green: 1, relief: 1, doc: 0, coarse: 0 },
-  meta: null, langs: null, ready: false
+  meta: null, langs: null, ready: false, level: 0, loaded: 0, pending: 0
 };
 window.APP = state;
 
@@ -190,47 +280,109 @@ gl.useProgram(prog);
 
 const vbo = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,0, 1,0, 0,1, 1,1]), gl.STATIC_DRAW);
 const aloc = gl.getAttribLocation(prog, 'a');
 gl.enableVertexAttribArray(aloc);
 gl.vertexAttribPointer(aloc, 2, gl.FLOAT, false, 0, 0);
 
-const U = n => gl.getUniformLocation(prog, n);
-const tex = {};
-function loadTex(name, url, unit) {
-  return new Promise((res, rej) => {
-    const im = new Image();
-    im.onload = () => {
-      const t = gl.createTexture();
-      gl.activeTexture(gl.TEXTURE0 + unit);
-      gl.bindTexture(gl.TEXTURE_2D, t);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      // NEAREST on the language field: interpolating a family INDEX would invent families
-      // NEAREST on anything carrying an ID or a count; LINEAR only on elevation.
-      const f = (name === 'terrain') ? gl.LINEAR : gl.NEAREST;
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, f);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, f);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
-      tex[name] = { t, unit, im };
-      res();
-    };
-    im.onerror = () => rej(new Error('failed to load ' + url));
-    im.src = V(url);
-  });
+const _u = {};
+const U = n => (n in _u) ? _u[n] : (_u[n] = gl.getUniformLocation(prog, n));
+
+// ---------------------------------------------------------------------------------------
+// the tile cache
+// ---------------------------------------------------------------------------------------
+const tiles = new Map();                 // "lvl/tx/ty" -> {n, tex:{}, img:{}, ready}
+const MAXTILES = 220;                    // ~220 * 4 textures; well inside a mobile GL budget
+
+function tileKey(l, x, y) { return l + '/' + x + '/' + y; }
+function exists(l, x, y) {
+  const m = state.meta && state.meta.tiles && state.meta.tiles[String(l)];
+  return !!m && m.indexOf(x + '_' + y) >= 0;
 }
 
-// Never let the drawing buffer collapse to zero: a 0x0 canvas renders nothing and, worse,
-// makes every screen->world conversion NaN. Seen for real when the embedding context
-// reported innerWidth === 0.
-// A <canvas> is a REPLACED element: `position:fixed; inset:0` does NOT stretch it, because
-// `width:auto` resolves to its intrinsic (attribute) width. So the CSS size must be set
-// explicitly — and it must be measured from the VIEWPORT, never from the canvas itself.
-// Measuring cv.clientWidth created a feedback loop: buffer = client*dpr grew the element,
-// which grew client, which grew the buffer: 1280 -> 2560 -> 5120 -> 19200 px.
+function makeTex(im, linear) {
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  // LINEAR only on elevation. Interpolating a family index or a biome id invents categories
+  // that do not exist — a blend of taiga and steppe is not a third biome.
+  const f = linear ? gl.LINEAR : gl.NEAREST;
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, f);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, f);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+  return t;
+}
+
+function request(l, x, y) {
+  const k = tileKey(l, x, y);
+  if (tiles.has(k)) { tiles.get(k).used = state.frame; return tiles.get(k); }
+  if (!exists(l, x, y)) return null;
+  const rec = { n: 0, tex: {}, img: {}, ready: false, used: state.frame, l, x, y };
+  tiles.set(k, rec);
+  state.pending++;
+  FIELDS.forEach(f => {
+    const im = new Image();
+    im.onload = () => {
+      rec.tex[f] = makeTex(im, f === 'terrain');
+      rec.img[f] = im;
+      if (++rec.n === FIELDS.length) {
+        rec.ready = true; state.loaded++; state.pending--;
+        scheduleRender();
+      }
+    };
+    im.onerror = () => {                     // a missing tile must not wedge the pyramid
+      if (++rec.n === FIELDS.length) { rec.ready = true; state.loaded++; state.pending--; scheduleRender(); }
+    };
+    im.src = V('fields/z' + l + '/' + f + '_' + x + '_' + y + '.png');
+  });
+  return rec;
+}
+
+function evict() {
+  if (tiles.size <= MAXTILES) return;
+  const arr = [...tiles.entries()].filter(e => e[1].l > 0)
+    .sort((a, b) => a[1].used - b[1].used);
+  for (let i = 0; i < arr.length && tiles.size > MAXTILES; i++) {
+    const [k, r] = arr[i];
+    if (!r.ready) continue;
+    FIELDS.forEach(f => { if (r.tex[f]) gl.deleteTexture(r.tex[f]); });
+    tiles.delete(k);
+  }
+}
+
+/** The nearest loaded ancestor of (l,x,y), and where this tile sits inside it. */
+function resolve(l, x, y) {
+  for (let li = l; li >= 0; li--) {
+    const s = 1 << (l - li);
+    const ax = Math.floor(x / s), ay = Math.floor(y / s);
+    const r = tiles.get(tileKey(li, ax, ay));
+    if (r && r.ready && r.tex.terrain) {
+      const T = state.meta.tile, S = state.meta.skirt, N = T + 2 * S;
+      // fraction of the ancestor's CORE that this tile covers
+      const fx = (x - ax * s) / s, fy = (y - ay * s) / s, fs = 1 / s;
+      return {
+        rec: r, level: li,
+        src: [(S + fx * T) / N, (S + fy * T) / N, (fs * T) / N, (fs * T) / N],
+        grid: [2048 << li, 1024 << li]
+      };
+    }
+  }
+  return null;
+}
+
+function levelFor() {
+  // Pick the level whose texel is no coarser than a screen pixel, then stop at the top.
+  const worldPx = cv.width * 360 / state.span;
+  const l = Math.ceil(Math.log2(Math.max(1, worldPx) / 2048));
+  return Math.max(0, Math.min(state.meta ? state.meta.maxLevel : 0, l));
+}
+
+// Never let the drawing buffer collapse to zero: a 0x0 canvas renders nothing and makes every
+// screen->world conversion NaN. A <canvas> is a REPLACED element — `inset:0` does NOT stretch
+// it — so CSS sizes it in viewport units and we only ever read that. Measuring cv.clientWidth
+// to SET cv.width was a feedback loop that grew the buffer 1280 -> 19200 px.
 function viewportSize() {
-  // Safe to read the canvas here: CSS sizes it in viewport units, so clientWidth does NOT
-  // depend on cv.width. Never write cv.style.width from this — that is the loop.
   return [cv.clientWidth || window.innerWidth || 0, cv.clientHeight || window.innerHeight || 0];
 }
 let sizeRetry = 0;
@@ -247,47 +399,107 @@ function resize() {
   return true;
 }
 
+let _raf = 0;
+function scheduleRender() {
+  if (_raf) return;
+  _raf = requestAnimationFrame(() => { _raf = 0; render(); });
+}
+state.frame = 0;
+
 function render() {
-  if (!state.ready) return;
+  if (!state.ready || !state.meta) return;
   if (cv.width < 2 || cv.height < 2) { resize(); if (cv.width < 2) return; }
+  state.frame++;
   gl.viewport(0, 0, cv.width, cv.height);
-  gl.uniform2f(U('res'), cv.width, cv.height);
-  gl.uniform2f(U('grid'), GRID_W, GRID_H);
-  gl.uniform2f(U('centre'), state.centre[0], state.centre[1]);
-  gl.uniform1f(U('span'), state.span);
+  gl.clearColor(0.035, 0.045, 0.055, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
+  const aspect = cv.width / cv.height;
+  const halfLon = state.span / 2, halfLat = state.span / aspect / 2;
+  const lon0 = state.centre[0] - halfLon, lon1 = state.centre[0] + halfLon;
+  const lat0 = state.centre[1] - halfLat, lat1 = state.centre[1] + halfLat;
+
+  const L = levelFor();
+  state.level = L;
+  const cols = 2 << L, rows = 1 << L;
+  const dLon = 360 / cols, dLat = 180 / rows;
+
+  const ty0 = Math.max(0, Math.floor((90 - Math.min(90, lat1)) / dLat));
+  const ty1 = Math.min(rows - 1, Math.floor((90 - Math.max(-90, lat0)) / dLat));
+  const tx0 = Math.floor((lon0 + 180) / dLon);
+  const tx1 = Math.floor((lon1 + 180) / dLon);
+
+  const lay = state.layers;
+  gl.uniform2f(U('uCentre'), state.centre[0], state.centre[1]);
+  gl.uniform1f(U('uSpan'), state.span);
+  gl.uniform1f(U('uAspect'), aspect);
   gl.uniform1f(U('mixT'), state.mixT);
-  const L = state.layers;
-  gl.uniform1f(U('oLang'), L.lang); gl.uniform1f(U('oDiv'), L.div);
-  gl.uniform1f(U('oPop'), L.pop); gl.uniform1f(U('oGreen'), L.green);
-  gl.uniform1f(U('oRelief'), L.relief); gl.uniform1f(U('oDoc'), L.doc);
-  gl.uniform1f(U('oCoarse'), L.coarse);
-  // binding tolerates absence: a missing language field keeps the world rendering
-  for (const [uni, nm] of [['terrain','terrain'], ['env','env'], ['langC','lang_c'], ['langT','lang_t']]) {
-    const e = tex[nm] || tex['terrain'];
-    if (!e) continue;
-    gl.activeTexture(gl.TEXTURE0 + e.unit);
-    gl.bindTexture(gl.TEXTURE_2D, e.t);
-    gl.uniform1i(U(uni), e.unit);
+  gl.uniform1f(U('oLang'), lay.lang); gl.uniform1f(U('oDiv'), lay.div);
+  gl.uniform1f(U('oPop'), lay.pop); gl.uniform1f(U('oGreen'), lay.green);
+  gl.uniform1f(U('oRelief'), lay.relief); gl.uniform1f(U('oDoc'), lay.doc);
+  gl.uniform1f(U('oCoarse'), lay.coarse);
+
+  const N = state.meta.tile + 2 * state.meta.skirt;
+  gl.uniform1f(U('uStep'), 1 / N);
+
+  for (let ty = ty0; ty <= ty1; ty++) {
+    for (let txw = tx0; txw <= tx1; txw++) {
+      const tx = ((txw % cols) + cols) % cols;
+      request(L, tx, ty);
+      const r = resolve(L, tx, ty);
+      if (!r) continue;
+      // Draw at the wrapped longitude so a view crossing the antimeridian is continuous.
+      const tLon = -180 + txw * dLon;
+      const tLat = 90 - ty * dLat;
+      gl.uniform4f(U('uTile'), tLon, tLat, dLon, dLat);
+      gl.uniform4f(U('uSrc'), r.src[0], r.src[1], r.src[2], r.src[3]);
+      gl.uniform2f(U('uSrcGrid'), r.grid[0], r.grid[1]);
+      // Detail only where the SOURCE texel is coarser than a screen pixel — i.e. where the
+      // data has run out. Never where measured data would be overwritten by noise.
+      const texelPx = (cv.width * 360 / state.span) / r.grid[0];
+      gl.uniform1f(U('uDetail'), Math.max(0, Math.min(1, (texelPx - 1) / 3)));
+      FIELDS.forEach((f, i) => {
+        gl.activeTexture(gl.TEXTURE0 + i);
+        gl.bindTexture(gl.TEXTURE_2D, r.rec.tex[f] || r.rec.tex.terrain);
+        gl.uniform1i(U(['terrain', 'env', 'langC', 'langT'][i]), i);
+      });
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
   }
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  evict();
 }
 state.render = render;
-state.jumpTo = (lon, lat, span) => { state.centre = [lon, lat]; if (span) state.span = span; render(); };
+state.jumpTo = (lon, lat, span) => {
+  state.centre = [lon, lat]; if (span) state.span = span; render();
+};
 
+// ---------------------------------------------------------------------------------------
+// CPU sampling — the readout and the cards read the same pixels the shader does
+// ---------------------------------------------------------------------------------------
 const probe = document.createElement('canvas');
 const pctx = probe.getContext('2d', { willReadFrequently: true });
 function sample(name, lon, lat) {
-  const e = tex[name]; if (!e) return null;
-  // "Unknown" is a legitimate return; a fabricated one is not (CLAUDE.md rule 10). A
-  // non-finite coordinate previously drew nothing and read back as zeros, which the
-  // readout then rendered as a confident "11000 m below sea level".
-  if (!isFinite(lon) || !isFinite(lat)) return null;
-  const x = Math.min(GRID_W - 1, Math.floor(((((lon + 180) % 360) + 360) % 360) / 360 * GRID_W));
-  const y = Math.min(GRID_H - 1, Math.max(0, Math.floor((90 - lat) / 180 * GRID_H)));
-  probe.width = 1; probe.height = 1;
-  pctx.clearRect(0, 0, 1, 1);
-  pctx.drawImage(e.im, x, y, 1, 1, 0, 0, 1, 1);
-  return pctx.getImageData(0, 0, 1, 1).data;
+  // "Unknown" is a legitimate return; a fabricated one is not (rule 10). A non-finite
+  // coordinate once read back as zeros, which the readout printed as a confident
+  // "11000 m below sea level".
+  if (!isFinite(lon) || !isFinite(lat) || !state.meta) return null;
+  const w = ((((lon + 180) % 360) + 360) % 360) / 360;      // 0..1 east from -180
+  const v = Math.min(0.999999, Math.max(0, (90 - lat) / 180));
+  for (let l = Math.min(state.level, state.meta.maxLevel); l >= 0; l--) {
+    const cols = 2 << l, rows = 1 << l;
+    const tx = Math.min(cols - 1, Math.floor(w * cols));
+    const ty = Math.min(rows - 1, Math.floor(v * rows));
+    const rec = tiles.get(tileKey(l, tx, ty));
+    if (!rec || !rec.ready || !rec.img[name]) continue;
+    const T = state.meta.tile, S = state.meta.skirt;
+    const px = S + Math.min(T - 1, Math.floor((w * cols - tx) * T));
+    const py = S + Math.min(T - 1, Math.floor((v * rows - ty) * T));
+    probe.width = 1; probe.height = 1;
+    pctx.clearRect(0, 0, 1, 1);
+    pctx.drawImage(rec.img[name], px, py, 1, 1, 0, 0, 1, 1);
+    return pctx.getImageData(0, 0, 1, 1).data;
+  }
+  return null;
 }
 
 function fmtLL(lon, lat) {
@@ -346,13 +558,36 @@ function showCard(lon, lat) {
   const r = hit.row;
   const km = Math.round(hit.deg * 111);
   const E = sample('env', r[2], r[3]);
+  const autonyms = r[9] || [], scripts = r[10] || [], famid = r[11];
+  const FN = (state.langs && state.langs.familyNames) || {};
+
+  // CLAUDE.md rule 11: the autonym leads, in its own script, and the reference name is
+  // labelled as what it is. Glottolog's `Name` is a unique English catalogue key — "Paku
+  // Karen", "San Francisco del Mar Huave" — built from an exonym plus a geographic
+  // qualifier. Some of those exonyms are colonial and a few are slurs. Where no autonym is
+  // recorded we say so, rather than promoting the catalogue key to a name (rule 10).
+  let head, sub;
+  if (autonyms.length) {
+    const a = autonyms[0];
+    head = '<span lang="' + esc(a[1] || '') + '">' + esc(a[0]) + '</span>';
+    sub = '<div class="eyebrow" style="margin-top:3px">' + esc(r[1]) +
+      ' <span style="opacity:.6">· reference name</span>' +
+      (autonyms.length > 1 ? ' · also ' + autonyms.slice(1).map(n =>
+        '<span lang="' + esc(n[1] || '') + '">' + esc(n[0]) + '</span>').join(', ') : '') +
+      '</div>';
+  } else {
+    head = esc(r[1]);
+    sub = '<div class="warn">This is Glottolog\'s <b>reference name</b>, not the autonym. ' +
+      'No native label is recorded for this language in the sources we can ship. ' +
+      'It is a catalogue key in English, not what its speakers call it.</div>';
+  }
+
   $('#cardBody').innerHTML =
     '<div class="eyebrow">language · nearest recorded point, ' + km + ' km away</div>' +
-    '<h2>' + r[1] + '</h2>' +
-    '<div class="warn">Glottolog <b>reference name, not the autonym</b>. This project\'s own ' +
-    'rules require the autonym first; no autonym source is wired yet (register D6).</div>' +
+    '<h2>' + head + '</h2>' + sub +
     '<table>' +
-    '<tr><td>family</td><td>' + famName(r[4]) + '</td></tr>' +
+    '<tr><td>family</td><td>' + esc(FN[famid] || famid || '—') + '</td></tr>' +
+    (scripts.length ? '<tr><td>written in</td><td>' + scripts.map(esc).join(', ') + '</td></tr>' : '') +
     '<tr><td>glottocode</td><td><code>' + r[0] + '</code></td></tr>' +
     '<tr><td>ISO 639-3</td><td>' + (r[7] ? '<code>' + r[7] + '</code> <i>alias, not the key</i>' : '—') + '</td></tr>' +
     '<tr><td>vitality</td><td>' + (AES[r[6]] || 'not assessed') + '</td></tr>' +
@@ -360,7 +595,8 @@ function showCard(lon, lat) {
     '<tr><td>first attested</td><td>' + (r[8] ? r[8] : 'no date recorded') + '</td></tr>' +
     '<tr><td>biome at its point</td><td>' + (E ? (BIOMES[E[0]] || '—') : '—') + '</td></tr>' +
     '</table>' +
-    '<div class="tier">Recorded for this language — Glottolog 5.3, CC-BY 4.0. ' +
+    '<div class="tier">Glottolog 5.3 (CC-BY 4.0)' +
+    (autonyms.length ? '; autonym from Wikidata P1705 (CC0)' : '') + '. ' +
     '<b>No speaker count is shown:</b> this project requires (value, year, source) and the ' +
     'catalogue carries none, so "unknown" is the honest return.</div>';
   $('#card').classList.remove('hidden');
@@ -464,9 +700,20 @@ $('#tour').addEventListener('click', e => {
 $('#legend').innerHTML =
   '<div><b>hue</b> — language family</div>' +
   '<div><b>brightness</b> — speaker density, from a population raster</div>' +
-  '<div><b>grain</b> — how many languages overlap here</div>' +
-  '<div><b>ground colour</b> — biome, the variable that actually predicts the pattern</div>' +
+  '<div><b>grain</b> — languages with territory within 20 km</div>' +
+  '<div><b>ground colour</b> — biome and measured greenness (peak NDVI)</div>' +
   '<div><b>relief</b> — lit per pixel from the elevation field</div>';
+
+function waitTile(l, x, y) {
+  return new Promise(res => {
+    const rec = request(l, x, y);
+    if (!rec) return res(null);
+    if (rec.ready) return res(rec);
+    const iv = setInterval(() => { if (rec.ready) { clearInterval(iv); res(rec); } }, 30);
+    // A tile that never arrives must not hold the whole app hostage behind a spinner.
+    setTimeout(() => { clearInterval(iv); res(null); }, 25000);
+  });
+}
 
 async function boot() {
   resize();
@@ -480,15 +727,14 @@ async function boot() {
     .catch(() => { state.attribution = null; });
   fetch(V('data/coverage.json')).then(r => r.json()).then(d => { state.coverage = d; })
     .catch(() => { state.coverage = null; });
-  await loadTex('terrain', 'fields/terrain.png', 0);
-  state.ready = true; render();                    // a usable world as soon as terrain lands
+  // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
+  // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
+  const base = [];
+  for (let x = 0; x < 2; x++) base.push(waitTile(0, x, 0));
+  await Promise.all(base);
+  state.ready = true;
+  render();
   $('#loading').style.display = 'none';
-  await loadTex('env', 'fields/env.png', 1);
-  render();
-  await loadTex('lang_c', 'fields/lang_c.png', 2);
-  render();
-  await loadTex('lang_t', 'fields/lang_t.png', 3);
-  render();
   buildAbout();
   // B4: the coverage limit belongs on the frame, not only in the About panel. A viewer must be
   // able to tell mapped ground from unmapped without opening anything.
@@ -553,16 +799,35 @@ function buildAbout() {
   '<p><b>The claim.</b> Linguistic diversity is not spread evenly, and the first thing that ' +
   'explains it is <b>climate</b> — how long the growing season is, and how many people a ' +
   'landscape can feed year-round. Terrain matters too, but less, and unevenly.</p>' +
-  '<p><b>We measured that, and it changed the claim.</b> An earlier version of this project ' +
-  'asserted terrain was "most of the explanation". Measured across 7,672 spoken-L1 languages ' +
-  'and 6,143 land cells: ruggedness↔richness Spearman <b>+0.141</b> (<b>+0.108</b> controlling ' +
-  'for latitude) against <b>−0.582</b> for latitude itself. In <b>Papunesia +0.024</b> and ' +
-  '<b>Africa +0.006</b>, terrain explains essentially nothing. Robust at 1°, 2°, 4° and 6°.</p>' +
+  '<p><b>We measured it, and it changed the claim.</b> An earlier version of this project ' +
+  'asserted terrain was "most of the explanation". It is not. Across 7,672 spoken-L1 ' +
+  'languages and 4,600 land cells, rank correlation with language density:</p>' +
+  '<table style="width:100%;margin:6px 0"><tbody>' +
+  '<tr><td>growing season (months ≥ 5 °C)</td><td style="text-align:right"><b>+0.470</b></td></tr>' +
+  '<tr><td>absolute latitude</td><td style="text-align:right"><b>−0.527</b></td></tr>' +
+  '<tr><td>peak greenness (NDVI)</td><td style="text-align:right"><b>+0.347</b></td></tr>' +
+  '<tr><td>terrain ruggedness</td><td style="text-align:right"><b>+0.155</b></td></tr>' +
+  '</tbody></table>' +
+  '<p>Climate beats terrain by roughly three to one, which is why this map paints greenness ' +
+  'and not just relief. But the honest caveat is on our own side of the argument: <b>holding ' +
+  'latitude constant, growing season adds nothing</b> (−0.091), while holding growing season ' +
+  'constant still leaves latitude at −0.284. Growing season is largely what latitude was ' +
+  'standing for. A Poisson count model with land area as an offset says the same: latitude ' +
+  'alone explains 25.6% of deviance, growing season 15.4%, ruggedness 7.8%, all three plus ' +
+  'greenness 39.4%. Dispersion is 8–20, so these are effect sizes, not p-values — the model ' +
+  'that would give honest intervals is a negative binomial and it is not built yet.</p>' +
+  '<p>Terrain is small but it is <i>real</i>, and it survives changing the definition: ' +
+  'relief per kilometre gives +0.192 where standard deviation of elevation gives +0.155, ' +
+  'same sign, same order. In <b>Papunesia (+0.024)</b> and <b>Africa (+0.006)</b> it is ' +
+  'indistinguishable from zero.</p>' +
   '<h3>What it does not know</h3><ul>' +
   '<li><b>Real polygons exist for 62.5% of living languages.</b> Turn on "Mark land with no ' +
   'polygon": absence of colour is absence of data, not absence of language.</li>' +
-  '<li><b>These are reference names, not autonyms.</b> This project\'s rules require the ' +
-  'autonym first. No autonym source is wired yet — a known defect, not a choice.</li>' +
+  '<li><b>Autonyms cover ' + (state.langs ? Math.round(state.langs.rows.filter(r => (r[9]||[]).length).length / state.langs.rows.length * 100) : '—') +
+  '% of languages.</b> Where a native label exists (Wikidata P1705, CC0) the card leads with ' +
+  'it, in its own script. Where none does, the card shows Glottolog\'s reference name and ' +
+  'says that is what it is. A reference name is an English catalogue key — "Paku Karen", ' +
+  '"San Francisco del Mar Huave" — and some of the exonyms inside them are colonial.</li>' +
   '<li><b>No speaker counts.</b> We require (value, year, source); the catalogue carries none.</li>' +
   '<li><b>The earlier snapshot has no year.</b> "Before contact" is a per-region state — contact ' +
   'ranges from the 1490s to the twentieth century, and never happened in some places.</li>' +
@@ -570,8 +835,19 @@ function buildAbout() {
   'area and nine are pre-Common-Era. There is no deep-time surface here yet.</li>' +
   '<li><b>Population is floored at 1975</b>, because the only deep-time gridded population ' +
   'dataset is NonCommercial. This build uses the 2020 epoch.</li>' +
-  '<li><b>Diversity is capped at 255</b> per cell; the measured maximum in this build is ' +
-  (s.c ? s.c.max_div : '—') + ' today and ' + (s.t ? s.t.max_div : '—') + ' before contact.</li>' +
+  '<li><b>"Languages here" counts territories within about 20 km</b>, not overlapping ' +
+  'polygons. An earlier build counted overlaps, which measured how many SOURCE DATASETS ' +
+  'covered a place: it read 1 across the New Guinea highlands, the densest linguistic region ' +
+  'on Earth, and 43 in India — where 22 official languages were stacked on one cell. The ' +
+  'measured maximum now is <b>' + (s.c ? s.c.max_div : '—') + '</b> today and <b>' +
+  (s.t ? s.t.max_div : '—') + '</b> before contact.</li>' +
+  '<li><b>Official languages are excluded.</b> One source mapped 158 country-shaped polygons ' +
+  'of state-official languages. That is a map of policy, not of where anyone speaks: it put ' +
+  'French across Gabon and inflated every count. The other 25 datasets are real language ' +
+  'areas.</li>' +
+  '<li><b>The grid is 16384 × 8192 — 2.4 km at the equator</b>, streamed as a four-level tile ' +
+  'pyramid. That is 76% of the elevation source\'s own resolution, so zooming past it shows ' +
+  'procedural texture, never invented landforms: the relief you see is measured.</li>' +
   '<li><b>No global continuous linguistic surface has been built before.</b> The method here is ' +
   'ours, and so is the method risk.</li></ul>' +
   '<h3>How the count works</h3>' +

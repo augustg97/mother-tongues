@@ -137,6 +137,53 @@ LEDGER: List[Source] = [
               "how the Sahara came to report itself as 'ice, rock or water'. ⚠ Biome is a "
               "PROXY for growing season, not growing season: register item C3."),
     ),
+    Source(
+        key="modis_ndvi",
+        title="MOD13C2 NDVI, monthly CMG, 2024",
+        creators="Didan, Kamel — NASA LP DAAC / MODIS Land Science Team",
+        year="2024",
+        licence="public-domain",
+        licence_url="https://www.earthdata.nasa.gov/engage/open-data-services-software-policies",
+        source_url="https://neo.gsfc.nasa.gov/view.php?datasetId=MOD_NDVI_M",
+        attribution=("MOD13C2 Vegetation Indices — Didan (2024), NASA LP DAAC, via NASA "
+                     "Earth Observations. Public domain."),
+        layer="greenness — PEAK NDVI over the year, the land's tone",
+        ingested=True, verified=True,
+        note=("Peak, not annual mean: the mean is dominated by the months boreal forest is "
+              "under snow, so taiga scored like semi-desert. ⚠ NOT the AVHRR_CLIM_M product, "
+              "which reads like a vegetation climatology and is sea surface temperature — it "
+              "was wired in first and saturated the whole land surface."),
+    ),
+    Source(
+        key="modis_snow",
+        title="MOD10C1 snow cover, monthly, 2020",
+        creators="Hall, Dorothy K.; Riggs, George A. — NASA NSIDC DAAC",
+        year="2020",
+        licence="public-domain",
+        licence_url="https://www.earthdata.nasa.gov/engage/open-data-services-software-policies",
+        source_url="https://neo.gsfc.nasa.gov/view.php?datasetId=MOD10C1_M_SNOW",
+        attribution=("MOD10C1 Snow Cover — Hall & Riggs (2020), NASA NSIDC DAAC, via NASA "
+                     "Earth Observations. Public domain."),
+        layer="snow cover — a measured snowline rather than an invented height threshold",
+        ingested=True, verified=True,
+        note="Annual mean, not peak: peak snow is 100% anywhere it ever snows, which would "
+             "put permanent ice on Warsaw.",
+    ),
+    Source(
+        key="wikidata",
+        title="Wikidata native labels (P1705) and writing systems (P282)",
+        creators="Wikidata contributors",
+        year="2026",
+        licence="CC0-1.0",
+        licence_url="https://creativecommons.org/publicdomain/zero/1.0/",
+        source_url="https://query.wikidata.org/",
+        attribution="Wikidata (CC0), properties P1394, P1705, P282, P218, P220.",
+        layer="AUTONYMS — what a language's own speakers call it, in its own script",
+        ingested=True, verified=True,
+        note=("Register D6. Joined on P1394 (glottocode, our own key) with P220 (ISO 639-3) "
+              "as the alias fallback. Covers 1,089 of 7,672 languages — partial, and the "
+              "card says so rather than passing an exonym off as an autonym."),
+    ),
     # ---- carried, not yet ingested: the row exists before the bytes do -------------------
     Source(
         key="udhr",
@@ -216,7 +263,8 @@ def _selftest() -> None:
     # 5. the five fields the shipped build actually reads. If a sixth source reaches web/,
     #    this fails and forces a row — which is the whole point of the ledger.
     assert sorted(s.key for s in ingested()) == \
-        ["ecoregions", "etopo1", "ghspop", "glottography", "glottolog"], \
+        ["ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
+         "modis_ndvi", "modis_snow", "wikidata"], \
         "the ingested set changed without a ledger row"
 
     # 6. SA discipline: nothing SA is in the build yet, so nothing SA is claimed.

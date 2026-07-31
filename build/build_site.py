@@ -17,6 +17,7 @@ Run:  python3 build_site.py
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -30,8 +31,13 @@ WEB = os.path.join(ROOT, "web")
 DOCS = os.path.join(ROOT, "docs")
 MODELING = os.path.join(ROOT, "Research", "modeling")
 
-REQUIRED_FIELDS = ["terrain.png", "env.png", "lang_c.png", "lang_t.png", "fields.json"]
-BUDGET_MB = 30.0
+REQUIRED_FIELDS = ["fields.json"]
+# TWO budgets, because they answer different questions. What the viewer waits for before the
+# world appears is level 0 — that is the one that must stay small. The pyramid as a whole is
+# only ever fetched a few tiles at a time, so its ceiling is about what a static host and a
+# git repository can carry, not about page weight.
+BUDGET_L0_MB = 9.0
+BUDGET_TOTAL_MB = 420.0
 
 
 def die(msg: str) -> None:
@@ -55,7 +61,20 @@ def gate_fields() -> None:
     missing = [f for f in REQUIRED_FIELDS if not os.path.exists(os.path.join(fd, f))]
     if missing:
         die(f"missing field files: {missing} — run build_fields.py")
-    print(f"   {len(REQUIRED_FIELDS)} fields present")
+    meta = json.load(open(os.path.join(fd, "fields.json")))
+    n = sum(len(v) for v in meta["tiles"].values())
+    for lvl, keys in meta["tiles"].items():
+        for k in keys:
+            for f in ("terrain", "env", "lang_c", "lang_t"):
+                p = os.path.join(fd, f"z{lvl}", f"{f}_{k}.png")
+                if not os.path.exists(p):
+                    die(f"manifest lists z{lvl}/{k} but {f} is missing — retile")
+    l0 = sum(os.path.getsize(os.path.join(fd, "z0", f))
+             for f in os.listdir(os.path.join(fd, "z0"))) / 1e6
+    print(f"   {n} tiles across {len(meta['tiles'])} levels, all present · "
+          f"level 0 is {l0:.2f} MB (budget {BUDGET_L0_MB:.0f} MB)")
+    if l0 > BUDGET_L0_MB:
+        die(f"level 0 is {l0:.2f} MB — first paint would block on it")
     # The SIZE check lives in publish(), not here: later gates WRITE files into web/, so
     # measuring the budget at this point would check a directory that does not exist yet.
 
@@ -73,14 +92,33 @@ def gate_registration() -> None:
         from PIL import Image
     except Exception as e:
         die(f"cannot verify the shipped raster: {e}")
-    a = np.asarray(Image.open(os.path.join(WEB, "fields", "terrain.png")).convert("RGBA"))
-    h, w = a.shape[:2]
-    z = ((a[:, :, 0].astype(np.int32) * 256 + a[:, :, 1]) / 65535.0) * 20000.0 - 11000.0
+    fd = os.path.join(WEB, "fields")
+    meta = json.load(open(os.path.join(fd, "fields.json")))
+    T, S, L = meta["tile"], meta["skirt"], meta["maxLevel"]
+    cols, rows = 2 << L, 1 << L
+    have = set(meta["tiles"][str(L)])
+    cache = {}
 
     def at(la, lo):
-        return float(z[min(h - 1, int((90 - la) / 180 * h)),
-                       min(w - 1, int((lo + 180) / 360 * w))])
-    cases = [("Everest", 27.99, 86.93, 4000, None), ("Dead Sea", 31.5, 35.5, None, 0),
+        """Read the DEEPEST shipped tile covering this place — the highest-resolution bytes
+        the viewer will actually be served, not a convenient overview."""
+        u = ((lo + 180.0) % 360.0) / 360.0
+        v = (90.0 - la) / 180.0
+        for lvl in range(L, -1, -1):
+            c2, r2 = 2 << lvl, 1 << lvl
+            tx, ty = min(c2 - 1, int(u * c2)), min(r2 - 1, int(v * r2))
+            if f"{tx}_{ty}" not in set(meta["tiles"][str(lvl)]):
+                continue
+            k = (lvl, tx, ty)
+            if k not in cache:
+                cache[k] = np.asarray(Image.open(
+                    os.path.join(fd, f"z{lvl}", f"terrain_{tx}_{ty}.png")).convert("RGBA"))
+            a = cache[k]
+            px = S + min(T - 1, int((u * c2 - tx) * T))
+            py = S + min(T - 1, int((v * r2 - ty) * T))
+            return ((int(a[py, px, 0]) * 256 + int(a[py, px, 1])) / 65535.0) * 20000.0 - 11000.0
+        return float("nan")
+    cases = [("Everest", 27.99, 86.93, 6000, None), ("Dead Sea", 31.5, 35.5, None, 0),
              ("North China Plain", 35.5, 116.5, 0, 300), ("Gabon", -0.5, 12.5, 0, 900),
              ("mid-Atlantic", 0.0, -30.0, None, -2000),
              ("East Antarctica", -75.0, 0.0, 1500, None)]
@@ -178,9 +216,9 @@ def stamp() -> str:
 def publish(v: str) -> None:
     print("5. web/ -> docs/")
     total = _web_size_mb()
-    print(f"   web/ total {total:.1f} MB (budget {BUDGET_MB:.0f} MB)")
-    if total > BUDGET_MB:
-        die(f"web/ is {total:.1f} MB, over the {BUDGET_MB:.0f} MB budget in SCOPE §11")
+    print(f"   web/ total {total:.1f} MB (budget {BUDGET_TOTAL_MB:.0f} MB)")
+    if total > BUDGET_TOTAL_MB:
+        die(f"web/ is {total:.1f} MB, over the {BUDGET_TOTAL_MB:.0f} MB budget in SCOPE §11")
     if os.path.exists(DOCS):
         shutil.rmtree(DOCS)
     shutil.copytree(WEB, DOCS)

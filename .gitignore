@@ -15,3 +15,8 @@ __pycache__/
 scratchpad/
 
 # rasterio/fiona installed to --user for this project's build
+
+# NASA/derived source rasters and the 2 GB of master arrays — regenerable, never committed.
+/data/earth/
+/data/master/
+/data/autonyms/

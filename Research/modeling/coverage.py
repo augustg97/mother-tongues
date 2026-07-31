@@ -28,13 +28,34 @@ WEB = os.path.join(HERE, "..", "..", "web")
 FIELDS = os.path.join(WEB, "fields")
 
 
+LEVEL = 2          # 8192x4096 — fine enough for an area fraction, cheap enough to stitch
+
+
 def _rgba(name: str) -> np.ndarray:
-    return np.asarray(Image.open(os.path.join(FIELDS, name)).convert("RGBA"))
+    """Stitch one field from its level-2 tiles, dropping the skirt.
+
+    Reading the tiles rather than the masters keeps this an audit of what SHIPPED: if the
+    tiler drops a tile, mis-slices a skirt or writes a channel to the wrong band, the number
+    moves. An audit that reads the pipeline's own inputs is a mirror, not a witness.
+    """
+    meta = json.load(open(os.path.join(FIELDS, "fields.json")))
+    T, S = meta["tile"], meta["skirt"]
+    cols, rows = 2 << LEVEL, 1 << LEVEL
+    out = np.zeros((rows * T, cols * T, 4), np.uint8)
+    have = set(meta["tiles"][str(LEVEL)])
+    for ty in range(rows):
+        for tx in range(cols):
+            if f"{tx}_{ty}" not in have:
+                continue
+            p = os.path.join(FIELDS, f"z{LEVEL}", f"{name}_{tx}_{ty}.png")
+            a = np.asarray(Image.open(p).convert("RGBA"))
+            out[ty*T:(ty+1)*T, tx*T:(tx+1)*T] = a[S:S+T, S:S+T]
+    return out
 
 
 def measure() -> dict:
-    terrain = _rgba("terrain.png")
-    env = _rgba("env.png")
+    terrain = _rgba("terrain")
+    env = _rgba("env")
     h, w = terrain.shape[:2]
 
     # Independent decode of the 16-bit elevation: R*256+G over 0..65535 -> -11000..+9000.
@@ -55,7 +76,7 @@ def measure() -> dict:
     out = {"grid": [w, h], "land_px": n_land,
            "land_area_frac_of_grid": round(float((wgt * land).sum() / wgt.sum()), 5)}
 
-    for tag, fn in (("today", "lang_c.png"), ("before_contact", "lang_t.png")):
+    for tag, fn in (("today", "lang_c"), ("before_contact", "lang_t")):
         a = _rgba(fn)
         cov = a[:, :, 3] > 0                       # alpha is the coverage channel
         cov_land = cov & land
@@ -68,7 +89,7 @@ def measure() -> dict:
             # viewer actually wants, and it is much higher than the land fraction, because
             # polygon coverage is best exactly where people are.
             "frac_of_population": round(float(pop[cov_land].sum() / max(pop[land].sum(), 1)), 4),
-            "max_languages_in_one_cell": int(a[:, :, 1].max()),
+            "max_languages_within_20km": int(a[:, :, 1].max()),
         }
         out[tag] = d
 
@@ -79,7 +100,7 @@ def measure() -> dict:
              "Australia": (113, 154, -39, -11), "Great Plains": (-105, -95, 32, 49),
              "India": (69, 89, 8, 32), "Congo basin": (12, 30, -8, 5)}
     reg = {}
-    a = _rgba("lang_c.png")
+    a = _rgba("lang_c")
     cov = (a[:, :, 3] > 0) & land
     for name, (lo0, lo1, la0, la1) in boxes.items():
         r0, r1 = int((90 - la1) / 180 * h), int((90 - la0) / 180 * h)
@@ -106,7 +127,7 @@ def _selftest(m: dict) -> None:
             (f"{tag}: population coverage ({d['frac_of_population']:.1%}) is not above land "
              f"coverage ({d['frac_of_land_area']:.1%}). Polygon coverage is densest where "
              f"people are; if this inverts, the population channel is misregistered.")
-        assert 1 <= d["max_languages_in_one_cell"] <= 255
+        assert 1 <= d["max_languages_within_20km"] <= 255
 
     # New Guinea is the densest language region on Earth and is well surveyed by Glottography's
     # schapper2020papuan. If its coverage is not among the best, the polygon ingest lost a file.
