@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mother-tongues",
+      "runtimeExecutable": "/usr/bin/python3",
+      "runtimeArgs": ["-m", "http.server", "8146",
+                      "--directory", "/Users/augustgweon/Mother Tongues/web"],
+      "port": 8146
+    }
+  ]
+}
