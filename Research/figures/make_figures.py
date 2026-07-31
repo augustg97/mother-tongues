@@ -130,8 +130,12 @@ def figure_encoding() -> str:
     d.line([x0 - 12, fy, W - 30, fy], fill=FG)
     # Caption goes ABOVE the line and hard right, clear of the bars and their value
     # labels — the first version collided with the last bar's "4.0%".
-    d.text((W - 330, fy - 30), f"source floor {floor:.1f}%", fill=FG)
-    d.text((W - 330, fy - 17), "the DEM's own 1 m quantum", fill=DIM)
+    # Caption sits in the empty region above the two short 16-bit bars and right of the
+    # tall 8-bit ones. Two earlier placements collided with the F bar's value label.
+    cx, cy = x0 + 4 * (bw + gap) - 30, y0 + 150
+    d.text((cx, cy), f"source floor {floor:.1f}%", fill=FG)
+    d.text((cx, cy + 13), "the DEM's own 1 m quantum", fill=DIM)
+    d.line([cx + 8, cy + 30, cx + 8, fy - 2], fill=(90, 100, 98))
     d.text((40, 360), "The 16-bit encodings reach the source floor exactly: at that point the "
                       "encoding contributes nothing.", fill=FG)
     os.makedirs(OUT, exist_ok=True)
