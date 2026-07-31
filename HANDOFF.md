@@ -17,29 +17,33 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1 and 2 are COMPLETE and v1 is LIVE:** https://augustg97.github.io/mother-tongues/
+**Rounds 1–3 COMPLETE. v1.2 LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785536984)
 
-The substrate exists and clears rule 0: the surface is composed per pixel from four field rasters,
-of the real Earth, and a viewer can read family, speaker density and biome off it. What is left is
-depth, not foundation.
+The map is **16384×8192, 2.44 km at the equator**, streamed as a tile pyramid; the ground is
+composed from measured surface fields; cards name languages by their autonyms where any exist.
 
 **Next, in priority order:**
 
-**1. D6 — autonyms. P1, and it breaks a standing rule.** Cards currently show Glottolog *reference
-names*. Rule 11 requires the autonym first. The card discloses this, which is honest but not a fix.
-No CC-BY autonym source is wired; this needs a source decision.
+**1. C9 — the negative binomial.** Dispersion is 8–20, so the Poisson intervals are worthless.
+Effect sizes are quotable, significance is not. This is the smallest job with the biggest
+claim-integrity payoff.
 
-**2. C3 — real growing-season data.** Biome is shipping as the greenness channel and it is a
-*proxy*. The claim is about growing season; measure against the real variable.
+**2. E1 — the census witness.** Planned for round 1, still not built after three rounds. It is
+the instrument later disputes get settled with, and its absence is now the oldest debt here.
 
-**3. C6 — the count model.** 1,672 of 6,143 land cells hold a language; the shipped correlation is
-still a rank correlation on density.
+**3. D9 — autonym coverage.** 9.3% is not enough for a rule that is the ethics of the project.
+CLDR is the next source; it is Unicode-licensed, which SCOPE §12 D3 permits.
 
-**4. E1 — the census witness.** Planned for round 1, still not built. It is the instrument later
-disputes get settled with.
+**4. A7 — wire `frames.py` into the ingest.** Still applied by hand.
 
-**5. D7 / D8 — resolution and coverage honesty.** Small islands are under-resolved at ~10 km, and
-polygon coverage is patchy at pixel scale inside covered regions.
+**5. D2/D3/D5 — the text, audio and typology tiers.** None started. D2 has a recorded decision
+(SCOPE §12 D2) and a feature-flag design already agreed; D3 needs a per-file licence gate.
+
+**Do not repeat these:**
+- A source is not what its name says. Assert the **physical range** of the quantity.
+- Any index packed into a byte needs a defined overflow behaviour. "First 254 alphabetically"
+  silently deleted 175 language families from the map for two rounds.
+- Ask what a count is counting. "Diversity" counted datasets, not languages, and looked fine.
 
 ## Reference material and the measurement harness
 
@@ -59,7 +63,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785515158**, verified live
+- Last live deploy: **stamp 1785536984**, verified live (tiles + autonyms confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.

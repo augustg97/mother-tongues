@@ -21,8 +21,28 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 <!-- Rewritten in place as items land, so this file describes the app rather than a wish list. -->
 
+### Round 3 (2026-07-31) — resolution, measured surface, autonyms, and the climate result
+
 | item | what shipped | measured |
 |---|---|---|
+| **resolution** | master grid **16384×8192 (2.44 km at the equator)**, 76% of ETOPO1's native resolution, streamed as a 4-level tile pyramid with a 1 px skirt | 644 tiles, 271 MB total, **level 0 is 5.3 MB** — what first paint blocks on. Everest now reads **8271 m** where the 9.8 km grid read 6428 |
+| **C3** | growing season from 12 MODIS LST climatology months, and peak-of-year NDVI, both NASA public domain | growing season **+0.470**, peak NDVI **+0.347**, |lat| **−0.527**, ruggedness **+0.155**. ⚠ **Holding latitude constant, growing season adds nothing (−0.091)** — it is largely what latitude was standing for |
+| **C6** | Poisson count model, log land area as offset, IRLS hand-rolled | deviance explained: latitude **25.6%**, growing season **15.4%**, ruggedness **7.8%**, all + greenness **39.4%**. Dispersion **8–20** |
+| **C7** | relief per km as an alternative ruggedness | **+0.192** (sd-elevation gives +0.155) — same sign, same order. The terrain finding survives redefinition |
+| **D6** | rule 11 enforced in code: the card leads with the autonym, in its own script, from Wikidata P1705 (CC0) | **712 of 7,672 (9.3%)**, 56 non-Latin. **818 candidates rejected** as another language's phrase |
+| **B5** | procedural sub-grid detail, engaged only where a screen pixel is finer than a source texel | never overrides measured relief |
+| **fidelity** | NDVI tones the ground, biome classifies it, MOD10C1 snow gives a measured snowline, slope exposes rock | 8/8 registration on the shipped **level-3** tile |
+
+**Four bug classes this round found and closed:**
+
+| what | consequence | fix |
+|---|---|---|
+| Families indexed by the **first 254 alphabetically**; the rest fell to index 0 = "no language recorded" | **175 families rendered as empty ground** — all of Siberia's among them. Coverage was reported as 65% of land; it is **87%** | rank by number of languages; 254 keep an index, the remainder share 255, which the legend names |
+| "Diversity" counted **overlapping polygons** | measured how many *datasets* covered a place. Read **1** across the New Guinea highlands and **43** in India, where 22 official languages were stacked on one cell | languages with territory within ~20 km, deduplicated per glottocode. Max is **13** |
+| `wikipedia2024officiallang` — 158 country-shaped polygons | painted French across Gabon; the readout said "Indo-European" there | excluded: a map of state policy, not of speech |
+| `AVHRR_CLIM_M` reads like a vegetation climatology and **is sea surface temperature** | wired in as greenness, saturated the whole land surface | every source now asserts the **physical range** of its quantity; the wrong dataset fails the build |
+
+---|---|---|
 | **B3** | 16-bit elevation, linear −11000…+9000, one channel | terracing equals the source DEM's own floor: **4.0% / 1.9% / 39.0% / 0.5%** in the four SCOPE §3 regions |
 | **B1** | the lit-terrain substrate: relief shaded per pixel from the field's gradient, water as a depth-attenuated surface, biome as the land material | 8/8 named places registered, re-read from the **shipped** PNG by the build gate |
 | **B2** | the language field: family hue × population luminance × diversity granularity, composed per pixel | **1,391,303 px** covered today, **1,330,358** before contact; max diversity **43** / **41** |
@@ -80,6 +100,12 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 | C8 | P2 | **NEW.** Settlement time-depth, a C1 predictor with no ready source. Derive per region from the archaeological and aDNA literature; carry its wide uncertainty | `Research/`, diversity field | SURVEY §6 |
 
 ## D. Cards, texts and voices
+
+| # | P | item | touches | from |
+|---|---|---|---|---|
+| **C9** | **P1** | **NEW.** The Poisson model's dispersion is **8–20**. Poisson standard errors are therefore meaningless and only the effect sizes above are quotable. A negative binomial (or quasi-Poisson) is owed before any interval is published | `climate.py` | round 3 |
+| **D9** | **P2** | **NEW.** Autonym coverage is **9.3%**. Wikidata P1705 is the only CC0 source wired and a third of what it returns is another language's phrase. CLDR carries autonyms for ~600 high-population locales under the Unicode licence and would lift coverage weighted by speakers far more than by count | `build/fetch_autonyms.py` | round 3 |
+| **D10** | P2 | **NEW.** Font coverage: `wáꞏšiw ʔítlu` renders U+A789 as a missing-glyph box in the system stack. Rule 11 says "in its own script", and a tofu box is not the script. Needs a subsetted webfont (register D4's real content) | `web/css`, `build/` | round 3 |
 
 | # | P | item | touches | from |
 |---|---|---|---|---|
