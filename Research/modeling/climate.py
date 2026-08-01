@@ -123,6 +123,57 @@ def poisson_glm(X: np.ndarray, y: np.ndarray, offset: np.ndarray,
     return b, float(dev), disp
 
 
+def nb_glm(X: np.ndarray, y: np.ndarray, offset: np.ndarray,
+           rounds: int = 12, fixed_theta: float | None = None
+           ) -> tuple[np.ndarray, np.ndarray, float, float]:
+    """Negative binomial (NB2) GLM. Returns (coefficients, standard errors, theta, deviance).
+
+    **Register C9, and it is a correction to what round 3 published.** The Poisson fit
+    reported a Pearson dispersion of 8-20. Poisson assumes variance equals the mean; at
+    dispersion 15 the true variance is fifteen times that, so Poisson standard errors are
+    too small by a factor of about sqrt(15) — every interval it would produce is roughly
+    four times too narrow, and anything would look significant. The effect sizes were
+    quotable and were quoted; the intervals were not, and were not.
+
+    NB2 lets the variance be mu + mu^2/theta. Theta is estimated by moment matching against
+    the current fit and the whole thing re-solved, a few times, which is enough here because
+    the mean structure barely moves — it is the WEIGHTS that were wrong.
+    """
+    b, _, _ = poisson_glm(X, y, offset)
+    theta = 1.0
+    for _ in range(rounds):
+        mu = np.exp(np.clip(X @ b + offset, -30, 30))
+        if fixed_theta is not None:
+            theta = fixed_theta
+        else:
+            num = float(np.sum(mu ** 2))
+            den = float(np.sum((y - mu) ** 2 - mu))
+            theta = max(1e-3, num / den) if den > 0 else 1e6
+        for _ in range(25):
+            eta = np.clip(X @ b + offset, -30, 30)
+            mu = np.exp(eta)
+            w = mu / (1.0 + mu / theta)                       # NB2 IRLS weight
+            zv = eta - offset + (y - mu) / np.maximum(mu, 1e-9)
+            XtW = X.T * w
+            try:
+                bn = np.linalg.solve(XtW @ X + 1e-9 * np.eye(X.shape[1]), XtW @ zv)
+            except np.linalg.LinAlgError:
+                break
+            if np.max(np.abs(bn - b)) < 1e-10:
+                b = bn
+                break
+            b = bn
+    mu = np.exp(np.clip(X @ b + offset, -30, 30))
+    w = mu / (1.0 + mu / theta)
+    cov = np.linalg.pinv((X.T * w) @ X)
+    se = np.sqrt(np.maximum(np.diag(cov), 0.0))
+    with np.errstate(divide="ignore", invalid="ignore"):
+        dev = 2 * np.nansum(
+            np.where(y > 0, y * np.log(np.maximum(y, 1e-9) / mu), 0.0)
+            - (y + theta) * np.log((y + theta) / (mu + theta)))
+    return b, se, float(theta), float(dev)
+
+
 def relief_per_km(z: np.ndarray) -> dict[tuple[int, int], float]:
     """C7. Range of land elevation across a cell, per kilometre of cell width.
 
@@ -235,6 +286,26 @@ def measure(verbose: bool = True) -> dict:
                     "dispersion": round(disp, 2)}
     out["c6_poisson"] = c6
 
+    # ---- C9: the same models under NB2, where the intervals mean something ---------------
+    # ⚠ Deviance is only comparable at a FIXED theta. Comparing a model's deviance at its own
+    # theta against a null fitted at a different theta gave "deviance explained" of -22% to
+    # -86% — a negative proportion, which is the arithmetic telling you the comparison is
+    # meaningless rather than the model being worse than nothing. Each model's null is now
+    # refitted at that model's theta.
+    c9 = {}
+    for name, X in models.items():
+        b, se, th, dev = nb_glm(X, y, off)
+        _, _, _, ndev = nb_glm(np.ones((n, 1)), y, off, fixed_theta=th)
+        c9[name] = {
+            "null_deviance": round(ndev, 1),
+            "coef": [round(float(v), 4) for v in b[1:]],
+            "se": [round(float(v), 4) for v in se[1:]],
+            "z": [round(float(v / s2), 2) if s2 > 0 else None for v, s2 in zip(b[1:], se[1:])],
+            "theta": round(th, 3),
+            "deviance_explained": round(float(1 - dev / ndev), 4),
+        }
+    out["c9_negative_binomial"] = c9
+
     if verbose:
         print(f"cells {n:,} · occupied {out['occupied']:,} "
               f"({out['occupied_frac']*100:.1f}%) · CELL {D.CELL}deg\n")
@@ -257,6 +328,14 @@ def measure(verbose: bool = True) -> dict:
             print(f"      {name:14s} coef {m['coef']}  "
                   f"deviance explained {m['deviance_explained']*100:5.1f}%  "
                   f"dispersion {m['dispersion']:.1f}")
+        print("\nC9  negative binomial (NB2) — the intervals Poisson could not give")
+        for name in models:
+            m = c9[name]
+            terms = " ".join(f"{c:+.3f}+-{s2:.3f} (z={zz})"
+                             for c, s2, zz in zip(m["coef"], m["se"], m["z"]))
+            print(f"      {name:14s} {terms}")
+            print(f"      {'':14s} theta {m['theta']:.2f}  "
+                  f"deviance explained {m['deviance_explained']*100:5.1f}%")
     return out
 
 
@@ -275,6 +354,27 @@ def _selftest() -> None:
     assert at(gsl, -80.0, 0.0) <= 1, f"Antarctic growing season {at(gsl,-80,0)}"
     assert at(gsl, 68.0, 100.0) <= 6, f"Siberian growing season {at(gsl,68,100)} — too long"
     assert -1.0 <= np.nanmin(peak) and np.nanmax(peak) <= 1.0, "NDVI outside -1..1"
+
+    # NB2 must recover a known slope too, and its SEs must be LARGER than Poisson's on
+    # overdispersed data — that is the entire point of fitting it.
+    rs = np.random.RandomState(1)
+    mu_t = np.exp(0.4 + 1.2 * np.arange(400) / 400.0)
+    yo = rs.negative_binomial(2.0, 2.0 / (2.0 + mu_t))
+    Xo = np.column_stack([np.ones(400), np.arange(400) / 400.0])
+    bn, sen, th, _ = nb_glm(Xo, yo, np.zeros(400))
+    bp, _, _ = poisson_glm(Xo, yo, np.zeros(400))
+    covp = np.linalg.pinv((Xo.T * np.exp(Xo @ bp)) @ Xo)
+    assert abs(bn[1] - 1.2) < 0.8, f"NB2 did not recover a known slope: {bn}"
+    assert sen[1] > np.sqrt(covp[1, 1]), \
+        "NB2 standard error is not larger than Poisson's on overdispersed data"
+    assert 0.5 < th < 12, f"theta {th} implausible for data generated with theta=2"
+    # A proportion of deviance explained outside 0..1 means the two deviances were computed
+    # under different models and are not comparable. This is exactly how the first NB2 pass
+    # reported -86%.
+    _, _, thf, dv = nb_glm(Xo, yo, np.zeros(400))
+    _, _, _, dv0 = nb_glm(np.ones((400, 1)), yo, np.zeros(400), fixed_theta=thf)
+    frac = 1 - dv / dv0
+    assert -0.01 <= frac <= 1.0, f"deviance explained {frac:.3f} is not a proportion"
 
     b, dev, disp = poisson_glm(np.column_stack([np.ones(200), np.arange(200) / 200.0]),
                                np.random.RandomState(0).poisson(

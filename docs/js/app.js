@@ -872,8 +872,11 @@ function buildAbout() {
   'constant still leaves latitude at −0.284. Growing season is largely what latitude was ' +
   'standing for. A Poisson count model with land area as an offset says the same: latitude ' +
   'alone explains 25.6% of deviance, growing season 15.4%, ruggedness 7.8%, all three plus ' +
-  'greenness 39.4%. Dispersion is 8–20, so these are effect sizes, not p-values — the model ' +
-  'that would give honest intervals is a negative binomial and it is not built yet.</p>' +
+  'greenness 39.4%. Poisson\'s dispersion was 8–20, so its intervals would have been about ' +
+  'four times too narrow; refitting as a <b>negative binomial</b> gives intervals that mean ' +
+  'something, and every term survives: growing season <b>+1.67 ± 0.05</b>, latitude ' +
+  '<b>−1.48 ± 0.04</b>, ruggedness <b>+0.48 ± 0.02</b>, and all three plus greenness explain ' +
+  '<b>49%</b> of deviance.</p>' +
   '<p>Terrain is small but it is <i>real</i>, and it survives changing the definition: ' +
   'relief per kilometre gives +0.192 where standard deviation of elevation gives +0.155, ' +
   'same sign, same order. In <b>Papunesia (+0.024)</b> and <b>Africa (+0.006)</b> it is ' +
