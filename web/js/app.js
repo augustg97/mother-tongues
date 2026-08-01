@@ -955,7 +955,9 @@ function buildAbout() {
   '<li><b>Real polygons exist for 62.5% of living languages.</b> Turn on "Mark land with no ' +
   'polygon": absence of colour is absence of data, not absence of language.</li>' +
   '<li><b>Autonyms cover ' + (state.langs ? Math.round(state.langs.rows.filter(r => (r[9]||[]).length).length / state.langs.rows.length * 100) : '—') +
-  '% of languages.</b> Where a native label exists (Wikidata P1705, CC0) the card leads with ' +
+  '% of languages — but <b>93% of speakers</b>.</b> Counting languages under-states it, ' +
+  'because the ones with a recorded self-name are the ones most people speak. Where a native ' +
+  'label exists (Unicode CLDR, or Wikidata P1705) the card leads with ' +
   'it, in its own script. Where none does, the card shows Glottolog\'s reference name and ' +
   'says that is what it is. A reference name is an English catalogue key — "Paku Karen", ' +
   '"San Francisco del Mar Huave" — and some of the exonyms inside them are colonial.</li>' +

@@ -676,6 +676,24 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
         # Rule 14: a bare number is not a datum. Keep only counts that carry a YEAR, so the
         # triple (value, year, source) is complete; drop the rest rather than imply currency.
         spk = {k: v for k, v in json.load(open(sp2, encoding="utf-8")).items() if v[1]}
+    # CLDR: a locale's name for ITSELF — "suomi", "русский", "日本語". These are the cleanest
+    # autonyms available for the world's widely-spoken languages, which is exactly where
+    # Wikidata's P1705 is thinnest. Keys are BCP-47: three-letter ones are ISO 639-3 and join
+    # directly; two-letter ones are ISO 639-1 and need the bridge below.
+    cldr, iso1 = {}, {}
+    _cp = os.path.join(AUTO, "cldr.json")
+    if os.path.exists(_cp):
+        cldr = json.load(open(_cp, encoding="utf-8"))
+    _ip = os.path.join(AUTO, "iso1.json")
+    if os.path.exists(_ip):
+        iso1 = json.load(open(_ip, encoding="utf-8"))
+    cldr_by_gc, cldr_by_iso = {}, {}
+    for loc, nm in cldr.items():
+        if len(loc) == 3:
+            cldr_by_iso[loc] = (nm, loc)
+        elif loc in iso1:
+            cldr_by_gc[iso1[loc]] = (nm, loc)
+
     auto_g, auto_i, self_g = {}, {}, {}
     ap = os.path.join(AUTO, "autonyms.json")
     if os.path.exists(ap):
@@ -687,6 +705,7 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
 
     rows, n_auto, n_nonlatin = [], 0, 0
     rejected = [0]
+    n_cldr = [0]
     famset = set()
     with open(os.path.join(GLOTTOLOG, "languages.csv"), newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
@@ -717,6 +736,12 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
             # someone else's language, which is precisely the thing rule 11 exists to keep off
             # the card. P1705 is *declared* to be the native label; a self-label is only
             # trustworthy when its language tag IS this language, so require that.
+            for src2 in (cldr_by_gc.get(gc), cldr_by_iso.get(iso) if iso else None):
+                if src2 and not _is_exonym_phrase(src2[0], iso, r["Name"]):
+                    cand = [src2[0], src2[1]]
+                    if cand not in names:
+                        names.insert(0, cand)      # a self-name outranks a third-party label
+                        n_cldr[0] += 1
             for n in self_g.get(gc, []):
                 if n[1] and iso and n[1] != iso:
                     continue
@@ -761,6 +786,13 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
     log(f"  languages.json: {len(rows):,} rows, {os.path.getsize(os.path.join(d, 'languages.json'))/1e6:.2f} MB")
     log(f"  AUTONYMS (D6): {n_auto:,} of {len(rows):,} languages "
         f"({n_auto/max(len(rows),1)*100:.1f}%), of which {n_nonlatin:,} are in a non-Latin script")
+    # Coverage by COUNT under-states this badly: the languages CLDR covers are the ones most
+    # people actually speak. Report both, because they answer different questions.
+    tot_sp = sum(r[13][0] for r in rows if r[13])
+    cov_sp = sum(r[13][0] for r in rows if r[13] and r[9])
+    log(f"    of the {tot_sp/1e6:.0f}M speakers we have a dated count for, "
+        f"{cov_sp/max(tot_sp,1)*100:.1f}% speak a language with an autonym here")
+    log(f"    CLDR contributed {n_cldr[0]:,} self-names")
     log(f"    descriptions {sum(1 for r in rows if r[12]):,} · "
         f"speaker triples {sum(1 for r in rows if r[13]):,}")
     log(f"    {rejected[0]:,} candidate labels rejected as another language's phrase "

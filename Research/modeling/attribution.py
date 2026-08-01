@@ -225,6 +225,24 @@ LEDGER: List[Source] = [
               "without stripping it found 4 concepts of 100 and produced an empty file."),
     ),
     Source(
+        key="cldr",
+        title="Unicode CLDR — locale display names",
+        creators="Unicode Consortium and CLDR contributors",
+        year="2026",
+        licence="Unicode-3.0",
+        licence_url="https://www.unicode.org/license.txt",
+        source_url="https://github.com/unicode-org/cldr-json",
+        attribution="Unicode Common Locale Data Repository (CLDR), Unicode Licence v3.",
+        layer="autonyms for the world's widely-spoken languages",
+        ingested=True, verified=True,
+        note=("A locale's name for ITSELF — suomi, русский, 日本語 — which is exactly where "
+              "Wikidata's P1705 is thinnest. 296 self-names, 138 of them new to us, joined by "
+              "ISO 639-3 directly or through an ISO 639-1 bridge. ⚠ CLDR's `availableLocales` "
+              "has an EMPTY \"modern\" list in the current release; the populated one is "
+              "\"full\", and reading the wrong key returned zero locales and looked like a "
+              "coverage problem rather than a bug."),
+    ),
+    Source(
         key="commons",
         title="Wikimedia Commons — manuscripts, inscriptions and objects",
         creators="Wikimedia Commons contributors and the holding institutions",
@@ -326,7 +344,7 @@ def _selftest() -> None:
     # 5. the five fields the shipped build actually reads. If a sixth source reaches web/,
     #    this fails and forces a row — which is the whole point of the ledger.
     assert sorted(s.key for s in ingested()) == \
-        ["asjp", "commons", "ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
+        ["asjp", "cldr", "commons", "ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
          "modis_ndvi", "modis_snow", "phlorest", "udhr", "wikidata"], \
         "the ingested set changed without a ledger row"
 

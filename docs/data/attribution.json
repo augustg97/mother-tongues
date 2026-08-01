@@ -151,6 +151,21 @@
    "share_alike": false
   },
   {
+   "key": "cldr",
+   "title": "Unicode CLDR — locale display names",
+   "creators": "Unicode Consortium and CLDR contributors",
+   "year": "2026",
+   "licence": "Unicode-3.0",
+   "licence_url": "https://www.unicode.org/license.txt",
+   "source_url": "https://github.com/unicode-org/cldr-json",
+   "attribution": "Unicode Common Locale Data Repository (CLDR), Unicode Licence v3.",
+   "layer": "autonyms for the world's widely-spoken languages",
+   "ingested": true,
+   "verified": true,
+   "note": "A locale's name for ITSELF — suomi, русский, 日本語 — which is exactly where Wikidata's P1705 is thinnest. 296 self-names, 138 of them new to us, joined by ISO 639-3 directly or through an ISO 639-1 bridge. ⚠ CLDR's `availableLocales` has an EMPTY \"modern\" list in the current release; the populated one is \"full\", and reading the wrong key returned zero locales and looked like a coverage problem rather than a bug.",
+   "share_alike": false
+  },
+  {
    "key": "commons",
    "title": "Wikimedia Commons — manuscripts, inscriptions and objects",
    "creators": "Wikimedia Commons contributors and the holding institutions",
