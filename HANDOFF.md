@@ -17,7 +17,7 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–8 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785566162)
+**Rounds 1–9 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785567306)
 
 Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
 families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
@@ -27,8 +27,10 @@ of the UDHR in the language's own script.
 
 **E1 and A7 are CLOSED (round 7).** The witness lives in `Research/modeling/witness.py` and
 runs in the build gate; the ingest goes through `frames.Registry`. **D5 is CLOSED** (WALS prose, 1,668 languages). **D3 was attempted and WITHHELD** — the licence
-gate works, language identification does not; see the register. **Still not started: C4
-(literature check) and C8 (settlement time-depth) — those two are all that remain.** D3's per-file licence gate now exists in `build/fetch_gallery.py` and is the
+gate works, language identification does not; see the register. **C4 RESOLVED and C8 CLOSED (negative result) in round 9. THE ORIGINAL REGISTER IS NOW EMPTY.**
+What remains is what the work itself has since raised: **C10** (no spatial autocorrelation term —
+the largest known gap in the central claim), **D3** (audio, blocked on language identification,
+rebuild from Lingua Libre), **D9** (autonym coverage 11.2%). D3's per-file licence gate now exists in `build/fetch_gallery.py` and is the
 pattern to copy for audio.
 
 **1. D3 — audio.** Planned for round 1, still not built after four rounds. It is
@@ -67,7 +69,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785566162**, verified live (tree, texts and tiles confirmed)
+- Last live deploy: **stamp 1785567306**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
