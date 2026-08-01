@@ -263,3 +263,8 @@ body:not(.tree) #subtitle{max-width:38ch}
 
 .words.ipa b{font-family:"Doulos SIL","Charis SIL","Gentium Plus",var(--serif);letter-spacing:.01em}
 #exhibit audio{width:100%;margin-top:4px;height:34px}
+
+#vStory{all:unset;cursor:pointer;font-size:9.5px;letter-spacing:.14em;padding:5px 11px;
+  border:1px solid var(--rule);border-radius:2px;color:var(--ink2);background:rgba(255,255,255,.6)}
+#vStory:hover{color:var(--ink);background:#fff}
+#vStory.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}

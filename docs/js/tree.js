@@ -298,7 +298,87 @@
   }
 
   /* ---- the exhibit: one language, given room ---- */
-  function exhibit(n) {
+  /** Everything under a node: leaf count, deaths, the oldest attested member, extent. */
+  function summarise(rec) {
+    let lang = 0, ext = 0, end = 0, oldest = null, oldestN = null, named = [];
+    let lo = 999, la = 999, LO = -999, LA = -999;
+    (function w(r) {
+      const n = r.n;
+      if (!r.kids.length) {
+        lang++;
+        if ((n.a || 0) >= 6) ext++; else if ((n.a || 0) >= 3) end++;
+        if (n.y && (oldest === null || n.y < oldest)) { oldest = n.y; oldestN = n; }
+        if (n.p) {
+          lo = Math.min(lo, n.p[0]); LO = Math.max(LO, n.p[0]);
+          la = Math.min(la, n.p[1]); LA = Math.max(LA, n.p[1]);
+        }
+        if (named.length < 8 && (n.au || (window.APP.notable &&
+            window.APP.notable.by_glottocode[n.g]))) named.push(n);
+      }
+      r.kids.forEach(w);
+    })(rec);
+    const box = (lo < 900) ? [(lo + LO) / 2, (la + LA) / 2,
+                              Math.max(6, Math.min(180, (LO - lo) * 1.3))] : null;
+    return { lang, ext, end, oldest, oldestN, named, box };
+  }
+
+  function branchExhibit(n, rec) {
+    const A = window.APP, s = summarise(rec);
+    const path = [];
+    (function find(r, acc) {
+      if (r === rec) { path.push(...acc.map(x => x.n)); return true; }
+      for (const k of r.kids) if (find(k, acc.concat([r.n]))) return true;
+      return false;
+    })(T.laid.root, []);
+    let h = '<div class="exkicker">' + (path.map(p => esc(p)).join(' › ') || 'a branch') +
+      '</div><h2 class="exname" style="font-size:31px">' + esc(n.n) + '</h2>' +
+      '<div class="exalt"><span>a branch of the family, not a language</span></div>';
+    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    const bits = ['<b>' + s.lang + '</b> language' + (s.lang === 1 ? '' : 's')];
+    if (s.ext) bits.push('<b>' + s.ext + '</b> extinct');
+    if (s.end) bits.push('<b>' + s.end + '</b> endangered');
+    h += '<p class="exdesc" style="font-size:13.5px">' + bits.join(' · ') + '.' +
+      (s.oldest ? ' The earliest written member is <b>' + esc(s.oldestN.n) + '</b>, attested ' +
+        (s.oldest < 0 ? (-s.oldest) + ' BCE' : s.oldest + ' CE') + '.' : '') +
+      (s.ext === s.lang && s.lang ? ' <b>Nobody speaks any of them.</b>' : '') + '</p>';
+    if (s.box) {
+      h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +
+        '<canvas class="exworldcv"></canvas><div class="exmapcap">where its languages are ' +
+        'recorded · click to open the ground</div></div>';
+    }
+    if (s.named.length) {
+      h += '<h3>Among them</h3><div class="words">' + s.named.map(m =>
+        '<div><b>' + esc(m.au && canRender(m.au[0]) ? m.au[0] : m.n) + '</b><span>' +
+        esc(m.n) + '</span></div>').join('') + '</div>';
+    }
+    $('#exhibit').innerHTML = h;
+    $('#exhibit').classList.remove('empty');
+    if (s.box) drawMaps(s.box[0], s.box[1], s.box[2], n.g, null);
+    T.sel = n; draw();
+  }
+
+  function drawMaps(lon, lat, span, gc, p) {
+    const mc = $('#exhibit .exmapcv'), wc = $('#exhibit .exworldcv');
+    let t = 0;
+    const go = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = mc ? (mc.clientWidth || mc.getBoundingClientRect().width) : 0;
+      if (w < 60 && t++ < 40) { requestAnimationFrame(go); return; }
+      if (w < 60) return;
+      mc.width = Math.round(w * dpr); mc.height = Math.round((mc.clientHeight || 150) * dpr);
+      window.APP.snapshot(mc, lon, lat, span);
+      if (wc) {
+        wc.width = Math.round(w * dpr); wc.height = Math.round(w * dpr / 2);
+        window.APP.worldBox(wc, lon, lat, span);
+      }
+    };
+    requestAnimationFrame(go);
+    setTimeout(go, 900);
+    if (mc) mc.addEventListener('click', () => window.APP.showCardFor(gc, p || [lon, lat]));
+  }
+
+  function exhibit(n, rec) {
+    if (rec && rec.kids && rec.kids.length) return branchExhibit(n, rec);
     T.sel = n;
     const A = window.APP;
     const tx = A.texts && A.texts.by_glottocode[n.g];
@@ -513,7 +593,7 @@
     const h = cv.clientHeight || 600;
     T.scale = Math.max(0.16, Math.min(1.6, (h - 70) / (15 * T.laid.leafN)));
     T.ox = 0; T.oy = 0;
-    draw();
+    T.story ? drawStory() : draw();
   }
 
   async function show() {
@@ -524,7 +604,124 @@
     renderHead();
   }
 
+  /* ---- STORY: the family in broad brushes, on one time axis ----------------------
+   * The dendrogram shows every twig and is therefore hard to read at a glance. This is the
+   * opposite view: one lane per first-order branch, laid on the years those branches were
+   * actually WRITTEN DOWN. It is an attestation axis, not a divergence axis — we have dates
+   * for when languages were first recorded, not for when they split, and the caption says so.
+   */
+  T.story = false;
+  function drawStory() {
+    const cv = $('#treecv');
+    if (!cv || !T.laid) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = cv.clientWidth, h = cv.clientHeight;
+    const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+    const g = cv.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, w, h);
+
+    // ⚠ Do not just take the root's children. Indo-European's root has THREE — Anatolian,
+    // "Classical Indo-European" and a residue — so a lane per child would draw three bars and
+    // hide Germanic, Slavic, Italic and Celtic one level below. Split the biggest lane
+    // repeatedly until the view has a useful number of them.
+    const root = T.laid.root;
+    let recs = root.kids.slice();
+    if (!recs.length) recs = [root];
+    while (recs.length < 9) {
+      const big = recs.reduce((a, b) => (b.kids.length && b.leaves > (a ? a.leaves : 0) ? b : a), null);
+      if (!big || recs.length - 1 + big.kids.length > 18) break;
+      recs = recs.filter(r => r !== big).concat(big.kids);
+    }
+    const lanes = recs.map(k => ({ rec: k, s: summarise(k) }))
+      .filter(l => l.s.lang > 0)
+      .sort((a, b) => (a.s.oldest === null ? 1 : b.s.oldest === null ? -1 : a.s.oldest - b.s.oldest));
+    if (!lanes.length) return;
+
+    const YMIN = -2000, YMAX = 2050;
+    const padL = 152, padR = 92, top = 44;
+    const X = y => padL + (Math.max(YMIN, Math.min(YMAX, y)) - YMIN) / (YMAX - YMIN) * (w - padL - padR);
+    const laneH = Math.min(46, Math.max(20, (h - top - 40) / lanes.length));
+
+    // era rules
+    g.font = '10px ' + SANS;
+    for (const yr of [-2000, -1500, -1000, -500, 0, 500, 1000, 1500, 2000]) {
+      const x = X(yr);
+      g.strokeStyle = yr === 0 ? 'rgba(60,52,42,.28)' : 'rgba(60,52,42,.11)';
+      g.beginPath(); g.moveTo(x, top - 14); g.lineTo(x, top + lanes.length * laneH); g.stroke();
+      g.fillStyle = 'rgba(120,112,102,.9)';
+      g.textAlign = 'center';
+      g.fillText(yr === 0 ? '1 CE' : (yr < 0 ? (-yr) + ' BCE' : yr), x, top - 22);
+    }
+    g.textAlign = 'left';
+
+    lanes.forEach((L, i) => {
+      const y = top + i * laneH + laneH / 2;
+      const col = famColour(T.famIdx[T.family]);
+      const hue = (i * 47) % 360;
+      const band = `hsl(${hue} 42% 46%)`;
+      const x0 = L.s.oldest !== null ? X(L.s.oldest) : X(1500);
+      const x1 = X(2050);
+      // the band: thickness is living languages, and a wholly extinct branch is hollow
+      const living = L.s.lang - L.s.ext;
+      const th = Math.max(3, Math.min(laneH * 0.56, 3 + 22 * Math.sqrt(living / 400)));
+      g.globalAlpha = 0.9;
+      if (living === 0) {
+        g.strokeStyle = 'rgba(120,112,102,.75)'; g.lineWidth = 1.4;
+        g.strokeRect(x0, y - th / 2, Math.max(6, X(L.s.oldest !== null ? 400 : 1600) - x0), th);
+      } else {
+        const grad = g.createLinearGradient(x0, 0, x1, 0);
+        grad.addColorStop(0, band);
+        grad.addColorStop(1, `hsl(${hue} 52% 62%)`);
+        g.fillStyle = grad;
+        g.fillRect(x0, y - th / 2, x1 - x0, th);
+      }
+      g.globalAlpha = 1;
+
+      // every attested language in this branch, as a mark on the axis
+      (function marks(r) {
+        const n = r.n;
+        if (!r.kids.length && n.y) {
+          const mx = X(n.y);
+          g.beginPath(); g.arc(mx, y, (n.a || 0) >= 6 ? 3.4 : 4.2, 0, 6.2832);
+          if ((n.a || 0) >= 6) { g.strokeStyle = 'rgba(50,44,38,.8)'; g.lineWidth = 1.2; g.stroke(); }
+          else { g.fillStyle = '#2a2622'; g.fill(); }
+        }
+        r.kids.forEach(marks);
+      })(L.rec);
+
+      // the branch's oldest written member, named on the axis
+      if (L.s.oldestN) {
+        g.font = '11px ' + SERIF;
+        g.fillStyle = 'rgba(60,52,42,.82)';
+        g.textAlign = 'right';
+        g.fillText(L.s.oldestN.n, X(L.s.oldest) - 8, y);
+        g.textAlign = 'left';
+      }
+      g.font = '600 12px ' + SANS;
+      g.fillStyle = '#20242a';
+      g.fillText(L.rec.n.n, 8, y - 4);
+      g.font = '10px ' + SANS;
+      g.fillStyle = 'rgba(120,112,102,.95)';
+      g.fillText(living + ' living · ' + L.s.ext + ' extinct', 8, y + 9);
+    });
+
+    g.font = '10.5px ' + SANS;
+    g.fillStyle = 'rgba(120,112,102,.95)';
+    g.fillText('Horizontal position is when a language was first WRITTEN DOWN, not when it ' +
+      'split — we have attestation dates, not divergence dates. Bar thickness is living ' +
+      'languages; hollow bars are branches with no living speakers.',
+      8, top + lanes.length * laneH + 24);
+  }
+  T.drawStory = drawStory;
+
   function wire() {
+    $('#vStory').addEventListener('click', () => {
+      T.story = !T.story;
+      $('#vStory').classList.toggle('on', T.story);
+      T.story ? drawStory() : draw();
+    });
     $('#famlist').addEventListener('click', async e => {
       const b = e.target.closest('button'); if (!b) return;
       await openFamily(b.dataset.g); renderFamilyList(); renderHead();
@@ -540,6 +737,7 @@
 
     const cv = $('#treecv');
     cv.addEventListener('wheel', e => {
+      if (T.story) return;
       e.preventDefault();
       if (e.ctrlKey || e.metaKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         T.ox -= e.deltaX; draw(); return;
@@ -552,7 +750,7 @@
     }, { passive: false });
 
     let drag = null;
-    cv.addEventListener('mousedown', e => { drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
+    cv.addEventListener('mousedown', e => { if (T.story) return; drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
     window.addEventListener('mouseup', e => {
       if (drag && !drag[4]) { const r = hit(e); if (r && !r.kids.length) exhibit(r.n); }
       drag = null;
@@ -576,11 +774,11 @@
       }
       if (nn || T.hoverXY) draw();
     });
-    window.addEventListener('resize', () => { if (T.laid) draw(); });
+    window.addEventListener('resize', () => { if (T.laid) T.draw(); });
   }
 
   T.show = show;
-  T.draw = draw;
+  T.draw = () => (T.story ? drawStory() : draw());
   if (document.readyState !== 'loading') wire();
   else document.addEventListener('DOMContentLoaded', wire);
 })();

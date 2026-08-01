@@ -19,6 +19,15 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 ## APPLIED
 
+### Round 9 — C4 and C8 closed, and a new methodological gap admitted
+
+| item | outcome | measured |
+|---|---|---|
+| **C4** | **RESOLVED.** Our result agrees with Hua et al., *Nat Commun* 10:2047 (2019): "climate has a much stronger effect on language diversity than landscape features". Ours is ~3:1 in the same direction | see `WP-02` |
+| **C8** | **CLOSED, NEGATIVE RESULT.** Settlement time-depth from 173,946 radiocarbon dates (p3k14c, CC-BY) does not explain richness: raw **−0.092**, holding excavation effort constant **−0.147**. Effort predicts the oldest date at **+0.449**, which is why the raw number is meaningless | 1,447 cells, 20% of land |
+| **C10** | **NEW, P1.** We fit no spatial autocorrelation term. Neighbouring cells are not independent, so our intervals are optimistic even after the negative binomial, and **latitude is exactly the variable that inflates**. Largest known gap in the central claim | — |
+
+
 <!-- Rewritten in place as items land, so this file describes the app rather than a wish list. -->
 
 ### Round 5 (2026-07-31) — the museum: a real tree, on paper, with words

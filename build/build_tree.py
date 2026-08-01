@@ -126,6 +126,13 @@ def main() -> None:
             if e:
                 extra[row[0]] = e
 
+    # Descriptions for INTERNAL nodes too, not just leaves: a fork like "Western Romance" is
+    # a historical event and deserves a card as much as a language does.
+    wdesc: dict[str, str] = {}
+    _dp = os.path.join(ROOT, "data", "autonyms", "descriptions.json")
+    if os.path.exists(_dp):
+        wdesc = json.load(open(_dp, encoding="utf-8"))
+
     ages: dict[str, dict] = {}
     pp = os.path.join(TEXTS, "phlorest.json")
     if os.path.exists(pp):
@@ -181,6 +188,8 @@ def main() -> None:
             if nd["g"] in autonym:
                 nd["au"] = autonym[nd["g"]]
             nd.update(extra.get(nd["g"], {}))
+            if "d" not in nd and nd["g"] in wdesc:
+                nd["d"] = wdesc[nd["g"]]
             if lv == "language":
                 counts["lang"] += 1
                 if i.get("ma"):
