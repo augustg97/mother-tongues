@@ -17,33 +17,31 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–3 COMPLETE. v1.2 LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785536984)
+**Rounds 1–4 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785544927)
 
-The map is **16384×8192, 2.44 km at the equator**, streamed as a tile pyramid; the ground is
-composed from measured surface fields; cards name languages by their autonyms where any exist.
+Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
+families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
+of the UDHR in the language's own script.
 
 **Next, in priority order:**
 
-**1. C9 — the negative binomial.** Dispersion is 8–20, so the Poisson intervals are worthless.
-Effect sizes are quotable, significance is not. This is the smallest job with the biggest
-claim-integrity payoff.
+**1. E1 — the census witness.** Planned for round 1, still not built after four rounds. It is
+now by far the oldest debt and the only major instrument missing.
 
-**2. E1 — the census witness.** Planned for round 1, still not built after three rounds. It is
-the instrument later disputes get settled with, and its absence is now the oldest debt here.
+**2. A7 — wire `frames.py` into the ingest.** Still applied by hand.
 
-**3. D9 — autonym coverage.** 9.3% is not enough for a rule that is the ethics of the project.
-CLDR is the next source; it is Unicode-licensed, which SCOPE §12 D3 permits.
+**3. D9 — autonym coverage (9.3%).** CLDR is the next source; Unicode licence, permitted.
 
-**4. A7 — wire `frames.py` into the ingest.** Still applied by hand.
+**4. D3 — audio**, with a per-file licence gate, and **D5 — typological prose** from Grambank.
 
-**5. D2/D3/D5 — the text, audio and typology tiers.** None started. D2 has a recorded decision
-(SCOPE §12 D2) and a feature-flag design already agreed; D3 needs a per-file licence gate.
+**5. C4 / C8** — the literature check and settlement time-depth. Neither started.
 
 **Do not repeat these:**
-- A source is not what its name says. Assert the **physical range** of the quantity.
-- Any index packed into a byte needs a defined overflow behaviour. "First 254 alphabetically"
-  silently deleted 175 language families from the map for two rounds.
-- Ask what a count is counting. "Diversity" counted datasets, not languages, and looked fine.
+- A source is not what its name says; assert the **physical range** of the quantity.
+- Ask what a count is counting. "Diversity" counted datasets, not languages.
+- Any index packed into a byte needs defined overflow (175 families vanished for two rounds).
+- A negative proportion is the arithmetic telling you two numbers are not comparable.
+- Do not trust a phylogeny's scaling field: four are in substitutions, one gives 613,594 years.
 
 ## Reference material and the measurement harness
 
@@ -63,7 +61,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785536984**, verified live (tiles + autonyms confirmed)
+- Last live deploy: **stamp 1785544927**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.

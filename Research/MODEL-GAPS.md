@@ -21,6 +21,23 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 <!-- Rewritten in place as items land, so this file describes the app rather than a wish list. -->
 
+### Round 4 (2026-07-31) — the genealogy, scripts, texts, and honest intervals
+
+| item | what shipped | measured |
+|---|---|---|
+| **the tree** *(new)* | **GENEALOGY**, a second view over Glottolog's full classification, same glottocodes and hues as the map; every leaf flies the map back to the ground | **429** roots (**183 isolates**), **8,618** languages, **13,706** dialects, **1,239 extinct**, **2,573 endangered**. 430 files, 1.9 MB, loaded per family |
+| **time depth** *(new)* | Phlorest root ages beside the family name; internal splits explicitly **not** dated | **19 of 30** datasets usable (17 explicit unit, 2 inferred). **11 rejected**: one root at **613,594 years**, four scaled in *substitutions* or *change* — not units of time |
+| **D2 texts** | Article 1 of the UDHR on every card, in the language, in its own script | **432 languages, 38 scripts**. Ships under SCOPE §12 D2: no licence statement, one paragraph, source file named per card, removable in one commit, takedown address in-app |
+| **D4/D10** | script named per card; **tofu detection** — where the device lacks the font the tree falls back to the reference name and says so, the card shows the text with a warning | a row of empty boxes is a worse claim than the exonym; neither view now makes it |
+| **C9** | negative binomial (NB2), hand-rolled IRLS with moment-matched theta and proper standard errors | growing season **+1.67 ± 0.05** (z=33), \|lat\| **−1.48 ± 0.04** (z=−41), ruggedness **+0.48 ± 0.02** (z=20); all + greenness **49%** of deviance. Poisson's intervals were ~4× too narrow |
+| **pseudo-families** | Glottolog's 8 **Pseudo_Family** nodes (Bookkeeping, Sign Language, Unattested, Pidgin…) moved under a heading saying they are not genealogical units | they had been listed beside Indo-European as if they were branches of one tree |
+
+**Bugs this round found:** the genealogy view covered its own toggle, so there was no way back
+to the map; tree search only walked already-expanded branches, so "Hindi" returned nothing
+inside the family that contains it; the first NB2 pass reported **deviance explained of −86%**,
+which is arithmetic saying the two deviances were computed under different models — each null
+is now refitted at its own model's theta and the selftest asserts the ratio is a proportion.
+
 ### Round 3 (2026-07-31) — resolution, measured surface, autonyms, and the climate result
 
 | item | what shipped | measured |
