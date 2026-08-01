@@ -276,6 +276,20 @@ def build_texts() -> None:
           f"{os.path.getsize(os.path.join(d,'texts.json'))/1e3:.0f} kB")
 
 
+def build_words() -> None:
+    """web/data/words.json — ASJP's core list, already keyed by glottocode. Register D2b."""
+    src = os.path.join(ROOT, "data", "words", "words.json")
+    if not os.path.exists(src):
+        print("no ASJP wordlists — word tier absent")
+        return
+    d = json.load(open(src, encoding="utf-8"))
+    out = os.path.join(ROOT, "web", "data", "words.json")
+    json.dump(d, open(out, "w"), ensure_ascii=False, separators=(",", ":"))
+    print(f"words: {len(d['by_glottocode']):,} languages, "
+          f"{os.path.getsize(out)/1e6:.1f} MB")
+
+
 if __name__ == "__main__":
     main()
     build_texts()
+    build_words()

@@ -89,47 +89,99 @@ code{font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)
   #tour{max-height:22vh}
 }
 
-/* ---- the genealogy view: a SECOND view on the same data, never the primary one ---- */
+/* ---- the genealogy: a museum room. Paper, ink, and type that respects the subject. ---- */
+:root{
+  --paper:#f7f3ea; --paper2:#efe9dc; --ink:#20242a; --ink2:#5d564c; --ink3:#8b8377;
+  --rule:rgba(60,52,42,.16); --accent2:#b4622f;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,"Times New Roman",serif;
+}
 #views{display:flex;gap:0;margin-top:6px;pointer-events:auto}
-#views button{all:unset;cursor:pointer;font-size:9.5px;letter-spacing:.14em;padding:4px 9px;
+#views button{all:unset;cursor:pointer;font-size:9.5px;letter-spacing:.16em;padding:5px 11px;
   border:1px solid var(--edge);color:var(--dim);background:rgba(11,15,14,.6)}
 #views button:first-child{border-radius:2px 0 0 2px}
 #views button:last-child{border-radius:0 2px 2px 0;border-left:none}
 #views button.on{color:#06110e;background:var(--accent);border-color:var(--accent)}
 #views button:not(.on):hover{color:#fff}
-
-#treeview{position:fixed;inset:0;z-index:4;display:grid;grid-template-columns:250px 1fr;
-  background:#080b0a;padding:74px 14px 14px}
-#treeview.hidden{display:none}
-#treeleft{display:flex;flex-direction:column;gap:7px;min-height:0;padding-right:12px;
-  border-right:1px solid var(--edge)}
-#famlist{overflow:auto;display:flex;flex-direction:column;gap:1px;min-height:0}
-#famlist .grp{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);margin:10px 0 3px;padding:0 7px;border-top:1px solid var(--edge);padding-top:8px}
-#famlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:9px 1fr auto;gap:8px;
-  align-items:center;padding:4px 7px;border-radius:2px;font-size:12px;color:#cbd5d1}
-#famlist button:hover{background:rgba(111,208,189,.10);color:#fff}
-#famlist button.on{background:rgba(111,208,189,.16);color:#fff}
-#famlist .sw{width:9px;height:9px;border-radius:2px}
-#famlist .fc{color:var(--dim);font-size:10.5px;font-variant-numeric:tabular-nums}
-#treemain{display:flex;flex-direction:column;min-height:0;padding-left:16px}
-#treehead h2{margin:0;font-size:19px;font-weight:600}
-#treehead .sub{color:#b6c3be;font-size:12px;margin-top:3px}
-#treehead .agebar{margin-top:7px;font-size:11.5px;color:#cfd8d4;background:rgba(111,208,189,.07);
-  border-left:2px solid var(--accent);padding:6px 9px;border-radius:2px}
-#treebar{display:flex;gap:12px;align-items:center;margin:10px 0 6px}
-#treebar label{font-size:11.5px;color:var(--dim);display:flex;gap:6px;align-items:center;cursor:pointer}
-#famq,#treeq{background:rgba(255,255,255,.045);border:1px solid var(--edge);border-radius:2px;
-  color:var(--ink);padding:6px 8px;font-size:12px;font-family:inherit;outline:none}
-#treeq{flex:1;max-width:320px}
-#famq:focus,#treeq:focus{border-color:var(--accent)}
-#treecv{flex:1;min-height:0;width:100%;display:block;cursor:pointer}
-
-.sample{font-size:15px;line-height:1.6;color:#eaf0ed;margin:6px 0;
-  padding:9px 11px;background:rgba(255,255,255,.035);border-radius:3px}
-.sample[dir=rtl]{text-align:right}
-@media (max-width:900px){ #treeview{grid-template-columns:1fr;grid-template-rows:150px 1fr} }
-
-/* In the genealogy view the map's subtitle would sit underneath the family search box. */
+body.tree #views button{border-color:var(--rule);background:rgba(255,255,255,.55);color:var(--ink2)}
+body.tree #views button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+body.tree #title h1{color:var(--ink)}
+body.tree #aboutBtn{color:var(--ink3)}
 body.tree #subtitle{display:none}
-body.tree #title h1{margin-bottom:2px}
+body.tree #topbar{background:none}
+
+#treeview{position:fixed;inset:0;z-index:4;display:grid;
+  grid-template-columns:236px minmax(0,1fr) 372px;
+  background:var(--paper);color:var(--ink);padding:78px 0 0}
+#treeview.hidden{display:none}
+#treeview::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.9),rgba(0,0,0,0) 60%),
+             radial-gradient(90% 70% at 100% 100%,rgba(120,100,70,.07),rgba(0,0,0,0) 70%)}
+
+#treeleft{display:flex;flex-direction:column;gap:8px;min-height:0;padding:0 14px 14px 18px;
+  border-right:1px solid var(--rule)}
+#famlist{overflow:auto;display:flex;flex-direction:column;gap:1px;min-height:0}
+#famlist button{all:unset;cursor:pointer;display:grid;grid-template-columns:9px 1fr auto;gap:9px;
+  align-items:baseline;padding:4px 7px;border-radius:2px;font-size:12.5px;color:var(--ink2);
+  font-family:var(--serif)}
+#famlist button:hover{background:rgba(180,98,47,.10);color:var(--ink)}
+#famlist button.on{background:var(--ink);color:var(--paper)}
+#famlist button.on .fc{color:rgba(247,243,234,.65)}
+#famlist .sw{width:9px;height:9px;border-radius:50%;transform:translateY(-1px)}
+#famlist .fc{color:var(--ink3);font-size:10.5px;font-variant-numeric:tabular-nums;font-family:inherit}
+#famlist .grp{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  margin:12px 0 3px;padding:9px 7px 0;border-top:1px solid var(--rule)}
+
+#treemain{display:flex;flex-direction:column;min-height:0;padding:0 8px 0 22px}
+#treehead h2{margin:0;font-size:30px;font-weight:400;font-family:var(--serif);letter-spacing:-.01em}
+#treehead .sub{color:var(--ink2);font-size:12.5px;margin-top:4px}
+#treehead .sub .dead{color:var(--ink3)} #treehead .sub .warn2{color:var(--accent2)}
+#treehead .agebar{margin-top:9px;font-size:12px;color:var(--ink2);font-family:var(--serif);
+  border-left:2px solid var(--accent2);padding:5px 11px}
+#treehead .agebar.quiet{border-left-color:var(--rule);color:var(--ink3)}
+#treehead .agebar span{color:var(--ink3)}
+#treebar{display:flex;gap:14px;align-items:center;margin:12px 0 2px}
+#treebar label,#treebar .hint{font-size:11px;color:var(--ink3);display:flex;gap:6px;align-items:center}
+#treebar .hint{margin-left:auto;letter-spacing:.04em}
+#famq,#treeq{background:rgba(255,255,255,.7);border:1px solid var(--rule);border-radius:2px;
+  color:var(--ink);padding:7px 9px;font-size:12.5px;font-family:var(--serif);outline:none}
+#famq::placeholder,#treeq::placeholder{color:var(--ink3)}
+#treeq{flex:0 1 300px}
+#famq:focus,#treeq:focus{border-color:var(--accent2)}
+#treecv{flex:1;min-height:0;width:100%;display:block;cursor:grab}
+
+#exhibit{overflow:auto;padding:2px 26px 40px 24px;border-left:1px solid var(--rule);
+  background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,0) 240px)}
+#exhibit.empty{display:grid;place-items:center}
+.exempty{color:var(--ink3);font-family:var(--serif);font-size:14px;font-style:italic}
+.exkicker{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);
+  line-height:1.7;margin-bottom:8px}
+.exname{font-family:var(--serif);font-size:38px;line-height:1.15;font-weight:400;margin:0;
+  color:var(--ink);letter-spacing:-.015em}
+.exalt{font-size:12.5px;color:var(--ink2);margin-top:5px;font-family:var(--serif)}
+.exalt span{color:var(--ink3)}
+.exfacts{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:18px 0 0;
+  font-size:12px;border-top:1px solid var(--rule);padding-top:12px}
+.exfacts dt{color:var(--ink3);text-transform:lowercase}
+.exfacts dd{margin:0;color:var(--ink);font-family:var(--serif)}
+#exhibit h3{font-family:var(--serif);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);font-weight:400;margin:22px 0 8px;border-top:1px solid var(--rule);padding-top:12px}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:9px 12px}
+.words div{display:flex;flex-direction:column;line-height:1.25}
+.words b{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--ink)}
+.words span{font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-top:1px}
+.exquote{font-family:var(--serif);font-size:17px;line-height:1.62;margin:0;padding:2px 0 0 14px;
+  border-left:2px solid var(--accent2);color:var(--ink)}
+.exquote[dir=rtl]{border-left:none;border-right:2px solid var(--accent2);padding:2px 14px 0 0;text-align:right}
+.exfine{font-size:10.5px;line-height:1.6;color:var(--ink3);margin:10px 0 0}
+.exwarn{font-size:11px;color:var(--accent2);margin:8px 0 0;line-height:1.5}
+.exmap{all:unset;cursor:pointer;margin-top:20px;display:inline-block;font-family:var(--serif);
+  font-size:13px;color:var(--paper);background:var(--ink);padding:8px 15px;border-radius:2px}
+.exmap:hover{background:var(--accent2)}
+
+@media (max-width:1150px){ #treeview{grid-template-columns:200px minmax(0,1fr) 300px} }
+@media (max-width:900px){ #treeview{grid-template-columns:1fr;grid-template-rows:120px 1fr 40vh} }
+
+.wordsrow{display:flex;flex-wrap:wrap;gap:4px 14px;margin:5px 0 2px}
+.wordsrow span{font-size:11px;color:var(--dim)}
+.wordsrow b{font-weight:500;color:var(--ink);font-size:13px;
+  font-family:"Iowan Old Style",Palatino,Georgia,serif}

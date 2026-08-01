@@ -599,8 +599,26 @@ function showCard(lon, lat) {
     '<div class="tier">Glottolog 5.3 (CC-BY 4.0)' +
     (autonyms.length ? '; autonym from Wikidata P1705 (CC0)' : '') + '. ' +
     '<b>No speaker count is shown:</b> this project requires (value, year, source) and the ' +
-    'catalogue carries none, so "unknown" is the honest return.</div>' + sampleHtml(r[0]);
+    'catalogue carries none, so "unknown" is the honest return.</div>' +
+    wordsHtml(r[0]) + sampleHtml(r[0]);
   $('#card').classList.remove('hidden');
+}
+
+/** ASJP's core word list for this language. Register D2b. */
+function wordsHtml(gc) {
+  const W = state.words && state.words.by_glottocode && state.words.by_glottocode[gc];
+  if (!W) return '';
+  const order = ['water', 'fire', 'sun', 'moon', 'star', 'stone', 'tree', 'leaf', 'blood',
+                 'bone', 'hand', 'eye', 'ear', 'nose', 'tooth', 'tongue', 'skin', 'name',
+                 'person', 'fish', 'bird', 'dog', 'night', 'die', 'come', 'see', 'drink',
+                 'new', 'full', 'one', 'two'];
+  const have = order.filter(k => W[k]).slice(0, 12);
+  if (!have.length) return '';
+  return '<div class="tier" style="margin-top:12px">' +
+    '<div class="eyebrow">words</div><div class="wordsrow">' +
+    have.map(k => '<span><b>' + esc(W[k]) + '</b> ' + esc(k) + '</span>').join('') +
+    '</div><div class="fine">ASJPcode, a coarse comparative transcription — not this ' +
+    'language\'s own orthography. ASJP, CC-BY-4.0.</div></div>';
 }
 
 /** Article 1 of the UDHR in this language, in its own script. Register D2. */
@@ -785,6 +803,10 @@ async function boot() {
   // exactly as SCOPE §12 D2 requires; if it is absent the cards simply carry no passage.
   fetch(V('data/texts.json')).then(r => r.json()).then(d => { state.texts = d; })
     .catch(() => { state.texts = null; });
+  // The word tier: ASJP's core list for 6,110 languages — fourteen times the reach of the
+  // UDHR passage, and for many languages the only text that exists at all.
+  fetch(V('data/words.json')).then(r => r.json()).then(d => { state.words = d; })
+    .catch(() => { state.words = null; });
   // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
   // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
   const base = [];
@@ -922,11 +944,22 @@ function buildAbout() {
   'isolates</b> with no known relatives, holding <b>8,618</b> languages and <b>13,706</b> ' +
   'dialects. <b>1,239 are extinct</b> and <b>2,573</b> are endangered. Click any language to ' +
   'come back to the ground it was spoken on.</p>' +
+  '<p>It is drawn as a <b>tree</b>, not a list: branch thickness is the number of <i>living</i> ' +
+  'descendants and distance from the left is depth of descent, so a family that is mostly ' +
+  'extinct visibly thins toward its tips before you read a single name. Hollow tips are ' +
+  'extinct languages.</p>' +
   '<p><b>Only 19 families have a date.</b> Root ages come from published Bayesian phylogenies ' +
   '(Phlorest, CC-BY) and are stated for the family as a whole — the internal splits are not ' +
   'dated and are not drawn as if they were. Eleven of thirty datasets were rejected: four are ' +
   'scaled in substitutions rather than years, and one gives a root age of <b>613,594 years</b> ' +
   'for a language family. Where there is no date the view says there is no date.</p>' +
+  '<h3>The words</h3>' +
+  '<p>Every card and every exhibit carries <b>ASJP\'s core word list</b> where one exists — ' +
+  '<i>water, fire, sun, blood, hand, name, two</i> — for <b>6,110 languages</b>, fourteen ' +
+  'times the reach of the passage below, and for many of them the only text that exists at ' +
+  'all. The forms are in <b>ASJPcode</b>, a deliberately coarse ASCII transcription built for ' +
+  'comparison across thousands of languages; it is not any language\'s own orthography and ' +
+  'is never presented as one. ASJP (Wichmann, Holman &amp; Brown, eds.), CC-BY-4.0.</p>' +
   '<h3>The text</h3>' +
   '<p>Cards carry <b>Article 1 of the Universal Declaration of Human Rights</b> in the ' +
   'language itself, in its own script, where a translation exists: <b>432 languages, 38 ' +

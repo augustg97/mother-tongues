@@ -1,18 +1,19 @@
-/* Mother Tongues — the genealogy view.
+/* Mother Tongues — the genealogy. A tree, on paper.
  *
- * The map answers "where". This answers "where from". WORKING-RULES §13b allows an abstract
- * space only as a SECONDARY view, so this is exactly that: same glottocodes, same family
- * hues as the map, and every leaf flies the map back to the ground it is spoken on.
+ * The map answers "where"; this answers "where from". WORKING-RULES §13b allows an abstract
+ * space only as a SECONDARY view, so this is that: same glottocodes, same families, and every
+ * leaf goes back to the ground it is spoken on.
  *
- * WHAT IS AND IS NOT DRAWN AS TIME. Phlorest gives a dated ROOT for 19 families — one number,
- * the age of the whole family. It does not give us dates for the internal splits. So this
- * draws a cladogram (topology, indented by depth) and states the root age as a fact beside
- * the family name. It does NOT spread the internal nodes along a time axis, because those
- * dates do not exist and drawing them would be invention (rule 10). Two of the nineteen ages
- * come from a tree whose unit had to be inferred, and those are marked.
+ * WHY IT IS DRAWN AS A TREE AND NOT A LIST. The first version was an indented index. An index
+ * tells you a language has a parent; it does not show you that Indo-Iranian carries a third of
+ * Indo-European while Tokharian carries two dead languages, or that a family is mostly extinct.
+ * Branch THICKNESS here is the number of living descendants and branch LENGTH is depth of
+ * descent, so the shape of a family is visible before a single label is read.
  *
- * Attestation years are a DIFFERENT kind of date — when a language was first written down,
- * not when it split — and they are never mixed into the same axis.
+ * WHAT IS AND IS NOT TIME. Phlorest gives a dated ROOT for 19 families — one number for the
+ * whole family, not dates for the internal splits. So depth is descent, not years, and the
+ * root age is stated in words beside the family rather than drawn as an axis that does not
+ * exist (rule 10).
  */
 'use strict';
 
@@ -20,46 +21,43 @@
   const $ = s => document.querySelector(s);
   const AESN = ['', 'not endangered', 'threatened', 'shifting', 'moribund',
                 'nearly extinct', 'extinct'];
+  const SERIF = '"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,' +
+                '"Times New Roman",serif';
+  const SANS = '-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif';
 
   const T = {
-    index: null, family: null, tree: null, open: new Set(), rows: [],
-    scroll: 0, hover: -1, famIdx: {}, showDialects: false, q: ''
+    index: null, family: null, tree: null, rows: [], famIdx: {},
+    scale: 1, ox: 0, oy: 0, hover: null, sel: null, showDialects: false, q: '',
+    laid: null, W: 0, H: 0
   };
   window.TREE = T;
 
-  // The same golden-ratio walk the shader uses, so a family is the same colour in both views.
-  function familyColour(idx) {
-    const i = Math.floor(idx);
+  // The map's golden-ratio hue, darkened for paper: the same family is recognisably the same
+  // colour in both views, but ink on paper needs weight where light on black needed glow.
+  function famColour(idx, light) {
+    const i = Math.floor(idx || 0);
     const h = (i * 0.6180339887) % 1;
     const s = 0.55 + 0.25 * ((i * 0.311) % 1);
     const v = 0.80 + 0.20 * ((i * 0.727) % 1);
     const f = n => {
       const k = (n + h * 6) % 6;
-      return Math.round(255 * (v - v * s * Math.max(0, Math.min(Math.min(k, 4 - k), 1))));
+      return v - v * s * Math.max(0, Math.min(Math.min(k, 4 - k), 1));
     };
-    return `rgb(${f(5)},${f(3)},${f(1)})`;
+    const m = light ? 0.92 : 0.52;
+    return `rgb(${Math.round(255 * f(5) * m)},${Math.round(255 * f(3) * m)},${Math.round(255 * f(1) * m)})`;
   }
+  const colOf = () => famColour(T.famIdx[T.family]);
 
-  // D10. A canvas cannot warn about a missing typeface, it just draws empty boxes — and a
-  // row of boxes is not "the language in its own script", it is a worse lie than the exonym
-  // would have been. Where the device has no font for the script, fall back to the reference
-  // name in the tree and leave the autonym to the card, which CAN say what is wrong.
   const _fontOK = new Map();
   function canRender(str) {
     if (!str) return false;
     const k = str.slice(0, 12);
     if (_fontOK.has(k)) return _fontOK.get(k);
     let ok = true;
-    try {
-      if (document.fonts && document.fonts.check) ok = document.fonts.check('13px system-ui', k);
-    } catch (e) { ok = true; }
+    try { if (document.fonts && document.fonts.check) ok = document.fonts.check('14px ' + SERIF, k); }
+    catch (e) { ok = true; }
     _fontOK.set(k, ok);
     return ok;
-  }
-
-  function famColourFor(gc) {
-    const idx = T.famIdx[gc];
-    return idx ? familyColour(idx) : '#8fa39c';
   }
 
   async function loadIndex() {
@@ -70,166 +68,277 @@
     return T.index;
   }
 
-  async function openFamily(gc) {
-    T.tree = await fetch(window.V('data/tree/' + gc + '.json')).then(r => r.json());
-    T.family = gc;
-    T.open = new Set([gc]);
-    // Open the first two levels so the shape of the family is visible immediately rather
-    // than as a single unhelpful root row.
-    (function seed(n, d) {
-      if (d >= 2) return;
-      if (n.c) { T.open.add(n.g); n.c.forEach(c => seed(c, d + 1)); }
-    })(T.tree, 0);
-    T.scroll = 0;
-    layout(); draw();
-  }
-
+  /* ---- layout: leaves get equal vertical space, depth gives horizontal position ---- */
   function layout() {
-    const rows = [];
     const q = T.q.toLowerCase();
-    (function walk(n, depth) {
-      if (!T.showDialects && n.lv === 2) return;
-      const match = !q || (n.n || '').toLowerCase().includes(q) ||
-        (n.au && n.au[0].toLowerCase().includes(q)) || (n.i || '').includes(q);
-      rows.push({ n, depth, match });
-      // While searching, descend the WHOLE family regardless of what is expanded — a search
-      // that only looks inside the branches you already opened finds nothing, which is what
-      // it did: "Hindi" returned zero rows in a family that contains it.
-      if (n.c && (q || T.open.has(n.g))) n.c.forEach(c => walk(c, depth + 1));
-    })(T.tree, 0);
-    if (q) {
-      // When searching, keep only matches and the ancestors that lead to them, so the
-      // result stays a tree rather than becoming a flat list with no context.
-      const keep = new Set();
-      rows.forEach((r, i) => {
-        if (!r.match) return;
-        keep.add(i);
-        let d = r.depth;
-        for (let j = i - 1; j >= 0 && d > 0; j--) {
-          if (rows[j].depth < d) { keep.add(j); d = rows[j].depth; }
-        }
-      });
-      T.rows = rows.filter((_, i) => keep.has(i));
-    } else {
-      T.rows = rows;
+    const nodes = [];
+    let leafN = 0, maxDepth = 0;
+
+    function keep(n) {
+      if (!T.showDialects && n.lv === 2) return false;
+      if (!q) return true;
+      if ((n.n || '').toLowerCase().includes(q)) return true;
+      if (n.au && n.au[0].toLowerCase().includes(q)) return true;
+      if ((n.i || '').includes(q)) return true;
+      return (n.c || []).some(keep);
     }
+
+    function walk(n, depth) {
+      if (!keep(n)) return null;
+      maxDepth = Math.max(maxDepth, depth);
+      const kids = (n.c || []).map(c => walk(c, depth + 1)).filter(Boolean);
+      const rec = { n, depth, kids, y: 0, leaves: 0, living: 0 };
+      if (!kids.length) {
+        rec.y = leafN++;
+        rec.leaves = 1;
+        rec.living = (n.a || 0) >= 6 ? 0 : 1;
+      } else {
+        rec.leaves = kids.reduce((a, k) => a + k.leaves, 0);
+        rec.living = kids.reduce((a, k) => a + k.living, 0);
+        rec.y = (kids[0].y + kids[kids.length - 1].y) / 2;
+      }
+      nodes.push(rec);
+      return rec;
+    }
+    const root = walk(T.tree, 0);
+    T.laid = { root, nodes, leafN: Math.max(1, leafN), maxDepth: Math.max(1, maxDepth) };
   }
 
-  const ROW = 22;
+  function fit() {
+    const cv = $('#treecv');
+    if (!T.laid || !cv) return;
+    T.scale = 1;
+    T.ox = 0;
+    T.oy = 0;
+  }
 
+  /* ---- draw ---- */
   function draw() {
     const cv = $('#treecv');
-    if (!cv || !T.tree) return;
+    if (!cv || !T.laid) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const w = cv.clientWidth, h = cv.clientHeight;
-    if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    if (!w || !h) return;
+    // ⚠ Check BOTH dimensions. Only testing width meant that when the canvas got SHORTER
+    // (the exhibit column appearing re-flows the grid) the backing store kept its old height
+    // and clearRect(0,0,w,h) only wiped the new, smaller area — so the previous family stayed
+    // painted in the strip below the fold. Two trees at once, in two different colours.
+    const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+    T.W = w; T.H = h;
     const g = cv.getContext('2d');
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.clearRect(0, 0, w, h);
 
-    const maxScroll = Math.max(0, T.rows.length * ROW - h + 40);
-    T.scroll = Math.max(0, Math.min(T.scroll, maxScroll));
-    const first = Math.max(0, Math.floor(T.scroll / ROW) - 1);
-    const last = Math.min(T.rows.length, first + Math.ceil(h / ROW) + 2);
+    const L = T.laid;
+    const padL = 26, padR = 300;
+    const colW = Math.max(48, (w - padL - padR) / (L.maxDepth + 1));
+    const rowH = Math.max(3.2, 15 * T.scale);
+    const totalH = L.leafN * rowH;
 
-    g.font = '12px -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif';
+    T.oy = Math.max(Math.min(T.oy, 0), Math.min(0, h - totalH - 60));
+    const X = d => padL + d * colW + T.ox;
+    const Y = i => 30 + i * rowH + T.oy;
+
+    const col = colOf();
+    // Type size follows the row, so a family that only just fits still reads instead of
+    // flipping to an unlabelled diagram at an arbitrary threshold.
+    const labelled = rowH >= 9.5;
+    const fs = Math.max(9.5, Math.min(14, rowH * 1.15));
+
+    // branches, thickest first so thin twigs draw over trunks cleanly
+    const sorted = L.nodes.slice().sort((a, b) => b.leaves - a.leaves);
+    for (const r of sorted) {
+      if (!r.kids.length) continue;
+      const x0 = X(r.depth), y0 = Y(r.y);
+      for (const k of r.kids) {
+        const x1 = X(k.depth), y1 = Y(k.y);
+        if (Math.max(y0, y1) < -40 || Math.min(y0, y1) > h + 40) continue;
+        // thickness carries the number of LIVING descendants: a family that is mostly
+        // extinct visibly thins towards its tips instead of looking as healthy as any other
+        const tw = 0.7 + 5.2 * Math.sqrt(k.living / L.leafN);
+        g.lineWidth = Math.max(0.6, tw);
+        g.strokeStyle = k.living === 0 ? 'rgba(120,112,102,.34)' : col;
+        g.globalAlpha = k.living === 0 ? 1 : 0.55;
+        g.beginPath();
+        g.moveTo(x0, y0);
+        const mx = x0 + (x1 - x0) * 0.55;
+        g.bezierCurveTo(mx, y0, x0 + (x1 - x0) * 0.45, y1, x1, y1);
+        g.stroke();
+      }
+    }
+    g.globalAlpha = 1;
+
+    // Labels are drawn in y order with a collision guard: where two tips sit closer than a
+    // line of type, the second label is dropped rather than overprinted. A crowded branch
+    // should look crowded, not look like a smudge.
     g.textBaseline = 'middle';
+    const byY = L.nodes.slice().sort((a, b) => a.y - b.y);
+    let lastLeafY = -1e9, lastNodeY = -1e9;
+    for (const r of byY) {
+      const x = X(r.depth), y = Y(r.y);
+      if (y < -20 || y > h + 20) continue;
+      const n = r.n, a = n.a || 0, leaf = !r.kids.length;
 
-    // connectors first, so text sits on top
-    g.strokeStyle = 'rgba(140,170,160,.26)';
-    g.lineWidth = 1;
-    for (let i = first; i < last; i++) {
-      const r = T.rows[i];
-      const y = Math.round(i * ROW - T.scroll + ROW / 2) + 0.5;
-      const x = 16 + r.depth * 17;
-      if (r.depth > 0) {
-        g.beginPath(); g.moveTo(x - 9, y); g.lineTo(x - 2, y); g.stroke();
-        // vertical stub up to the parent row
-        let p = i - 1;
-        while (p >= 0 && T.rows[p].depth >= r.depth) p--;
-        if (p >= 0) {
-          const py = Math.round(p * ROW - T.scroll + ROW / 2) + 0.5;
-          g.beginPath(); g.moveTo(x - 9, py); g.lineTo(x - 9, y); g.stroke();
+      if (leaf) {
+        g.beginPath();
+        g.arc(x, y, Math.min(4.2, 2.0 + rowH * 0.12), 0, 6.2832);
+        if (a >= 6) { g.strokeStyle = 'rgba(120,112,102,.75)'; g.lineWidth = 1.1; g.stroke(); }
+        else { g.fillStyle = a >= 3 ? '#b4622f' : col; g.fill(); }
+      } else if (rowH >= 8) {
+        g.beginPath(); g.arc(x, y, 2.2, 0, 6.2832);
+        g.fillStyle = 'rgba(90,84,76,.5)'; g.fill();
+      }
+
+      if (T.sel === n) {
+        g.beginPath(); g.arc(x, y, 8, 0, 6.2832);
+        g.strokeStyle = '#b4622f'; g.lineWidth = 1.4; g.stroke();
+      }
+
+      if (!labelled) continue;
+      const need = fs * 0.95;
+      if (leaf) { if (y - lastLeafY < need) continue; lastLeafY = y; }
+      else { if (y - lastNodeY < need) continue; lastNodeY = y; }
+      let tx = x + 8;
+      if (leaf) {
+        const au = n.au && canRender(n.au[0]) ? n.au[0] : null;
+        g.font = fs.toFixed(1) + 'px ' + SERIF;
+        g.fillStyle = a >= 6 ? 'rgba(96,90,82,.85)' : '#20242a';
+        const main = au || n.n;
+        g.fillText(main, tx, y);
+        tx += g.measureText(main).width + 8;
+        if (au) {
+          g.font = Math.max(9, fs * 0.82).toFixed(1) + 'px ' + SANS;
+          g.fillStyle = 'rgba(96,90,82,.72)';
+          g.fillText(n.n, tx, y);
+          tx += g.measureText(n.n).width + 8;
         }
-      }
-    }
-
-    for (let i = first; i < last; i++) {
-      const r = T.rows[i], n = r.n;
-      const y = i * ROW - T.scroll + ROW / 2;
-      const x = 16 + r.depth * 17;
-      if (i === T.hover) {
-        g.fillStyle = 'rgba(111,208,189,.10)';
-        g.fillRect(0, y - ROW / 2, w, ROW);
-      }
-      const isLeaf = !n.c || n.lv === 1;
-      const col = famColourFor(T.family);
-
-      if (n.c) {
-        g.fillStyle = 'rgba(190,205,200,.75)';
-        g.fillText(T.open.has(n.g) ? '▾' : '▸', x - 1, y);
-      }
-      const dot = x + (n.c ? 13 : 4);
-      if (n.lv >= 1) {
-        const a = n.a || 0;
-        g.beginPath(); g.arc(dot, y, 3.4, 0, 6.2832);
-        if (a >= 6) { g.strokeStyle = 'rgba(180,190,186,.85)'; g.lineWidth = 1.2; g.stroke(); }
-        else { g.fillStyle = a >= 3 ? '#d9825f' : col; g.fill(); }
-      }
-
-      let tx = dot + 10, bits0 = false;
-      if (n.au && canRender(n.au[0])) {   // rule 11: the autonym leads here too
-        g.fillStyle = '#eef3f1';
-        g.font = '12.5px -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif';
-        g.fillText(n.au[0], tx, y);
-        tx += g.measureText(n.au[0]).width + 7;
-        g.font = '11.5px -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif';
-        g.fillStyle = 'rgba(200,214,208,.55)';
-        g.fillText(n.n, tx, y);
-        tx += g.measureText(n.n).width + 8;
+        const bits = [];
+        if (a >= 6) bits.push('extinct');
+        else if (a >= 3) bits.push(AESN[a]);
+        if (n.y) bits.push('attested ' + (n.y < 0 ? (-n.y) + ' BCE' : n.y));
+        const tX = window.APP.texts && window.APP.texts.by_glottocode[n.g];
+        if (tX && tX.s) bits.push(tX.s);
+        if (bits.length && fs >= 11) {
+          g.font = Math.max(9, fs * 0.76).toFixed(1) + 'px ' + SANS;
+          g.fillStyle = 'rgba(120,112,102,.8)';
+          g.fillText(bits.join(' · '), tx, y);
+        }
       } else {
-        if (n.au) bits0 = true;
-        g.font = (n.lv === 0 ? '600 12.5px' : '12px') +
-          ' -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif';
-        g.fillStyle = n.lv === 0 ? '#dfe8e4' : (n.a >= 6 ? 'rgba(196,206,202,.62)' : '#cfdad6');
-        g.fillText(n.n, tx, y);
-        tx += g.measureText(n.n).width + 8;
-      }
-
-      g.font = '10.5px -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif';
-      const bits = [];
-      if (n.c) {
-        let k = 0;
-        (function cnt(m) { if (m.lv === 1) k++; (m.c || []).forEach(cnt); })(n);
-        if (k) bits.push(k + (k === 1 ? ' language' : ' languages'));
-      }
-      if (bits0) bits.push('autonym needs a font this device lacks');
-      if (n.a >= 6) bits.push('extinct');
-      else if (n.a >= 3) bits.push(AESN[n.a]);
-      if (n.y) bits.push('attested ' + (n.y < 0 ? (-n.y) + ' BCE' : n.y));
-      if (window.APP.texts && window.APP.texts.by_glottocode[n.g]) {
-        const s = window.APP.texts.by_glottocode[n.g].s;
-        if (s) bits.push(s + ' script');
-      }
-      if (bits.length) {
-        g.fillStyle = 'rgba(150,168,161,.72)';
-        g.fillText(bits.join(' · '), tx, y);
+        const ny = y - Math.min(9, fs * 0.72);
+        g.font = '600 ' + Math.max(9, fs * 0.82).toFixed(1) + 'px ' + SANS;
+        g.fillStyle = 'rgba(58,54,50,.9)';
+        g.fillText(n.n, tx - 4, ny);
+        g.font = Math.max(8.5, fs * 0.72).toFixed(1) + 'px ' + SANS;
+        g.fillStyle = 'rgba(130,122,112,.8)';
+        g.fillText('  ' + r.leaves, tx - 4 + g.measureText(n.n).width + 4, ny);
       }
     }
 
-    // scrollbar
-    if (maxScroll > 0) {
-      const fh = Math.max(24, h * h / (T.rows.length * ROW));
-      const fy = (h - fh) * (T.scroll / maxScroll);
-      g.fillStyle = 'rgba(140,170,160,.22)';
-      g.fillRect(w - 5, fy, 3, fh);
+    if (!labelled) {
+      g.font = '11px ' + SANS;
+      g.fillStyle = 'rgba(120,112,102,.9)';
+      g.fillText(L.leafN.toLocaleString() + ' branches — scroll to zoom in for names',
+                 padL, h - 12);
     }
   }
 
-  function rowAt(ev) {
-    const cv = $('#treecv'), r = cv.getBoundingClientRect();
-    const i = Math.floor((ev.clientY - r.top + T.scroll) / ROW);
-    return (i >= 0 && i < T.rows.length) ? i : -1;
+  /* ---- the exhibit: one language, given room ---- */
+  function exhibit(n) {
+    T.sel = n;
+    const A = window.APP;
+    const tx = A.texts && A.texts.by_glottocode[n.g];
+    const wd = A.words && A.words.by_glottocode[n.g];
+    const path = [];
+    (function find(r, acc) {
+      if (r.n === n) { path.push(...acc.map(x => x.n)); return true; }
+      for (const k of r.kids) if (find(k, acc.concat([r.n]))) return true;
+      return false;
+    })(T.laid.root, []);
+
+    const au = n.au ? n.au[0] : null;
+    let h = '';
+    h += '<div class="exkicker">' + (path.slice(0, 6).map(p => esc(p)).join(' › ') || '') + '</div>';
+    h += '<h2 class="exname"' + (au ? ' lang="' + esc(n.au[1] || '') + '"' : '') + '>' +
+         esc(au || n.n) + '</h2>';
+    if (au) h += '<div class="exalt">' + esc(n.n) + ' <span>· reference name</span></div>';
+    else h += '<div class="exalt"><span>Glottolog reference name — no autonym is recorded ' +
+              'for this language in any source we can ship</span></div>';
+
+    const facts = [];
+    if (n.a) facts.push(['vitality', AESN[n.a]]);
+    if (n.y) facts.push(['first attested', n.y < 0 ? (-n.y) + ' BCE' : String(n.y)]);
+    if (n.i) facts.push(['ISO 639-3', n.i]);
+    facts.push(['glottocode', n.g]);
+    if (tx && tx.s) facts.push(['script', tx.s + (tx.d === 'rtl' ? ', right to left' : '')]);
+    h += '<dl class="exfacts">' + facts.map(f =>
+      '<dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd>').join('') + '</dl>';
+
+    if (wd) {
+      const order = ['water', 'fire', 'sun', 'moon', 'star', 'stone', 'mountain', 'tree',
+                     'leaf', 'blood', 'bone', 'hand', 'eye', 'ear', 'nose', 'tooth',
+                     'tongue', 'skin', 'name', 'person', 'fish', 'bird', 'dog', 'night',
+                     'die', 'come', 'see', 'hear', 'drink', 'new', 'full', 'one', 'two'];
+      const have = order.filter(k => wd[k]);
+      h += '<h3>Words</h3><div class="words">' + have.map(k =>
+        '<div><b>' + esc(wd[k]) + '</b><span>' + esc(k) + '</span></div>').join('') + '</div>';
+      h += '<p class="exfine">' + have.length + ' of ASJP\'s core 40, in <b>ASJPcode</b> — a ' +
+        'deliberately coarse ASCII transcription built for comparison across thousands of ' +
+        'languages. It is not this language\'s own orthography and should not be read as one. ' +
+        'ASJP (Wichmann, Holman &amp; Brown, eds.), CC-BY-4.0.</p>';
+    }
+
+    if (tx) {
+      const missing = (function () {
+        try { return document.fonts && document.fonts.check ? !document.fonts.check('18px ' + SERIF, tx.t.slice(0, 40)) : false; }
+        catch (e) { return false; }
+      })();
+      h += '<h3>Article 1</h3>';
+      h += '<blockquote class="exquote" lang="' + esc(tx.l) + '" dir="' + esc(tx.d) + '">' +
+           esc(tx.t) + '</blockquote>';
+      if (missing) h += '<p class="exwarn">Your device has no font for the ' + esc(tx.s) +
+        ' script, so some characters above will show as empty boxes. The text is right; the ' +
+        'typeface is missing.</p>';
+      h += '<p class="exfine">Universal Declaration of Human Rights, Article 1 · ' +
+        esc(tx.f) + '. <b>This corpus carries no licence statement.</b> It ships under a ' +
+        'recorded decision, one paragraph per language, and can be removed in one commit. ' +
+        'Takedown: ' + esc(A.texts.takedown) + '.</p>';
+    }
+    if (!tx && !wd) {
+      h += '<p class="exfine">No text and no word list exist for this language in any corpus ' +
+        'we can ship. That silence is the honest state of the record, not an omission here.</p>';
+    }
+    if (n.p) h += '<button class="exmap" data-lon="' + n.p[0] + '" data-lat="' + n.p[1] +
+      '">Show on the ground →</button>';
+
+    $('#exhibit').innerHTML = h;
+    $('#exhibit').classList.remove('empty');
+    const b = $('#exhibit .exmap');
+    if (b) b.addEventListener('click', () => {
+      window.APP.showCardFor(n.g, n.p);
+    });
+    draw();
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  }
+
+  function hit(ev) {
+    const cv = $('#treecv'), b = cv.getBoundingClientRect();
+    const mx = ev.clientX - b.left, my = ev.clientY - b.top;
+    const L = T.laid;
+    if (!L) return null;
+    const padL = 26, padR = 300;
+    const colW = Math.max(48, (T.W - padL - padR) / (L.maxDepth + 1));
+    const rowH = Math.max(3.2, 15 * T.scale);
+    let best = null, bd = 1e9;
+    for (const r of L.nodes) {
+      const x = padL + r.depth * colW + T.ox, y = 30 + r.y * rowH + T.oy;
+      const d = Math.abs(y - my) + Math.abs(x - mx) * 0.25;
+      if (d < bd && Math.abs(y - my) < Math.max(7, rowH * 0.6) && mx > x - 14) { bd = d; best = r; }
+    }
+    return best;
   }
 
   function renderFamilyList() {
@@ -237,12 +346,9 @@
     const fams = T.index.families.filter(f => !q || f.n.toLowerCase().includes(q));
     const btn = f =>
       '<button data-g="' + f.g + '"' + (f.g === T.family ? ' class="on"' : '') + '>' +
-      '<span class="sw" style="background:' + (f.pseudo ? '#4a5450' : famColourFor(f.g)) + '"></span>' +
-      '<span class="fn">' + f.n + '</span>' +
+      '<span class="sw" style="background:' + (f.pseudo ? '#9a938a' : famColour(T.famIdx[f.g])) + '"></span>' +
+      '<span class="fn">' + esc(f.n) + '</span>' +
       '<span class="fc">' + (f.isolate ? 'isolate' : f.lang) + '</span></button>';
-    // Real families first, then isolates, then Glottolog's pseudo-families under a heading
-    // that says they are not genealogical units — otherwise "Sign Language" and "Pidgin"
-    // read as branches of the human family tree, which they are not.
     const real = fams.filter(f => !f.pseudo && !f.isolate);
     const iso = fams.filter(f => f.isolate);
     const ps = fams.filter(f => f.pseudo);
@@ -260,20 +366,38 @@
     bits.push(f.isolate ? '<b>an isolate</b> — no known relatives'
       : '<b>' + f.lang + '</b> language' + (f.lang === 1 ? '' : 's'));
     if (f.dial) bits.push(f.dial + ' dialects');
-    if (f.extinct) bits.push('<b style="color:#c9d2ce">' + f.extinct + ' extinct</b>');
-    if (f.endangered) bits.push('<b style="color:#d9825f">' + f.endangered + ' endangered</b>');
+    if (f.extinct) bits.push('<b class="dead">' + f.extinct + ' extinct</b>');
+    if (f.endangered) bits.push('<b class="warn2">' + f.endangered + ' endangered</b>');
     let age = '';
     if (f.age) {
       age = '<div class="agebar">Root age <b>≈ ' + f.age.toLocaleString() + ' years</b>' +
         (f.ageExplicit ? '' : ' <i>(branch-length unit inferred — treat with caution)</i>') +
-        ' · dated phylogeny, Phlorest. <span style="opacity:.7">The internal splits below are ' +
-        '<b>not</b> dated: this is a classification, not a timeline.</span></div>';
+        ' · dated phylogeny, Phlorest. <span>Only the root is dated. Distance from left is ' +
+        'depth of descent, not time.</span></div>';
     } else if (!f.isolate) {
-      age = '<div class="agebar" style="opacity:.72">No dated phylogeny exists for this ' +
-        'family, so it has topology but no age. 19 of 429 families are dated.</div>';
+      age = '<div class="agebar quiet">No dated phylogeny exists for this family: it has ' +
+        'topology but no age. 19 of 429 families are dated. Distance from left is depth of ' +
+        'descent, not time.</div>';
     }
-    $('#treehead').innerHTML = '<h2>' + f.n + '</h2><div class="sub">' +
-      bits.join(' · ') + (f.ma ? ' · mostly ' + f.ma : '') + '</div>' + age;
+    $('#treehead').innerHTML = '<h2>' + esc(f.n) + '</h2><div class="sub">' +
+      bits.join(' · ') + (f.ma ? ' · mostly ' + esc(f.ma) : '') + '</div>' + age;
+  }
+
+  async function openFamily(gc) {
+    T.tree = await fetch(window.V('data/tree/' + gc + '.json')).then(r => r.json());
+    T.family = gc;
+    T.sel = null;
+    T.q = '';
+    const q = $('#treeq'); if (q) q.value = '';
+    $('#exhibit').innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
+    $('#exhibit').classList.add('empty');
+    layout();
+    // Fit the whole family in view, then let the visitor zoom in for names.
+    const cv = $('#treecv');
+    const h = cv.clientHeight || 600;
+    T.scale = Math.max(0.16, Math.min(1.6, (h - 70) / (15 * T.laid.leafN)));
+    T.ox = 0; T.oy = 0;
+    draw();
   }
 
   async function show() {
@@ -290,23 +414,45 @@
       await openFamily(b.dataset.g); renderFamilyList(); renderHead();
     });
     $('#famq').addEventListener('input', renderFamilyList);
-    $('#treeq').addEventListener('input', e => { T.q = e.target.value; layout(); T.scroll = 0; draw(); });
+    $('#treeq').addEventListener('input', e => {
+      T.q = e.target.value; layout();
+      const h = $('#treecv').clientHeight || 600;
+      T.scale = Math.max(0.16, Math.min(1.6, (h - 70) / (15 * T.laid.leafN)));
+      T.oy = 0; draw();
+    });
     $('#dial').addEventListener('change', e => { T.showDialects = e.target.checked; layout(); draw(); });
+
     const cv = $('#treecv');
-    cv.addEventListener('wheel', e => { e.preventDefault(); T.scroll += e.deltaY; draw(); }, { passive: false });
-    cv.addEventListener('mousemove', e => { const i = rowAt(e); if (i !== T.hover) { T.hover = i; draw(); } });
-    cv.addEventListener('mouseleave', () => { T.hover = -1; draw(); });
-    cv.addEventListener('click', e => {
-      const i = rowAt(e); if (i < 0) return;
-      const n = T.rows[i].n;
-      if (n.c) {
-        T.open.has(n.g) ? T.open.delete(n.g) : T.open.add(n.g);
-        layout(); draw();
+    cv.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (e.ctrlKey || e.metaKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        T.ox -= e.deltaX; draw(); return;
+      }
+      const b = cv.getBoundingClientRect(), my = e.clientY - b.top;
+      const before = (my - 30 - T.oy) / Math.max(3.2, 15 * T.scale);
+      T.scale = Math.max(0.12, Math.min(6, T.scale * Math.exp(-e.deltaY * 0.0022)));
+      T.oy = my - 30 - before * Math.max(3.2, 15 * T.scale);
+      draw();
+    }, { passive: false });
+
+    let drag = null;
+    cv.addEventListener('mousedown', e => { drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
+    window.addEventListener('mouseup', e => {
+      if (drag && !drag[4]) { const r = hit(e); if (r && !r.kids.length) exhibit(r.n); }
+      drag = null;
+    });
+    window.addEventListener('mousemove', e => {
+      if (drag) {
+        const dx = e.clientX - drag[0], dy = e.clientY - drag[1];
+        if (Math.abs(dx) + Math.abs(dy) > 4) drag[4] = true;
+        T.ox = drag[2] + dx; T.oy = drag[3] + dy; draw();
         return;
       }
-      if (n.lv >= 1) window.APP.showCardFor(n.g, n.p);
+      const r = hit(e);
+      const nn = r ? r.n : null;
+      if (nn !== T.hover) { T.hover = nn; cv.style.cursor = r && !r.kids.length ? 'pointer' : 'grab'; }
     });
-    window.addEventListener('resize', () => { if (T.tree) draw(); });
+    window.addEventListener('resize', () => { if (T.laid) draw(); });
   }
 
   T.show = show;

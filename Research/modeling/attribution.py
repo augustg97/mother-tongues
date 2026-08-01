@@ -202,6 +202,24 @@ LEDGER: List[Source] = [
               "An email to the maintainer is register item F1."),
     ),
     Source(
+        key="asjp",
+        title="ASJP — Automated Similarity Judgment Program",
+        creators="Wichmann, Søren; Holman, Eric W.; Brown, Cecil H. (eds.)",
+        year="2022",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://github.com/lexibank/asjp",
+        attribution=("ASJP — Wichmann, Holman & Brown (eds.), Automated Similarity Judgment "
+                     "Program, via the Lexibank CLDF edition. CC-BY-4.0."),
+        layer="the word tier — ASJP's core 40 concepts for 6,110 languages",
+        ingested=True, verified=True,
+        note=("380,912 forms. Joined on Glottocode, which is ASJP's own key. Forms are in "
+              "**ASJPcode**, a deliberately coarse ASCII transcription for cross-language "
+              "comparison — NOT the language's own orthography, and the card says so. ASJP "
+              "marks its core 40 with a leading asterisk in the concept name; matching "
+              "without stripping it found 4 concepts of 100 and produced an empty file."),
+    ),
+    Source(
         key="phlorest",
         title="Phlorest — dated language phylogenies",
         creators="Forkel, Robert; Greenhill, Simon J.; and the original study authors",
@@ -285,7 +303,7 @@ def _selftest() -> None:
     # 5. the five fields the shipped build actually reads. If a sixth source reaches web/,
     #    this fails and forces a row — which is the whole point of the ledger.
     assert sorted(s.key for s in ingested()) == \
-        ["ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
+        ["asjp", "ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
          "modis_ndvi", "modis_snow", "phlorest", "udhr", "wikidata"], \
         "the ingested set changed without a ledger row"
 
