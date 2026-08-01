@@ -17,7 +17,7 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–10 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785568315)
+**Rounds 1–11 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785573779)
 
 Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
 families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
@@ -30,7 +30,8 @@ runs in the build gate; the ingest goes through `frames.Registry`. **D5 is CLOSE
 gate works, language identification does not; see the register. **C4 RESOLVED and C8 CLOSED (negative result) in round 9. THE ORIGINAL REGISTER IS NOW EMPTY.**
 **C10 CLOSED** (block bootstrap: every SE was ~3x too narrow, all four predictors still exclude
 zero). **D3 SHIPPING** (Lingua Libre, 15 recordings, language from the catalogue key).
-**Only D9 remains: autonym coverage is 11.2% and the CLDR fetch returned nothing usable.** D3's per-file licence gate now exists in `build/fetch_gallery.py` and is the
+**D9 CLOSED. THE REGISTER IS EMPTY — original items and everything the work raised since.**
+Autonyms: 918 languages (12.0%) but **93.4% of speakers**. Anything from here is new scope. D3's per-file licence gate now exists in `build/fetch_gallery.py` and is the
 pattern to copy for audio.
 
 **1. D3 — audio.** Planned for round 1, still not built after four rounds. It is
@@ -69,7 +70,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785568315**, verified live (tree, texts and tiles confirmed)
+- Last live deploy: **stamp 1785573779**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
