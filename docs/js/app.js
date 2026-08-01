@@ -663,8 +663,7 @@ function wordsHtml(gc) {
   return '<div class="tier" style="margin-top:12px">' +
     '<div class="eyebrow">words</div><div class="wordsrow">' +
     have.map(k => '<span><b>' + esc(W[k]) + '</b> ' + esc(k) + '</span>').join('') +
-    '</div><div class="fine">ASJPcode, a coarse comparative transcription — not this ' +
-    'language\'s own orthography. ASJP, CC-BY-4.0.</div></div>';
+    '</div><div class="fine">IPA — how the words sound, not how they are spelled. ASJP.</div></div>';
 }
 
 /** The UDHR in this language, in its own script and orthography. */
@@ -845,6 +844,10 @@ async function boot() {
     .catch(() => { state.notable = null; });
   fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
     .catch(() => { state.gallery = null; });
+  fetch(V('data/typology.json')).then(r => r.json()).then(d => { state.typology = d; })
+    .catch(() => { state.typology = null; });
+  fetch(V('data/audio.json')).then(r => r.json()).then(d => { state.audio = d; })
+    .catch(() => { state.audio = null; });
   // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
   // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
   const base = [];

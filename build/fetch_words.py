@@ -98,7 +98,12 @@ if __name__ == "__main__":
         gc = gc_of.get(r.get("Language_ID", ""))
         if not gc:
             continue
-        form = (r.get("Form") or "").strip()
+        # ⚠ `Form` is ASJPcode — a deliberately coarse ASCII scheme in which "star" comes out
+        # as `3sat` and "tooth" as `t"3rs`. Displayed as a word it reads as a typo, because it
+        # is not a spelling of anything. `Segments` is the same form already mapped to IPA by
+        # the Lexibank edition, which is a real transcription a reader can pronounce.
+        ipa = "".join((r.get("Segments") or "").split())
+        form = ipa or (r.get("Form") or "").strip()
         if not form or form in ("?", "-"):
             continue
         gloss = want[pid]
@@ -113,8 +118,8 @@ if __name__ == "__main__":
     json.dump({"source": "ASJP — Wichmann, Holman & Brown (eds.), Automated Similarity "
                          "Judgment Program",
                "licence": "CC-BY-4.0",
-               "transcription": "ASJPcode, a deliberately coarse ASCII scheme — not the "
-                                "language's own orthography",
+               "transcription": "IPA, from ASJP's segmented forms — a phonetic "
+                                "transcription, not the language's own spelling",
                "concepts": sorted(WANT_CONCEPTS),
                "by_glottocode": out},
               open(os.path.join(OUT, "words.json"), "w"), ensure_ascii=False,

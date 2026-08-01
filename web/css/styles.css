@@ -260,3 +260,6 @@ body:not(.tree) #subtitle{max-width:38ch}
 .exstory{font-family:var(--serif);font-size:15px;line-height:1.66;color:var(--ink);
   margin:14px 0 0}
 .exstory+.exmapwrap{margin-top:16px}
+
+.words.ipa b{font-family:"Doulos SIL","Charis SIL","Gentium Plus",var(--serif);letter-spacing:.01em}
+#exhibit audio{width:100%;margin-top:4px;height:34px}

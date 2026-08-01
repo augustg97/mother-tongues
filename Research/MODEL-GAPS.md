@@ -215,3 +215,22 @@ The ones that would move the model furthest, in order:
    Until the frame reads as a rendered world, no other item matters.
 4. **C6** — re-estimate with a count model; the density correlation is a first look.
 5. **E1** — the census witness, built early because it settles every later dispute.
+
+---
+
+### D3 — audio: ATTEMPTED AND WITHHELD (round 8)
+
+A per-file licence gate was built and works — it is the same one admitting the gallery. The
+gate was never the problem. **Identifying the language was.** Searching Commons by language
+name returned, among 13 "admitted" files, a Spanish Wikipedia article recording offered as
+**Basque**, and `Japanese toilet.ogg` offered as **Hindi-Urdu**. Every one had passed the
+licence check and every one was correctly attributed; they were simply not recordings of the
+language they were filed under.
+
+Shipping those would have been worse than shipping nothing: a visitor pressing play on Basque
+and hearing Spanish is not an incomplete museum, it is a lying one. **No audio ships.**
+
+The fix is not a better search string. It is a source where the language is a structured
+field rather than something inferred from a filename — Lingua Libre records carry the
+language as a property, and that is where D3 should be rebuilt from. `build/fetch_gallery.py`
+is the licence gate to reuse; only the identification step needs replacing.

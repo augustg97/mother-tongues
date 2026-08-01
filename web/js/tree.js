@@ -60,6 +60,20 @@
     return ok;
   }
 
+  // Artefact vignettes, drawn on the tree itself. A branch that ends in a burnt codex or a
+  // clay tablet should look like it does, not merely link to it.
+  const _thumbs = new Map();
+  function thumb(gc) {
+    const g = window.APP.gallery && window.APP.gallery[gc];
+    if (!g) return null;
+    if (_thumbs.has(gc)) return _thumbs.get(gc);
+    const im = new Image();
+    im.onload = () => draw();
+    im.src = window.V('img/gallery/' + g.file);
+    _thumbs.set(gc, im);
+    return im;
+  }
+
   async function loadIndex() {
     if (T.index) return T.index;
     T.index = await fetch(window.V('data/tree/index.json')).then(r => r.json());
@@ -195,11 +209,26 @@
         g.strokeStyle = '#b4622f'; g.lineWidth = 1.4; g.stroke();
       }
 
+      // the vignette sits at the tip, before the name
+      if (labelled && leaf && rowH >= 15) {
+        const im = thumb(n.g);
+        if (im && im.complete && im.naturalWidth) {
+          const hgt = Math.min(46, rowH * 2.6), wid = Math.round(hgt * im.naturalWidth / im.naturalHeight);
+          g.save();
+          g.beginPath(); g.rect(x + 7, y - hgt / 2, Math.min(wid, 64), hgt); g.clip();
+          g.drawImage(im, x + 7, y - hgt / 2, wid, hgt);
+          g.restore();
+          g.strokeStyle = 'rgba(60,52,42,.35)'; g.lineWidth = 1;
+          g.strokeRect(x + 7.5, y - hgt / 2 + 0.5, Math.min(wid, 64) - 1, hgt - 1);
+          r._vig = Math.min(wid, 64) + 11;
+        } else r._vig = 0;
+      } else r._vig = 0;
+
       if (!labelled) continue;
       const need = fs * 0.95;
       if (leaf) { if (y - lastLeafY < need) continue; lastLeafY = y; }
       else { if (y - lastNodeY < need) continue; lastNodeY = y; }
-      let tx = x + 8;
+      let tx = x + 8 + (r._vig || 0);
       if (leaf) {
         const au = n.au && canRender(n.au[0]) ? n.au[0] : null;
         g.font = fs.toFixed(1) + 'px ' + SERIF;
@@ -320,17 +349,29 @@
     h += '<dl class="exfacts">' + facts.map(f =>
       '<dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd>').join('') + '</dl>';
 
+    const ty = A.typology && A.typology.by_glottocode && A.typology.by_glottocode[n.g];
+    if (ty) h += '<h3>How it works</h3><p class="exstory" style="font-size:14px">' +
+      esc(ty) + '</p><p class="exfine">WALS Online (Dryer &amp; Haspelmath, eds.).</p>';
+
+    const orth = A.words && A.words.orth && A.words.orth[n.g];
+    if (orth) {
+      const ks = Object.keys(orth);
+      h += '<h3>Words, as written</h3><div class="words">' + ks.map(k =>
+        '<div><b lang="' + esc(n.au ? (n.au[1] || '') : '') + '">' + esc(orth[k]) +
+        '</b><span>' + esc(k) + '</span></div>').join('') + '</div>' +
+        '<p class="exfine">The language\'s own spelling. Wikidata Lexemes.</p>';
+    }
     if (wd) {
       const order = ['water', 'fire', 'sun', 'moon', 'star', 'stone', 'mountain', 'tree',
                      'leaf', 'blood', 'bone', 'hand', 'eye', 'ear', 'nose', 'tooth',
                      'tongue', 'skin', 'name', 'person', 'fish', 'bird', 'dog', 'night',
                      'die', 'come', 'see', 'hear', 'drink', 'new', 'full', 'one', 'two'];
       const have = order.filter(k => wd[k]);
-      h += '<h3>Words</h3><div class="words">' + have.map(k =>
+      h += '<h3>Words, as spoken</h3><div class="words ipa">' + have.map(k =>
         '<div><b>' + esc(wd[k]) + '</b><span>' + esc(k) + '</span></div>').join('') + '</div>';
-      h += '<p class="exfine">' + have.length + ' of ASJP\'s core 40, in <b>ASJPcode</b> — a ' +
-        'coarse ASCII transcription built for comparison across thousands of languages, not ' +
-        'this language\'s own orthography. ASJP (Wichmann, Holman &amp; Brown, eds.).</p>';
+      h += '<p class="exfine">' + have.length + ' of ASJP\'s core 40, in the ' +
+        '<b>International Phonetic Alphabet</b> — how the word sounds, not how it is spelled. ' +
+        'ASJP (Wichmann, Holman &amp; Brown, eds.).</p>';
     }
 
     if (tx && tx.b && tx.b.length) {
