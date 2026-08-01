@@ -126,8 +126,15 @@
     T.oy = 0;
   }
 
-  /* ---- draw ---- */
-  function draw() {
+  /* ---- draw ----
+   * `draw()` is a DISPATCHER, not the dendrogram. Everything that repaints — a gallery
+   * thumbnail finishing its load, a hover, an exhibit opening — calls draw(), and when those
+   * called the dendrogram directly the STORY view was painted over a fraction of a second
+   * after it appeared. One entry point, one decision about which view is showing.
+   */
+  function draw() { return T.story ? drawStory() : drawTree(); }
+
+  function drawTree() {
     const cv = $('#treecv');
     if (!cv || !T.laid) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -408,6 +415,13 @@
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
     if (story) h += '<p class="exstory">' + esc(story) + '</p>';
 
+    const au = A.audio && A.audio[n.g];
+    if (au) h += '<h3>Heard</h3><audio controls preload="none" src="' + esc(au.url) +
+      '"></audio><p class="exfine">' + esc(au.title) + ' · ' + esc(au.licence) +
+      (au.artist ? ' · ' + esc(au.artist) : '') + ' · Lingua Libre, streamed from Wikimedia ' +
+      'Commons. The language is taken from the recording\'s own catalogue key, not guessed ' +
+      'from its filename.</p>';
+
     if (n.p) {
       h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +
         '<canvas class="exworldcv"></canvas>' +
@@ -593,7 +607,7 @@
     const h = cv.clientHeight || 600;
     T.scale = Math.max(0.16, Math.min(1.6, (h - 70) / (15 * T.laid.leafN)));
     T.ox = 0; T.oy = 0;
-    T.story ? drawStory() : draw();
+    draw();
   }
 
   async function show() {
@@ -720,7 +734,7 @@
     $('#vStory').addEventListener('click', () => {
       T.story = !T.story;
       $('#vStory').classList.toggle('on', T.story);
-      T.story ? drawStory() : draw();
+      draw();
     });
     $('#famlist').addEventListener('click', async e => {
       const b = e.target.closest('button'); if (!b) return;
@@ -762,6 +776,7 @@
         T.ox = drag[2] + dx; T.oy = drag[3] + dy; draw();
         return;
       }
+      if (T.story) return;                    // no tip-hover in the broad-brush view
       const b2 = cv.getBoundingClientRect();
       const inside = e.clientX >= b2.left && e.clientX <= b2.right &&
                      e.clientY >= b2.top && e.clientY <= b2.bottom;
@@ -778,7 +793,7 @@
   }
 
   T.show = show;
-  T.draw = () => (T.story ? drawStory() : draw());
+  T.draw = draw;
   if (document.readyState !== 'loading') wire();
   else document.addEventListener('DOMContentLoaded', wire);
 })();

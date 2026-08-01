@@ -940,6 +940,13 @@ function buildAbout() {
   'something, and every term survives: growing season <b>+1.67 ± 0.05</b>, latitude ' +
   '<b>−1.48 ± 0.04</b>, ruggedness <b>+0.48 ± 0.02</b>, and all three plus greenness explain ' +
   '<b>49%</b> of deviance.</p>' +
+  '<p><b>And those intervals were still too narrow.</b> Neighbouring cells are not independent ' +
+  'observations — Moran\'s I on the model\'s own residuals is <b>+0.386</b> — so a spatial ' +
+  'block bootstrap was run, resampling 10° blocks so that neighbours stay together. It widens ' +
+  'every standard error by about <b>three times</b>, and worst of all for latitude (3.8×), ' +
+  'which is smooth across the whole planet and gained most from the pretence. All four ' +
+  'predictors still exclude zero. Climate over terrain is the robust finding; the exact rank ' +
+  'of latitude against growing season is not, and is not claimed here.</p>' +
   '<p>Terrain is small but it is <i>real</i>, and it survives changing the definition: ' +
   'relief per kilometre gives +0.192 where standard deviation of elevation gives +0.155, ' +
   'same sign, same order. In <b>Papunesia (+0.024)</b> and <b>Africa (+0.006)</b> it is ' +

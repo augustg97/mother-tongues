@@ -234,7 +234,7 @@ LEDGER: List[Source] = [
         source_url="https://commons.wikimedia.org/",
         attribution=("Wikimedia Commons — each image carries its own licence, title and "
                      "author, shown on the exhibit beside it."),
-        layer="the gallery — 26 objects, one per notable language",
+        layer="the gallery (26 objects) and the spoken recordings (15, Lingua Libre)",
         ingested=True, verified=True,
         note=("Admitted by MACHINE, per file, on the licence Commons reports for that file: "
               "public domain, CC0, CC-BY and CC-BY-SA pass; NonCommercial, NoDerivatives and "

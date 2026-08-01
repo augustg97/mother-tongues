@@ -159,7 +159,7 @@
    "licence_url": "https://commons.wikimedia.org/wiki/Commons:Licensing",
    "source_url": "https://commons.wikimedia.org/",
    "attribution": "Wikimedia Commons — each image carries its own licence, title and author, shown on the exhibit beside it.",
-   "layer": "the gallery — 26 objects, one per notable language",
+   "layer": "the gallery (26 objects) and the spoken recordings (15, Lingua Libre)",
    "ingested": true,
    "verified": true,
    "note": "Admitted by MACHINE, per file, on the licence Commons reports for that file: public domain, CC0, CC-BY and CC-BY-SA pass; NonCommercial, NoDerivatives and fair-use fail. A public-domain manuscript can carry a restrictively licensed photograph, so the object's age is never the test. This is the same per-file gate register D3 specifies for audio, built for images first.",

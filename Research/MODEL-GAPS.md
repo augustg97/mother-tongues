@@ -19,6 +19,31 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 ## APPLIED
 
+### Round 10 — C10 closed. The intervals were three times too narrow, and the claim survives.
+
+Moran's I on richness **+0.360**; on the negative-binomial residuals **+0.386** — the model
+absorbs *none* of the spatial structure, so the worry was not hypothetical. A **spatial block
+bootstrap** (10°×10° blocks, resampled with replacement so neighbours stay together) gives the
+honest intervals:
+
+| variable | coef | SE, model | SE, block bootstrap | inflation | 95% CI |
+|---|---|---|---|---|---|
+| peak NDVI | **+0.967** | 0.034 | 0.099 | **3.0×** | +0.77 … +1.16 |
+| \|latitude\| | **−0.782** | 0.060 | 0.226 | **3.8×** | −1.22 … −0.34 |
+| growing season | **+0.676** | 0.080 | 0.234 | **2.9×** | +0.22 … +1.13 |
+| ruggedness | **+0.418** | 0.020 | 0.060 | **3.0×** | +0.30 … +0.54 |
+
+**Every interval was about three times too narrow, and latitude was the worst offender at
+3.8× — exactly the variable predicted to inflate most, because it is smooth across the whole
+planet.** All four still exclude zero, so the directions hold and nothing published has to be
+withdrawn; what changes is how confidently any of it can be stated.
+
+Thinning to every 2nd and every 3rd cell: growing season **+0.75 / +0.92** and NDVI
+**+0.92 / +1.09** hold or strengthen, ruggedness **+0.51 / +0.31** wobbles, latitude
+**−0.70 / −0.60** weakens. Climate over terrain is the robust part; the exact ranking of
+latitude against growing season is not, and should not be quoted as though it were.
+
+
 ### Round 9 — C4 and C8 closed, and a new methodological gap admitted
 
 | item | outcome | measured |
