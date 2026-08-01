@@ -194,12 +194,30 @@ LEDGER: List[Source] = [
         licence_url="",
         source_url="https://github.com/eric-muller/udhr",
         attribution="Universal Declaration of Human Rights translations, UDHR in XML (E. Muller).",
-        layer="parallel prose — the text tier (register D2)",
-        ingested=False, verified=True,
+        layer="parallel prose — Article 1 of the UDHR in 432 languages and 38 scripts",
+        ingested=True, verified=True,
         note=("446 distinct languages, 49 scripts. HAS NO LICENCE FILE. Ships only under the "
               "user's recorded decision SCOPE §12 D2, behind a single feature flag so it is "
               "removable in one commit, with per-block provenance and a takedown path. "
               "An email to the maintainer is register item F1."),
+    ),
+    Source(
+        key="phlorest",
+        title="Phlorest — dated language phylogenies",
+        creators="Forkel, Robert; Greenhill, Simon J.; and the original study authors",
+        year="2022",
+        licence="CC-BY-4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        source_url="https://github.com/phlorest",
+        attribution=("Phlorest — Forkel & Greenhill (eds.), a CLDF collection of published "
+                     "Bayesian language phylogenies. CC-BY-4.0, per-study citations in each "
+                     "dataset."),
+        layer="root ages — the only real time depth in the genealogy view",
+        ingested=True, verified=True,
+        note=("19 families dated of 30 datasets; 11 rejected. **Do not trust the scaling "
+              "field**: one tree's stated unit gives a 613,594-year root, and four are scaled "
+              "in substitutions or 'change', which are not time at all. Every age is bounded "
+              "to 300-12,000 years and two have an inferred unit, marked as such in the app."),
     ),
     Source(
         key="phoible",
@@ -252,9 +270,13 @@ def _selftest() -> None:
         # 3. anything whose bytes are in the build must have a licence read at the source.
         if s.ingested:
             assert s.verified, f"{s.key} is INGESTED but its licence is unverified"
-            assert s.licence_url or s.licence in ("public-domain", "CC0-1.0"), \
+            assert s.licence_url or s.licence in ("public-domain", "CC0-1.0",
+                                                  "NO-LICENCE-STATEMENT"), \
                 f"{s.key}: no licence URL"
-            assert "NO-LICENCE" not in u, \
+            # The one source with no licence at all ships under SCOPE §12 D2, a decision of
+            # record. It is named here explicitly so that a SECOND unlicensed source cannot
+            # slip in behind it on the same reasoning.
+            assert "NO-LICENCE" not in u or s.key == "udhr", \
                 f"{s.key} has no licence statement and cannot be ingested without a §12 decision"
         # 4. the attribution must actually name the thing it attributes.
         assert s.title.split()[0].rstrip(",") in s.attribution, \
@@ -264,7 +286,7 @@ def _selftest() -> None:
     #    this fails and forces a row — which is the whole point of the ledger.
     assert sorted(s.key for s in ingested()) == \
         ["ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
-         "modis_ndvi", "modis_snow", "wikidata"], \
+         "modis_ndvi", "modis_snow", "phlorest", "udhr", "wikidata"], \
         "the ingested set changed without a ledger row"
 
     # 6. SA discipline: nothing SA is in the build yet, so nothing SA is claimed.

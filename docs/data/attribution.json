@@ -129,10 +129,25 @@
    "licence_url": "",
    "source_url": "https://github.com/eric-muller/udhr",
    "attribution": "Universal Declaration of Human Rights translations, UDHR in XML (E. Muller).",
-   "layer": "parallel prose — the text tier (register D2)",
-   "ingested": false,
+   "layer": "parallel prose — Article 1 of the UDHR in 432 languages and 38 scripts",
+   "ingested": true,
    "verified": true,
    "note": "446 distinct languages, 49 scripts. HAS NO LICENCE FILE. Ships only under the user's recorded decision SCOPE §12 D2, behind a single feature flag so it is removable in one commit, with per-block provenance and a takedown path. An email to the maintainer is register item F1.",
+   "share_alike": false
+  },
+  {
+   "key": "phlorest",
+   "title": "Phlorest — dated language phylogenies",
+   "creators": "Forkel, Robert; Greenhill, Simon J.; and the original study authors",
+   "year": "2022",
+   "licence": "CC-BY-4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "source_url": "https://github.com/phlorest",
+   "attribution": "Phlorest — Forkel & Greenhill (eds.), a CLDF collection of published Bayesian language phylogenies. CC-BY-4.0, per-study citations in each dataset.",
+   "layer": "root ages — the only real time depth in the genealogy view",
+   "ingested": true,
+   "verified": true,
+   "note": "19 families dated of 30 datasets; 11 rejected. **Do not trust the scaling field**: one tree's stated unit gives a 613,594-year root, and four are scaled in substitutions or 'change', which are not time at all. Every age is bounded to 300-12,000 years and two have an inferred unit, marked as such in the app.",
    "share_alike": false
   },
   {

@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="data-version" content="1785536984">
+<meta name="data-version" content="1785544764">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mother Tongues — every human language, on the ground it is spoken on</title>
-<link rel="stylesheet" href="css/styles.css?v=1785536984">
+<link rel="stylesheet" href="css/styles.css?v=1785544764">
 </head>
 <body>
 
@@ -14,6 +14,7 @@
 <div id="topbar">
   <div id="title">
     <h1>MOTHER TONGUES <span id="aboutBtn" title="About, and what this does not know">ⓘ</span></h1>
+    <div id="views"><button id="vMap" class="on">GROUND</button><button id="vTree">GENEALOGY</button></div>
     <div id="subtitle">Every human language we know of, on the ground it is spoken on</div>
   </div>
   <div id="readout">
@@ -58,8 +59,23 @@
 
 <div class="panel hidden" id="card"><div class="ax" id="cardX">×</div><div id="cardBody"></div></div>
 <div class="panel hidden" id="about"><div class="ax" id="aboutX">×</div><div id="aboutBody"></div></div>
+<div id="treeview" class="hidden">
+  <div id="treeleft">
+    <input id="famq" placeholder="search 429 families…" autocomplete="off">
+    <div id="famlist"></div>
+  </div>
+  <div id="treemain">
+    <div id="treehead"></div>
+    <div id="treebar">
+      <input id="treeq" placeholder="search within this family…" autocomplete="off">
+      <label><input type="checkbox" id="dial"> show dialects</label>
+    </div>
+    <canvas id="treecv"></canvas>
+  </div>
+</div>
 <div id="loading">rendering the surface…</div>
 
-<script src="js/app.js?v=1785536984"></script>
+<script src="js/tree.js?v=1785544764"></script>
+<script src="js/app.js?v=1785544764"></script>
 </body>
 </html>

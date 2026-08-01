@@ -184,7 +184,7 @@ def gate_no_year_on_before_contact() -> None:
     print("3d. no year on the before-contact snapshot")
     import re as _re
     bad = []
-    for f in ("index.html", os.path.join("js", "app.js")):
+    for f in ("index.html", os.path.join("js", "app.js"), os.path.join("js", "tree.js")):
         s = open(os.path.join(WEB, f), encoding="utf-8").read()
         for m in _re.finditer(r"before[ _]?contact", s, _re.I):
             window = s[max(0, m.start() - 90):m.end() + 90]

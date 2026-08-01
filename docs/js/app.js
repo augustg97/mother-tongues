@@ -26,6 +26,7 @@
 // runs perfectly on yesterday's data. Every fetch carries the stamp from <meta>.
 const DATA_V = (document.querySelector('meta[name=data-version]') || {}).content || '0';
 const V = u => u + (u.includes('?') ? '&' : '?') + 'v=' + DATA_V;
+window.V = V;
 
 const Z_LO = -11000.0, Z_HI = 9000.0;
 const FIELDS = ['terrain', 'env', 'lang_c', 'lang_t'];
@@ -598,9 +599,62 @@ function showCard(lon, lat) {
     '<div class="tier">Glottolog 5.3 (CC-BY 4.0)' +
     (autonyms.length ? '; autonym from Wikidata P1705 (CC0)' : '') + '. ' +
     '<b>No speaker count is shown:</b> this project requires (value, year, source) and the ' +
-    'catalogue carries none, so "unknown" is the honest return.</div>';
+    'catalogue carries none, so "unknown" is the honest return.</div>' + sampleHtml(r[0]);
   $('#card').classList.remove('hidden');
 }
+
+/** Article 1 of the UDHR in this language, in its own script. Register D2. */
+function sampleHtml(gc) {
+  const T = state.texts && state.texts.by_glottocode && state.texts.by_glottocode[gc];
+  if (!T) return '';
+  // D10: if the device has no font for this script the browser draws tofu, and a row of
+  // boxes is not "the language in its own script" — it is a lie with good intentions.
+  // Say so instead, and still give the reader the text to copy elsewhere.
+  let missing = false;
+  try {
+    if (document.fonts && document.fonts.check) {
+      missing = !document.fonts.check('16px system-ui', T.t.slice(0, 40));
+    }
+  } catch (e) { missing = false; }
+  return '<div class="tier" style="margin-top:12px">' +
+    '<div class="eyebrow">Article 1, Universal Declaration of Human Rights</div>' +
+    '<p class="sample" lang="' + esc(T.l) + '" dir="' + esc(T.d) + '">' + esc(T.t) + '</p>' +
+    (missing ? '<div class="warn">Your device has no font for the ' + esc(T.s) +
+      ' script, so some characters above will show as empty boxes. The text is correct; ' +
+      'the typeface is missing.</div>' : '') +
+    '<div class="fine">' + esc(T.s || 'unknown') + ' script · ' + esc(T.d.toUpperCase()) +
+    ' · UDHR in XML (' + esc(T.f) + '). <b>This corpus carries no licence statement.</b> ' +
+    'It ships under a recorded decision, is removable in one commit, and there is a takedown ' +
+    'path: ' + esc(state.texts.takedown) + '.</div></div>';
+}
+
+/** Open a card from a glottocode — the genealogy view's way back to the ground. */
+state.showCardFor = function (gc, p) {
+  if (!state.langs) return;
+  const r = state.langs.rows.find(x => x[0] === gc);
+  const lonlat = r ? [r[2], r[3]] : (p || null);
+  if (lonlat) {
+    state.centre = [lonlat[0], lonlat[1]];
+    state.span = Math.min(state.span, 12);
+    setView('map');
+    render();
+    updateReadout(lonlat[0], lonlat[1]);
+    showCard(lonlat[0], lonlat[1]);
+  }
+};
+
+function setView(v) {
+  const tree = v === 'tree';
+  document.body.classList.toggle('tree', tree);
+  $('#treeview').classList.toggle('hidden', !tree);
+  $('#vMap').classList.toggle('on', !tree);
+  $('#vTree').classList.toggle('on', tree);
+  ['#leftrail', '#rightrail', '#readout'].forEach(id => {
+    const e = $(id); if (e) e.style.display = tree ? 'none' : '';
+  });
+  if (tree && window.TREE) window.TREE.show();
+}
+state.setView = setView;
 
 function toLonLat(ev) {
   const r = cv.getBoundingClientRect();
@@ -727,6 +781,10 @@ async function boot() {
     .catch(() => { state.attribution = null; });
   fetch(V('data/coverage.json')).then(r => r.json()).then(d => { state.coverage = d; })
     .catch(() => { state.coverage = null; });
+  // The text tier (register D2). One artefact, so the whole thing is removable in one commit
+  // exactly as SCOPE §12 D2 requires; if it is absent the cards simply carry no passage.
+  fetch(V('data/texts.json')).then(r => r.json()).then(d => { state.texts = d; })
+    .catch(() => { state.texts = null; });
   // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
   // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
   const base = [];
@@ -855,6 +913,24 @@ function buildAbout() {
   'have coordinates. Other authorities count differently — about 7,100, or 7,927 ISO codes — ' +
   'because the language/dialect line is drawn for non-linguistic reasons as often as linguistic ' +
   'ones. There is no single correct number and this atlas does not pretend there is.</p>' +
+  '<h3>The genealogy</h3>' +
+  '<p>The map answers <i>where</i>. <b>GENEALOGY</b>, top left, answers <i>where from</i>: ' +
+  'Glottolog\'s full classification — <b>429</b> top-level groups, of which <b>183 are ' +
+  'isolates</b> with no known relatives, holding <b>8,618</b> languages and <b>13,706</b> ' +
+  'dialects. <b>1,239 are extinct</b> and <b>2,573</b> are endangered. Click any language to ' +
+  'come back to the ground it was spoken on.</p>' +
+  '<p><b>Only 19 families have a date.</b> Root ages come from published Bayesian phylogenies ' +
+  '(Phlorest, CC-BY) and are stated for the family as a whole — the internal splits are not ' +
+  'dated and are not drawn as if they were. Eleven of thirty datasets were rejected: four are ' +
+  'scaled in substitutions rather than years, and one gives a root age of <b>613,594 years</b> ' +
+  'for a language family. Where there is no date the view says there is no date.</p>' +
+  '<h3>The text</h3>' +
+  '<p>Cards carry <b>Article 1 of the Universal Declaration of Human Rights</b> in the ' +
+  'language itself, in its own script, where a translation exists: <b>432 languages, 38 ' +
+  'scripts</b>. <b>That corpus carries no licence statement</b> — not a permissive one, none ' +
+  'at all. It ships under a recorded decision, one paragraph per language, with the source ' +
+  'file named on every card, and it can be removed in a single commit. If you hold rights in ' +
+  'one of these translations and want it gone, the takedown address is on the card.</p>' +
   '<h3>How much of the ground is data</h3>' + coverageHtml() +
   '<h3>Sources</h3>' + sourcesHtml() +
   '<p class="fine">Elevation is encoded 16-bit linear over −11000…+9000 m. That was measured, not ' +
@@ -862,6 +938,9 @@ function buildAbout() {
   'steps of 1.95° against a true median slope of 1.34° in the New Guinea highlands — steeper than ' +
   'the terrain it was drawing.</p>';
 }
+
+$('#vMap').addEventListener('click', () => setView('map'));
+$('#vTree').addEventListener('click', () => setView('tree'));
 
 boot().catch(e => {
   $('#loading').textContent = 'Failed to load: ' + e.message;
