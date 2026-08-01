@@ -415,10 +415,10 @@
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
     if (story) h += '<p class="exstory">' + esc(story) + '</p>';
 
-    const au = A.audio && A.audio[n.g];
-    if (au) h += '<h3>Heard</h3><audio controls preload="none" src="' + esc(au.url) +
-      '"></audio><p class="exfine">' + esc(au.title) + ' · ' + esc(au.licence) +
-      (au.artist ? ' · ' + esc(au.artist) : '') + ' · Lingua Libre, streamed from Wikimedia ' +
+    const rec_au = A.audio && A.audio[n.g];
+    if (rec_au) h += '<h3>Heard</h3><audio controls preload="none" src="' + esc(rec_au.url) +
+      '"></audio><p class="exfine">' + esc(rec_au.title) + ' · ' + esc(rec_au.licence) +
+      (rec_au.artist ? ' · ' + esc(rec_au.artist) : '') + ' · Lingua Libre, streamed from Wikimedia ' +
       'Commons. The language is taken from the recording\'s own catalogue key, not guessed ' +
       'from its filename.</p>';
 

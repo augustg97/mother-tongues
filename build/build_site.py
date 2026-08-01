@@ -84,6 +84,31 @@ def _web_size_mb() -> float:
                for r, _, fs in os.walk(WEB) for f in fs) / 1e6
 
 
+def gate_js() -> None:
+    """Parse every shipped script before publishing it.
+
+    A redeclared `const` in tree.js shipped live: the file threw on load, the genealogy view
+    came up completely empty, and nothing in the build noticed because every other gate
+    checks DATA. `node --check` is one subprocess and would have caught it before the push.
+    """
+    print("2b. javascript parses")
+    import shutil as _sh
+    node = _sh.which("node")
+    if not node:
+        print("   no node on PATH — SKIPPED (install node to enable this gate)")
+        return
+    for f in sorted(os.listdir(os.path.join(WEB, "js"))):
+        if not f.endswith(".js"):
+            continue
+        p = subprocess.run([node, "--check", os.path.join(WEB, "js", f)],
+                           capture_output=True, text=True)
+        if p.returncode != 0:
+            print(p.stderr[:600])
+            die(f"js/{f} does not parse")
+    print(f"   {len([f for f in os.listdir(os.path.join(WEB, 'js')) if f.endswith('.js')])} "
+          f"files parse")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -237,6 +262,7 @@ if __name__ == "__main__":
     print("build_site.py — the only route to publication\n")
     gate_selftests()
     gate_fields()
+    gate_js()
     gate_registration()
     gate_attribution()
     gate_coverage()
