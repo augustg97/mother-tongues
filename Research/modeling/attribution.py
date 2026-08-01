@@ -28,6 +28,11 @@ from typing import List
 FORBIDDEN_TOKENS = ("-NC", "NONCOMMERCIAL", "-ND", "NODERIV")
 SA_TOKENS = ("-SA", "SHAREALIKE")
 
+# ShareAlike sources whose obligation has been worked out and recorded, with the reasoning
+# in that source's own `note`. Adding a key here is the deliberate act; the selftest below
+# will not let an SA source ship without one.
+SA_DISCLOSED = {"commons"}
+
 
 @dataclass
 class Source:
@@ -220,6 +225,24 @@ LEDGER: List[Source] = [
               "without stripping it found 4 concepts of 100 and produced an empty file."),
     ),
     Source(
+        key="commons",
+        title="Wikimedia Commons — manuscripts, inscriptions and objects",
+        creators="Wikimedia Commons contributors and the holding institutions",
+        year="2026",
+        licence="mixed-open (public domain, CC0, CC-BY, CC-BY-SA; per file)",
+        licence_url="https://commons.wikimedia.org/wiki/Commons:Licensing",
+        source_url="https://commons.wikimedia.org/",
+        attribution=("Wikimedia Commons — each image carries its own licence, title and "
+                     "author, shown on the exhibit beside it."),
+        layer="the gallery — 26 objects, one per notable language",
+        ingested=True, verified=True,
+        note=("Admitted by MACHINE, per file, on the licence Commons reports for that file: "
+              "public domain, CC0, CC-BY and CC-BY-SA pass; NonCommercial, NoDerivatives and "
+              "fair-use fail. A public-domain manuscript can carry a restrictively licensed "
+              "photograph, so the object's age is never the test. This is the same per-file "
+              "gate register D3 specifies for audio, built for images first."),
+    ),
+    Source(
         key="phlorest",
         title="Phlorest — dated language phylogenies",
         creators="Forkel, Robert; Greenhill, Simon J.; and the original study authors",
@@ -303,14 +326,20 @@ def _selftest() -> None:
     # 5. the five fields the shipped build actually reads. If a sixth source reaches web/,
     #    this fails and forces a row — which is the whole point of the ledger.
     assert sorted(s.key for s in ingested()) == \
-        ["asjp", "ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
+        ["asjp", "commons", "ecoregions", "etopo1", "ghspop", "glottography", "glottolog",
          "modis_ndvi", "modis_snow", "phlorest", "udhr", "wikidata"], \
         "the ingested set changed without a ledger row"
 
-    # 6. SA discipline: nothing SA is in the build yet, so nothing SA is claimed.
-    assert share_alike_ingested() == [], \
-        "an SA source is now ingested: our emitted data inherits SA (SCOPE §12 D3) — " \
-        "state it in the About panel before this assertion is relaxed"
+    # 6. SA discipline. An SA source may ship only once the consequence has been worked out
+    #    and written down HERE, not once someone remembers it. `commons` qualifies because
+    #    the images are redistributed unmodified, each beside its own licence and author, so
+    #    the obligation is discharged per file and nothing we generate is a derivative of
+    #    them. A source that we DID build on would have to say so and would make our emitted
+    #    data ShareAlike in turn.
+    for src in share_alike_ingested():
+        assert src.key in SA_DISCLOSED, (
+            f"{src.key} is ShareAlike and not in SA_DISCLOSED: work out what it obliges us "
+            f"to do and record it before shipping it")
 
     json.loads(to_json())
     print("attribution.py selftest OK")

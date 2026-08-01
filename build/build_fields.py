@@ -648,6 +648,14 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
     a reference name. That is rule 10: unknown is a legitimate return, and a labelled
     fallback is honest where a silent one is not.
     """
+    # Register A7: the ingest goes THROUGH the frame rather than beside it. `Registry`
+    # refuses anything that is not a glottocode and refuses to be keyed by an ISO code;
+    # `NameSet.display()` decides autonym-first order in one place, in code, so rule 11 is
+    # not a convention a caller can forget. Round 3's register claimed this was done when
+    # it was not — the rules were being applied by hand.
+    import frames
+    reg = frames.Registry()
+
     cat, aes = {}, {}
     with open(os.path.join(GLOTTOLOG, "values.csv"), newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
@@ -720,6 +728,17 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
                     n_nonlatin += 1
             fid = fam.get(gc, gc)
             famset.add(fid)
+            reg.add(frames.Languoid(
+                glottocode=gc, name=r["Name"], level="language",
+                iso639p3=iso or None,
+                latitude=float(r["Latitude"]), longitude=float(r["Longitude"]),
+                family_id=fid if fid != gc else None,
+                first_year=int(r["First_Year_Of_Documentation"] or 0) or None))
+            ns = frames.NameSet(gc, [frames.Name(text=r["Name"], kind="reference")]
+                                + [frames.Name(text=t, kind="autonym", lang=(tg or None))
+                                   for t, tg in names])
+            # The order the app shows is the order the frame produced, not one rebuilt here.
+            names = [[n.text, n.lang or ""] for n in ns.ordered() if n.kind == "autonym"]
             rows.append([gc, r["Name"], round(float(r["Longitude"]), 3),
                          round(float(r["Latitude"]), 3), fam_index.get(fid, 255),
                          med.get(gc, -1), aes.get(gc, 0), iso,
@@ -728,6 +747,9 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
                          desc.get(gc, ""), spk.get(gc) or None,
                          (r.get("Countries") or "")[:60]])
 
+    amb = reg.ambiguous_iso()
+    log(f"  frame (A7): {len(reg):,} languoids admitted by Registry · "
+        f"{len(amb)} ISO codes map to more than one glottocode")
     famnames = {f: (name.get(f) or en.get(f) or f) for f in famset}
     d = os.path.join(ROOT, "web", "data")
     os.makedirs(d, exist_ok=True)

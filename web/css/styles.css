@@ -251,3 +251,12 @@ body:not(.tree) #views button{border-color:rgba(60,52,42,.22);background:rgba(25
 body:not(.tree) #views button.on{background:#20242a;color:#f7f3ea;border-color:#20242a}
 body:not(.tree) #views button:not(.on):hover{color:#000;background:#fff}
 body:not(.tree) #subtitle{max-width:38ch}
+
+.exworldcv{width:100%;height:auto;aspect-ratio:2/1;display:block;margin-top:6px;
+  border:1px solid var(--rule);border-radius:2px;background:#efe9dc}
+.exfig{margin:16px 0 0}
+.exfig img{width:100%;display:block;border-radius:2px;border:1px solid var(--rule)}
+.exfig figcaption{font-size:10px;line-height:1.5;color:var(--ink3);margin-top:5px}
+.exstory{font-family:var(--serif);font-size:15px;line-height:1.66;color:var(--ink);
+  margin:14px 0 0}
+.exstory+.exmapwrap{margin-top:16px}

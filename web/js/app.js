@@ -480,6 +480,25 @@ state.render = render;
 /** Draw the rendered world, centred on one language, into a 2D canvas.
  *  Reuses the real shader rather than a second cheaper renderer, so the little map in a
  *  card is the same Earth as the big one — same relief, same biome, same language field. */
+state.worldBox = function (out, lon, lat, span) {
+  // A 2:1 canvas at span 360 centred on (0,0) is exactly the whole equirectangular world:
+  // the crop is 360 deg wide and 360/2 = 180 deg tall. That lets the box below be placed by
+  // plain arithmetic instead of by reading back the renderer's framing.
+  if (!state.snapshot(out, 0, 0, 360)) return false;
+  const ctx = out.getContext('2d');
+  const W = out.width, H = out.height;
+  const x = ((((lon + 180) % 360) + 360) % 360) / 360 * W;
+  const y = (90 - lat) / 180 * H;
+  const bw = Math.max(10, span / 360 * W), bh = Math.max(7, (span / 2) / 180 * H);
+  ctx.lineWidth = Math.max(2, W / 220);
+  ctx.strokeStyle = 'rgba(20,22,26,.85)';
+  ctx.strokeRect(x - bw / 2, y - bh / 2, bw, bh);
+  ctx.strokeStyle = '#e8a06a';
+  ctx.lineWidth = Math.max(1, W / 420);
+  ctx.strokeRect(x - bw / 2, y - bh / 2, bw, bh);
+  return true;
+};
+
 state.snapshot = function (out, lon, lat, span) {
   if (!state.ready) return false;
   const c0 = state.centre.slice(), s0 = state.span;
@@ -822,6 +841,10 @@ async function boot() {
   // UDHR passage, and for many languages the only text that exists at all.
   fetch(V('data/words.json')).then(r => r.json()).then(d => { state.words = d; })
     .catch(() => { state.words = null; });
+  fetch(V('data/notable.json')).then(r => r.json()).then(d => { state.notable = d; })
+    .catch(() => { state.notable = null; });
+  fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
+    .catch(() => { state.gallery = null; });
   // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
   // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
   const base = [];
@@ -968,6 +991,14 @@ function buildAbout() {
   'dated and are not drawn as if they were. Eleven of thirty datasets were rejected: four are ' +
   'scaled in substitutions rather than years, and one gives a root age of <b>613,594 years</b> ' +
   'for a language family. Where there is no date the view says there is no date.</p>' +
+  '<h3>The gallery</h3>' +
+  '<p>Notable languages carry an object: a Hittite tablet from Boğazköy, the Codex ' +
+  'Argenteus, a Linear B inventory from Pylos, the Rosetta Stone. Every image is admitted ' +
+  'by machine on the licence Wikimedia Commons reports for that individual file — public ' +
+  'domain, CC0, CC-BY and CC-BY-SA pass — and each is shown beside its own title, licence ' +
+  'and author. Some are ShareAlike; they are reproduced unmodified, which is what that ' +
+  'licence asks. The age of the object is never the test, because a photograph of a ' +
+  'thousand-year-old manuscript can be new.</p>' +
   '<h3>The words</h3>' +
   '<p>Every card and every exhibit carries <b>ASJP\'s core word list</b> where one exists — ' +
   '<i>water, fire, sun, blood, hand, name, two</i> — for <b>6,110 languages</b>, fourteen ' +

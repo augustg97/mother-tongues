@@ -2,7 +2,7 @@
 """audit_all.py — the gate. Runs every module's selftest; non-zero exit blocks the build."""
 import subprocess, sys, os
 HERE = os.path.dirname(os.path.abspath(__file__))
-MODULES = ["frames.py", "licences.py", "encoding.py", "diversity.py", "attribution.py", "climate.py"]
+MODULES = ["frames.py", "licences.py", "encoding.py", "diversity.py", "attribution.py", "climate.py", "witness.py"]
 fail = []
 for m in MODULES:
     p = subprocess.run([sys.executable, os.path.join(HERE, m)],

@@ -289,8 +289,19 @@
     if (au) h += '<div class="exalt">' + esc(n.n) + ' <span>· reference name</span></div>';
     else h += '<div class="exalt"><span>reference name · no autonym recorded</span></div>';
 
+    const gal = A.gallery && A.gallery[n.g];
+    if (gal) {
+      h += '<figure class="exfig"><img src="' + window.V('img/gallery/' + gal.file) +
+        '" alt="' + esc(gal.subject) + '" loading="lazy">' +
+        '<figcaption>' + esc(gal.title) + ' · ' + esc(gal.licence) +
+        (gal.artist ? ' · ' + esc(gal.artist) : '') + '</figcaption></figure>';
+    }
+    const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
+    if (story) h += '<p class="exstory">' + esc(story) + '</p>';
+
     if (n.p) {
       h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +
+        '<canvas class="exworldcv"></canvas>' +
         '<div class="exmapcap">' +
         esc(n.p[1].toFixed(2)) + (n.p[1] >= 0 ? '°N ' : '°S ') +
         esc(Math.abs(n.p[0]).toFixed(2)) + (n.p[0] >= 0 ? '°E' : '°W') +
@@ -367,8 +378,18 @@
         mc.height = Math.round(hh * dpr);
         window.APP.snapshot(mc, n.p[0], n.p[1], 26);
       };
-      requestAnimationFrame(paint);
-      setTimeout(paint, 900);          // again once nearer tiles have streamed in
+      const wc = $('#exhibit .exworldcv');
+      const paintWorld = () => {
+        if (!wc) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = wc.clientWidth || wc.getBoundingClientRect().width;
+        if (w < 60) { requestAnimationFrame(paintWorld); return; }
+        wc.width = Math.round(w * dpr);
+        wc.height = Math.round(w * dpr / 2);
+        window.APP.worldBox(wc, n.p[0], n.p[1], 26);
+      };
+      requestAnimationFrame(() => { paint(); paintWorld(); });
+      setTimeout(() => { paint(); paintWorld(); }, 900);
       mc.addEventListener('click', () => window.APP.showCardFor(n.g, n.p));
     }
     draw();
