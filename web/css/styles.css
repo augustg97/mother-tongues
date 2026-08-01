@@ -178,8 +178,22 @@ body.tree #topbar{background:none}
   font-size:13px;color:var(--paper);background:var(--ink);padding:8px 15px;border-radius:2px}
 .exmap:hover{background:var(--accent2)}
 
-@media (max-width:1150px){ #treeview{grid-template-columns:200px minmax(0,1fr) 300px} }
-@media (max-width:900px){ #treeview{grid-template-columns:1fr;grid-template-rows:120px 1fr 40vh} }
+@media (max-width:1150px){ #treeview{grid-template-columns:190px minmax(0,1fr) 296px} }
+/* ⚠ Below 900px the three columns become three ROWS, and a grid row does not clip its
+   child: without min-height:0 and its own scroll container each panel painted straight over
+   the next one — the exhibit landed on top of the tree head. Every stacked panel needs to be
+   told it may be shorter than its content. */
+@media (max-width:900px){
+  #treeview{grid-template-columns:minmax(0,1fr);
+    grid-template-rows:minmax(0,116px) minmax(0,1fr) minmax(0,44vh);padding-top:76px}
+  #treeleft{border-right:none;border-bottom:1px solid var(--rule);
+    min-height:0;overflow:hidden;padding:0 14px 8px}
+  #treemain{padding:8px 14px 0;min-height:0;overflow:hidden}
+  #exhibit{border-left:none;border-top:1px solid var(--rule);min-height:0;padding:10px 16px 30px}
+  #treehead h2{font-size:22px} #treehead .agebar{display:none}
+  #treebar .hint{display:none}
+  .exname{font-size:30px}
+}
 
 .wordsrow{display:flex;flex-wrap:wrap;gap:4px 14px;margin:5px 0 2px}
 .wordsrow span{font-size:11px;color:var(--dim)}
