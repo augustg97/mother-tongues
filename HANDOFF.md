@@ -17,7 +17,7 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–6 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785563967)
+**Rounds 1–7 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785565275)
 
 Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
 families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
@@ -25,11 +25,13 @@ of the UDHR in the language's own script.
 
 **Next, in priority order:**
 
-**0. THE OLD DEBTS, none of which have moved in three rounds.** Each round's budget has gone
-to newly requested features instead. In priority order they are E1, A7, D3, D5, C4, C8 —
-listed below and genuinely not started.
+**E1 and A7 are CLOSED (round 7).** The witness lives in `Research/modeling/witness.py` and
+runs in the build gate; the ingest goes through `frames.Registry`. **Still genuinely not
+started: D3 (audio), D5 (typological prose), C4 (literature check), C8 (settlement
+time-depth).** D3's per-file licence gate now exists in `build/fetch_gallery.py` and is the
+pattern to copy for audio.
 
-**1. E1 — the census witness.** Planned for round 1, still not built after four rounds. It is
+**1. D3 — audio.** Planned for round 1, still not built after four rounds. It is
 now by far the oldest debt and the only major instrument missing.
 
 **2. A7 — wire `frames.py` into the ingest.** Still applied by hand.
@@ -65,7 +67,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785563967**, verified live (tree, texts and tiles confirmed)
+- Last live deploy: **stamp 1785565275**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
