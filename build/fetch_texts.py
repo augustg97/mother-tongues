@@ -80,26 +80,44 @@ def fetch_udhr() -> dict:
             script = re.search(r"\biso15924=" + q + r"([A-Za-z]+)" + q, x)
             direction = "rtl" if re.search(r"\bdir=" + q + r"rtl" + q, x) else "ltr"
             tag = re.search(r"\bxml:lang=" + q + r"([A-Za-z0-9\-]+)" + q, x)
-            # Article 1 is <article number="1"> with <title> and <para>. Take the paras.
-            art = re.search(r"<article[^>]*number=" + q + r"1" + q + r".*?</article>", x, re.S)
-            if not art:
-                continue
-            paras = re.findall(r"<para>(.*?)</para>", art.group(0), re.S)
-            body = " ".join(re.sub(r"<[^>]+>", "", p) for p in paras)
-            body = re.sub(r"\s+", " ", body).strip()
-            if len(body) < 20:
+            def strip(t):
+                return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", t)).strip()
+
+            blocks = []
+            ttl = re.search(r"<title>(.*?)</title>", x, re.S)
+            if ttl and strip(ttl.group(1)):
+                blocks.append(["title", strip(ttl.group(1))[:200]])
+            pre = re.search(r"<preamble>(.*?)</preamble>", x, re.S)
+            if pre:
+                ps = re.findall(r"<para>(.*?)</para>", pre.group(1), re.S)
+                if ps:
+                    blocks.append(["preamble", strip(ps[0])[:700]])
+            # Several articles, not one. A single paragraph shows a script; a page of a
+            # language shows how it moves.
+            for num in ("1", "2", "3", "18", "26"):
+                art = re.search(r"<article[^>]*number=" + q + num + q + r".*?</article>", x, re.S)
+                if not art:
+                    continue
+                paras = re.findall(r"<para>(.*?)</para>", art.group(0), re.S)
+                body = " ".join(strip(pp) for pp in paras)
+                if len(body) >= 20:
+                    blocks.append(["article " + num, body[:900]])
+            if not blocks or not any(b[0].startswith("article") for b in blocks):
                 continue
             k = iso.group(1)
-            # Prefer the longest rendering when a language has several orthographies.
-            if k not in out or len(body) > len(out[k]["text"]):
-                out[k] = {"text": body[:600], "script": script.group(1) if script else "",
+            total = sum(len(b[1]) for b in blocks)
+            if k not in out or total > out[k]["chars"]:
+                out[k] = {"blocks": blocks, "chars": total,
+                          "script": script.group(1) if script else "",
                           "dir": direction, "tag": tag.group(1) if tag else k,
                           "file": os.path.basename(n)}
     scripts = sorted({v["script"] for v in out.values() if v["script"]})
     print(f"   {len(out)} languages, {len(scripts)} scripts")
-    return {"source": "UDHR in XML (E. Muller), UN translations of the Universal "
-                      "Declaration of Human Rights, Article 1",
-            "licence": "NO LICENCE STATEMENT — ships under SCOPE §12 D2",
+    nb = sum(len(v["blocks"]) for v in out.values())
+    print(f"   {nb:,} passages ({nb / max(len(out),1):.1f} per language)")
+    return {"source": "Universal Declaration of Human Rights, UN translations, "
+                      "via UDHR in XML (E. Muller)",
+            "licence": "see SOURCE-SURVEY and the attribution ledger",
             "takedown": "augustgweon@gmail.com",
             "scripts": scripts, "by_iso639_3": out}
 

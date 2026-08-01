@@ -31,7 +31,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#080b0a;color:var(--in
 .ro span{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
 .ro b{font-weight:500;font-size:12px;min-width:11ch;text-align:right}
 
-#leftrail{position:fixed;left:14px;top:78px;width:212px;display:grid;gap:10px;z-index:3}
+#leftrail{position:fixed;left:14px;top:96px;width:212px;display:grid;gap:10px;z-index:3}
 #rightrail{position:fixed;right:14px;top:132px;width:224px;display:grid;gap:10px;z-index:3}
 .panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;
   padding:10px 11px;backdrop-filter:blur(9px)}
@@ -199,3 +199,55 @@ body.tree #topbar{background:none}
 .wordsrow span{font-size:11px;color:var(--dim)}
 .wordsrow b{font-weight:500;color:var(--ink);font-size:13px;
   font-family:"Iowan Old Style",Palatino,Georgia,serif}
+
+.exmapwrap{margin:16px 0 4px}
+.exmapcv{width:100%;height:150px;display:block;border-radius:2px;cursor:pointer;
+  background:#efe9dc;border:1px solid var(--rule)}
+.exmapcap{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  margin-top:5px}
+.exdesc{font-family:var(--serif);font-size:14.5px;line-height:1.55;color:var(--ink2);
+  margin:14px 0 0}
+.exlabel{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  margin:14px 0 4px}
+
+/* ---- the GROUND view wears the same paper as the museum around it ---- */
+body:not(.tree) #topbar{background:linear-gradient(rgba(247,243,234,.92),rgba(247,243,234,0))}
+body:not(.tree) #title h1{color:#20242a}
+body:not(.tree) #subtitle{color:#5d564c}
+body:not(.tree) #aboutBtn{color:#8b8377}
+body:not(.tree) #readout .ro span{color:#8b8377}
+body:not(.tree) #readout .ro b{color:#20242a}
+body:not(.tree) .panel{background:rgba(250,247,240,.93);border-color:rgba(60,52,42,.18);
+  color:#20242a;box-shadow:0 1px 10px rgba(40,34,26,.10)}
+body:not(.tree) .panel-h{color:#8b8377}
+body:not(.tree) #rightrail label{color:#3c3730}
+body:not(.tree) #rightrail label:hover{color:#000}
+body:not(.tree) .legend{color:#5d564c}
+body:not(.tree) .legend b{color:#20242a}
+body:not(.tree) #tour button{color:#3c3730}
+body:not(.tree) #tour button:hover{background:rgba(180,98,47,.12);color:#000}
+body:not(.tree) .ends{color:#8b8377}
+body:not(.tree) .note{color:#b4622f}
+body:not(.tree) #loading{color:#8b8377}
+body:not(.tree) #card,body:not(.tree) #about{background:rgba(250,247,240,.97);
+  border-color:rgba(60,52,42,.18);color:#20242a;box-shadow:0 4px 30px rgba(40,34,26,.18)}
+body:not(.tree) #about h3{color:#b4622f}
+body:not(.tree) #about p,body:not(.tree) #about li{color:#3c3730}
+body:not(.tree) #card td{border-bottom-color:rgba(60,52,42,.12)}
+body:not(.tree) #card td:first-child,body:not(.tree) .eyebrow,
+body:not(.tree) .tier,body:not(.tree) .fine{color:#7b7469}
+body:not(.tree) .ax{color:#8b8377} body:not(.tree) .ax:hover{color:#000}
+body:not(.tree) code{color:#8a4a20}
+body:not(.tree) .sample{background:rgba(60,52,42,.05);color:#20242a;
+  font-family:var(--serif);font-size:15.5px;line-height:1.6}
+body:not(.tree) .warn{background:rgba(180,98,47,.10);border-left-color:#b4622f;color:#5a3a24}
+body:not(.tree) input[type=checkbox],body:not(.tree) input[type=range]{accent-color:#b4622f}
+body:not(.tree) .wordsrow b{color:#20242a} body:not(.tree) .wordsrow span{color:#7b7469}
+body:not(.tree) h2{color:#20242a}
+html,body{background:#f2ece1}
+
+body:not(.tree) #views button{border-color:rgba(60,52,42,.22);background:rgba(250,247,240,.9);
+  color:#5d564c}
+body:not(.tree) #views button.on{background:#20242a;color:#f7f3ea;border-color:#20242a}
+body:not(.tree) #views button:not(.on):hover{color:#000;background:#fff}
+body:not(.tree) #subtitle{max-width:38ch}

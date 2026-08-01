@@ -618,10 +618,20 @@ GENERIC_LANG_WORDS = {
 }
 
 
-def _is_exonym_phrase(label: str, iso: str) -> bool:
-    first = label.strip().split(" ")[0].lower().strip(".,")
-    owners = GENERIC_LANG_WORDS.get(first)
-    return owners is not None and iso not in owners
+def _is_exonym_phrase(label: str, iso: str, refname: str = "") -> bool:
+    """Only reject a label that is literally "<another language's word for 'language'> +
+    <our own reference name>" — "bahasa Pyu" for the language we call Pyu. Anything else is
+    kept: a name a community is recorded under is worth showing, and an over-tight rule threw
+    away 818 candidates to remove a few hundred descriptions."""
+    parts = label.strip().split(" ")
+    if len(parts) < 2:
+        return False
+    owners = GENERIC_LANG_WORDS.get(parts[0].lower().strip(".,"))
+    if owners is None or iso in owners:
+        return False
+    rest = " ".join(parts[1:]).lower().strip(" .,()")
+    ref = refname.lower().strip()
+    return bool(ref) and (rest == ref or ref.startswith(rest) or rest.startswith(ref))
 
 
 def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
@@ -649,6 +659,15 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
                 except ValueError:
                     pass
 
+    desc, spk = {}, {}
+    dp = os.path.join(AUTO, "descriptions.json")
+    if os.path.exists(dp):
+        desc = json.load(open(dp, encoding="utf-8"))
+    sp2 = os.path.join(AUTO, "speakers.json")
+    if os.path.exists(sp2):
+        # Rule 14: a bare number is not a datum. Keep only counts that carry a YEAR, so the
+        # triple (value, year, source) is complete; drop the rest rather than imply currency.
+        spk = {k: v for k, v in json.load(open(sp2, encoding="utf-8")).items() if v[1]}
     auto_g, auto_i, self_g = {}, {}, {}
     ap = os.path.join(AUTO, "autonyms.json")
     if os.path.exists(ap):
@@ -677,7 +696,7 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
             for src in (auto_g.get(gc), auto_i.get(iso) if iso else None):
                 if src:
                     for n in src["names"]:
-                        if _is_exonym_phrase(n[0], iso):
+                        if _is_exonym_phrase(n[0], iso, r["Name"]):
                             rejected[0] += 1
                             continue
                         if n not in names:
@@ -705,7 +724,9 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
                          round(float(r["Latitude"]), 3), fam_index.get(fid, 255),
                          med.get(gc, -1), aes.get(gc, 0), iso,
                          int(r["First_Year_Of_Documentation"] or 0),
-                         names[:4], scripts[:2], fid])
+                         names[:4], scripts[:2], fid,
+                         desc.get(gc, ""), spk.get(gc) or None,
+                         (r.get("Countries") or "")[:60]])
 
     famnames = {f: (name.get(f) or en.get(f) or f) for f in famset}
     d = os.path.join(ROOT, "web", "data")
@@ -718,6 +739,8 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
     log(f"  languages.json: {len(rows):,} rows, {os.path.getsize(os.path.join(d, 'languages.json'))/1e6:.2f} MB")
     log(f"  AUTONYMS (D6): {n_auto:,} of {len(rows):,} languages "
         f"({n_auto/max(len(rows),1)*100:.1f}%), of which {n_nonlatin:,} are in a non-Latin script")
+    log(f"    descriptions {sum(1 for r in rows if r[12]):,} · "
+        f"speaker triples {sum(1 for r in rows if r[13]):,}")
     log(f"    {rejected[0]:,} candidate labels rejected as another language's phrase "
         f"(\"bahasa X\" and kin) rather than an autonym")
 

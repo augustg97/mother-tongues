@@ -1,1 +1,1 @@
-{"g":"lenc1239","c":[{"g":"lenc1242","n":"Lenca-Honduras","lv":1,"a":6,"p":[-87.5,13.67]},{"g":"lenc1243","n":"Lenca-Salvador","lv":1,"a":6,"p":[-88.11,13.56]}],"n":"Lencan","lv":0,"a":6,"p":[-88.04,13.93],"i":"len"}
+{"g":"lenc1239","c":[{"g":"lenc1242","n":"Lenca-Honduras","lv":1,"a":6,"p":[-87.5,13.67],"d":"language","cc":"HN"},{"g":"lenc1243","n":"Lenca-Salvador","lv":1,"a":6,"p":[-88.11,13.56],"d":"language","cc":"SV"}],"n":"Lencan","lv":0,"a":6,"p":[-88.04,13.93],"i":"len"}

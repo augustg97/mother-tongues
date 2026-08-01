@@ -235,6 +235,31 @@
       }
     }
 
+    // A name under the cursor, always — at fit zoom the tree is a shape with no labels at
+    // all, and a shape you cannot interrogate is decoration.
+    if (T.hover && T.hoverXY) {
+      const n = T.hover;
+      const nm = (n.au && canRender(n.au[0])) ? n.au[0] : n.n;
+      const sub = (n.au && canRender(n.au[0])) ? n.n : '';
+      g.font = '14px ' + SERIF;
+      const w1 = g.measureText(nm).width;
+      g.font = '11px ' + SANS;
+      const w2 = sub ? g.measureText(sub).width + 8 : 0;
+      const bw2 = w1 + w2 + 20, bh2 = 26;
+      let bx = Math.min(T.hoverXY[0] + 14, w - bw2 - 6), by = T.hoverXY[1] - bh2 - 8;
+      if (by < 2) by = T.hoverXY[1] + 14;
+      g.fillStyle = 'rgba(32,36,42,.93)';
+      g.fillRect(bx, by, bw2, bh2);
+      g.fillStyle = '#f7f3ea';
+      g.font = '14px ' + SERIF;
+      g.fillText(nm, bx + 10, by + bh2 / 2);
+      if (sub) {
+        g.font = '11px ' + SANS;
+        g.fillStyle = 'rgba(247,243,234,.62)';
+        g.fillText(sub, bx + 10 + w1 + 8, by + bh2 / 2 + 1);
+      }
+    }
+
     if (!labelled) {
       g.font = '11px ' + SANS;
       g.fillStyle = 'rgba(120,112,102,.9)';
@@ -262,12 +287,22 @@
     h += '<h2 class="exname"' + (au ? ' lang="' + esc(n.au[1] || '') + '"' : '') + '>' +
          esc(au || n.n) + '</h2>';
     if (au) h += '<div class="exalt">' + esc(n.n) + ' <span>· reference name</span></div>';
-    else h += '<div class="exalt"><span>Glottolog reference name — no autonym is recorded ' +
-              'for this language in any source we can ship</span></div>';
+    else h += '<div class="exalt"><span>reference name · no autonym recorded</span></div>';
+
+    if (n.p) {
+      h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +
+        '<div class="exmapcap">' +
+        esc(n.p[1].toFixed(2)) + (n.p[1] >= 0 ? '°N ' : '°S ') +
+        esc(Math.abs(n.p[0]).toFixed(2)) + (n.p[0] >= 0 ? '°E' : '°W') +
+        ' · click to open the ground</div></div>';
+    }
+    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
 
     const facts = [];
     if (n.a) facts.push(['vitality', AESN[n.a]]);
     if (n.y) facts.push(['first attested', n.y < 0 ? (-n.y) + ' BCE' : String(n.y)]);
+    if (n.sp) facts.push(['speakers', n.sp[0].toLocaleString() + '  ·  as of ' + n.sp[1]]);
+    if (n.cc) facts.push(['countries', n.cc]);
     if (n.i) facts.push(['ISO 639-3', n.i]);
     facts.push(['glottocode', n.g]);
     if (tx && tx.s) facts.push(['script', tx.s + (tx.d === 'rtl' ? ', right to left' : '')]);
@@ -283,40 +318,59 @@
       h += '<h3>Words</h3><div class="words">' + have.map(k =>
         '<div><b>' + esc(wd[k]) + '</b><span>' + esc(k) + '</span></div>').join('') + '</div>';
       h += '<p class="exfine">' + have.length + ' of ASJP\'s core 40, in <b>ASJPcode</b> — a ' +
-        'deliberately coarse ASCII transcription built for comparison across thousands of ' +
-        'languages. It is not this language\'s own orthography and should not be read as one. ' +
-        'ASJP (Wichmann, Holman &amp; Brown, eds.), CC-BY-4.0.</p>';
+        'coarse ASCII transcription built for comparison across thousands of languages, not ' +
+        'this language\'s own orthography. ASJP (Wichmann, Holman &amp; Brown, eds.).</p>';
     }
 
-    if (tx) {
+    if (tx && tx.b && tx.b.length) {
       const missing = (function () {
-        try { return document.fonts && document.fonts.check ? !document.fonts.check('18px ' + SERIF, tx.t.slice(0, 40)) : false; }
-        catch (e) { return false; }
+        try {
+          return document.fonts && document.fonts.check
+            ? !document.fonts.check('18px ' + SERIF, tx.b[tx.b.length - 1][1].slice(0, 40)) : false;
+        } catch (e) { return false; }
       })();
-      h += '<h3>Article 1</h3>';
-      h += '<blockquote class="exquote" lang="' + esc(tx.l) + '" dir="' + esc(tx.d) + '">' +
-           esc(tx.t) + '</blockquote>';
-      if (missing) h += '<p class="exwarn">Your device has no font for the ' + esc(tx.s) +
-        ' script, so some characters above will show as empty boxes. The text is right; the ' +
-        'typeface is missing.</p>';
-      h += '<p class="exfine">Universal Declaration of Human Rights, Article 1 · ' +
-        esc(tx.f) + '. <b>This corpus carries no licence statement.</b> It ships under a ' +
-        'recorded decision, one paragraph per language, and can be removed in one commit. ' +
-        'Takedown: ' + esc(A.texts.takedown) + '.</p>';
+      h += '<h3>In its own words</h3>';
+      if (missing) h += '<p class="exwarn">Your device has no font installed for the ' +
+        esc(tx.s) + ' script, so some characters below will show as empty boxes. The text is ' +
+        'right; the typeface is missing.</p>';
+      for (const b of tx.b) {
+        h += '<div class="exlabel">' + esc(b[0]) + '</div>' +
+          '<blockquote class="exquote" lang="' + esc(tx.l) + '" dir="' + esc(tx.d) + '">' +
+          esc(b[1]) + '</blockquote>';
+      }
+      h += '<p class="exfine">Universal Declaration of Human Rights, UN translations · ' +
+        esc(tx.s || '') + ' script.</p>';
     }
     if (!tx && !wd) {
-      h += '<p class="exfine">No text and no word list exist for this language in any corpus ' +
-        'we can ship. That silence is the honest state of the record, not an omission here.</p>';
+      h += '<p class="exfine">No connected text and no word list have been recorded for this ' +
+        'language. That silence is the state of the record, not an omission here.</p>';
     }
-    if (n.p) h += '<button class="exmap" data-lon="' + n.p[0] + '" data-lat="' + n.p[1] +
-      '">Show on the ground →</button>';
 
     $('#exhibit').innerHTML = h;
     $('#exhibit').classList.remove('empty');
-    const b = $('#exhibit .exmap');
-    if (b) b.addEventListener('click', () => {
-      window.APP.showCardFor(n.g, n.p);
-    });
+    const mc = $('#exhibit .exmapcv');
+    if (mc && n.p) {
+      // The same renderer as the big map, so this really is the ground it is spoken on and
+      // not a second, cheaper drawing of it.
+      // ⚠ Size it INSIDE a frame: measured straight after innerHTML the element had a
+      // clientWidth of 0, so the backing store was 0 wide and the map came out blank.
+      let tries = 0;
+      const paint = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = mc.clientWidth || mc.getBoundingClientRect().width;
+        const hh = mc.clientHeight || 150;
+        // A width of 2 px is not "laid out yet" any more than 0 is, and it passed a plain
+        // truthiness check — the map painted into a 4-pixel canvas and looked empty.
+        if (w < 60 && tries++ < 40) { requestAnimationFrame(paint); return; }
+        if (w < 60) return;
+        mc.width = Math.round(w * dpr);
+        mc.height = Math.round(hh * dpr);
+        window.APP.snapshot(mc, n.p[0], n.p[1], 26);
+      };
+      requestAnimationFrame(paint);
+      setTimeout(paint, 900);          // again once nearer tiles have streamed in
+      mc.addEventListener('click', () => window.APP.showCardFor(n.g, n.p));
+    }
     draw();
   }
 
@@ -448,9 +502,17 @@
         T.ox = drag[2] + dx; T.oy = drag[3] + dy; draw();
         return;
       }
-      const r = hit(e);
+      const b2 = cv.getBoundingClientRect();
+      const inside = e.clientX >= b2.left && e.clientX <= b2.right &&
+                     e.clientY >= b2.top && e.clientY <= b2.bottom;
+      const r = inside ? hit(e) : null;
       const nn = r ? r.n : null;
-      if (nn !== T.hover) { T.hover = nn; cv.style.cursor = r && !r.kids.length ? 'pointer' : 'grab'; }
+      T.hoverXY = r ? [e.clientX - b2.left, e.clientY - b2.top] : null;
+      if (nn !== T.hover) {
+        T.hover = nn;
+        cv.style.cursor = r && !r.kids.length ? 'pointer' : 'grab';
+      }
+      if (nn || T.hoverXY) draw();
     });
     window.addEventListener('resize', () => { if (T.laid) draw(); });
   }

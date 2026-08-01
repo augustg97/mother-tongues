@@ -1,1 +1,1 @@
-{"g":"kond1302","c":[{"g":"kond1303","n":"Yaben (Konda)","lv":1,"a":2,"p":[132.06,-1.83],"i":"knd"},{"g":"yaha1248","n":"Yahadian","lv":1,"a":2,"p":[132.1,-1.94],"i":"ner"}],"n":"Konda-Yahadian","lv":0,"p":[132.08,-1.88]}
+{"g":"kond1302","c":[{"g":"kond1303","n":"Yaben (Konda)","lv":1,"a":2,"p":[132.06,-1.83],"i":"knd","au":["bahasa Konda","id"],"d":"language in Indonesia","cc":"ID"},{"g":"yaha1248","n":"Yahadian","lv":1,"a":2,"p":[132.1,-1.94],"i":"ner","d":"language","cc":"ID"}],"n":"Konda-Yahadian","lv":0,"p":[132.08,-1.88]}

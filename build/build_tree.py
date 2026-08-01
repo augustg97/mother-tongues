@@ -110,11 +110,21 @@ def main() -> None:
 
     # Autonyms and texts, so a leaf can show a real name and a real sentence.
     autonym: dict[str, list] = {}
+    extra: dict[str, dict] = {}
     lp = os.path.join(ROOT, "web", "data", "languages.json")
     if os.path.exists(lp):
         for row in json.load(open(lp, encoding="utf-8"))["rows"]:
             if row[9]:
                 autonym[row[0]] = row[9][0]
+            e = {}
+            if len(row) > 12 and row[12]:
+                e["d"] = row[12]
+            if len(row) > 13 and row[13]:
+                e["sp"] = row[13]
+            if len(row) > 14 and row[14]:
+                e["cc"] = row[14]
+            if e:
+                extra[row[0]] = e
 
     ages: dict[str, dict] = {}
     pp = os.path.join(TEXTS, "phlorest.json")
@@ -170,6 +180,7 @@ def main() -> None:
                 y_first = i["y0"] if y_first is None else min(y_first, i["y0"])
             if nd["g"] in autonym:
                 nd["au"] = autonym[nd["g"]]
+            nd.update(extra.get(nd["g"], {}))
             if lv == "language":
                 counts["lang"] += 1
                 if i.get("ma"):
@@ -263,7 +274,7 @@ def build_texts() -> None:
         gc = iso2gc.get(iso)
         if not gc:
             continue
-        out[gc] = {"t": v["text"], "s": v["script"], "d": v["dir"], "l": v["tag"],
+        out[gc] = {"b": v["blocks"], "s": v["script"], "d": v["dir"], "l": v["tag"],
                    "f": v["file"]}
     d = os.path.join(ROOT, "web", "data")
     os.makedirs(d, exist_ok=True)

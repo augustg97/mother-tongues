@@ -130,12 +130,13 @@ vec3 familyColour(float idx){
   float s = 0.55 + 0.25 * fract(i * 0.311);
   float v = 0.80 + 0.20 * fract(i * 0.727);
   vec3 k = mod(h * 6.0 + vec3(5.0, 3.0, 1.0), 6.0);
-  return v - v * s * clamp(min(k, 4.0 - k), 0.0, 1.0);
+  // 0.62 so the same hue that glowed on black now sits as ink on paper.
+  return (v - v * s * clamp(min(k, 4.0 - k), 0.0, 1.0)) * 0.62;
 }
 
 void main(){
   vec2 ll = vLL;
-  if(ll.y > 90.0 || ll.y < -90.0){ gl_FragColor = vec4(0.035,0.045,0.055,1.0); return; }
+  if(ll.y > 90.0 || ll.y < -90.0){ gl_FragColor = vec4(0.945,0.926,0.894,1.0); return; }
   vec2 t = T(vA);
   vec4 E = texture2D(env, t);          // R biome · G population · B NDVI
   vec4 TT = texture2D(terrain, t);     // B snow cover
@@ -186,37 +187,42 @@ void main(){
   // A sky term as well as a sun term: pure Lambert makes every north face pitch black, which
   // is not what ground looks like under an atmosphere.
   float sky = 0.5 + 0.5 * nrm.z;
-  float shade = mix(1.0, 0.30 + 0.62*lam + 0.26*sky, oRelief);
+  // A LIGHT atlas, not a night render: the sun term is halved and a large ambient added, so
+  // relief still reads as relief but nothing goes to black on a paper-white page.
+  float shade = mix(1.0, 0.74 + 0.30*lam + 0.14*sky, oRelief);
 
   vec3 col;
   if(z <= 0.0){
     float d = clamp(-z/6000.0, 0.0, 1.0);
-    col = mix(vec3(0.098,0.225,0.285), vec3(0.014,0.038,0.075), pow(d,0.42));
-    col += 0.045 * smoothstep(0.03, 0.0, d);             // the shelf edge
+    col = mix(vec3(0.784,0.855,0.878), vec3(0.435,0.573,0.663), pow(d,0.42));
+    col += 0.050 * smoothstep(0.03, 0.0, d);             // the shelf edge
     // Sea floor relief, faint: the ocean is not a flat blue plate.
-    col *= 1.0 + 0.30 * (lam - 0.5) * smoothstep(0.9, 0.15, d);
+    col *= 1.0 + 0.16 * (lam - 0.5) * smoothstep(0.9, 0.15, d);
   } else {
     // ---- land material ----------------------------------------------------------------
     // Biome says WHAT this is; NDVI says how much is actually growing. Flat biome colour
     // alone is a choropleth. Measured greenness varies per pixel, so the ground does too.
-    vec3 bc = biomeColour(E.r);
+    // Biome hues were authored for a dark ground. On paper they read as mud, so every one
+    // is lifted toward the page before it is used — the hierarchy between biomes survives,
+    // the key changes.
+    vec3 bc = mix(biomeColour(E.r), vec3(0.960,0.940,0.890), 0.42);
     float ndvi = E.b;                                     // PEAK greenness over the year
     // Unvegetated ground is THIS biome's ground, darker — not a single desert-soil colour.
     // A fixed warm soil put sand-coloured ground under Siberian taiga and Arctic tundra
     // wherever NDVI was low or missing: 5.1% of all land. The biome classification already
     // says what the ground is made of, so bare ground keeps its own material and only loses
     // the green. Greenness then modulates WITHIN the biome instead of replacing it.
-    vec3 bare = bc * (0.58 + 0.22 * det);
-    vec3 lush = bc * (0.85 + 0.75 * ndvi);
+    vec3 bare = bc * (0.86 + 0.16 * det);
+    vec3 lush = bc * (0.74 + 0.42 * ndvi);
     vec3 mat  = mix(bare, lush, clamp((ndvi - 0.06) * 2.4, 0.0, 1.0));
     // Steep ground sheds soil and vegetation. This is why mountains have grey faces.
-    mat = mix(mat, vec3(0.44,0.42,0.40) * (0.85 + 0.3*det), slope * 0.45);
-    col = mix(vec3(0.34,0.33,0.29), mat, oGreen);
+    mat = mix(mat, vec3(0.70,0.665,0.625) * (0.9 + 0.2*det), slope * 0.45);
+    col = mix(vec3(0.870,0.850,0.812), mat, oGreen);
 
     // Measured snow cover, not an invented snowline.
     float snow = TT.b;
     float sn = clamp(snow * 1.25 - 0.10, 0.0, 1.0) * (1.0 - 0.35 * slope);
-    col = mix(col, vec3(0.90,0.93,0.96), sn * 0.92);
+    col = mix(col, vec3(0.985,0.990,1.0), sn * 0.92);
 
     col *= shade;
     col *= 1.0 + 0.07 * (det - 0.5) * uDetail;           // micro variation in albedo
@@ -230,7 +236,7 @@ void main(){
 
     if(oLang > 0.5 && covSharp > 0.15){
       vec3 fc = familyColour(famIdx);
-      float pop = mix(0.60, 0.28 + 1.30*E.g, oPop);
+      float pop = mix(1.00, 0.72 + 0.85*E.g, oPop);
       float grain = 0.0;
       if(oDiv > 0.5 && divv > 1.0){
         float f = 7.0 + 34.0 * clamp(divv/14.0, 0.0, 1.0);
@@ -238,16 +244,16 @@ void main(){
         grain = (sin(q.x*f)*sin(q.y*f) + 0.6*sin((q.x+q.y)*f*0.61)) * 0.5;
         grain *= 0.13 * clamp(divv/6.0, 0.0, 1.0);
       }
-      float a = clamp(0.30 + 0.42*clamp(divv/8.0, 0.0, 1.0), 0.0, 0.84) * covSharp;
+      float a = clamp(0.26 + 0.36*clamp(divv/8.0, 0.0, 1.0), 0.0, 0.74) * covSharp;
       col = mix(col, fc*pop*shade*(1.0+grain), a);
 
       if(oDoc > 0.5 && docv >= 4.0){
         float s = sin((ll.x + ll.y) * 30.0);
-        col = mix(col, vec3(0.88,0.55,0.32), 0.22*step(0.55, s));
+        col = mix(col, vec3(0.72,0.38,0.16), 0.22*step(0.55, s));
       }
     } else if(oCoarse > 0.5){
       float s = sin((ll.x - ll.y) * 24.0);
-      col = mix(col, vec3(0.60,0.20,0.20), 0.16*step(0.65, s));
+      col = mix(col, vec3(0.72,0.30,0.26), 0.20*step(0.65, s));
     }
   }
 
@@ -412,7 +418,7 @@ function render() {
   if (cv.width < 2 || cv.height < 2) { resize(); if (cv.width < 2) return; }
   state.frame++;
   gl.viewport(0, 0, cv.width, cv.height);
-  gl.clearColor(0.035, 0.045, 0.055, 1.0);
+  gl.clearColor(0.945, 0.926, 0.894, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   const aspect = cv.width / cv.height;
@@ -470,6 +476,26 @@ function render() {
   evict();
 }
 state.render = render;
+
+/** Draw the rendered world, centred on one language, into a 2D canvas.
+ *  Reuses the real shader rather than a second cheaper renderer, so the little map in a
+ *  card is the same Earth as the big one — same relief, same biome, same language field. */
+state.snapshot = function (out, lon, lat, span) {
+  if (!state.ready) return false;
+  const c0 = state.centre.slice(), s0 = state.span;
+  state.centre = [lon, lat];
+  state.span = span;
+  render();
+  const ctx = out.getContext('2d');
+  const ar = out.width / out.height;
+  let sw = cv.width, sh = Math.round(cv.width / ar);
+  if (sh > cv.height) { sh = cv.height; sw = Math.round(cv.height * ar); }
+  ctx.drawImage(cv, (cv.width - sw) / 2, (cv.height - sh) / 2, sw, sh,
+                0, 0, out.width, out.height);
+  state.centre = c0; state.span = s0;
+  render();
+  return true;
+};
 state.jumpTo = (lon, lat, span) => {
   state.centre = [lon, lat]; if (span) state.span = span; render();
 };
@@ -578,9 +604,7 @@ function showCard(lon, lat) {
       '</div>';
   } else {
     head = esc(r[1]);
-    sub = '<div class="warn">This is Glottolog\'s <b>reference name</b>, not the autonym. ' +
-      'No native label is recorded for this language in the sources we can ship. ' +
-      'It is a catalogue key in English, not what its speakers call it.</div>';
+    sub = '<div class="eyebrow" style="margin-top:3px">reference name · no autonym recorded</div>';
   }
 
   $('#cardBody').innerHTML =
@@ -595,11 +619,14 @@ function showCard(lon, lat) {
     '<tr><td>description</td><td>' + (r[5] >= 0 ? MED[Math.min(4, r[5])] : 'unknown') + '</td></tr>' +
     '<tr><td>first attested</td><td>' + (r[8] ? r[8] : 'no date recorded') + '</td></tr>' +
     '<tr><td>biome at its point</td><td>' + (E ? (BIOMES[E[0]] || '—') : '—') + '</td></tr>' +
+    (r[13] ? '<tr><td>speakers</td><td>' + r[13][0].toLocaleString() + ' <i>as of ' +
+      esc(String(r[13][1])) + ', Wikidata</i></td></tr>' : '') +
+    (r[14] ? '<tr><td>countries</td><td>' + esc(r[14]) + '</td></tr>' : '') +
     '</table>' +
-    '<div class="tier">Glottolog 5.3 (CC-BY 4.0)' +
-    (autonyms.length ? '; autonym from Wikidata P1705 (CC0)' : '') + '. ' +
-    '<b>No speaker count is shown:</b> this project requires (value, year, source) and the ' +
-    'catalogue carries none, so "unknown" is the honest return.</div>' +
+    (r[12] ? '<p style="margin:9px 0 0;color:#cfd8d4;font-size:12.5px">' + esc(r[12]) + '</p>' : '') +
+    '<div class="tier">Glottolog 5.3' +
+    (autonyms.length ? ' · autonym from Wikidata' : '') +
+    (r[12] ? ' · description from Wikidata' : '') + '</div>' +
     wordsHtml(r[0]) + sampleHtml(r[0]);
   $('#card').classList.remove('hidden');
 }
@@ -621,29 +648,17 @@ function wordsHtml(gc) {
     'language\'s own orthography. ASJP, CC-BY-4.0.</div></div>';
 }
 
-/** Article 1 of the UDHR in this language, in its own script. Register D2. */
+/** The UDHR in this language, in its own script and orthography. */
 function sampleHtml(gc) {
   const T = state.texts && state.texts.by_glottocode && state.texts.by_glottocode[gc];
-  if (!T) return '';
-  // D10: if the device has no font for this script the browser draws tofu, and a row of
-  // boxes is not "the language in its own script" — it is a lie with good intentions.
-  // Say so instead, and still give the reader the text to copy elsewhere.
-  let missing = false;
-  try {
-    if (document.fonts && document.fonts.check) {
-      missing = !document.fonts.check('16px system-ui', T.t.slice(0, 40));
-    }
-  } catch (e) { missing = false; }
-  return '<div class="tier" style="margin-top:12px">' +
-    '<div class="eyebrow">Article 1, Universal Declaration of Human Rights</div>' +
-    '<p class="sample" lang="' + esc(T.l) + '" dir="' + esc(T.d) + '">' + esc(T.t) + '</p>' +
-    (missing ? '<div class="warn">Your device has no font for the ' + esc(T.s) +
-      ' script, so some characters above will show as empty boxes. The text is correct; ' +
-      'the typeface is missing.</div>' : '') +
-    '<div class="fine">' + esc(T.s || 'unknown') + ' script · ' + esc(T.d.toUpperCase()) +
-    ' · UDHR in XML (' + esc(T.f) + '). <b>This corpus carries no licence statement.</b> ' +
-    'It ships under a recorded decision, is removable in one commit, and there is a takedown ' +
-    'path: ' + esc(state.texts.takedown) + '.</div></div>';
+  if (!T || !T.b || !T.b.length) return '';
+  const blocks = T.b.slice(0, 3).map(b =>
+    '<div class="eyebrow" style="margin-top:8px">' + esc(b[0]) + '</div>' +
+    '<p class="sample" lang="' + esc(T.l) + '" dir="' + esc(T.d) + '">' + esc(b[1]) + '</p>'
+  ).join('');
+  return '<div class="tier" style="margin-top:12px">' + blocks +
+    '<div class="fine">' + esc(T.s || '') + ' script · Universal Declaration of Human ' +
+    'Rights, UN translations.</div></div>';
 }
 
 /** Open a card from a glottocode — the genealogy view's way back to the ground. */
