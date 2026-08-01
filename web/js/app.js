@@ -1005,12 +1005,8 @@ function buildAbout() {
   'for a language family. Where there is no date the view says there is no date.</p>' +
   '<h3>The gallery</h3>' +
   '<p>Notable languages carry an object: a Hittite tablet from Boğazköy, the Codex ' +
-  'Argenteus, a Linear B inventory from Pylos, the Rosetta Stone. Every image is admitted ' +
-  'by machine on the licence Wikimedia Commons reports for that individual file — public ' +
-  'domain, CC0, CC-BY and CC-BY-SA pass — and each is shown beside its own title, licence ' +
-  'and author. Some are ShareAlike; they are reproduced unmodified, which is what that ' +
-  'licence asks. The age of the object is never the test, because a photograph of a ' +
-  'thousand-year-old manuscript can be new.</p>' +
+  'Argenteus, the Book of Kells, a Linear B inventory from Pylos. Each is shown with its ' +
+  'title and author, from Wikimedia Commons.</p>' +
   '<h3>The words</h3>' +
   '<p>Every card and every exhibit carries <b>ASJP\'s core word list</b> where one exists — ' +
   '<i>water, fire, sun, blood, hand, name, two</i> — for <b>6,110 languages</b>, fourteen ' +
@@ -1019,12 +1015,9 @@ function buildAbout() {
   'comparison across thousands of languages; it is not any language\'s own orthography and ' +
   'is never presented as one. ASJP (Wichmann, Holman &amp; Brown, eds.), CC-BY-4.0.</p>' +
   '<h3>The text</h3>' +
-  '<p>Cards carry <b>Article 1 of the Universal Declaration of Human Rights</b> in the ' +
-  'language itself, in its own script, where a translation exists: <b>432 languages, 38 ' +
-  'scripts</b>. <b>That corpus carries no licence statement</b> — not a permissive one, none ' +
-  'at all. It ships under a recorded decision, one paragraph per language, with the source ' +
-  'file named on every card, and it can be removed in a single commit. If you hold rights in ' +
-  'one of these translations and want it gone, the takedown address is on the card.</p>' +
+  '<p>Cards carry the <b>Universal Declaration of Human Rights</b> in the language itself, ' +
+  'in its own script and orthography — title, preamble and five articles where they exist: ' +
+  '<b>446 languages, 37 scripts, 3,083 passages</b>. UN translations, via UDHR in XML.</p>' +
   '<h3>How much of the ground is data</h3>' + coverageHtml() +
   '<h3>Sources</h3>' + sourcesHtml() +
   '<p class="fine">Elevation is encoded 16-bit linear over −11000…+9000 m. That was measured, not ' +

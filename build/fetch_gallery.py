@@ -42,33 +42,9 @@ BAD_PAT = re.compile(r"\bnc\b|noncommercial|non-commercial|\bnd\b|noderiv|fair u
 # subject -> (glottocode it illustrates, search terms). Chosen so that every major branch of
 # Indo-European has an object, plus the deep-past languages the tree otherwise draws as a
 # hollow ring with a date.
-SUBJECTS = [
-    ("hitt1242", "Hittite cuneiform tablet Bogazkoy"),
-    ("sans1269", "Rigveda manuscript"),
-    ("anci1242", "Homer Iliad papyrus"),
-    ("lati1261", "Roman inscription Latin marble"),
-    ("goth1244", "Codex Argenteus"),
-    ("oldi1245", "Beowulf manuscript Cotton Vitellius"),
-    ("chur1257", "Codex Zographensis Old Church Slavonic"),
-    ("aves1237", "Avesta manuscript"),
-    ("oldp1254", "Behistun inscription"),
-    ("tokh1241", "Tocharian manuscript fragment"),
-    ("clas1249", "Armenian manuscript Matenadaran"),
-    ("oldi1246", "Book of Kells folio"),
-    ("lith1251", "Mazvydas Catechism 1547"),
-    ("clas1256", "Ferdowsi Shahnameh manuscript illustration"),
-    ("wels1247", "Book of Aneirin Welsh manuscript"),
-    ("alba1267", "Meshari Gjon Buzuku"),
-    ("nucl1301", "Rosetta Stone"),
-    ("egyp1246", "Egyptian hieroglyphs Book of the Dead"),
-    ("sume1241", "Sumerian cuneiform tablet"),
-    ("akka1240", "Code of Hammurabi stele"),
-    ("clas1252", "Maya codex Dresden"),
-    ("clas1253", "Nahuatl Florentine Codex"),
-    ("oldc1244", "Oracle bone script Shang"),
-    ("kore1280", "Hunminjeongeum Haerye"),
-    ("clas1255", "Kojiki manuscript"),
-    ("gree1276", "Linear B tablet Pylos"),
+import json as _json
+_sp = os.path.join(OUT, "subjects.json")
+SUBJECTS = [tuple(x) for x in _json.load(open(_sp))] if os.path.exists(_sp) else [
 ]
 
 

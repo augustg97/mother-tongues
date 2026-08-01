@@ -28,6 +28,7 @@
   const T = {
     index: null, family: null, tree: null, rows: [], famIdx: {},
     scale: 1, ox: 0, oy: 0, hover: null, sel: null, showDialects: false, q: '',
+    collapsed: new Set(),
     laid: null, W: 0, H: 0
   };
   window.TREE = T;
@@ -100,12 +101,25 @@
     function walk(n, depth) {
       if (!keep(n)) return null;
       maxDepth = Math.max(maxDepth, depth);
-      const kids = (n.c || []).map(c => walk(c, depth + 1)).filter(Boolean);
-      const rec = { n, depth, kids, y: 0, leaves: 0, living: 0 };
+      // A collapsed node keeps its subtree in the DATA but not in the layout: it becomes a
+      // tip you can open. Searching overrides collapse, otherwise a search would only find
+      // what you had already opened — the bug this view had once before.
+      const shut = !q && T.collapsed.has(n.g);
+      const kids = shut ? [] : (n.c || []).map(c => walk(c, depth + 1)).filter(Boolean);
+      const rec = { n, depth, kids, y: 0, leaves: 0, living: 0, shut, hasKids: !!(n.c || []).length };
       if (!kids.length) {
         rec.y = leafN++;
         rec.leaves = 1;
         rec.living = (n.a || 0) >= 6 ? 0 : 1;
+        if (shut) {
+          // a shut branch still shows its weight, so the tree does not look emptier closed
+          let L2 = 0, LV = 0;
+          (function cnt(m) {
+            if (!(m.c || []).length) { L2++; if ((m.a || 0) < 6) LV++; }
+            (m.c || []).forEach(cnt);
+          })(n);
+          rec.leaves = Math.max(1, L2); rec.living = LV;
+        }
       } else {
         rec.leaves = kids.reduce((a, k) => a + k.leaves, 0);
         rec.living = kids.reduce((a, k) => a + k.living, 0);
@@ -210,6 +224,18 @@
         g.beginPath(); g.arc(x, y, 2.2, 0, 6.2832);
         g.fillStyle = 'rgba(90,84,76,.5)'; g.fill();
       }
+      // A shut branch is drawn as a bud with its size on it: the affordance is the shape,
+      // not an icon you have to learn.
+      if (r.shut && labelled) {
+        const rad = Math.min(9, 4 + Math.sqrt(r.leaves) * 0.5);
+        g.beginPath(); g.arc(x, y, rad, 0, 6.2832);
+        g.fillStyle = col; g.globalAlpha = 0.22; g.fill(); g.globalAlpha = 1;
+        g.strokeStyle = col; g.lineWidth = 1.3; g.stroke();
+        g.font = '600 ' + Math.max(8, Math.min(10, rad * 1.15)).toFixed(1) + 'px ' + SANS;
+        g.fillStyle = col; g.textAlign = 'center';
+        g.fillText(String(r.leaves), x, y + 0.5);
+        g.textAlign = 'left';
+      }
 
       if (T.sel === n) {
         g.beginPath(); g.arc(x, y, 8, 0, 6.2832);
@@ -306,7 +332,9 @@
 
   /* ---- the exhibit: one language, given room ---- */
   /** Everything under a node: leaf count, deaths, the oldest attested member, extent. */
+  /** Walk the DATA, not the layout: a collapsed branch must still report its real size. */
   function summarise(rec) {
+    if (rec && rec.shut) rec = fullRec(rec.n);
     let lang = 0, ext = 0, end = 0, oldest = null, oldestN = null, named = [];
     let lo = 999, la = 999, LO = -999, LA = -999;
     (function w(r) {
@@ -329,6 +357,11 @@
     return { lang, ext, end, oldest, oldestN, named, box };
   }
 
+  function fullRec(n) {
+    const kids = (n.c || []).map(fullRec);
+    return { n, kids, leaves: kids.length ? kids.reduce((a, k) => a + k.leaves, 0) : 1 };
+  }
+
   function branchExhibit(n, rec) {
     const A = window.APP, s = summarise(rec);
     const path = [];
@@ -339,7 +372,8 @@
     })(T.laid.root, []);
     let h = '<div class="exkicker">' + (path.map(p => esc(p)).join(' › ') || 'a branch') +
       '</div><h2 class="exname" style="font-size:31px">' + esc(n.n) + '</h2>' +
-      '<div class="exalt"><span>a branch of the family, not a language</span></div>';
+      '<div class="exalt"><span>a branch of the family, not a language · click it again to ' +
+      (T.collapsed.has(n.g) ? 'open' : 'close') + '</span></div>';
     if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
     const bits = ['<b>' + s.lang + '</b> language' + (s.lang === 1 ? '' : 's')];
     if (s.ext) bits.push('<b>' + s.ext + '</b> extinct');
@@ -409,8 +443,8 @@
     if (gal) {
       h += '<figure class="exfig"><img src="' + window.V('img/gallery/' + gal.file) +
         '" alt="' + esc(gal.subject) + '" loading="lazy">' +
-        '<figcaption>' + esc(gal.title) + ' · ' + esc(gal.licence) +
-        (gal.artist ? ' · ' + esc(gal.artist) : '') + '</figcaption></figure>';
+        '<figcaption>' + esc(gal.title) + (gal.artist ? ' · ' + esc(gal.artist) : '') +
+        '</figcaption></figure>';
     }
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
     if (story) h += '<p class="exstory">' + esc(story) + '</p>';
@@ -601,6 +635,13 @@
     const q = $('#treeq'); if (q) q.value = '';
     $('#exhibit').innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
     $('#exhibit').classList.add('empty');
+    // Open shut: a family shows its branches, and the visitor opens the ones they want.
+    T.collapsed = new Set();
+    (function shut(n, d) {
+      if (!(n.c || []).length) return;
+      if (d >= 2) { T.collapsed.add(n.g); return; }
+      n.c.forEach(c => shut(c, d + 1));
+    })(T.tree, 0);
     layout();
     // Fit the whole family in view, then let the visitor zoom in for names.
     const cv = $('#treecv');
@@ -766,7 +807,22 @@
     let drag = null;
     cv.addEventListener('mousedown', e => { if (T.story) return; drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
     window.addEventListener('mouseup', e => {
-      if (drag && !drag[4]) { const r = hit(e); if (r && !r.kids.length) exhibit(r.n); }
+      if (drag && !drag[4]) {
+        const r = hit(e);
+        if (r) {
+          // ⚠ ONE pick path. A collapse toggle was added to a `click` listener that this
+          // canvas does not have — mouseup is what actually fires — so forks opened a
+          // leaf-shaped card and never expanded. A fork now both toggles AND explains itself.
+          if (r.hasKids) {
+            T.collapsed.has(r.n.g) ? T.collapsed.delete(r.n.g) : T.collapsed.add(r.n.g);
+            layout();
+            branchExhibit(r.n, T.laid.nodes.find(z => z.n === r.n) || r);
+            draw();
+          } else {
+            exhibit(r.n, r);
+          }
+        }
+      }
       drag = null;
     });
     window.addEventListener('mousemove', e => {

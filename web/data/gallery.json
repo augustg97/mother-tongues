@@ -28,12 +28,12 @@
  },
  "lati1261": {
   "file": "lati1261.jpg",
-  "title": "Roman - Funeral Stele with Latin Inscription Referring To Mithra - Walters 2317.jpg",
-  "licence": "Public domain",
-  "artist": "Anonymous (Roma. Roman Empire)Unknown author",
-  "credit": "Walters Art Museum:  Home page  Info about artwork",
-  "page": "https://commons.wikimedia.org/wiki/File:Roman_-_Funeral_Stele_with_Latin_Inscription_Referring_To_Mithra_-_Walters_2317.jpg",
-  "subject": "Roman inscription Latin marble"
+  "title": "Portrait Bust with Inscription, front - Getty Museum (85.AA.352).jpg",
+  "licence": "CC0",
+  "artist": "J. Paul Getty Museum",
+  "credit": "The Getty Center, Object 103VR6\n\n\n\n\n\nThis image was taken from the Getty Research Institute's Open Content Program, which states the following regarding their a",
+  "page": "https://commons.wikimedia.org/wiki/File:Portrait_Bust_with_Inscription,_front_-_Getty_Museum_(85.AA.352).jpg",
+  "subject": "Roman inscription Latin marble Trajan"
  },
  "goth1244": {
   "file": "goth1244.jpg",
@@ -43,6 +43,15 @@
   "credit": "NAGY KÉPES VILÁGTÖRTÉNET [1], [2]",
   "page": "https://commons.wikimedia.org/wiki/File:Codex_Argenteus-Mark_ev.jpg",
   "subject": "Codex Argenteus"
+ },
+ "olde1238": {
+  "file": "olde1238.jpg",
+  "title": "Beowulf Cotton MS Vitellius A XV f. 132r.jpg",
+  "licence": "Public domain",
+  "artist": "anonymous Anglo-Saxon poet",
+  "credit": "This file has been provided by the British Library from its digital collections. Links to the British Library's website may be broken as the library recovers fr",
+  "page": "https://commons.wikimedia.org/wiki/File:Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg",
+  "subject": "Beowulf manuscript Cotton Vitellius"
  },
  "chur1257": {
   "file": "chur1257.jpg",
@@ -71,8 +80,8 @@
   "page": "https://commons.wikimedia.org/wiki/File:Behistun_DB1_1-15.jpg",
   "subject": "Behistun inscription"
  },
- "tokh1241": {
-  "file": "tokh1241.jpg",
+ "tokh1242": {
+  "file": "tokh1242.jpg",
   "title": "Kucha BLI115 OR8212-1379-R01.jpg",
   "licence": "Public domain",
   "artist": "",
@@ -89,8 +98,8 @@
   "page": "https://commons.wikimedia.org/wiki/File:Mashtots_Institute_of_Ancient_Manuscripts_(Matenadaran).JPG",
   "subject": "Armenian manuscript Matenadaran"
  },
- "oldi1246": {
-  "file": "oldi1246.jpg",
+ "oldi1245": {
+  "file": "oldi1245.jpg",
   "title": "Book of Kells ChiRho Folio 34R.png",
   "licence": "Public domain",
   "artist": "unknown Irish or Scottish monks",
@@ -116,8 +125,8 @@
   "page": "https://commons.wikimedia.org/wiki/File:A_Welsh_Grammar,_Historical_and_Comparative_(IA_welshgrammarhist00joneuoft).djvu",
   "subject": "Book of Aneirin Welsh manuscript"
  },
- "alba1267": {
-  "file": "alba1267.jpg",
+ "gheg1238": {
+  "file": "gheg1238.jpg",
   "title": "Buzuku meshari.jpg",
   "licence": "Public domain",
   "artist": "",
@@ -125,14 +134,149 @@
   "page": "https://commons.wikimedia.org/wiki/File:Buzuku_meshari.jpg",
   "subject": "Meshari Gjon Buzuku"
  },
- "egyp1246": {
-  "file": "egyp1246.jpg",
-  "title": "Luxor Book of the Dead 2.JPG",
+ "oldn1244": {
+  "file": "oldn1244.jpg",
+  "title": "Brynjólfur sveinsson.jpg",
   "licence": "Public domain",
-  "artist": "McLeod",
-  "credit": "self-made @ National Museum, Copenhagen",
-  "page": "https://commons.wikimedia.org/wiki/File:Luxor_Book_of_the_Dead_2.JPG",
-  "subject": "Egyptian hieroglyphs Book of the Dead"
+  "artist": "",
+  "credit": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Brynj%C3%B3lfur_sveinsson.jpg",
+  "subject": "Codex Regius Poetic Edda"
+ },
+ "icel1247": {
+  "file": "icel1247.jpg",
+  "title": "The Finding of Wineland the Good.djvu",
+  "licence": "Public domain",
+  "artist": "Arthur Middleton Reeves",
+  "credit": "Internet Archive identifier: findingofwinelan00reev",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Finding_of_Wineland_the_Good.djvu",
+  "subject": "Icelandic saga manuscript Flateyjarbok"
+ },
+ "oldh1241": {
+  "file": "oldh1241.jpg",
+  "title": "Hildebrandslied Teil 1 von 2.jpg",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Hildebrandslied_Teil_1_von_2.jpg",
+  "subject": "Hildebrandslied manuscript"
+ },
+ "oldf1239": {
+  "file": "oldf1239.jpg",
+  "title": "La Chanson de Roland - Manuscrit Oxford - fol 1r.jpg",
+  "licence": "Public domain",
+  "artist": "AnonymousUnknown author",
+  "credit": "http://fr.wikisource.org/wiki/Image:La_Chanson_de_Roland_-_Manuscrit_Oxford_-_fol_1r.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:La_Chanson_de_Roland_-_Manuscrit_Oxford_-_fol_1r.jpg",
+  "subject": "Chanson de Roland manuscript Oxford"
+ },
+ "olds1250": {
+  "file": "olds1250.jpg",
+  "title": "Berlin heliand.jpg",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "Aderlaß und Seelentrost. Die Überlieferung deutscher Texte im Spiegel Berliner Handschriften und Inkunabeln, hg. von Peter Jörg Becker und Eef Overgaauw (Staats",
+  "page": "https://commons.wikimedia.org/wiki/File:Berlin_heliand.jpg",
+  "subject": "Heliand manuscript"
+ },
+ "iron1242": {
+  "file": "iron1242.jpg",
+  "title": "Ossetian Rhapsode Mysykkaty Tembolat.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Bor.Mysykkaty",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Ossetian_Rhapsode_Mysykkaty_Tembolat.jpg",
+  "subject": "Ossetian Nart sagas"
+ },
+ "mode1248": {
+  "file": "mode1248.jpg",
+  "title": "Workers in the vineyard, Minuscule 269 (11th century).jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "credit": "Byzantine gospel. Paris, National Library. Ιστορία του Ελληνικού Έθνους, Εκδοτική Αθηνών. Αθήνα 1980. Τόμος Η', σελ. 202.",
+  "page": "https://commons.wikimedia.org/wiki/File:Workers_in_the_vineyard,_Minuscule_269_(11th_century).jpg",
+  "subject": "Greek manuscript Byzantine gospel"
+ },
+ "tavr1235": {
+  "file": "tavr1235.jpg",
+  "title": "Composite View of) Ordines Sacri Romani Imp- Ab Ottone Iii Instituti. (xvii and xviii (IA dr composite-view-of-ordines-sacri-romani-imp-ab-ottone-iii-instituti-xvi-10001381).jpg",
+  "licence": "Public domain",
+  "artist": "Ortelius, Abraham, 1527-1598\nVrients, Jan Baptista\nWierix, Jan",
+  "credit": "Internet Archive identifier: dr_composite-view-of-ordines-sacri-romani-imp-ab-ottone-iii-instituti-xvi-10001381\nhttps://archive.org/download/dr_composite-view-o",
+  "page": "https://commons.wikimedia.org/wiki/File:Composite_View_of)_Ordines_Sacri_Romani_Imp-_Ab_Ottone_Iii_Instituti._(xvii_and_xviii_(IA_dr_composite-view-of-ordines-sacri-romani-imp-ab-ottone-iii-instituti-xvi-10001381).jpg",
+  "subject": "Romani people historical illustration"
+ },
+ "beng1280": {
+  "file": "beng1280.jpg",
+  "title": "চর্যাপদ-এর ৩৯ নং পৃষ্ঠা; প্রাচীন বাংলা ভাষার নিদর্শন - Page-39 of the Charyapad manuscript, a sign of the Bengali or Old Bengali language.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Mohmoni",
+  "credit": "https://commons.wikimedia.org/wiki/File:Rajshahi_College_Library_Inside_02.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:%E0%A6%9A%E0%A6%B0%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%AA%E0%A6%A6-%E0%A6%8F%E0%A6%B0_%E0%A7%A9%E0%A7%AF_%E0%A6%A8%E0%A6%82_%E0%A6%AA%E0%A7%83%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A6%BE;_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%9A%E0%A7%80%E0%A6%A8_%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE_%E0%A6%AD%E0%A6%BE%E0%A6%B7%E0%A6%BE%E0%A6%B0_%E0%A6%A8%E0%A6%BF%E0%A6%A6%E0%A6%B0%E0%A7%8D%E0%A6%B6%E0%A6%A8_-_Page-39_of_the_Charyapad_manuscript,_a_sign_of_the_Bengali_or_Old_Bengali_language.jpg",
+  "subject": "Bengali manuscript Charyapada"
+ },
+ "sinh1246": {
+  "file": "sinh1246.jpg",
+  "title": "Dambulu rock inscription.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Ji-Elle",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Dambulu_rock_inscription.jpg",
+  "subject": "Sinhala inscription Sri Lanka"
+ },
+ "nort2646": {
+  "file": "nort2646.jpg",
+  "title": "(Falconry manuscript). Khushal Khan Khatak. Baz-nama, (The Book of Falconry). Central Asia - Afghanistan, 1689-90 CE.jpg",
+  "licence": "Public domain",
+  "artist": "Inlibris.com",
+  "credit": "https://inlibris.com/item/bn60461/",
+  "page": "https://commons.wikimedia.org/wiki/File:(Falconry_manuscript)._Khushal_Khan_Khatak._Baz-nama,_(The_Book_of_Falconry)._Central_Asia_-_Afghanistan,_1689-90_CE.jpg",
+  "subject": "Pashto manuscript Khushal Khan Khattak"
+ },
+ "scot1245": {
+  "file": "scot1245.jpg",
+  "title": "Book of Dean of Lismore page.jpg",
+  "licence": "Public domain",
+  "artist": "Uknown; Rev. Thomas McLoughlan; William F. Skene.",
+  "credit": "William Forbes Skene, The Dean of Lismore’s book : a selection of ancient Gaelic poetry from a manuscript collection made by Sir James M’Gregor, Dean of Lismore",
+  "page": "https://commons.wikimedia.org/wiki/File:Book_of_Dean_of_Lismore_page.jpg",
+  "subject": "Book of the Dean of Lismore"
+ },
+ "stan1289": {
+  "file": "stan1289.jpg",
+  "title": "Ars brevis and Ars abbreviata praedicanda, versio latinus II - DPLA - d6ad117447ab76dfdbb6b0a8ecf71ccc (page 12).jpg",
+  "licence": "Public domain",
+  "artist": "Llull, Ramon, 1232?-1316",
+  "credit": "This file was contributed to Wikimedia Commons by Science History Institute as part of a cooperation project. The donation was facilitated by the Digital Public",
+  "page": "https://commons.wikimedia.org/wiki/File:Ars_brevis_and_Ars_abbreviata_praedicanda,_versio_latinus_II_-_DPLA_-_d6ad117447ab76dfdbb6b0a8ecf71ccc_(page_12).jpg",
+  "subject": "Catalan manuscript Ramon Llull"
+ },
+ "port1283": {
+  "file": "port1283.jpg",
+  "title": "Cantigas de Santa María, Codex of the musicians, B-I-2 162R lute rebab.jpg",
+  "licence": "Public domain",
+  "artist": "The court of Alfonso X (1251-1284)\n\nFrom the Patrimonio Nacional website:\" we can affirm that it is a collective creation in which several musicians and authors",
+  "credit": "ATTRIBUTION: Royal Library of the Monastery of El Escorial (RBME). National Heritage.\noriginal manuscript: Page 162R of the Codex of the musicians",
+  "page": "https://commons.wikimedia.org/wiki/File:Cantigas_de_Santa_Mar%C3%ADa,_Codex_of_the_musicians,_B-I-2_162R_lute_rebab.jpg",
+  "subject": "Cantigas de Santa Maria manuscript"
+ },
+ "roma1327": {
+  "file": "roma1327.jpg",
+  "title": "Introduction to Luther's Catechism in Romanian Cyrillic (Coresi, 1559, from Philippus Pictor, 1544).png",
+  "licence": "Public domain",
+  "artist": "Coresi",
+  "credit": "Ioachim Crăciun, Catechismul românesc din 1544 urmat de celelalte catehisme românești luterane. Sibiu &amp; Cluj: Tipografia Cartea Românească, 1945–1946.  OCLC",
+  "page": "https://commons.wikimedia.org/wiki/File:Introduction_to_Luther%27s_Catechism_in_Romanian_Cyrillic_(Coresi,_1559,_from_Philippus_Pictor,_1544).png",
+  "subject": "Romanian old book Coresi"
+ },
+ "stan1318": {
+  "file": "stan1318.jpg",
+  "title": "Kufic Quran, sura 7, verses 86-87.jpg",
+  "licence": "Public domain",
+  "artist": "AnonymousUnknown author",
+  "credit": "Mandel, Gabriele: Das Arabische Alphabet - Geschichte, Stile und kalligraphische Meisterschulen. Wiesbaden: Matrix, 2004.",
+  "page": "https://commons.wikimedia.org/wiki/File:Kufic_Quran,_sura_7,_verses_86-87.jpg",
+  "subject": "Quran manuscript Kufic"
  },
  "sume1241": {
   "file": "sume1241.jpg",
@@ -152,6 +296,33 @@
   "page": "https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG",
   "subject": "Code of Hammurabi stele"
  },
+ "egyp1246": {
+  "file": "egyp1246.jpg",
+  "title": "Luxor Book of the Dead 2.JPG",
+  "licence": "Public domain",
+  "artist": "McLeod",
+  "credit": "self-made @ National Museum, Copenhagen",
+  "page": "https://commons.wikimedia.org/wiki/File:Luxor_Book_of_the_Dead_2.JPG",
+  "subject": "Egyptian hieroglyphs Book of the Dead"
+ },
+ "yuca1254": {
+  "file": "yuca1254.jpg",
+  "title": "Dresden Codex p09.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "credit": "From http://www.famsi.org/mayawriting/codices/dresden.html",
+  "page": "https://commons.wikimedia.org/wiki/File:Dresden_Codex_p09.jpg",
+  "subject": "Maya codex Dresden"
+ },
+ "clas1250": {
+  "file": "clas1250.jpg",
+  "title": "General History of the Things of New Spain by Fray Bernardino de Sahagún- The Florentine Codex WDL10096.jpg",
+  "licence": "Public domain",
+  "artist": "Sahagún, Bernardino de, 1499-1590",
+  "credit": "http://www.wdl.org/media/10096/service/thumbnail/6000x6000/1/1.jpg\n\nGallery: http://www.wdl.org/en/item/10096/",
+  "page": "https://commons.wikimedia.org/wiki/File:General_History_of_the_Things_of_New_Spain_by_Fray_Bernardino_de_Sahag%C3%BAn-_The_Florentine_Codex_WDL10096.jpg",
+  "subject": "Florentine Codex Nahuatl"
+ },
  "oldc1244": {
   "file": "oldc1244.jpg",
   "title": "Chinese character Shang oracle 虎 hu3 tiger.svg",
@@ -170,33 +341,6 @@
   "page": "https://commons.wikimedia.org/wiki/File:Hunminjeongeum_Haerye_03.jpg",
   "subject": "Hunminjeongeum Haerye"
  },
- "olde1238": {
-  "file": "olde1238.jpg",
-  "title": "Beowulf Cotton MS Vitellius A XV f. 132r.jpg",
-  "licence": "Public domain",
-  "artist": "anonymous Anglo-Saxon poet",
-  "credit": "This file has been provided by the British Library from its digital collections. Links to the British Library's website may be broken as the library recovers fr",
-  "page": "https://commons.wikimedia.org/wiki/File:Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg",
-  "subject": "Beowulf manuscript Cotton Vitellius"
- },
- "stan1318": {
-  "file": "stan1318.jpg",
-  "title": "Rosetta stone.jpg",
-  "licence": "Public domain",
-  "artist": "No machine-readable author provided. Matijap assumed (based on copyright claims).",
-  "credit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
-  "page": "https://commons.wikimedia.org/wiki/File:Rosetta_stone.jpg",
-  "subject": "Rosetta Stone"
- },
- "clas1250": {
-  "file": "clas1250.jpg",
-  "title": "General History of the Things of New Spain by Fray Bernardino de Sahagún- The Florentine Codex WDL10096.jpg",
-  "licence": "Public domain",
-  "artist": "Sahagún, Bernardino de, 1499-1590",
-  "credit": "http://www.wdl.org/media/10096/service/thumbnail/6000x6000/1/1.jpg\n\nGallery: http://www.wdl.org/en/item/10096/",
-  "page": "https://commons.wikimedia.org/wiki/File:General_History_of_the_Things_of_New_Spain_by_Fray_Bernardino_de_Sahag%C3%BAn-_The_Florentine_Codex_WDL10096.jpg",
-  "subject": "Nahuatl Florentine Codex"
- },
  "oldj1239": {
   "file": "oldj1239.jpg",
   "title": "Kojiki by Chamberlain.djvu",
@@ -206,13 +350,31 @@
   "page": "https://commons.wikimedia.org/wiki/File:Kojiki_by_Chamberlain.djvu",
   "subject": "Kojiki manuscript"
  },
- "yuca1254": {
-  "file": "yuca1254.jpg",
-  "title": "Dresden Codex p09.jpg",
+ "finn1318": {
+  "file": "finn1318.jpg",
+  "title": "Notes and Queries - Series 6 - Volume 11.djvu",
   "licence": "Public domain",
-  "artist": "Unknown authorUnknown author",
-  "credit": "From http://www.famsi.org/mayawriting/codices/dresden.html",
-  "page": "https://commons.wikimedia.org/wiki/File:Dresden_Codex_p09.jpg",
-  "subject": "Maya codex Dresden"
+  "artist": ".mw-parser-output .messagebox{margin:4px 0;width:auto;border-collapse:collapse;border:2px solid var(--border-color-progressive,#6485d1);background-color:var(--b",
+  "credit": "https://archive.org/details/s6notesqueries11londuoft",
+  "page": "https://commons.wikimedia.org/wiki/File:Notes_and_Queries_-_Series_6_-_Volume_11.djvu",
+  "subject": "Kalevala manuscript Lonnrot"
+ },
+ "hind1269": {
+  "file": "hind1269.jpg",
+  "title": "Krishna subdues Kaliya Naag, in Bhagavata Purana, c18th century manuscript.jpg",
+  "licence": "Public domain",
+  "artist": "AnonymousUnknown author",
+  "credit": "Library of Congress [1]",
+  "page": "https://commons.wikimedia.org/wiki/File:Krishna_subdues_Kaliya_Naag,_in_Bhagavata_Purana,_c18th_century_manuscript.jpg",
+  "subject": "Devanagari manuscript Hindi"
+ },
+ "mand1415": {
+  "file": "mand1415.jpg",
+  "title": "Lanting rubbing1.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "",
+  "credit": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Lanting_rubbing1.jpg",
+  "subject": "Chinese calligraphy Lanting Xu"
  }
 }
