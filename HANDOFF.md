@@ -17,7 +17,7 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–4 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785544927)
+**Rounds 1–5 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785560109)
 
 Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
 families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
@@ -61,7 +61,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785544927**, verified live (tree, texts and tiles confirmed)
+- Last live deploy: **stamp 1785560109**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.

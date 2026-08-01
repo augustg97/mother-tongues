@@ -21,6 +21,23 @@ IDs are referenced from white papers, code comments and commit messages. **Never
 
 <!-- Rewritten in place as items land, so this file describes the app rather than a wish list. -->
 
+### Round 5 (2026-07-31) — the museum: a real tree, on paper, with words
+
+| item | what shipped | measured |
+|---|---|---|
+| **the tree, redrawn** | organic tapering branches; **thickness = living descendants**, distance = depth of descent. Hollow tips extinct, amber endangered. Pan/zoom/click | a family that is mostly extinct visibly thins toward its tips before a label is read |
+| **paper** | the genealogy room is warm paper (#f7f3ea) with ink type in a Palatino/Iowan serif stack | names 38px, passages 17px, glosses in small caps |
+| **D2b words** *(new)* | **ASJP core 40** for **6,110 languages**, 380,912 forms, CC-BY-4.0 — 14× the UDHR's reach, and for many languages the only text that exists | shown as a typeset grid in the exhibit, inline on map cards, labelled ASJPcode not orthography |
+| **the exhibit** | a selected leaf gets a room: descent path, autonym at display size in its own script, facts, word grid, Article 1 as a quotation | suomi 33 words + Finnish passage; አማርኛ 33 words + Ge'ez passage |
+
+**Bugs found by looking:** the canvas backing store was resized on width only, so when the
+exhibit column reflowed the grid shorter the previous family stayed painted below the fold —
+two trees at once in two colours; labels overprinted in dense clades (now drawn in y order
+with a collision guard, internal names above the branch); a grid ROW does not clip its child,
+so below 900px the stacked panels painted over each other; and ASJP marks its core 40 with a
+leading asterisk, so matching without stripping it found 4 concepts of 100 and wrote a file
+with zero usable languages — a parsing bug that looks exactly like a coverage problem.
+
 ### Round 4 (2026-07-31) — the genealogy, scripts, texts, and honest intervals
 
 | item | what shipped | measured |
