@@ -109,6 +109,49 @@ def gate_js() -> None:
           f"files parse")
 
 
+def gate_labels() -> None:
+    """Every authored label must sit on the language it is about.
+
+    Seven of thirty did not. `nucl1301` is Turkish, not Standard Arabic, so a paragraph about
+    the Qur'an was displayed on Turkish; the Maya codex image was on Classical Syriac and the
+    Kojiki on Sinitic. Glottocodes are opaque eight-character strings and I guessed several of
+    them from memory. Nothing caught it because no gate compared authored text against the
+    catalogue — so this one does, on the one word each label is unmistakably about.
+    """
+    print("2c. museum labels sit on the right languages")
+    import csv as _csv
+    np_ = os.path.join(WEB, "data", "notable.json")
+    if not os.path.exists(np_):
+        print("   no labels"); return
+    N = json.load(open(np_, encoding="utf-8"))
+    expect = N.get("expect", {})
+    names = {}
+    gl = os.path.join(ROOT, "data", "glottolog", "languages.csv")
+    if not os.path.exists(gl):
+        print("   Glottolog not present — SKIPPED"); return
+    with open(gl, newline="", encoding="utf-8") as f:
+        for r in _csv.DictReader(f):
+            names[r["ID"]] = r["Name"]
+    bad = []
+    for gc in N["by_glottocode"]:
+        want = expect.get(gc)
+        got = names.get(gc)
+        if got is None:
+            bad.append(f"{gc} is not a language in Glottolog")
+        elif want and want.lower() not in got.lower():
+            bad.append(f"{gc} label is about {want!r} but the glottocode is {got!r}")
+    gp = os.path.join(WEB, "data", "gallery.json")
+    if os.path.exists(gp):
+        for gc in json.load(open(gp, encoding="utf-8")):
+            if gc not in names:
+                bad.append(f"gallery image keyed to {gc}, which is not a language")
+    if bad:
+        for b in bad:
+            print("   " + b)
+        die(f"{len(bad)} authored label(s) sit on the wrong language")
+    print(f"   {len(N['by_glottocode'])} labels checked against Glottolog, all correct")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -263,6 +306,7 @@ if __name__ == "__main__":
     gate_selftests()
     gate_fields()
     gate_js()
+    gate_labels()
     gate_registration()
     gate_attribution()
     gate_coverage()

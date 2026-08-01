@@ -44,15 +44,6 @@
   "page": "https://commons.wikimedia.org/wiki/File:Codex_Argenteus-Mark_ev.jpg",
   "subject": "Codex Argenteus"
  },
- "oldi1245": {
-  "file": "oldi1245.jpg",
-  "title": "Beowulf Cotton MS Vitellius A XV f. 132r.jpg",
-  "licence": "Public domain",
-  "artist": "anonymous Anglo-Saxon poet",
-  "credit": "This file has been provided by the British Library from its digital collections. Links to the British Library's website may be broken as the library recovers fr",
-  "page": "https://commons.wikimedia.org/wiki/File:Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg",
-  "subject": "Beowulf manuscript Cotton Vitellius"
- },
  "chur1257": {
   "file": "chur1257.jpg",
   "title": "Kodex.Zograf.JPG",
@@ -116,15 +107,6 @@
   "page": "https://commons.wikimedia.org/wiki/File:Mazvydo_katekizmas.jpg",
   "subject": "Mazvydas Catechism 1547"
  },
- "clas1256": {
-  "file": "clas1256.jpg",
-  "title": "Brooklyn Museum - Two Large Leaves of Shah Namah of Ferdowsi Manuscript.jpg",
-  "licence": "Public domain",
-  "artist": "Unknown authorUnknown author",
-  "credit": "Online Collection of Brooklyn Museum; Photo: Brooklyn Museum, 44.218.1a_IMLS_PS3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_Two_Large_Leaves_of_Shah_Namah_of_Ferdowsi_Manuscript.jpg",
-  "subject": "Ferdowsi Shahnameh manuscript illustration"
- },
  "wels1247": {
   "file": "wels1247.jpg",
   "title": "A Welsh Grammar, Historical and Comparative (IA welshgrammarhist00joneuoft).djvu",
@@ -142,15 +124,6 @@
   "credit": "",
   "page": "https://commons.wikimedia.org/wiki/File:Buzuku_meshari.jpg",
   "subject": "Meshari Gjon Buzuku"
- },
- "nucl1301": {
-  "file": "nucl1301.jpg",
-  "title": "Rosetta stone.jpg",
-  "licence": "Public domain",
-  "artist": "No machine-readable author provided. Matijap assumed (based on copyright claims).",
-  "credit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
-  "page": "https://commons.wikimedia.org/wiki/File:Rosetta_stone.jpg",
-  "subject": "Rosetta Stone"
  },
  "egyp1246": {
   "file": "egyp1246.jpg",
@@ -179,24 +152,6 @@
   "page": "https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG",
   "subject": "Code of Hammurabi stele"
  },
- "clas1252": {
-  "file": "clas1252.jpg",
-  "title": "Dresden Codex p09.jpg",
-  "licence": "Public domain",
-  "artist": "Unknown authorUnknown author",
-  "credit": "From http://www.famsi.org/mayawriting/codices/dresden.html",
-  "page": "https://commons.wikimedia.org/wiki/File:Dresden_Codex_p09.jpg",
-  "subject": "Maya codex Dresden"
- },
- "clas1253": {
-  "file": "clas1253.jpg",
-  "title": "General History of the Things of New Spain by Fray Bernardino de Sahagún- The Florentine Codex WDL10096.jpg",
-  "licence": "Public domain",
-  "artist": "Sahagún, Bernardino de, 1499-1590",
-  "credit": "http://www.wdl.org/media/10096/service/thumbnail/6000x6000/1/1.jpg\n\nGallery: http://www.wdl.org/en/item/10096/",
-  "page": "https://commons.wikimedia.org/wiki/File:General_History_of_the_Things_of_New_Spain_by_Fray_Bernardino_de_Sahag%C3%BAn-_The_Florentine_Codex_WDL10096.jpg",
-  "subject": "Nahuatl Florentine Codex"
- },
  "oldc1244": {
   "file": "oldc1244.jpg",
   "title": "Chinese character Shang oracle 虎 hu3 tiger.svg",
@@ -215,8 +170,35 @@
   "page": "https://commons.wikimedia.org/wiki/File:Hunminjeongeum_Haerye_03.jpg",
   "subject": "Hunminjeongeum Haerye"
  },
- "clas1255": {
-  "file": "clas1255.jpg",
+ "olde1238": {
+  "file": "olde1238.jpg",
+  "title": "Beowulf Cotton MS Vitellius A XV f. 132r.jpg",
+  "licence": "Public domain",
+  "artist": "anonymous Anglo-Saxon poet",
+  "credit": "This file has been provided by the British Library from its digital collections. Links to the British Library's website may be broken as the library recovers fr",
+  "page": "https://commons.wikimedia.org/wiki/File:Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg",
+  "subject": "Beowulf manuscript Cotton Vitellius"
+ },
+ "stan1318": {
+  "file": "stan1318.jpg",
+  "title": "Rosetta stone.jpg",
+  "licence": "Public domain",
+  "artist": "No machine-readable author provided. Matijap assumed (based on copyright claims).",
+  "credit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
+  "page": "https://commons.wikimedia.org/wiki/File:Rosetta_stone.jpg",
+  "subject": "Rosetta Stone"
+ },
+ "clas1250": {
+  "file": "clas1250.jpg",
+  "title": "General History of the Things of New Spain by Fray Bernardino de Sahagún- The Florentine Codex WDL10096.jpg",
+  "licence": "Public domain",
+  "artist": "Sahagún, Bernardino de, 1499-1590",
+  "credit": "http://www.wdl.org/media/10096/service/thumbnail/6000x6000/1/1.jpg\n\nGallery: http://www.wdl.org/en/item/10096/",
+  "page": "https://commons.wikimedia.org/wiki/File:General_History_of_the_Things_of_New_Spain_by_Fray_Bernardino_de_Sahag%C3%BAn-_The_Florentine_Codex_WDL10096.jpg",
+  "subject": "Nahuatl Florentine Codex"
+ },
+ "oldj1239": {
+  "file": "oldj1239.jpg",
   "title": "Kojiki by Chamberlain.djvu",
   "licence": "Public domain",
   "artist": "Basil Hall Chamberlain",
@@ -224,13 +206,13 @@
   "page": "https://commons.wikimedia.org/wiki/File:Kojiki_by_Chamberlain.djvu",
   "subject": "Kojiki manuscript"
  },
- "gree1276": {
-  "file": "gree1276.jpg",
-  "title": "Linear B tablet, Pylos, 13th century BC, NAMA Tn 316, 191137.jpg",
-  "licence": "CC BY-SA 4.0",
-  "artist": "Zde",
-  "credit": "Own work",
-  "page": "https://commons.wikimedia.org/wiki/File:Linear_B_tablet,_Pylos,_13th_century_BC,_NAMA_Tn_316,_191137.jpg",
-  "subject": "Linear B tablet Pylos"
+ "yuca1254": {
+  "file": "yuca1254.jpg",
+  "title": "Dresden Codex p09.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "credit": "From http://www.famsi.org/mayawriting/codices/dresden.html",
+  "page": "https://commons.wikimedia.org/wiki/File:Dresden_Codex_p09.jpg",
+  "subject": "Maya codex Dresden"
  }
 }
