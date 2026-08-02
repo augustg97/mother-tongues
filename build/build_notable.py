@@ -574,6 +574,86 @@ E = [
  ("Fijian", "Fijian manuscript Fiji drua",
   "Fijian sits at the boundary between Melanesia and Polynesia and helped establish that the "
   "Polynesian languages are a single recent branch — the last great migration in the family."),
+ # ---- pass 5: Uralic ---------------------------------------------------------------------
+ ("Estonian", "Estonian song festival laulupidu",
+  "Estonian has three degrees of length where most languages have two, so the same syllable "
+  "can mean three different things. Its independence movement of 1988 was carried by mass "
+  "choral singing and is remembered as the Singing Revolution."),
+ ("Hungarian", "Halotti beszed Hungarian manuscript",
+  "Uralic, surrounded on every side by Indo-European, and stranded there by a ninth-century "
+  "migration off the steppe. The Funeral Sermon of about 1195 is the oldest continuous text "
+  "in any Uralic language."),
+ ("North Saami", "Sami joik drum Lapland",
+  "The largest Saami language, written across three states in one orthography agreed only in "
+  "1979. Its speakers were beaten for using it in Norwegian and Swedish boarding schools "
+  "within living memory."),
+ ("South Saami", "Southern Sami Norway Sweden",
+  "Separated from North Saami by enough distance that the two are not mutually intelligible, "
+  "and down to a few hundred speakers spread thinly along the Norwegian-Swedish border."),
+ ("Skolt Saami", "Skolt Sami Sevettijarvi Finland",
+  "Its speakers were displaced from Petsamo when the Soviet Union annexed it in 1944 and "
+  "resettled in Finland. The language has perhaps three hundred speakers and an orthography "
+  "with some of the most complex diacritics in Europe."),
+ ("Inari Saami", "Inari Sami Finland lake",
+  "Spoken only around one lake, and rescued by a language-nest programme begun in 1997 when "
+  "there were almost no child speakers left. There are now children who use it daily."),
+ ("Karelian", "Karelian Kalevala runo singers",
+  "The runo-singers Lönnrot collected the Kalevala from were Karelian, not Finnish — the "
+  "epic that became Finland's national poem was assembled largely from the songs of people "
+  "across the border."),
+ ("Veps", "Veps Vepsian Karelia Russia",
+  "A Finnic language of the Lake Onega region, written in Latin script in the 1930s, banned "
+  "in 1937, and revived on paper in 1989 with very few speakers left to read it."),
+ ("Votic", "Votic Vote Ingria Russia",
+  "Down to a handful of elderly speakers in a few villages in Ingria — one of the most nearly "
+  "extinct languages in Europe, and one of the closest relatives of Estonian."),
+ ("Liv", "Livonian coast Latvia Liv",
+  "Its last native speaker died in 2013. Livonian is now spoken only by learners, and it left "
+  "its mark on Latvian grammar — the two lived side by side for eight hundred years."),
+ ("Ingrian", "Ingrian Izhorian Russia",
+  "Fewer than a hundred speakers on the south shore of the Gulf of Finland, after "
+  "deportations in the 1930s and 1940s scattered the community that spoke it."),
+ ("Erzya", "Erzya Mordvin Russia embroidery",
+  "One of two Mordvinic languages that are usually named as one; Erzya and Moksha are not "
+  "mutually intelligible and each has its own literary standard."),
+ ("Moksha", "Moksha Mordvin Russia",
+  "The other Mordvinic language, with a vowel system quite unlike Erzya's, and a written "
+  "tradition that has been standardised, unstandardised and restandardised with Soviet "
+  "language policy."),
+ ("Eastern Mari", "Mari sacred grove Russia",
+  "Mari religion was never fully displaced by Christianity or by the Soviet state: sacred "
+  "groves are still used, and the prayers said in them are in Mari."),
+ ("Western Mari", "Hill Mari Gornomariysky Russia",
+  "The smaller of the two Mari standards, with its own newspaper and its own literary norm, "
+  "separated from Meadow Mari by the Volga."),
+ ("Udmurt", "Udmurt embroidery Russia",
+  "Permic, and one of the few minority languages of Russia with a visible modern pop culture "
+  "— its speakers are known internationally for a singing group of grandmothers."),
+ ("Komi-Zyrian", "Abur Old Permic script Stefan of Perm",
+  "Given its own alphabet, Abur, by Stefan of Perm in 1372 — one of the earliest scripts "
+  "devised for any language of northern Eurasia, and used for two centuries before Cyrillic "
+  "displaced it."),
+ ("Komi-Permyak", "Komi-Permyak Russia",
+  "Separated administratively from Komi-Zyrian and given a distinct written standard, which "
+  "is most of what makes it count as a separate language."),
+ ("Kazym-Berezover-Suryskarer Khanty", "Khanty Ob river Siberia",
+  "Ob-Ugric, and among the closest living relatives of Hungarian — a fact that took "
+  "eighteenth-century scholars by surprise and was resisted in Hungary for a century."),
+ ("Northern Mansi", "Mansi bear ceremony Siberia",
+  "The other Ob-Ugric language, with a bear ceremony whose songs use a special vocabulary "
+  "that ordinary speech may not touch. Fewer than a thousand speakers remain."),
+ ("Tundra Nenets", "Nenets reindeer chum Yamal",
+  "Samoyedic, spoken across the Yamal tundra by reindeer herders, and one of very few "
+  "indigenous languages of the Russian Arctic still being learned by children."),
+ ("Forest Enets", "Enets Taimyr Siberia",
+  "Perhaps a few dozen speakers on the Taimyr peninsula. Enets is among the most endangered "
+  "languages in the world with any documentation at all."),
+ ("Nganasan", "Nganasan Taimyr shaman",
+  "The northernmost language on the Eurasian mainland, and the most divergent Samoyedic one. "
+  "Its shamanic tradition was recorded on film in the twentieth century, in the language."),
+ ("Selkup", "Selkup Siberia Ob",
+  "Southern Samoyedic, scattered across the Siberian taiga in dialects that differ enough to "
+  "be hard to standardise, which has hampered every attempt to teach it."),
 ]
 
 
