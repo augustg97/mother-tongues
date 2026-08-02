@@ -740,6 +740,83 @@ E = [
   "Solomana Kanté invented the N'Ko alphabet in 1949 in direct answer to the claim that "
   "African languages could not be written properly. It is written right to left, and a whole "
   "publishing culture grew up around it without any state support."),
+ # ---- pass 7: Trans-New-Guinea and the Papuan families -----------------------------------
+ ("Fore", "Fore people Papua New Guinea highlands",
+  "Kuru, the laughing sickness, ran through Fore country in the mid-twentieth century and was "
+  "traced to mortuary feasting. Working it out established that a disease could be carried by "
+  "a misfolded protein, and won a Nobel Prize."),
+ ("Oksapmin", "Oksapmin body counting Papua New Guinea",
+  "Counting in Oksapmin runs up one arm, across the head and down the other — twenty-seven "
+  "named body parts in a fixed order, each one a number. Cash and schooling have been slowly "
+  "rebuilding it into base ten."),
+ ("Kalam", "Kalam Papua New Guinea highlands",
+  "Kalam has roughly a hundred verbs in total and builds everything else by stringing them "
+  "together, so 'fetch water' comes out as go get come put. It is the standard example of "
+  "how far a language can get on almost no verbs."),
+ ("Yimas", "Yimas Sepik river Papua New Guinea",
+  "Ten noun classes, an agreement system that marks subject, object and indirect object on "
+  "the verb at once, and enough morphological complexity that its grammar is a standard "
+  "reference for what human languages are capable of."),
+ ("Iatmul", "Iatmul Sepik haus tambaran",
+  "Iatmul clans own tens of thousands of hereditary names — for people, spirits, places and "
+  "objects — and disputes over who owns which name are argued in ceremonial debates that can "
+  "last for days."),
+ ("Enga", "Enga Papua New Guinea highlands",
+  "The largest Papuan language, with several hundred thousand speakers in the western "
+  "highlands, and one of the few with enough speakers that its future is not in question."),
+ ("Melpa", "Moka exchange Mount Hagen",
+  "The moka is a competitive gift exchange in which giving more than you received is how "
+  "status is won. The vocabulary for its stages is precise enough to function as an "
+  "accounting system."),
+ ("Huli", "Huli wigmen Papua New Guinea",
+  "Huli has a separate 'pandanus language' — a taboo vocabulary used only in the forest "
+  "during the pandanus harvest, with different words for hundreds of ordinary things, so that "
+  "spirits do not overhear."),
+ ("Western Dani", "Dani highlands Papua Baliem",
+  "Dani colour terms became famous in the 1960s as the test case for whether language shapes "
+  "perception: the language divides colour into two, and its speakers turned out to sort "
+  "colour chips much as everyone else does."),
+ ("Central Asmat", "Asmat bisj pole New Guinea",
+  "The Asmat carve bisj poles from mangrove for the dead, each figure standing for a person "
+  "whose death is unavenged. The poles are made to be used once and left to rot back into the "
+  "swamp."),
+ ("Korowai", "Korowai treehouse Papua",
+  "The Korowai build houses in trees, sometimes tens of metres up, and were not contacted by "
+  "outsiders until the 1970s — among the last people on Earth to be so."),
+ ("Marind", "Marind Anim Papua ceremony",
+  "Marind speakers of southern Papua organise almost everything — clans, myths, land — around "
+  "totemic categories that the language marks grammatically."),
+ ("Ekari", "Ekari Kamu valley Papua",
+  "Ekari counts in base sixty, one of very few languages outside ancient Mesopotamia to do "
+  "so, with distinct words for each unit up to sixty and then a new cycle."),
+ ("Telefol", "Telefol Telefomin Papua New Guinea",
+  "Telefol counting also runs across the body, twenty-seven points, and its speakers' cult "
+  "house at Telefomin sat at the centre of a religious network across the whole Mountain Ok "
+  "region."),
+ ("Golin", "Golin Chimbu Papua New Guinea",
+  "Golin has a whistled register that carries across valleys, reproducing the tone and rhythm "
+  "of speech closely enough for a specific message to arrive intact."),
+ ("Amele", "Amele Madang Papua New Guinea",
+  "Amele's verb morphology generates a famously enormous number of distinct forms, and its "
+  "switch-reference system marks whether the next clause has the same subject as this one."),
+ ("Alamblak", "Alamblak Sepik Papua New Guinea",
+  "A Sepik language whose noun classes divide the world partly by shape — long and thin "
+  "against short and squat — rather than by anything a European grammar would recognise."),
+ ("Kobon", "Kobon Papua New Guinea Kaironk",
+  "Like Kalam, Kobon manages with a very small number of verbs, and its speakers' "
+  "classification of birds and plants was detailed enough to be published as ethnobiology."),
+ ("Angguruk Yali", "Yali highlands Papua",
+  "Spoken in the eastern highlands of Papua, in valleys so steep that neighbouring villages "
+  "can be a day's walk apart, which is much of why the region holds so many languages."),
+ ("Wambon", "Wambon Papua Digul river",
+  "One of the Awyu-Dumut languages of the Digul basin, an area whose languages were barely "
+  "described until the late twentieth century."),
+ ("Nend", "Nend Madang Papua New Guinea",
+  "A small Madang language, one of hundreds in a province that holds more distinct languages "
+  "per square kilometre than anywhere else on Earth."),
+ ("Kuman", "Kuman Chimbu Papua New Guinea",
+  "One of the larger highland languages, and among the first to be written down by "
+  "missionaries in the 1930s when the highlands were opened."),
 ]
 
 
