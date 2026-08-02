@@ -17,7 +17,7 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–12 COMPLETE. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785600939)
+**Rounds 1–13 COMPLETE. Eight-pass enrichment loop finished. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785701549)
 
 Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
 families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
@@ -31,8 +31,9 @@ gate works, language identification does not; see the register. **C4 RESOLVED an
 **C10 CLOSED** (block bootstrap: every SE was ~3x too narrow, all four predictors still exclude
 zero). **D3 SHIPPING** (Lingua Libre, 15 recordings, language from the catalogue key).
 **D9 CLOSED. THE REGISTER IS EMPTY — original items and everything the work raised since.**
-Autonyms: 918 languages (12.0%) but **93.4% of speakers**. Anything from here is new scope. **The enrichment loop is open, not finished:** 48 labels and
-42 objects cover every major Indo-European branch. The next passes are (a) more IE depth —
+Autonyms: 918 languages (12.0%) but **93.4% of speakers**. Anything from here is new scope. **The enrichment loop RAN AND FINISHED: 242 labels, 158 objects across 8 passes** — IE depth,
+Sino-Tibetan, Afro-Asiatic, Austronesian, Uralic, Atlantic-Congo/Mande, Trans-New-Guinea, the
+Americas. The next passes are (a) more IE depth —
 Middle English, Old Prussian, Umbrian, Oscan, Sogdian, Bactrian, Prakrit, Kashmiri, Sorbian;
 (b) then the same treatment family by family, starting with Sino-Tibetan, Afro-Asiatic,
 Austronesian and Uralic. Author labels ONLY through `build/build_notable.py`, which resolves
@@ -75,7 +76,7 @@ expose a console handle (`APP.jumpTo`, `APP.state`) so visual verification is sc
 
 ## State right now
 
-- Last live deploy: **stamp 1785600939**, verified live (tree, texts and tiles confirmed)
+- Last live deploy: **stamp 1785701549**, verified live (tree, texts and tiles confirmed)
 - Committed and deployed: all of it. Pages serves `main:/docs`
 - Uncommitted: nothing (check `git status`)
 - App: **unchanged** — still the scaffold's hybrid shell at `web/`, port 8146, verified rendering.
