@@ -648,6 +648,7 @@
     const h = cv.clientHeight || 600;
     T.scale = Math.max(0.16, Math.min(1.6, (h - 70) / (15 * T.laid.leafN)));
     T.ox = 0; T.oy = 0;
+    if (T.story) storyTitle();
     draw();
   }
 
@@ -681,6 +682,9 @@
     // "Classical Indo-European" and a residue — so a lane per child would draw three bars and
     // hide Germanic, Slavic, Italic and Celtic one level below. Split the biggest lane
     // repeatedly until the view has a useful number of them.
+    const lanes = storyLanes();
+    if (!lanes.length) return;
+    T.storyLanes = lanes;
     const root = T.laid.root;
     let recs = root.kids.slice();
     if (!recs.length) recs = [root];
@@ -689,10 +693,7 @@
       if (!big || recs.length - 1 + big.kids.length > 18) break;
       recs = recs.filter(r => r !== big).concat(big.kids);
     }
-    const lanes = recs.map(k => ({ rec: k, s: summarise(k) }))
-      .filter(l => l.s.lang > 0)
-      .sort((a, b) => (a.s.oldest === null ? 1 : b.s.oldest === null ? -1 : a.s.oldest - b.s.oldest));
-    if (!lanes.length) return;
+
 
     const YMIN = -2000, YMAX = 2050;
     const padL = 152, padR = 92, top = 44;
@@ -711,8 +712,14 @@
     }
     g.textAlign = 'left';
 
+    T.laneY = [];
     lanes.forEach((L, i) => {
       const y = top + i * laneH + laneH / 2;
+      T.laneY.push(y);
+      if (T.page === L) {                       // the open page is marked on the axis
+        g.fillStyle = 'rgba(180,98,47,.09)';
+        g.fillRect(0, y - laneH / 2, w, laneH);
+      }
       const col = famColour(T.famIdx[T.family]);
       const hue = (i * 47) % 360;
       const band = `hsl(${hue} 42% 46%)`;
@@ -771,10 +778,112 @@
   }
   T.drawStory = drawStory;
 
+  /** The branches the story shows, chosen once so the drawing and the clicks agree. */
+  function storyLanes() {
+    const root = T.laid.root;
+    let recs = root.kids.slice();
+    if (!recs.length) recs = [root];
+    while (recs.length < 9) {
+      const big = recs.reduce((a, b) => (b.kids.length && b.leaves > (a ? a.leaves : 0) ? b : a), null);
+      if (!big || recs.length - 1 + big.kids.length > 18) break;
+      recs = recs.filter(r => r !== big).concat(big.kids);
+    }
+    return recs.map(k => ({ rec: k, s: summarise(k) }))
+      .filter(l => l.s.lang > 0)
+      .sort((a, b) => (a.s.oldest === null ? 1 : b.s.oldest === null ? -1 : a.s.oldest - b.s.oldest));
+  }
+
+  /** The story's opening page: what this family is, before any branch is opened. */
+  function storyTitle() {
+    const f = T.index.families.find(x => x.g === T.family);
+    if (!f) return;
+    const lanes = storyLanes();
+    const oldest = lanes.filter(l => l.s.oldest !== null)
+      .sort((a, b) => a.s.oldest - b.s.oldest)[0];
+    const dead = lanes.filter(l => l.s.lang - l.s.ext === 0);
+    let h = '<div class="exkicker">the story of a family</div>' +
+      '<h2 class="exname" style="font-size:32px">' + esc(f.n) + '</h2>' +
+      '<div class="exalt"><span>' + lanes.length + ' branches · read left to right, ' +
+      'oldest writing first · click a branch to open its page</span></div>';
+    if (f.age) h += '<p class="exdesc">Its root is dated to roughly <b>' +
+      f.age.toLocaleString() + ' years</b> ago. Everything below is descended from one ' +
+      'community of speakers at about that depth.</p>';
+    if (oldest) h += '<p class="exdesc">The first of its languages to be written down was ' +
+      '<b>' + esc(oldest.s.oldestN.n) + '</b>, in ' + (oldest.s.oldest < 0 ?
+      (-oldest.s.oldest) + ' BCE' : oldest.s.oldest + ' CE') + ' — the branch ' +
+      esc(oldest.rec.n.n) + '.</p>';
+    if (dead.length) h += '<p class="exdesc"><b>' + dead.length + ' of these branches have ' +
+      'no living speakers at all.</b> They are drawn hollow: ' +
+      dead.map(d => esc(d.rec.n.n)).join(', ') + '.</p>';
+    h += '<p class="exfine">Horizontal position is when a language was first written down, ' +
+      'not when it split from its sisters. Those are different kinds of date and only the ' +
+      'first one exists for most of these languages.</p>';
+    $('#exhibit').innerHTML = h;
+    $('#exhibit').classList.remove('empty');
+  }
+
+  /** A page of the storybook: one branch, with its objects and its oldest voice. */
+  function storyPage(L) {
+    const A = window.APP, s2 = L.s, n = L.rec.n;
+    const living = s2.lang - s2.ext;
+    let h = '<div class="exkicker">' + esc(T.index.families.find(x => x.g === T.family).n) +
+      ' · a branch</div><h2 class="exname" style="font-size:31px">' + esc(n.n) + '</h2>';
+    h += '<div class="exalt"><span>' + living + ' living · ' + s2.ext + ' extinct' +
+      (s2.oldest !== null ? ' · first written ' + (s2.oldest < 0 ? (-s2.oldest) + ' BCE'
+        : s2.oldest + ' CE') : ' · never written') + '</span></div>';
+    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    if (living === 0) h += '<p class="exdesc"><b>Nobody speaks any of them.</b></p>';
+
+    // the members of this branch that the museum actually has something to show for
+    const rich = [];
+    (function w(r) {
+      const m = r.n;
+      if (!r.kids.length) {
+        const has = (A.notable && A.notable.by_glottocode[m.g] ? 2 : 0) +
+                    (A.gallery && A.gallery[m.g] ? 2 : 0) +
+                    (A.texts && A.texts.by_glottocode[m.g] ? 1 : 0);
+        if (has) rich.push([has, m]);
+      }
+      r.kids.forEach(w);
+    })(fullRec(n));
+    rich.sort((a, b) => b[0] - a[0]);
+
+    for (const [, m] of rich.slice(0, 3)) {
+      const gal = A.gallery && A.gallery[m.g];
+      const story = A.notable && A.notable.by_glottocode[m.g];
+      const tx = A.texts && A.texts.by_glottocode[m.g];
+      h += '<h3>' + esc(m.au && canRender(m.au[0]) ? m.au[0] + ' · ' + m.n : m.n) + '</h3>';
+      if (gal) h += '<figure class="exfig"><img src="' + window.V('img/gallery/' + gal.file) +
+        '" alt="' + esc(gal.subject) + '" loading="lazy"><figcaption>' + esc(gal.title) +
+        '</figcaption></figure>';
+      if (story) h += '<p class="exstory" style="font-size:14px">' + esc(story) + '</p>';
+      if (tx && tx.b && tx.b.length) {
+        const b = tx.b[tx.b.length - 1];
+        h += '<blockquote class="exquote" lang="' + esc(tx.l) + '" dir="' + esc(tx.d) + '">' +
+          esc(b[1].slice(0, 320)) + '</blockquote>';
+      }
+    }
+    if (!rich.length) h += '<p class="exfine">Nothing in this branch has a recorded text or ' +
+      'an object yet. That is the next pass of the enrichment loop, not a statement about ' +
+      'the languages.</p>';
+    $('#exhibit').innerHTML = h;
+    $('#exhibit').classList.remove('empty');
+  }
+
   function wire() {
     $('#vStory').addEventListener('click', () => {
       T.story = !T.story;
       $('#vStory').classList.toggle('on', T.story);
+      // A card from the tree has nothing to do with the story, and leaving it there made the
+      // story read as a dead backdrop behind someone else's exhibit.
+      T.sel = null;
+      T.page = null;
+      if (T.story) {
+        storyTitle();
+      } else {
+        $('#exhibit').innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
+        $('#exhibit').classList.add('empty');
+      }
       draw();
     });
     $('#famlist').addEventListener('click', async e => {
@@ -805,15 +914,34 @@
     }, { passive: false });
 
     let drag = null;
-    cv.addEventListener('mousedown', e => { if (T.story) return; drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
+    cv.addEventListener('mousedown', e => { drag = [e.clientX, e.clientY, T.ox, T.oy, false]; });
     window.addEventListener('mouseup', e => {
+      if (drag && !drag[4] && T.story) {
+        const cv2 = $('#treecv'), b3 = cv2.getBoundingClientRect();
+        const my = e.clientY - b3.top;
+        if (T.laneY && e.clientX >= b3.left && e.clientX <= b3.right) {
+          let bi = -1, bd = 1e9;
+          T.laneY.forEach((yy, i) => { const d2 = Math.abs(yy - my); if (d2 < bd) { bd = d2; bi = i; } });
+          if (bi >= 0 && bd < 26 && T.storyLanes && T.storyLanes[bi]) {
+            T.page = T.storyLanes[bi];
+            storyPage(T.page);
+            drawStory();
+          }
+        }
+        drag = null;
+        return;
+      }
       if (drag && !drag[4]) {
         const r = hit(e);
         if (r) {
           // ⚠ ONE pick path. A collapse toggle was added to a `click` listener that this
           // canvas does not have — mouseup is what actually fires — so forks opened a
           // leaf-shaped card and never expanded. A fork now both toggles AND explains itself.
-          if (r.hasKids) {
+          // ⚠ `hasKids` is the WRONG test for "is this a fork". Glottolog gives most
+          // languages dialect children, so clicking Swedish opened a branch card and you had
+          // to click again to reach the language. A fork is a node whose LEVEL is family
+          // (lv 0); a language (lv 1) is always a language, dialects or not.
+          if (r.n.lv === 0 && r.hasKids) {
             T.collapsed.has(r.n.g) ? T.collapsed.delete(r.n.g) : T.collapsed.add(r.n.g);
             layout();
             branchExhibit(r.n, T.laid.nodes.find(z => z.n === r.n) || r);
@@ -826,6 +954,7 @@
       drag = null;
     });
     window.addEventListener('mousemove', e => {
+      if (drag && T.story) return;
       if (drag) {
         const dx = e.clientX - drag[0], dy = e.clientY - drag[1];
         if (Math.abs(dx) + Math.abs(dy) > 4) drag[4] = true;
@@ -848,6 +977,7 @@
     window.addEventListener('resize', () => { if (T.laid) T.draw(); });
   }
 
+  T.storyPage = storyPage;
   T.show = show;
   T.draw = draw;
   if (document.readyState !== 'loading') wire();

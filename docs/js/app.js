@@ -489,13 +489,30 @@ state.worldBox = function (out, lon, lat, span) {
   const W = out.width, H = out.height;
   const x = ((((lon + 180) % 360) + 360) % 360) / 360 * W;
   const y = (90 - lat) / 180 * H;
-  const bw = Math.max(10, span / 360 * W), bh = Math.max(7, (span / 2) / 180 * H);
-  ctx.lineWidth = Math.max(2, W / 220);
-  ctx.strokeStyle = 'rgba(20,22,26,.85)';
-  ctx.strokeRect(x - bw / 2, y - bh / 2, bw, bh);
-  ctx.strokeStyle = '#e8a06a';
-  ctx.lineWidth = Math.max(1, W / 420);
-  ctx.strokeRect(x - bw / 2, y - bh / 2, bw, bh);
+  const bw = Math.max(26, span / 360 * W), bh = Math.max(18, (span / 2) / 180 * H);
+  // The box was a hairline on a busy map and simply disappeared over land. Give it a dark
+  // halo, a bright fill, corner ticks and a minimum size, so it reads at any scale.
+  const bx = x - bw / 2, by = y - bh / 2;
+  ctx.save();
+  ctx.fillStyle = 'rgba(232,120,42,.20)';
+  ctx.fillRect(bx, by, bw, bh);
+  ctx.lineJoin = 'miter';
+  ctx.strokeStyle = 'rgba(28,22,16,.9)';
+  ctx.lineWidth = Math.max(4, W / 130);
+  ctx.strokeRect(bx, by, bw, bh);
+  ctx.strokeStyle = '#ff8a2b';
+  ctx.lineWidth = Math.max(2, W / 260);
+  ctx.strokeRect(bx, by, bw, bh);
+  const t2 = Math.max(6, W / 55);
+  ctx.beginPath();
+  for (const [cx, cy, sx, sy] of [[bx, by, 1, 1], [bx + bw, by, -1, 1],
+                                  [bx, by + bh, 1, -1], [bx + bw, by + bh, -1, -1]]) {
+    ctx.moveTo(cx, cy + sy * t2); ctx.lineTo(cx, cy); ctx.lineTo(cx + sx * t2, cy);
+  }
+  ctx.strokeStyle = '#fff2e2';
+  ctx.lineWidth = Math.max(2, W / 300);
+  ctx.stroke();
+  ctx.restore();
   return true;
 };
 
