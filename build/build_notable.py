@@ -817,6 +817,101 @@ E = [
  ("Kuman", "Kuman Chimbu Papua New Guinea",
   "One of the larger highland languages, and among the first to be written down by "
   "missionaries in the 1930s when the highlands were opened."),
+ # ---- pass 8: Uto-Aztecan and the Americas -----------------------------------------------
+ ("Ambulas", "Abelam yam cult haus tambaran",
+  "The Abelam grow ceremonial yams several metres long, and the language has a register used "
+  "only when addressing them, because a yam that overhears ordinary speech will not grow."),
+ ("Cherokee", "Cherokee syllabary Sequoyah",
+  "Sequoyah, who could not read any language, spent twelve years working out a syllabary for "
+  "Cherokee and finished it in 1821. Within a few years the nation's literacy rate exceeded "
+  "that of the settlers around it, and it had its own newspaper."),
+ ("Navajo", "Navajo code talkers Diné",
+  "The Navajo code talkers of the Second World War built a cipher on a language with almost "
+  "no outside speakers and a verb so complex that its stem changes with the shape of the "
+  "object being handled. It was never broken."),
+ ("Hopi", "Hopi kachina Arizona",
+  "Whorf argued from Hopi that its speakers conceived time differently; later work showed he "
+  "had overstated it. The claim and its correction are the founding episode of the whole "
+  "argument about language and thought."),
+ ("Tohono O'odham", "Tohono O'odham basket Arizona",
+  "Uto-Aztecan, spoken across a border that was drawn through the middle of its speakers in "
+  "1853, and one of the larger indigenous languages still spoken in the United States."),
+ ("Comanche", "Comanche horse plains",
+  "The Comanche language spread with the horse across the southern plains and became a trade "
+  "language of the region. Its last fully fluent speakers are very few."),
+ ("Yaqui", "Yaqui deer dance Sonora",
+  "The deer song tradition of the Yaqui is sung in an archaic register of the language kept "
+  "for that purpose, and the songs describe the world from the deer's point of view."),
+ ("Huichol", "Huichol yarn painting Wixarika",
+  "Wixárika yarn paintings and beadwork encode the peyote pilgrimage, and the language's "
+  "ritual vocabulary reverses ordinary meanings during it."),
+ ("Central Ojibwa", "Ojibwe birch bark scroll wiigwaasabak",
+  "The Midewiwin recorded songs and teachings on birch-bark scrolls in mnemonic pictographs. "
+  "Ojibwe verbs distinguish animate from inanimate throughout the grammar, and the assignment "
+  "is not the one an English speaker would guess."),
+ ("Siksika", "Blackfoot winter count Siksika",
+  "Blackfoot's sound system drifted so far from its Algonquian relatives that its membership "
+  "was doubted for years until the correspondences were worked out."),
+ ("Cheyenne", "Cheyenne ledger art plains",
+  "Ledger art, drawn on the pages of traders' account books, carried Cheyenne narrative "
+  "painting through the reservation period when hide was no longer available."),
+ ("Mohawk", "Mohawk wampum belt Haudenosaunee",
+  "Wampum belts record treaties and law in bead patterns that a trained reader recites at "
+  "length. The Great Law of the Haudenosaunee is carried this way."),
+ ("K'iche'", "Popol Vuh manuscript Ximenez",
+  "The Popol Vuh survives because a friar copied out a K'iche' text in the Latin alphabet "
+  "around 1701 with a Spanish translation beside it. It is the fullest Maya creation "
+  "narrative that exists."),
+ ("Lakota", "Lakota winter count hide",
+  "Winter counts recorded each year by a single pictograph on hide, chosen by consensus for "
+  "the event that most marked it — a calendar in which the community decides what a year was."),
+ ("Zuni", "Zuni pueblo New Mexico pottery",
+  "A language isolate in the middle of the Southwest, related to nothing around it, spoken in "
+  "a pueblo continuously occupied for centuries."),
+ ("Northern Haida", "Haida totem pole Haida Gwaii",
+  "Another isolate, on Haida Gwaii, with a few dozen elderly first-language speakers and an "
+  "immersion programme racing them."),
+ ("Tlingit", "Tlingit Chilkat blanket totem",
+  "Tlingit has a series of ejective consonants and a verb built from prefix positions in a "
+  "fixed order — and the crest designs on its speakers' blankets are owned property, like "
+  "names."),
+ ("Kalaallisut", "Greenlandic Kalaallisut Greenland",
+  "Polysynthetic to the point that a single word can be a sentence, and the only Inuit "
+  "language that is the official language of a country."),
+ ("Eastern Canadian Inuktitut", "Inuktitut syllabics Nunavut",
+  "Written in a syllabics adapted from Cree, in which each consonant's symbol rotates to show "
+  "the following vowel — one shape doing the work of four letters."),
+ ("Cusco Quechua", "Quipu khipu Inca knots",
+  "The Inca ran an empire without writing as we define it, using khipu — knotted cords whose "
+  "numerical content is understood and whose narrative content, if it exists, is not."),
+ ("Central Aymara", "Aymara Tiwanaku Bolivia",
+  "Aymara speakers gesture forward when speaking of the past and back toward the future, "
+  "matching the language's own metaphor: what you have seen is in front of you."),
+ ("Paraguayan Guaraní", "Guarani Paraguay manuscript",
+  "The only indigenous language of the Americas spoken by a national majority and official "
+  "alongside a colonial one — most Paraguayans speak it, including people with no indigenous "
+  "ancestry."),
+ ("Tupinambá", "Tupinamba Brazil Anchieta grammar",
+  "The coastal language the Portuguese met first, which supplied Brazilian Portuguese with "
+  "thousands of words and had a printed grammar by 1595, before most European vernaculars."),
+ ("Garifuna", "Garifuna drum Belize Honduras",
+  "Arawakan in grammar, spoken by descendants of shipwrecked Africans and Island Caribs, and "
+  "historically with distinct men's and women's vocabularies inherited from two different "
+  "populations."),
+ ("Mapudungun", "Mapudungun Mapuche Chile",
+  "The Mapuche were never conquered by the Inca and held off Spain for three centuries; the "
+  "treaty border on the Bío Bío is one of very few the Spanish crown ever recognised in the "
+  "Americas."),
+ ("Pirahã", "Piraha Amazon Brazil Maici",
+  "Pirahã became the centre of an argument about whether a human language can lack recursion. "
+  "The claim is contested; what is not is that it has a whistled and a hummed register used "
+  "for hunting and for talking through the rain."),
+ ("Huautla Mazatec", "Mazatec whistled speech Oaxaca",
+  "Mazatec men hold entire conversations in whistles that carry the tones of the spoken "
+  "language across valleys — not a code but the language itself, with the vowels removed."),
+ ("Yatzachi Zapotec", "Zapotec Monte Alban inscription",
+  "The Zapotec of Monte Albán produced the earliest writing in the Americas, around 500 BCE — "
+  "predating Maya script by centuries and still only partly read."),
 ]
 
 
