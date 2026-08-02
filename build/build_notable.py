@@ -407,6 +407,92 @@ E = [
   "Qiang has one of the most complex consonant systems in the family and no tones — unusual "
   "in a region where almost everything is tonal. Its stone watchtowers still stand in the "
   "valleys of northwest Sichuan."),
+ # ---- pass 3: Afro-Asiatic ---------------------------------------------------------------
+ ("Ancient Hebrew", "Dead Sea Scrolls Isaiah",
+  "Hebrew stopped being anyone's daily speech around 200 CE and stayed a written and "
+  "liturgical language for seventeen centuries — then was brought back into ordinary use in "
+  "the twentieth. It is the only case of a language with no native speakers acquiring "
+  "millions of them again."),
+ ("Ugaritic", "Ugaritic tablet alphabet Ras Shamra",
+  "The oldest alphabet we have in order: a cuneiform script of thirty signs from Ras Shamra, "
+  "with an abecedary tablet showing the sequence that still underlies Hebrew, Greek and "
+  "Latin. The city burned around 1190 BCE and its archive was baked."),
+ ("Phoenician", "Phoenician inscription Ahiram sarcophagus",
+  "The traders who exported the alphabet. Phoenician script became Greek, and through Greek "
+  "everything from Latin to Cyrillic to the letters you are reading now."),
+ ("Imperial Aramaic (700-300 BCE)", "Elephantine papyri Aramaic",
+  "The administrative language of the Persian empire from Egypt to the Indus, which is why "
+  "an Aramaic letter survives from a Jewish garrison on an island in the Nile. Parts of "
+  "Daniel and Ezra are in it."),
+ ("Classical Syriac", "Syriac manuscript Peshitta",
+  "The Aramaic of Edessa, and the vehicle of a vast Christian literature that carried Greek "
+  "philosophy and medicine eastward — translated into Syriac first, and from Syriac into "
+  "Arabic, which is how much of Aristotle reached Baghdad."),
+ ("Geez", "Geez manuscript Ethiopian Garima Gospels",
+  "The Garima Gospels, written in Ge'ez, are among the oldest illuminated Christian "
+  "manuscripts in existence. Ge'ez script began as an abjad and added vowels by modifying "
+  "each consonant's shape — an alphasyllabary invented independently of India's."),
+ ("Tigrinya", "Tigrinya manuscript Eritrea",
+  "One of Ge'ez's living descendants, written in the same script, and the working language of "
+  "Eritrea and of Ethiopia's Tigray region."),
+ ("Coptic", "Coptic manuscript Nag Hammadi",
+  "Egyptian written in Greek letters plus seven signs kept from demotic — the last stage of a "
+  "language attested for four thousand years. The Nag Hammadi library, buried in a jar in the "
+  "fourth century, is in Coptic."),
+ ("Maltese", "Maltese manuscript Cantilena",
+  "The only Semitic language written in the Latin alphabet and the only one that is an "
+  "official language of the European Union: Arabic grammar with a vocabulary half Italian, "
+  "the result of a thousand years in the middle of the Mediterranean."),
+ ("Kabyle", "Kabyle Berber manuscript Algeria",
+  "Berber of the Algerian mountains, and the centre of a movement that fought for the "
+  "language's recognition through the 1980s and 1990s. Tamazight is now official in Algeria, "
+  "which it was not within living memory."),
+ ("Chaouia of the Aures", "Aures Berber Algeria",
+  "Shawiya, of the Aurès massif — a Berber variety long left out of standardisation efforts "
+  "aimed at Kabyle, and shifting to Arabic faster than its neighbours."),
+ ("Tahaggart Tamahaq", "Tifinagh inscription Tuareg",
+  "The Tuareg write Tifinagh, a script descended from ancient Libyco-Berber, and it has been "
+  "kept alive largely by women, who traditionally taught it. Neo-Tifinagh is now used for "
+  "road signs in Morocco."),
+ ("Tachelhit", "Tashelhit manuscript Souss Morocco",
+  "Shilha has a written literature in Arabic script going back to the twelfth century, which "
+  "makes it one of very few Berber varieties with a long manuscript tradition of its own."),
+ ("Hausa", "Ajami manuscript Hausa Kano",
+  "West Africa's great trade language, with perhaps eighty million speakers counting second "
+  "languages. It has been written in Arabic script — ajami — for centuries, and in Latin "
+  "since colonial rule, and the two are still both in use."),
+ ("Somali", "Somali poetry manuscript Osmanya script",
+  "A language of poets, where oral verse was the main political medium, and which had no "
+  "official script until 1972 — after decades of argument in which the Osmanya alphabet, "
+  "invented locally, lost to the Latin one."),
+ ("West Central Oromo", "Oromo Qubee script Ethiopia",
+  "The most widely spoken Cushitic language, banned from writing and broadcast in Ethiopia "
+  "until 1991. It adopted a Latin orthography, Qubee, in 1991 — the choice itself an act of "
+  "politics."),
+ ("Afar", "Afar Danakil Ethiopia",
+  "Spoken across the Danakil depression, one of the hottest inhabited places on Earth, by "
+  "people whose language has a grammatical distinction for whether something is within sight."),
+ ("Beja", "Beja Red Sea hills Sudan",
+  "The only member of its branch of Cushitic, spoken in the Red Sea hills. Its speakers are "
+  "the Beja whom Roman and Egyptian sources call the Blemmyes."),
+ ("Wolaytta", "Wolaytta Ethiopia manuscript",
+  "An Omotic language of southern Ethiopia — Omotic being the branch whose membership of "
+  "Afro-Asiatic at all is the family's longest-running argument."),
+ ("Sidamo", "Sidama Ethiopia",
+  "Cushitic, spoken by several million people in southern Ethiopia, and one of the languages "
+  "that gained a written standard only after 1991."),
+ ("Punic", "Punic inscription Carthage stele",
+  "Carthaginian, a Phoenician colonial language that outlived the city itself: Augustine "
+  "records people in North Africa still speaking it in the fifth century CE, six hundred "
+  "years after Carthage fell."),
+ ("Sabaic", "Sabaean inscription Marib South Arabia",
+  "The monumental language of Saba in Yemen, cut in a beautifully geometric script whose "
+  "letters were designed for stone. Its inscriptions record the dam at Marib and the caravan "
+  "trade in incense."),
+ ("Amharic", "Amharic manuscript Ethiopia illuminated",
+  "Ethiopia's working language, written in the Ge'ez script, and the second most spoken "
+  "Semitic language after Arabic. Its literature includes royal chronicles kept continuously "
+  "for centuries."),
 ]
 
 
