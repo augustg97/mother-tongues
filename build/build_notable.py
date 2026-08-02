@@ -654,6 +654,92 @@ E = [
  ("Selkup", "Selkup Siberia Ob",
   "Southern Samoyedic, scattered across the Siberian taiga in dialects that differ enough to "
   "be hard to standardise, which has hampered every attempt to teach it."),
+ # ---- pass 6: Atlantic-Congo, and the Mande neighbours -----------------------------------
+ ("Swahili", "Swahili ajami manuscript Utendi",
+  "The Indian Ocean's trade language, Bantu in grammar with centuries of Arabic vocabulary, "
+  "written in Arabic script long before Latin. Its classical poetry, the utendi, was composed "
+  "on the Lamu coast from at least the seventeenth century."),
+ ("Yoruba", "Ifa divination board opon Ifa",
+  "The Ifá divination corpus is a memorised body of verse organised into 256 chapters, each "
+  "attached to a pattern cast on a divining board — one of the largest oral literatures ever "
+  "recorded, and UNESCO-listed."),
+ ("Igbo", "Igbo Ukwu bronze Nigeria",
+  "Igbo has hundreds of varieties and a standard nobody entirely accepts, assembled from "
+  "several of them. The ninth-century bronzes of Igbo-Ukwu were cast by its speakers' "
+  "ancestors, by lost-wax, centuries before contact with Europe."),
+ ("Zulu", "Zulu izibongo praise poetry beadwork",
+  "Zulu has three click consonants, borrowed from the Khoisan languages its speakers married "
+  "into — sounds that entered Bantu from outside. Its izibongo are praise poems recited at "
+  "speed by a specialist who must not stop for breath."),
+ ("Xhosa", "Xhosa click consonants beadwork",
+  "Fifteen click consonants, more than any other Bantu language, and the same borrowing "
+  "history. Xhosa was one of the first African languages with a printed newspaper, in 1837."),
+ ("Shona", "Great Zimbabwe stone enclosure",
+  "The stone city of Great Zimbabwe was built by Shona speakers between the eleventh and "
+  "fifteenth centuries, and colonial authorities spent decades insisting somebody else must "
+  "have done it."),
+ ("San Salvador Kongo", "Kongo catechism 1556 Kikongo",
+  "The Kingdom of Kongo had a Catholic king and a written vernacular within a generation of "
+  "Portuguese contact: a Kikongo catechism was printed in 1556, making it one of the first "
+  "African languages ever put into print."),
+ ("Kinshasa Lingala", "Lingala Congo river trade",
+  "A river language that spread with trade and then with the colonial army, simplified as it "
+  "went, and now the language of Congolese music heard across the continent."),
+ ("Wolof", "Wolofal ajami manuscript Senegal",
+  "Written in Wolofal, an Arabic script tradition used by Sufi brotherhoods for devotional "
+  "verse, and spoken as a second language by most Senegalese regardless of ethnicity."),
+ ("Hausa States Fulfulde", "Fulfulde ajami manuscript Sokoto",
+  "Fulfulde stretches from Senegal to Sudan, carried by herders across five thousand "
+  "kilometres of Sahel, and its noun-class system runs to more than twenty classes."),
+ ("Akan", "Adinkra symbols Ghana cloth",
+  "Adinkra are stamped symbols, each with a name and a proverb attached, printed on cloth for "
+  "funerals — a visual vocabulary that runs alongside the spoken one rather than writing it."),
+ ("Ewe", "Ewe Vodun Ghana Togo",
+  "Ewe is tonal to the point that its drums can speak: talking drums reproduce the tone and "
+  "rhythm of phrases closely enough to carry messages between villages."),
+ ("Ga", "Ga Accra Ghana kane",
+  "The language of Accra before Accra was a capital, now heavily pressed by Twi and English "
+  "in the city its speakers founded."),
+ ("Kinyarwanda", "Rwanda imigongo art",
+  "One of the very few African countries where nearly everyone speaks the same first "
+  "language. Kinyarwanda has a tone system and a verb that can carry a whole clause in one "
+  "word."),
+ ("Ganda", "Buganda kingdom Uganda barkcloth",
+  "Luganda's noun classes govern agreement on almost every word in a sentence, so changing a "
+  "noun changes the shape of everything around it."),
+ ("Southern Sotho", "Sesotho Lesotho manuscript",
+  "Sesotho had a written literature early: Thomas Mofolo's Chaka, written in it in 1925, is "
+  "one of the first African novels and is still in print in translation."),
+ ("Tswana", "Setswana Bible Moffat 1857",
+  "The first Bantu language to receive a complete printed Bible, in 1857 — which fixed its "
+  "orthography and made it the vehicle of literacy across a large part of southern Africa."),
+ ("Nyanja", "Chewa nyau masks Malawi",
+  "Chichewa is the language of the Nyau, a masked society whose performances are a form of "
+  "public commentary that ordinary speech is not allowed to make."),
+ ("Bemba (Zambia)", "Bemba Zambia copperbelt",
+  "Spread across the Zambian copperbelt by labour migration, becoming a lingua franca of the "
+  "mines and then of a nation."),
+ ("Kikuyu", "Kikuyu Kenya Mount Kenya",
+  "Ngũgĩ wa Thiong'o abandoned English for Gĩkũyũ in 1977 and was imprisoned; he wrote his "
+  "next novel on prison toilet paper, in Gĩkũyũ."),
+ ("Efik", "Nsibidi symbols Cross River",
+  "Nsibidi, used across the Cross River region, is a system of ideographs older than any "
+  "European contact — used for law, for love, and by the Ekpe society for messages outsiders "
+  "were not meant to read."),
+ ("Duala", "Duala Cameroon coast",
+  "A coastal trading language of Cameroon, and the first there to be written, which gave it "
+  "an outsized role in mission education."),
+ ("Fang (Equatorial Guinea)", "Fang byeri reliquary Gabon",
+  "The Fang byeri reliquary figures, guarding ancestral skulls, reached Paris in the early "
+  "twentieth century and changed European sculpture."),
+ ("Vai", "Vai syllabary Liberia manuscript",
+  "One of the very few writing systems in history invented from scratch by someone with no "
+  "literacy in another script: Momolu Duwalu Bukele devised the Vai syllabary around 1833, "
+  "reportedly after a dream, and it is still in use."),
+ ("Eastern Maninkakan", "Nko script manuscript Kante",
+  "Solomana Kanté invented the N'Ko alphabet in 1949 in direct answer to the claim that "
+  "African languages could not be written properly. It is written right to left, and a whole "
+  "publishing culture grew up around it without any state support."),
 ]
 
 
