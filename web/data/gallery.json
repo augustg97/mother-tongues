@@ -289,11 +289,11 @@
  },
  "akka1240": {
   "file": "akka1240.jpg",
-  "title": "P1050763 Louvre code Hammurabi face rwk.JPG",
-  "licence": "CC BY 3.0",
-  "artist": "Mbzt",
+  "title": "Code-de-Hammurabi-1.jpg",
+  "licence": "CC BY-SA 3.0 fr",
+  "artist": "Rama",
   "credit": "Own work",
-  "page": "https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Code-de-Hammurabi-1.jpg",
   "subject": "Code of Hammurabi stele"
  },
  "egyp1246": {
@@ -799,5 +799,140 @@
   "credit": "This file comes from Gallica Digital Library and is available under the digital ID btv1b10525032h/f3",
   "page": "https://commons.wikimedia.org/wiki/File:Abba_Yossef_.jpg",
   "subject": "Amharic manuscript Ethiopia illuminated"
+ },
+ "amis1246": {
+  "file": "amis1246.jpg",
+  "title": "Pangcah indigenous group dancers at Amis Music Festival 2016 IMF1473.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "HaeB",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Pangcah_indigenous_group_dancers_at_Amis_Music_Festival_2016_IMF1473.jpg",
+  "subject": "Amis Taiwan indigenous Pangcah"
+ },
+ "paiw1248": {
+  "file": "paiw1248.jpg",
+  "title": "台灣霧台石板雕刻.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Sarieltsuki",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:%E5%8F%B0%E7%81%A3%E9%9C%A7%E5%8F%B0%E7%9F%B3%E6%9D%BF%E9%9B%95%E5%88%BB.jpg",
+  "subject": "Paiwan Taiwan carving slate house"
+ },
+ "tsou1248": {
+  "file": "tsou1248.jpg",
+  "title": "Alishan Tsou Culture Park.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Zheng Xiaolong",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Alishan_Tsou_Culture_Park.JPG",
+  "subject": "Tsou Taiwan Alishan"
+ },
+ "kawi1241": {
+  "file": "kawi1241.jpg",
+  "title": "Ramayana Kakawin Vol. 1, by Soewito Santoso (ed. & trans.).djvu",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "Internet Archive identifier: RamayanaKakawinVol.1",
+  "page": "https://commons.wikimedia.org/wiki/File:Ramayana_Kakawin_Vol._1,_by_Soewito_Santoso_(ed._%26_trans.).djvu",
+  "subject": "Kawi manuscript lontar Java"
+ },
+ "bali1278": {
+  "file": "bali1278.jpg",
+  "title": "Sample written balinese lontar.jpg",
+  "licence": "CC BY 3.0",
+  "artist": "Meursault2004",
+  "credit": "personal documentation",
+  "page": "https://commons.wikimedia.org/wiki/File:Sample_written_balinese_lontar.jpg",
+  "subject": "Balinese lontar manuscript"
+ },
+ "sund1252": {
+  "file": "sund1252.jpg",
+  "title": "Old Sundanese gebang manuscript Sanghyang Raga Dewata.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Ilham.nurwansah",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Old_Sundanese_gebang_manuscript_Sanghyang_Raga_Dewata.jpg",
+  "subject": "Sundanese script manuscript West Java"
+ },
+ "stan1306": {
+  "file": "stan1306.jpg",
+  "title": "AbdullahbinAbdulKadir-HikayatAbdullah-1843.jpg",
+  "licence": "Public domain",
+  "artist": "Abdullah bin Abdul Kadir.",
+  "credit": "https://www.loc.gov/rr/asian/guide2007/images/0051.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:AbdullahbinAbdulKadir-HikayatAbdullah-1843.jpg",
+  "subject": "Jawi script Malay manuscript Hikayat"
+ },
+ "bata1289": {
+  "file": "bata1289.jpg",
+  "title": "Pustaha about Protection against Evil WDL2895.png",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "http://dl.wdl.org/2895.png\n\nGallery: http://www.wdl.org/en/item/2895/",
+  "page": "https://commons.wikimedia.org/wiki/File:Pustaha_about_Protection_against_Evil_WDL2895.png",
+  "subject": "Batak pustaha bark book"
+ },
+ "bugi1244": {
+  "file": "bugi1244.jpg",
+  "title": "Aksara Lontara-17 Panduan hari baik dan buruk untuk turun ke sawah.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Gunarta",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Aksara_Lontara-17_Panduan_hari_baik_dan_buruk_untuk_turun_ke_sawah.jpg",
+  "subject": "Lontara script Bugis La Galigo"
+ },
+ "plat1254": {
+  "file": "plat1254.jpg",
+  "title": "Sorabe - l’Académie des sciences d’outre-mer, collection Berthier, HB7.jpg",
+  "licence": "Public domain",
+  "artist": "Ranasimatsimu",
+  "credit": "https://www.bulac.fr/lecriture-sorabe-une-tradition-encore-vivante-madagascar",
+  "page": "https://commons.wikimedia.org/wiki/File:Sorabe_-_l%E2%80%99Acad%C3%A9mie_des_sciences_d%E2%80%99outre-mer,_collection_Berthier,_HB7.jpg",
+  "subject": "Malagasy Sorabe manuscript Madagascar"
+ },
+ "maor1246": {
+  "file": "maor1246.jpg",
+  "title": "Stamp of the HMS Britomart & Union Jack at Akaroa, 11 August 1840 (16755311366).jpg",
+  "licence": "Public domain",
+  "artist": "Archives New Zealand from New Zealand",
+  "credit": "Stamp of the HMS Britomart &amp; Union Jack at Akaroa, 11 August 1840",
+  "page": "https://commons.wikimedia.org/wiki/File:Stamp_of_the_HMS_Britomart_%26_Union_Jack_at_Akaroa,_11_August_1840_(16755311366).jpg",
+  "subject": "Maori Treaty of Waitangi manuscript"
+ },
+ "tong1325": {
+  "file": "tong1325.jpg",
+  "title": "The Black Cat v04no06 (1899-03).djvu",
+  "licence": "Public domain",
+  "artist": "many authors",
+  "credit": "Internet Archive identifier: TheBlackCatV04no01189810",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Black_Cat_v04no06_(1899-03).djvu",
+  "subject": "Tongan manuscript Tonga"
+ },
+ "rapa1244": {
+  "file": "rapa1244.jpg",
+  "title": "Rongorongo R-a Atua-Mata-Riri.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "unknown (for GFDL, cite source above as old copyright holder)",
+  "credit": "Chauvet, Stéphen-Charles; on-line translation by Ann Altman (2004) [1935]       L'île de Pâques et ses mystères (Easter Island and its Mysteries), Paris:  Éditi",
+  "page": "https://commons.wikimedia.org/wiki/File:Rongorongo_R-a_Atua-Mata-Riri.jpg",
+  "subject": "Rongorongo tablet Easter Island"
+ },
+ "cham1312": {
+  "file": "cham1312.jpg",
+  "title": "2009 GU Proof.png",
+  "licence": "Public domain",
+  "artist": "United States Mint",
+  "credit": "http://www.usmint.gov/pressroom/index.cfm?flash=yes&amp;action=photo United States Mint",
+  "page": "https://commons.wikimedia.org/wiki/File:2009_GU_Proof.png",
+  "subject": "Chamorro latte stone Guam"
+ },
+ "fiji1243": {
+  "file": "fiji1243.jpg",
+  "title": "Fijian Drua Canoe.jpg",
+  "licence": "Public domain",
+  "artist": "Horsburgh, John",
+  "credit": "Source:Alexander Turnbull Library, NZ  Pictures 996. Fiji. Canoes(PFP-029089)\n\nReference Number: PAColl-8257",
+  "page": "https://commons.wikimedia.org/wiki/File:Fijian_Drua_Canoe.jpg",
+  "subject": "Fijian manuscript Fiji drua"
  }
 }

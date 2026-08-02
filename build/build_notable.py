@@ -493,6 +493,87 @@ E = [
   "Ethiopia's working language, written in the Ge'ez script, and the second most spoken "
   "Semitic language after Arabic. Its literature includes royal chronicles kept continuously "
   "for centuries."),
+ # ---- pass 4: Austronesian ---------------------------------------------------------------
+ ("Amis", "Amis Taiwan indigenous Pangcah",
+  "Taiwan is the Austronesian homeland: the deepest divisions in the whole family are between "
+  "its aboriginal languages, and everything from Madagascar to Easter Island descends from one "
+  "branch that left. Amis is the largest of the languages that stayed."),
+ ("Atayal", "Atayal Taiwan weaving tattoo",
+  "A Formosan language of the northern mountains, with an elaborate system of verbal focus "
+  "that later Austronesian languages simplified — the grammar Philippine languages inherited "
+  "in reduced form."),
+ ("Paiwan", "Paiwan Taiwan carving slate house",
+  "Its speakers carve narrative reliefs on slate house-posts. Paiwan preserves consonant "
+  "distinctions used to reconstruct Proto-Austronesian itself."),
+ ("Tsou", "Tsou Taiwan Alishan",
+  "One of the most divergent Formosan languages, spoken by a few thousand people on Alishan, "
+  "and a key witness in every attempt to date the Austronesian expansion."),
+ ("Bunun", "Bunun Taiwan pasibutbut polyphonic",
+  "The Bunun sing pasibutbut, an eight-part rising polyphony with no clear parallel anywhere, "
+  "and their language marks the shape of the landscape in its verbs of motion."),
+ ("Kawi", "Kawi manuscript lontar Java",
+  "Old Javanese, written on palm leaf, carries the Ramayana and Mahabharata into Southeast "
+  "Asia and supplies half the vocabulary of court Javanese. Balinese priests still read it."),
+ ("Javanese", "Javanese script hanacaraka manuscript",
+  "More first-language speakers than any language without a state of its own. Its speech "
+  "levels are among the most elaborate on Earth: separate vocabularies for speaking up, down "
+  "and across, so that choosing a word for 'eat' places both people socially."),
+ ("Balinese", "Balinese lontar manuscript",
+  "Written on lontar palm in its own script, and still the language of temple ritual and of "
+  "shadow-puppet performance, where the puppeteer switches register between gods and clowns."),
+ ("Sundanese", "Sundanese script manuscript West Java",
+  "Thirty million speakers in West Java, with its own script revived for public signage, and "
+  "a distinct musical tradition its poetry is written for."),
+ ("Tagalog", "Baybayin script manuscript Philippines",
+  "Written in baybayin before the Spanish arrived — a script that marked syllables and left "
+  "final consonants unwritten, which the friars found so inconvenient that they replaced it."),
+ ("Cebuano", "Cebuano Visayan manuscript Philippines",
+  "More native speakers than Tagalog, and no share of the national standard: Filipino was "
+  "built on Tagalog, which is a decision people in the Visayas have never stopped noting."),
+ ("Iloko", "Ilocano Biag ni Lam-ang manuscript",
+  "Its epic Biag ni Lam-ang was oral for centuries before it was written, and Ilocano became "
+  "the trade language of the northern Philippines and of Filipino migration to Hawai'i."),
+ ("Standard Malay", "Jawi script Malay manuscript Hikayat",
+  "Written in Jawi, an Arabic-derived script, for six centuries before Latin letters — the "
+  "trade language of the whole archipelago, and the base of both Malaysian and Indonesian."),
+ ("Acehnese", "Acehnese Jawi manuscript Aceh",
+  "Its vowel system is one of the largest in the family, and its literature in Jawi includes "
+  "the Hikayat Prang Sabi, recited to fighters during the Dutch war."),
+ ("Batak Toba", "Batak pustaha bark book",
+  "The Batak wrote divination manuals — pustaha — on folded tree-bark in their own script, "
+  "read by datu priests. They are among the very few indigenous books of island Southeast Asia."),
+ ("Buginese", "Lontara script Bugis La Galigo",
+  "The Bugis wrote in lontara script, and their La Galigo is one of the longest works of "
+  "literature ever composed — longer than the Mahabharata, and still not fully published."),
+ ("Plateau Malagasy", "Malagasy Sorabe manuscript Madagascar",
+  "Its closest relatives are in Borneo, four thousand miles away across open ocean, which is "
+  "how we know Madagascar was settled from Indonesia. Sorabe manuscripts wrote it in Arabic "
+  "script before the Latin alphabet arrived."),
+ ("Hawaiian", "Hawaiian newspaper nupepa manuscript",
+  "Nineteenth-century Hawai'i had one of the highest literacy rates in the world and dozens "
+  "of Hawaiian-language newspapers. The language was then banned in schools from 1896; the "
+  "immersion movement of the 1980s brought it back from fewer than fifty child speakers."),
+ ("Maori", "Maori Treaty of Waitangi manuscript",
+  "The Treaty of Waitangi exists in two versions that do not say the same thing, and the "
+  "difference between 'sovereignty' and 'kāwanatanga' has been litigated for a century and a "
+  "half. Kōhanga reo, language nests, began the modern revival in 1982."),
+ ("Samoan", "Samoan fale tattoo Samoa",
+  "Samoan keeps a formal oratorical register with an entirely separate vocabulary, used by "
+  "chiefs' orators, so that ordinary and ceremonial speech share grammar but not words."),
+ ("Tonga (Tonga Islands)", "Tongan manuscript Tonga",
+  "The only Pacific island nation never colonised, and its language keeps an honorific system "
+  "with three levels of vocabulary — for commoners, for chiefs, and for the king."),
+ ("Rapanui", "Rongorongo tablet Easter Island",
+  "Rongorongo, the script of Easter Island, is carved in boustrophedon with every other line "
+  "upside down. It has never been deciphered, and the people who could read it died in the "
+  "slave raids and epidemics of the 1860s."),
+ ("Chamorro", "Chamorro latte stone Guam",
+  "Three centuries of Spanish rule left Chamorro with Spanish numbers and Spanish loanwords "
+  "in a thoroughly Austronesian grammar, and the latte stone pillars of its speakers' "
+  "ancestors still standing on Guam."),
+ ("Fijian", "Fijian manuscript Fiji drua",
+  "Fijian sits at the boundary between Melanesia and Polynesia and helped establish that the "
+  "Polynesian languages are a single recent branch — the last great migration in the family."),
 ]
 
 
