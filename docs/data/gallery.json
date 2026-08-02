@@ -289,11 +289,11 @@
  },
  "akka1240": {
   "file": "akka1240.jpg",
-  "title": "P1050763 Louvre code Hammurabi face rwk.JPG",
-  "licence": "CC BY 3.0",
-  "artist": "Mbzt",
+  "title": "Code-de-Hammurabi-1.jpg",
+  "licence": "CC BY-SA 3.0 fr",
+  "artist": "Rama",
   "credit": "Own work",
-  "page": "https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Code-de-Hammurabi-1.jpg",
   "subject": "Code of Hammurabi stele"
  },
  "egyp1246": {
@@ -334,11 +334,11 @@
  },
  "kore1280": {
   "file": "kore1280.jpg",
-  "title": "Hunminjeongeum Haerye 03.jpg",
+  "title": "Hunminjeongeum Haerye 08.jpg",
   "licence": "Public domain",
   "artist": "Government of Joseon",
   "credit": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GG43224_00",
-  "page": "https://commons.wikimedia.org/wiki/File:Hunminjeongeum_Haerye_03.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hunminjeongeum_Haerye_08.jpg",
   "subject": "Hunminjeongeum Haerye"
  },
  "oldj1239": {
@@ -376,5 +376,167 @@
   "credit": "",
   "page": "https://commons.wikimedia.org/wiki/File:Lanting_rubbing1.jpg",
   "subject": "Chinese calligraphy Lanting Xu"
+ },
+ "midd1317": {
+  "file": "midd1317.jpg",
+  "title": "The Summoner - Ellesmere Chaucer.jpg",
+  "licence": "Public domain",
+  "artist": "AnonymousUnknown author",
+  "credit": "http://sunsite3.berkeley.edu/hehweb/EL26C9.html",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Summoner_-_Ellesmere_Chaucer.jpg",
+  "subject": "Canterbury Tales Ellesmere manuscript"
+ },
+ "osca1245": {
+  "file": "osca1245.jpg",
+  "title": "Facsimile of the Tabula Bantina.png",
+  "licence": "Public domain",
+  "artist": "Johannes Zvetaieff",
+  "credit": "https://ia600601.us.archive.org/5/items/grammarofoscanum00buckuoft/grammarofoscanum00buckuoft.pdf\n\npage 379 of 388",
+  "page": "https://commons.wikimedia.org/wiki/File:Facsimile_of_the_Tabula_Bantina.png",
+  "subject": "Oscan inscription Tabula Bantina"
+ },
+ "umbr1253": {
+  "file": "umbr1253.jpg",
+  "title": "Tavola eugubina 1.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "credit": "http://www.maravot.com/tavola_eugubine4.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tavola_eugubina_1.jpg",
+  "subject": "Iguvine Tablets"
+ },
+ "sogd1245": {
+  "file": "sogd1245.jpg",
+  "title": "Star Names And Their Meanings - Allen - 1899.djvu",
+  "licence": "Public domain",
+  "artist": "Richard Hinckley Allen",
+  "credit": "Internet Archive identifier: StarNamesAndTheirMeanings",
+  "page": "https://commons.wikimedia.org/wiki/File:Star_Names_And_Their_Meanings_-_Allen_-_1899.djvu",
+  "subject": "Sogdian Ancient Letters manuscript"
+ },
+ "bact1239": {
+  "file": "bact1239.jpg",
+  "title": "Kushanmap.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "PHGCOM",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Kushanmap.jpg",
+  "subject": "Bactrian inscription Rabatak"
+ },
+ "khot1251": {
+  "file": "khot1251.jpg",
+  "title": "Book of Zambasta BLX3542 OR9614 5R1 1.jpg",
+  "licence": "CC0",
+  "artist": "unknown",
+  "credit": "This file has been provided by the International Dunhuang Project from its digital collections, from original file BLX3542_OR9614_5R1_1.\nCatalogue entry: Or.961",
+  "page": "https://commons.wikimedia.org/wiki/File:Book_of_Zambasta_BLX3542_OR9614_5R1_1.jpg",
+  "subject": "Khotanese manuscript Dunhuang"
+ },
+ "kash1277": {
+  "file": "kash1277.jpg",
+  "title": "Kashmir Sharada MS.jpg",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "The original is kept in the University Library, University of Tuebingen, library catalog numbers Ma I 404,1-3. Taken from http://www.e-ternals.com/english/publi",
+  "page": "https://commons.wikimedia.org/wiki/File:Kashmir_Sharada_MS.jpg",
+  "subject": "Sharada script manuscript Kashmir"
+ },
+ "uppe1395": {
+  "file": "uppe1395.jpg",
+  "title": "The voice of an oppressed people.djvu",
+  "licence": "Public domain",
+  "artist": "Tomáš Garrigue Masaryk",
+  "credit": "https://babel.hathitrust.org/cgi/pt?id=loc.ark:/13960/t8gf18714;view=1up;seq=5",
+  "page": "https://commons.wikimedia.org/wiki/File:The_voice_of_an_oppressed_people.djvu",
+  "subject": "Sorbian book Lusatia"
+ },
+ "corn1251": {
+  "file": "corn1251.jpg",
+  "title": "Origo Mundi kynsa gwersow.jpg",
+  "licence": "Public domain",
+  "artist": "",
+  "credit": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Origo_Mundi_kynsa_gwersow.jpg",
+  "subject": "Cornish Ordinalia manuscript"
+ },
+ "manx1243": {
+  "file": "manx1243.jpg",
+  "title": "Alexander Macbain - An Etymological Dictionary of the Gaelic Language.djvu",
+  "licence": "Public domain",
+  "artist": "Alexander Macbain",
+  "credit": "Internet Archive identifier: etymologicaldict00macbuoft",
+  "page": "https://commons.wikimedia.org/wiki/File:Alexander_Macbain_-_An_Etymological_Dictionary_of_the_Gaelic_Language.djvu",
+  "subject": "Manx Bible Manx Gaelic book"
+ },
+ "occi1239": {
+  "file": "occi1239.jpg",
+  "title": "A chantar pg. 2.jpg",
+  "licence": "Public domain",
+  "artist": "Composer: Comtessa de Dia",
+  "credit": "recording is own work",
+  "page": "https://commons.wikimedia.org/wiki/File:A_chantar_pg._2.jpg",
+  "subject": "Troubadour manuscript chansonnier"
+ },
+ "gali1258": {
+  "file": "gali1258.jpg",
+  "title": "Cantiga 330 Cantigas de santa maria.jpg",
+  "licence": "Public domain",
+  "artist": "The court of Alfonso X (1251-1284)\n\nFrom the Patrimonio Nacional website:\" we can affirm that it is a collective creation in which several musicians and authors",
+  "credit": "http://www.consellodacultura.gal/asg/instrumentos/wp-content/uploads/2010/10/4-Cantiga-330-e1288250967657.jpg\n\nATTRIBUTION: Royal Library of the Monastery of El",
+  "page": "https://commons.wikimedia.org/wiki/File:Cantiga_330_Cantigas_de_santa_maria.jpg",
+  "subject": "Cantigas de Santa Maria Galician manuscript"
+ },
+ "vene1258": {
+  "file": "vene1258.jpg",
+  "title": "Dolfin family from \"LIBRO DE' NOBILI VENETI\", Manuscript, Venice, about 1700.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Filostrato",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Dolfin_family_from_%22LIBRO_DE%27_NOBILI_VENETI%22,_Manuscript,_Venice,_about_1700.jpg",
+  "subject": "Venetian manuscript Venice"
+ },
+ "slov1268": {
+  "file": "slov1268.jpg",
+  "title": "Ljubljana (8628896030).jpg",
+  "licence": "CC BY 2.0",
+  "artist": "Daniel Thornton",
+  "credit": "Ljubljana\n\nUploaded by sporti",
+  "page": "https://commons.wikimedia.org/wiki/File:Ljubljana_(8628896030).jpg",
+  "subject": "Freising manuscripts Slovene"
+ },
+ "mace1250": {
+  "file": "mace1250.jpg",
+  "title": "Kuzman Shapkarev On the Revival of Bulgarianism in Macedonia.JPG",
+  "licence": "Public domain",
+  "artist": "Kuzman Shapkarev",
+  "credit": "[1]",
+  "page": "https://commons.wikimedia.org/wiki/File:Kuzman_Shapkarev_On_the_Revival_of_Bulgarianism_in_Macedonia.JPG",
+  "subject": "Macedonian manuscript Ohrid"
+ },
+ "guja1252": {
+  "file": "guja1252.jpg",
+  "title": "Shripal-mayana.png",
+  "licence": "Public domain",
+  "artist": "Vinayavijaya and Yaśovijaya",
+  "credit": "http://beta.jainpedia.org/manuscripts/detail-view-meta/manuscript/sripala-rasa-and-gujarati-commentary-or-13622/siddhacakra.html",
+  "page": "https://commons.wikimedia.org/wiki/File:Shripal-mayana.png",
+  "subject": "Gujarati manuscript Jain"
+ },
+ "oriy1255": {
+  "file": "oriy1255.jpg",
+  "title": "Odia palm leaf manuscript.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Manoj Choudhury",
+  "credit": "Own work",
+  "page": "https://commons.wikimedia.org/wiki/File:Odia_palm_leaf_manuscript.JPG",
+  "subject": "Odia palm leaf manuscript"
+ },
+ "nort2641": {
+  "file": "nort2641.jpg",
+  "title": "Kurdish manuscript in the British Library – opening pages of Mem û Zîn by Ahmad Khani (Ehmed Xani), copied in 1221 AH 1806–7 CE (Or. 11996, ff. 1v–2r).jpg",
+  "licence": "CC0",
+  "artist": "British Library photograph, marked as public domain",
+  "credit": "https://blogs.bl.uk/asian-and-african/2019/11/a-testament-to-diversity-kurdish-manuscript-collections-at-the-british-library.html\n\"A testament to diversity: Kur",
+  "page": "https://commons.wikimedia.org/wiki/File:Kurdish_manuscript_in_the_British_Library_%E2%80%93_opening_pages_of_Mem_%C3%BB_Z%C3%AEn_by_Ahmad_Khani_(Ehmed_Xani),_copied_in_1221_AH_1806%E2%80%937_CE_(Or._11996,_ff._1v%E2%80%932r).jpg",
+  "subject": "Kurdish manuscript Mem u Zin"
  }
 }

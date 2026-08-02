@@ -223,6 +223,101 @@ E = [
   "More first-language speakers than any other language. Its writing is not an alphabet, so a "
   "text can be read aloud in Cantonese or Hokkien by someone who could not hold a "
   "conversation with the writer."),
+ # ---- pass 2: Indo-European depth ------------------------------------------------------
+ ("Middle English", "Canterbury Tales Ellesmere manuscript",
+  "English after the Norman conquest had shed most of its endings and taken on a French "
+  "vocabulary for law, food and rule. Chaucer wrote in it deliberately, when the court still "
+  "used French, and in doing so made a literary language out of a servants' one."),
+ ("Old Prussian", "Elbing vocabulary Old Prussian",
+  "The third Baltic language, and the only one that died: extinct by about 1700 after German "
+  "settlement and the Teutonic Order. It survives in three catechisms and a wordlist, which "
+  "is enough to show it was more conservative than either Lithuanian or Latvian."),
+ ("Oscan", "Oscan inscription Tabula Bantina",
+  "Italic, but not Latin — the language of the Samnites who fought Rome for a century. It was "
+  "written right to left in its own alphabet, and the graffiti at Pompeii show people still "
+  "using it when Vesuvius buried the town."),
+ ("Umbrian", "Iguvine Tablets",
+  "Known almost entirely from the seven bronze Iguvine Tablets, a priesthood's ritual manual "
+  "from Gubbio: which animals to sacrifice, which words to say, which direction to face. It "
+  "is the fullest religious text in any Italic language other than Latin."),
+ ("Sogdian", "Sogdian Ancient Letters manuscript",
+  "The trade language of the Silk Road for a thousand years, carried by merchants from "
+  "Samarkand as far as Chang'an. The Ancient Letters, abandoned in a watchtower west of "
+  "Dunhuang around 313 CE, include a woman writing furiously to the husband who stranded her."),
+ ("Bactrian", "Bactrian inscription Rabatak",
+  "The only Iranian language ever written in Greek letters, a legacy of Alexander. The "
+  "Rabatak inscription, found in 1993, rewrote the genealogy of the Kushan kings."),
+ ("Khotanese", "Khotanese manuscript Dunhuang",
+  "An Eastern Iranian language of the Tarim oases, written in Brahmi and used for Buddhist "
+  "texts. Most of what survives came out of the sealed library cave at Dunhuang."),
+ ("Kashmiri", "Sharada script manuscript Kashmir",
+  "Dardic, at the northwestern edge of Indo-Aryan, with a word order unlike any of its "
+  "neighbours — it puts the verb second, like German. It was written in Sharada, then "
+  "Devanagari, then Perso-Arabic, as its writers changed religion and rulers."),
+ ("Upper Sorbian", "Sorbian book Lusatia",
+  "A West Slavic language spoken in Lusatia inside Germany, which has kept the dual number "
+  "that almost every other Slavic language dropped — separate forms for two things as against "
+  "three or more."),
+ ("Cornish", "Cornish Ordinalia manuscript",
+  "Declared dead in 1777 with the death of Dolly Pentreath, and revived in the twentieth "
+  "century from medieval miracle plays and a handful of prose. There are children speaking it "
+  "again, which is rarer than extinction."),
+ ("Manx", "Manx Bible Manx Gaelic book",
+  "Its last native speaker, Ned Maddrell, died in 1974 — and UNESCO reclassified it from "
+  "extinct to critically endangered in 2009, because the revival had produced new speakers, "
+  "including children schooled in it."),
+ ("Faroese", "Faroese manuscript Foroyar",
+  "Left with no written standard for four hundred years while Danish did all the writing; "
+  "V. U. Hammershaimb built one in 1846 on etymological principles, so Faroese spelling shows "
+  "its Old Norse ancestry more clearly than it shows its own pronunciation."),
+ ("Western Frisian", "Frisian manuscript Fryslan",
+  "The closest living relative of English — the two were still mutually intelligible when the "
+  "Angles and Saxons left the North Sea coast. Frisian kept the sounds English lost: tsiis "
+  "and cheese, tsjerke and church."),
+ ("Occitan", "Troubadour manuscript chansonnier",
+  "The language of the troubadours, who invented courtly love poetry and exported it to "
+  "Italy, Catalonia and Germany. It was the prestige literary language of Europe before "
+  "French was, and is now spoken mostly by the old."),
+ ("Galician", "Cantigas de Santa Maria Galician manuscript",
+  "Portuguese and Galician were one language until politics separated them: the medieval "
+  "lyric of the whole peninsula was written in Galician-Portuguese, including by a Castilian "
+  "king who wrote his hymns in it rather than his own tongue."),
+ ("Logudorese Sardinian", "Sardinian charter Carte Volgari",
+  "The most conservative Romance language: it kept the Latin hard c before front vowels, so "
+  "kentu where Italian has cento. Its earliest documents are eleventh-century charters, older "
+  "than almost any other Romance vernacular text."),
+ ("Venetian", "Venetian manuscript Venice",
+  "Not a dialect of Italian but a separate Romance language, and the language of a maritime "
+  "republic that ran the eastern Mediterranean for five hundred years — which is why Venetian "
+  "words turn up in Greek, Turkish and Croatian harbours."),
+ ("Slovenian", "Freising manuscripts Slovene",
+  "The Freising manuscripts of around 1000 CE are the oldest Slavic text in the Latin "
+  "alphabet, and the oldest written Slovene. The language keeps the dual, and has an unusual "
+  "number of mutually difficult dialects for so small a country."),
+ ("Macedonian", "Macedonian manuscript Ohrid",
+  "South Slavic, and the language whose separateness from Bulgarian has been argued about for "
+  "a century for reasons that are mostly not linguistic. It is one of the few Slavic "
+  "languages with a definite article, which it takes from the Balkan sprachbund."),
+ ("Sindhi", "Sindhi manuscript Shah Jo Risalo",
+  "Indo-Aryan, with a set of implosive consonants that almost no other Indo-European language "
+  "has. Shah Abdul Latif's Risalo is sung rather than read, and the singing has kept the "
+  "eighteenth-century text alive."),
+ ("Gujarati", "Gujarati manuscript Jain",
+  "The language Gandhi wrote his autobiography in, and the vehicle of a large Jain manuscript "
+  "tradition. Its script dropped the horizontal bar that Devanagari runs across the top of "
+  "every word, which is why the two look so different at a glance."),
+ ("Odia", "Odia palm leaf manuscript",
+  "Its rounded letters are a direct consequence of its writing surface: straight lines split "
+  "a palm leaf along the grain, so the scribes curved everything. Odia has a literary record "
+  "reaching back to the tenth century."),
+ ("Assamese", "Assamese manuscript sanchipat",
+  "Written on sanchipat, bark of the agar tree, in a script it shares with Bengali but with "
+  "its own letters. Its early literature is largely the devotional work of Sankardev, who "
+  "wrote plays to be performed in village prayer halls."),
+ ("Northern Kurdish", "Kurdish manuscript Mem u Zin",
+  "Kurdish is written in three alphabets across four countries and was banned outright in "
+  "Turkey until 1991. Ehmedê Xanî's Mem û Zîn of 1692 is its national epic and argues, inside "
+  "the poem, that Kurdish deserves to be a written language."),
 ]
 
 
