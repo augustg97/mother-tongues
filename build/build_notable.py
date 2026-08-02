@@ -318,6 +318,95 @@ E = [
   "Kurdish is written in three alphabets across four countries and was banned outright in "
   "Turkey until 1991. Ehmedê Xanî's Mem û Zîn of 1692 is its national epic and argues, inside "
   "the poem, that Kurdish deserves to be a written language."),
+ # ---- pass 2: Sino-Tibetan --------------------------------------------------------------
+ ("Yue Chinese", "Cantonese opera manuscript Guangdong",
+  "Cantonese keeps six tones and a set of final consonants that Mandarin lost a thousand "
+  "years ago, which is why Tang poetry often rhymes in Cantonese and not in Mandarin. It has "
+  "its own written register, with characters invented for words Mandarin has no use for."),
+ ("Hakka Chinese", "Hakka walled village Fujian tulou",
+  "The language of a people whose name means 'guest families' — northerners who moved south "
+  "in waves over a thousand years and were still being treated as incomers centuries later. "
+  "Their round earthen tulou were built to be defended."),
+ ("Wu Chinese", "Shanghai Wu Chinese book",
+  "Shanghainese and its relatives keep the voiced initials that Middle Chinese had and every "
+  "other major branch lost. Wu has more first-language speakers than Italian and no official "
+  "status anywhere."),
+ ("Min Nan Chinese", "Peh-oe-ji Taiwanese romanization Bible",
+  "Hokkien split from the rest of Chinese so early that it preserves a layer of vocabulary "
+  "older than Middle Chinese. Presbyterian missionaries gave it a romanisation, Pe̍h-ōe-jī, in "
+  "which a literate population published newspapers for a century."),
+ ("Classical Tibetan", "Tibetan manuscript Dunhuang Kanjur",
+  "The script was designed in the seventh century for translating Buddhist scripture, and its "
+  "spelling froze then — modern Tibetans write clusters they have not pronounced for a "
+  "thousand years, which makes the orthography a fossil of the older language."),
+ ("Old Burmese", "Myazedi inscription Burmese",
+  "The Myazedi inscription of 1113 CE carries the same text in Burmese, Pyu, Mon and Pali — "
+  "the Rosetta Stone of mainland Southeast Asia, and the key that recovered Pyu."),
+ ("Burmese", "Burmese palm leaf manuscript parabaik",
+  "Its rounded letters, like Odia's, come from writing on palm leaves with a stylus. Burmese "
+  "has a sharp split between a formal literary register and the spoken language, wide enough "
+  "that the two use different words for 'this'."),
+ ("Tangut", "Tangut manuscript Khara-Khoto",
+  "The language of the Western Xia empire, written in a script of nearly six thousand "
+  "characters deliberately designed to look like Chinese and to be unreadable to Chinese. It "
+  "was recovered from the dead city of Khara-Khoto and deciphered in the twentieth century."),
+ ("Kathmandu Valley Newari", "Newar manuscript Nepal Bhasa",
+  "Nepal Bhasa has manuscripts from the twelfth century and was the court language of the "
+  "Kathmandu valley until the Shah conquest. It was suppressed under the Rana regime and is "
+  "now shifting fast to Nepali."),
+ ("Manipuri", "Meitei Mayek manuscript puya",
+  "Meitei abandoned its own script for Bengali under an eighteenth-century religious "
+  "conversion, in which older manuscripts were burned. Meitei Mayek was reintroduced into "
+  "schools in the 2000s — a script recovered after two centuries."),
+ ("Dzongkha", "Dzongkha Bhutan manuscript dzong",
+  "Bhutan's national language, written in Tibetan script and named for the dzongs, the "
+  "fortress-monasteries where it was the administrative tongue."),
+ ("Sichuan Yi", "Yi script manuscript bimo",
+  "The Nuosu syllabary has more than eight hundred characters and was used by bimo priests "
+  "for ritual texts. A standardised version was made official in Sichuan in 1980, one of very "
+  "few indigenous scripts in China to get state backing."),
+ ("Lisu", "Fraser alphabet Lisu Bible",
+  "Written in the Fraser alphabet, which uses upright and upside-down Latin capitals and "
+  "nothing else — no diacritics at all. It was designed to be printable on any press that "
+  "had Roman type."),
+ ("Lepcha", "Lepcha manuscript Rong script",
+  "The Lepcha of Sikkim have their own script, traditionally said to have been written "
+  "originally on bamboo, which is why its letters were rotated ninety degrees when they moved "
+  "to paper."),
+ ("Limbu", "Limbu Sirijanga script manuscript",
+  "The Sirijanga script was created in the eighteenth century, suppressed, and revived in the "
+  "twentieth by a man who took the name of its inventor."),
+ ("Garo", "Garo hills manuscript Achik",
+  "A Tibeto-Burman language of Meghalaya in a matrilineal society, where property passes "
+  "through daughters — a fact that shows up in the kinship vocabulary."),
+ ("Mizo", "Mizo hills manuscript Mizoram",
+  "Mizo was written down by Welsh missionaries, and Mizoram now has one of the highest "
+  "literacy rates in India. Its tone system distinguishes words that the Latin alphabet, as "
+  "adopted, does not mark."),
+ ("S'gaw Karen", "Karen script manuscript Burma",
+  "Written in a script adapted from Burmese by American missionaries in the 1830s. The Karen "
+  "have been at war with the Burmese state for longer than almost any other people on Earth, "
+  "and the language is now written as much in refugee camps as at home."),
+ ("Naxi", "Dongba pictographic manuscript Naxi",
+  "The Dongba script of the Naxi is the only pictographic writing system still in ritual use "
+  "anywhere in the world. It does not spell words: it prompts a priest who already knows the "
+  "text."),
+ ("Tibetan", "Tibetan prayer wheel manuscript Lhasa",
+  "Lhasa Tibetan has developed tones that the written language does not mark, because the "
+  "consonant clusters that produced those tones are still spelled out."),
+ ("Solu-Khumbu Sherpa", "Sherpa Solukhumbu manuscript",
+  "A Tibetic language of the Khumbu, whose speakers' name has become an English common noun "
+  "for a job they were hired to do."),
+ ("Rawang", "Rawang Kachin state manuscript",
+  "Spoken in the far north of Myanmar in some of the least surveyed valleys in Asia, with "
+  "dozens of varieties that may or may not be one language depending on who is counting."),
+ ("Bai", "Bai language Dali manuscript",
+  "So heavily layered with Chinese loans over two thousand years that whether Bai is "
+  "Sino-Tibetan at all, and where it sits if it is, remains genuinely unsettled."),
+ ("Northern Qiang", "Qiang stone tower Sichuan",
+  "Qiang has one of the most complex consonant systems in the family and no tones — unusual "
+  "in a region where almost everything is tonal. Its stone watchtowers still stand in the "
+  "valleys of northwest Sichuan."),
 ]
 
 
