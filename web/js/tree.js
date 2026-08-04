@@ -32,6 +32,25 @@
     laid: null, W: 0, H: 0
   };
   window.TREE = T;
+
+  // Delegated once, not per render: the exhibit's innerHTML is replaced on every card, and a
+  // listener attached inside that HTML would be re-bound every time and leak.
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('.hplay');
+    if (!b) return;
+    const el = document.getElementById('exau');
+    if (!el) return;
+    document.querySelectorAll('.hplay.on').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    el.src = b.dataset.url;
+    el.play().catch(() => {
+      // Commons can refuse or the codec can be unsupported; say so rather than doing nothing.
+      b.classList.remove('on');
+      b.classList.add('hfail');
+      b.title = 'This recording would not play. It streams from Wikimedia Commons; open it '
+              + 'there if you need it.';
+    });
+  });
   T.showByCode = (gc) => showByCode(gc);
 
   // The map's golden-ratio hue, darkened for paper: the same family is recognisably the same
@@ -638,12 +657,34 @@
     const ms = A.milestones && A.milestones.by_glottocode && A.milestones.by_glottocode[n.g];
     if (ms && ms.length) h += milestoneBlock(ms);
 
-    const rec_au = A.audio && A.audio[n.g];
-    if (rec_au) h += '<h3>Heard</h3><audio controls preload="none" src="' + esc(rec_au.url) +
-      '"></audio><p class="exfine">' + esc(rec_au.title) + ' · ' + esc(rec_au.licence) +
-      (rec_au.artist ? ' · ' + esc(rec_au.artist) : '') + ' · Lingua Libre, streamed from Wikimedia ' +
-      'Commons. The language is taken from the recording\'s own catalogue key, not guessed ' +
-      'from its filename.</p>';
+    // HEARD. One shared player and a button per word, rather than six sets of transport
+    // controls: the words are the exhibit and the player is furniture. A word marked as being
+    // in the passage lower down the card says so, because reading it and then hearing it is
+    // the whole point of having both.
+    // ⚠ NOT `au` — that is the autonym in this scope, and redeclaring it threw a SyntaxError
+    // on load. A redeclared const shipped once here and blanked the whole genealogy view; the
+    // build now runs `node --check`, which is what caught this one before it left the machine.
+    const snd = A.audio && A.audio.by_glottocode && A.audio.by_glottocode[n.g];
+    if (snd && snd.items && snd.items.length) {
+      h += '<h3>Heard</h3><div class="heard">' + snd.items.map(it =>
+        '<button type="button" class="hplay" data-url="' + esc(it.url) + '">' +
+        '<span class="hicon" aria-hidden="true">\u25B6</span>' +
+        '<span class="hw"' + (n.au ? ' lang="' + esc(n.au[1] || '') + '"' : '') + '>' +
+        esc(it.w) + '</span>' +
+        (it.intext ? '<span class="hin">in the passage below</span>' : '') +
+        '</button>').join('') + '</div>';
+      h += '<audio id="exau" preload="none"></audio>';
+      const speakers = [...new Set(snd.items.map(i => i.speaker).filter(Boolean))];
+      const lics = [...new Set(snd.items.map(i => i.licence).filter(Boolean))];
+      h += '<p class="exfine">' + snd.items.length + ' of <b>' +
+        snd.available.toLocaleString() + '</b> recordings this archive holds for the language' +
+        (speakers.length ? ', spoken by ' + esc(speakers.slice(0, 3).join(', ')) +
+          (speakers.length > 3 ? ' and others' : '') : '') + '. ' +
+        esc(lics.join(', ')) + ' · Lingua Libre, streamed from Wikimedia Commons rather than ' +
+        'copied here. The language comes from the Commons category the recording is filed ' +
+        'under, which carries the ISO code — never from its filename, which is how an earlier ' +
+        'attempt returned a Spanish recording as Basque.</p>';
+    }
 
     if (n.p) {
       h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +

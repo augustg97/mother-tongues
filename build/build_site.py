@@ -227,6 +227,55 @@ def gate_gallery() -> None:
           f"{mb:.1f} MB · every one licence-verified")
 
 
+def gate_audio() -> None:
+    """No recording may claim a language it was not filed under.
+
+    The first audio attempt in this project matched recordings to languages by FILENAME and
+    returned a Spanish recording as Basque and `Japanese toilet.ogg` as Hindi-Urdu. It was
+    withheld and never shipped. This gate exists so that mistake cannot come back: every
+    recording must sit under a Commons category whose ISO 639-3 code is the one recorded for
+    the language it is displayed on, every one must carry a licence, and every URL must point at
+    the archive rather than at this repository — because we link and do not mirror (rule 12).
+    """
+    print("2f. every recording is filed under the language it plays on")
+    ap = os.path.join(WEB, "data", "audio.json")
+    if not os.path.exists(ap):
+        print("   no audio — SKIPPED"); return
+    A = json.load(open(ap, encoding="utf-8"))
+    if "by_glottocode" not in A:
+        die("audio.json is in the old single-recording shape; rerun fetch_audio.py")
+    lp = os.path.join(WEB, "data", "languages.json")
+    L = json.load(open(lp, encoding="utf-8"))
+    F = {k: i for i, k in enumerate(L["fields"])}
+    iso_of = {r[F["code"]]: r[F["iso"]] for r in L["rows"]}
+    bad, n, intext = [], 0, 0
+    for gc, v in A["by_glottocode"].items():
+        if gc not in iso_of:
+            bad.append(f"{gc} is not a language in this build")
+            continue
+        cat = v.get("category", "")
+        if not cat.endswith("-" + v.get("iso", "\x00")):
+            bad.append(f"{gc}: category {cat!r} does not end in its own ISO code")
+        for it in v.get("items", []):
+            n += 1
+            if it.get("intext"):
+                intext += 1
+            if not it.get("licence"):
+                bad.append(f"{gc}: a recording of {it.get('w')!r} has no licence")
+            u = it.get("url", "")
+            if not u.startswith("https://upload.wikimedia.org/"):
+                bad.append(f"{gc}: {u[:60]!r} is not streamed from the archive")
+            if not it.get("w"):
+                bad.append(f"{gc}: a recording has no word attached")
+    if bad:
+        for b in bad[:20]:
+            print("   " + b)
+        die(f"{len(bad)} audio problem(s)")
+    print(f"   {n:,} recordings across {len(A['by_glottocode'])} languages, all streamed from "
+          f"Commons and licence-verified · {intext} are of a word that also appears in that "
+          f"language's own passage here · the archive holds {A.get('available', 0):,}")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -384,6 +433,7 @@ if __name__ == "__main__":
     gate_labels()
     gate_alphabets()
     gate_gallery()
+    gate_audio()
     gate_registration()
     gate_attribution()
     gate_coverage()
