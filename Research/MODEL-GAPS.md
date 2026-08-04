@@ -268,3 +268,67 @@ The fix is not a better search string. It is a source where the language is a st
 field rather than something inferred from a filename — Lingua Libre records carry the
 language as a property, and that is where D3 should be rebuilt from. `build/fetch_gallery.py`
 is the licence gate to reuse; only the identification step needs replacing.
+
+---
+
+## Round 7 — the letters, the objects, the dates, the voices (2026-08-04)
+
+**D11 alphabets · DELIVERED.** 544 languages carry their letters. Two tiers, labelled: 291
+CURATED from Unicode CLDR `exemplarCharacters`, 253 OBSERVED as a character inventory measured
+off the UDHR prose already shipped, with its sample size. Sets are taken apart by script and unit
+type using Unicode's own character names, so Japanese separates into Han/hiragana/katakana with
+nothing authored and Devanagari reports letters *and* vowel marks. Korean is solved by arithmetic
+(S = 0xAC00 + (L*21+V)*28 + T) recovering 19/21/27 from the 11,172 blocks; the "24 letters" is
+stated as an authored fact with its reason, because the jamo blocks carry no Unicode
+decompositions and nothing separates the taught 24 from the doubles and compounds.
+**New gate 2d**, scored against an independent witness — the ISO 15924 code recorded for that
+language's UDHR translation. **On its first run it found 206 Canadian syllabics characters falling
+through the classifier into a bucket that labelled itself Latin**, which had put a Latin
+letter-chart on Inuktitut, Swampy Cree and Northwestern Ojibwa. Agreement 99.1%; the 4 remaining
+disagreements are genuinely biscriptal (Sorani, Uyghur, Hmong Njua, Hmong Daw) and disclosed on
+the card.
+
+**D12 Wikipedia · DELIVERED.** 316 languages have an encyclopedia of their own, with article
+count AND active editors, because the count alone lies: Cebuano has 6,115,376 articles and 208
+active editors — 29,401 each, almost all bot-generated — against English's 29. The card says so
+above a ratio threshold rather than letting a large number imply a living written culture.
+**This measurement is also what found the museum's biggest gap:** ranking languages by active
+editors showed 203 of 316 had no label at all, headed by English, Spanish, German, French,
+Japanese and Russian.
+
+**D13 milestones · DELIVERED.** 344 dated events across 64 languages, rendered as a timeline so
+the gaps are legible (hangul finished 1443, official 1894). 137 are approximate and render "c.".
+
+**Gallery · 158 objects → 976 across 243 languages, 230 with more than one.** Extra subjects come
+from *measured* Commons categories (probe_categories.py: 409 exist with 3+ files), not guessed
+queries. **New gate 2e.** Findings: a licence gate cannot check subject — every
+`Category:<Language> language` holds `ISO 639 Icon xx.svg`, and Cebuano's held a population graph
+of a town in Spain. A word-boundary title filter was needed, because a substring blocklist on
+"graph" discards the Codex Zographensis and on "chart" a chart of Assamese letter differences.
+Choosing the plate by shape alone was tried and **was wrong** — it moved the Codex Argenteus out
+of Gothic's plate for street art; the queued order carries the subject signal and shape may only
+demote a banner or a tall scroll (2 of 243).
+
+**D3 audio · DELIVERED, 15 languages → 313, 1,675 recordings.** The join is
+`Category:Lingua Libre pronunciation-<iso639-3>` — a catalogue key, never a filename, which is
+the standing lesson from the withheld first attempt. Streamed from Commons, never mirrored.
+201 recordings are of a word that also appears in that language's own passage here.
+**New gate 2f** asserts every recording's category ends in the ISO code of the language it plays
+on. Sort order turned out to be a content decision twice: alphabetical gave English `&`, `'tis`,
+`'twixt`; by-upload-time gave English six country names; a rank (in-passage, then single
+lowercase token, then proper noun, then phrase) gives neon, lamp, tome. The fetcher is resumable.
+
+**Labels 242 → 283.** 41 new, for the languages the Wikipedia ranking said were missing.
+
+### Open, and recorded rather than worked around
+
+- **`words.json` has no `orth` key.** The "Words, as written" tier (Wikidata Lexemes) that
+  `tree.js` renders was never built, so that branch has never fired on any card. Either build it
+  or remove the branch.
+- **The image gate's subject miss rate.** 94 of 746 gallery subjects returned nothing admissible,
+  concentrated in Papuan, Cushitic and Amazonian material. This is a digitisation bias in Commons,
+  not a backlog item, and stays a stated limit.
+- **Alphabet tier 2 sample size.** 115 of 544 alphabets have no independent script witness because
+  no UDHR translation is held for them; their tier is stated but unscored.
+- **Audio in-passage matching fell 71 → 69 → 70 languages** when the candidate window was reduced
+  from 200 to 120 to halve run time. A larger window would recover it.
