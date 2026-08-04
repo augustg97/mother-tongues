@@ -35,6 +35,38 @@ IMG = os.path.join(HERE, "..", "web", "img", "gallery")
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "MotherTongues/1.0 (research atlas; augustgweon@gmail.com)"
 
+# ⚠ A LICENCE GATE CANNOT CHECK SUBJECT, and this is where that bites. Every
+# `Category:<Language> language` on Commons contains `ISO 639 Icon xx.svg`, a Wikimedia project
+# icon; several contain word clouds of Wikipedia statistics, community logos, and — in Cebuano's
+# case — a population graph of a town in Spain. All correctly licensed, none an artefact of the
+# language. So titles are filtered too.
+#
+# WORD BOUNDARIES MATTER HERE. A substring blocklist on "graph" throws away the Codex
+# Zographensis and a photograph of an inscribed Breton sundial hosted at geograph.org.uk; on
+# "chart" it throws away a chart of Assamese and Bengali letter differences, which is exactly
+# the kind of thing this museum wants. Both directions were checked against the 814 objects
+# already fetched: 75 rejected, and every one of the awkward keeps survived.
+NOT_AN_ARTEFACT = re.compile(
+    r"^ISO 639 Icon"
+    r"|\bword ?cloud\b|\blogo\b|\bicon\b|\bfavicon\b"
+    r"|\bflag\b|coat of arms|\bemblem\b|\bbarnstar\b|\buserbox\b|\btemplate\b"
+    r"|\bmap\b|\bmaps\b|\bmapa\b|\blocator\b|\bblank map\b"
+    r"|population growth|\belection\b|\bpie chart\b|\bhistogram\b|\bbar chart\b"
+    r"|\bwikipedia\b|\bwikimedia\b|\bwiktionary\b|\bwikisource\b|\bwikidata\b"
+    r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
+    r"|\bfamily tree\b|\bcladogram\b|\bvenn\b"
+    # Photographs of Wikimedia community events are about the project, not the language.
+    r"|\bwikiclub\b|\beditathon\b|\bedit-a-thon\b|\bmeetup\b|\bwikicon\w*"
+    r"|\bwikimania\b|\bhackathon\b|\bwiki ?club\b|\bwiki ?camp\b", re.I)
+
+# A junk upload: one token, no words, with a run of the same character. "Fdddd.jpg" was
+# admitted as an object illustrating Cebuano.
+JUNK_NAME = re.compile(r"^[^ ]{3,14}$")
+
+
+def junk(stem: str) -> bool:
+    return bool(JUNK_NAME.match(stem) and re.search(r"(.)\1{2,}", stem))
+
 OK_PAT = re.compile(r"public domain|^pd|cc0|cc[ -]?by(?!.*(nc|nd))", re.I)
 BAD_PAT = re.compile(r"\bnc\b|noncommercial|non-commercial|\bnd\b|noderiv|fair use|"
                      r"all rights reserved", re.I)
@@ -75,58 +107,190 @@ def licence_of(meta: dict) -> tuple[str, str, str] | None:
     return lic, artist, credit
 
 
-def find(terms: str) -> dict | None:
+def find(terms: str, want: int = 1, skip: set[str] | None = None,
+         skipnorm: set[str] | None = None) -> list[dict]:
+    """Up to `want` admissible files for one subject.
+
+    TWO ROUTES, and the second is the better one. A free-text search matches on words, so
+    "Tamil manuscript" can return anything with both words near it; the licence gate checks the
+    licence and cannot check whether the picture is of the right thing. A Commons CATEGORY is
+    curated by people — a file is in Category:Tamil manuscripts because someone put it there —
+    so any subject written as `Category:...` is read as category members instead. Prefer them.
+    """
+    skip = skip or set()
+    skipnorm = skipnorm if skipnorm is not None else set()
+    common = {"prop": "imageinfo", "iiprop": "url|extmetadata|mime|size",
+              "iiurlwidth": "760"}
     try:
-        j = api({"generator": "search", "gsrsearch": terms, "gsrnamespace": "6",
-                 "gsrlimit": "8", "prop": "imageinfo",
-                 "iiprop": "url|extmetadata|mime|size", "iiurlwidth": "760"})
+        if terms.startswith("Category:"):
+            q = dict(common, generator="categorymembers", gcmtitle=terms,
+                     gcmtype="file", gcmlimit="80")
+        else:
+            q = dict(common, generator="search", gsrsearch=terms, gsrnamespace="6",
+                     gsrlimit="30")
+        j = api(q)
     except Exception as e:                                   # noqa: BLE001
-        print(f"   search failed for {terms!r}: {e}")
-        return None
+        print(f"   lookup failed for {terms!r}: {e}")
+        return []
+    hits = []
     for p in (j.get("query", {}) or {}).get("pages", []) or []:
         ii = (p.get("imageinfo") or [{}])[0]
         if not ii.get("thumburl") or "image" not in (ii.get("mime") or ""):
             continue
         if (ii.get("width") or 0) < 400:
             continue
+        if p["title"] in skip:
+            continue
+        t = p["title"][5:]                            # strip the "File:" prefix
+        if NOT_AN_ARTEFACT.search(t):
+            continue
+        stem = t.rsplit(".", 1)[0]
+        if junk(stem):
+            continue
+        # Near-duplicates. Commons numbers a photo series 01, 02, 03; the exact-title dedupe let
+        # all three in, so Korean showed the same monument twice and Navajo the same radio set
+        # twice. Compare the title with trailing numbering and punctuation removed.
+        norm = re.sub(r"[\W_]+", " ", re.sub(r"[\s\-_]*\d+\s*$", "", stem)).strip().lower()
+        if norm and norm in skipnorm:
+            continue
+        skipnorm.add(norm)
         lic = licence_of(ii)
         if not lic:
             continue
-        return {"title": p["title"], "thumb": ii["thumburl"],
-                "page": ii.get("descriptionurl", ""), "licence": lic[0],
-                "artist": lic[1], "credit": lic[2]}
-    return None
+        hits.append({"title": p["title"], "thumb": ii["thumburl"],
+                     "page": ii.get("descriptionurl", ""), "licence": lic[0],
+                     "artist": lic[1], "credit": lic[2]})
+        if len(hits) >= want:
+            break
+    return hits
+
+
+# How many files one subject may contribute, and the ceiling per language. A card with four
+# objects on it is a room; a card with twenty is a contact sheet.
+PER_SUBJECT = 3
+PER_LANGUAGE = 5
+
+# Commons serves a 760 px thumb; at 814 objects that is 179 MB, which put the site 23 MB over
+# its 420 MB budget. The card's main figure renders about 380 px wide and the plate-wall thumbs
+# about 185, so these caps are retina-sharp at the size they are actually drawn and nothing
+# more. Downscaling here rather than by hand afterwards means the next fetch cannot reintroduce
+# the problem.
+WIDE_MAX = 640          # the object at the top of the card
+THUMB_MAX = 460         # the plate wall
+
+
+def shrink(path: str, cap: int) -> None:
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    try:
+        im = Image.open(path)
+        im.load()
+    except Exception as e:                                   # noqa: BLE001
+        print(f"   unreadable, left as downloaded: {os.path.basename(path)} ({e})")
+        return
+    if im.mode not in ("RGB", "L"):
+        im = im.convert("RGB")
+    if im.width > cap:
+        im = im.resize((cap, max(1, round(im.height * cap / im.width))), Image.LANCZOS)
+    im.save(path, "JPEG", quality=76, optimize=True, progressive=True)
 
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(IMG, exist_ok=True)
-    manifest: dict[str, dict] = {}
-    rejected = 0
+    manifest: dict[str, list] = {}
+    seen: dict[str, set[str]] = {}
+    seennorm: dict[str, set[str]] = {}
+    empty = 0
     for gc, terms in SUBJECTS:
-        hit = find(terms)
-        if not hit:
-            rejected += 1
-            print(f"   no cleanly licensed image for {terms!r}")
+        have = manifest.setdefault(gc, [])
+        if len(have) >= PER_LANGUAGE:
             continue
-        dest = os.path.join(IMG, gc + ".jpg")
-        if not os.path.exists(dest):
-            try:
-                req = urllib.request.Request(hit["thumb"], headers={"User-Agent": UA})
-                with urllib.request.urlopen(req, timeout=120,
-                                            context=ssl.create_default_context()) as r:
-                    open(dest, "wb").write(r.read())
-            except Exception as e:                           # noqa: BLE001
-                print(f"   download failed {gc}: {e}")
-                continue
-        manifest[gc] = {"file": gc + ".jpg", "title": hit["title"][5:],
-                        "licence": hit["licence"], "artist": hit["artist"],
-                        "credit": hit["credit"], "page": hit["page"],
-                        "subject": terms}
-        print(f"   {gc:10s} {hit['licence']:22s} {hit['title'][5:60]}")
-        time.sleep(0.4)
+        # A `people` or `culture` category is context, not an artefact of the language, so it
+        # contributes ONE object at most. CONTEXT_MAX in build_notable caps how many such
+        # CATEGORIES are queried; without this, one of them still returned three portraits.
+        ctx = terms.startswith("Category:") and (terms.endswith(" people")
+                                                 or terms.endswith(" culture"))
+        room = min(1 if ctx else PER_SUBJECT, PER_LANGUAGE - len(have))
+        hits = find(terms, want=room, skip=seen.setdefault(gc, set()),
+                    skipnorm=seennorm.setdefault(gc, set()))
+        if not hits:
+            empty += 1
+            print(f"   nothing admissible for {terms!r}")
+            continue
+        for hit in hits:
+            seen[gc].add(hit["title"])
+            idx = len(have)
+            name = f"{gc}.jpg" if idx == 0 else f"{gc}-{idx}.jpg"
+            dest = os.path.join(IMG, name)
+            if not os.path.exists(dest):
+                try:
+                    req = urllib.request.Request(hit["thumb"],
+                                                 headers={"User-Agent": UA})
+                    with urllib.request.urlopen(
+                            req, timeout=120,
+                            context=ssl.create_default_context()) as r:
+                        open(dest, "wb").write(r.read())
+                except Exception as e:                       # noqa: BLE001
+                    print(f"   download failed {name}: {e}")
+                    continue
+                shrink(dest, WIDE_MAX)     # ordered and re-shrunk once all are in
+            have.append({"file": name, "title": hit["title"][5:],
+                         "licence": hit["licence"], "artist": hit["artist"],
+                         "credit": hit["credit"], "page": hit["page"],
+                         "subject": terms})
+            print(f"   {gc:10s} {hit['licence']:20s} {hit['title'][5:58]}")
+        time.sleep(0.35)
+    # THE PLATE IS CHOSEN BY SUBJECT FIRST, AND SHAPE ONLY BREAKS AN UNUSABLE ONE.
+    #
+    # A first attempt sorted each language's objects purely by how close they were to 4:3, and it
+    # was clearly wrong the moment it was looked at: it moved the Codex Argenteus — the silver
+    # Gothic Bible, the oldest substantial text in any Germanic language — out of Gothic's plate
+    # position in favour of a photograph of street art, and swapped a Hittite cuneiform tablet
+    # for a book illustration. The queued order already encodes the best subject signal there is:
+    # the authored artefact queries run before the Commons categories.
+    #
+    # So the order is left alone, and shape is allowed to do exactly one thing: if the leading
+    # object is a banner or a tall scroll (wider than 3:1 or narrower than 1:3) it swaps with the
+    # first object that is not. On 243 languages that demoted two. Nothing is discarded, because a
+    # palm-leaf manuscript is genuinely long and thin and belongs on the wall.
+    def extreme(o) -> bool:
+        try:
+            from PIL import Image
+            with Image.open(os.path.join(IMG, o["file"])) as im:
+                w, h = im.size
+        except Exception:                                    # noqa: BLE001
+            return True
+        if not w or not h:
+            return True
+        return (w / h) > 3.0 or (w / h) < 0.34
+    demoted = 0
+    for gc, objs in manifest.items():
+        if len(objs) > 1 and extreme(objs[0]):
+            alt = next((i for i, o in enumerate(objs) if i and not extreme(o)), None)
+            if alt is not None:
+                manifest[gc] = [objs[alt]] + [o for i, o in enumerate(objs) if i != alt]
+                demoted += 1
+        for i, o in enumerate(manifest[gc]):
+            if i:
+                shrink(os.path.join(IMG, o["file"]), THUMB_MAX)
+    print(f"\n   {demoted} plates swapped out for being a banner or a tall scroll")
+
+    manifest = {k: v for k, v in manifest.items() if v}
     json.dump(manifest, open(os.path.join(OUT, "gallery.json"), "w"), ensure_ascii=False,
               indent=1)
-    mb = sum(os.path.getsize(os.path.join(IMG, v["file"])) for v in manifest.values()) / 1e6
-    print(f"\n{len(manifest)} images admitted, {rejected} subjects had none that passed the "
+    # ⚠ AND the shipped copy. Nothing in the build ever copied the manifest out of the
+    # acquisition cache into web/data — it had been done by hand once, so the site kept serving
+    # a manifest from an earlier round while 814 new objects sat on disk unreferenced. Every
+    # other builder writes web/data directly; this one now does too.
+    json.dump(manifest, open(os.path.join(HERE, "..", "web", "data", "gallery.json"), "w"),
+              ensure_ascii=False, separators=(",", ":"))
+    n = sum(len(v) for v in manifest.values())
+    mb = sum(os.path.getsize(os.path.join(IMG, o["file"]))
+             for v in manifest.values() for o in v) / 1e6
+    multi = sum(1 for v in manifest.values() if len(v) > 1)
+    print(f"\n{n} objects admitted across {len(manifest)} languages "
+          f"({multi} with more than one) · {empty} subjects had nothing that passed the "
           f"gate · {mb:.1f} MB")

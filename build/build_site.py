@@ -191,6 +191,42 @@ def gate_alphabets() -> None:
           f"{w.get('no_witness', 0)} have no witness")
 
 
+def gate_gallery() -> None:
+    """Every object on a card must be a file that exists, with a licence recorded for it.
+
+    gallery.json changed shape from one object per language to a list, and a half-adopted shape
+    change is the kind of thing that shows four artefacts in the card and none on the tree. So
+    the shape is asserted here, and so is the thing the licence gate exists for: no object may
+    ship without the licence Commons reported for that individual file.
+    """
+    print("2e. gallery objects exist and carry their licence")
+    gp = os.path.join(WEB, "data", "gallery.json")
+    if not os.path.exists(gp):
+        print("   no gallery — SKIPPED"); return
+    G = json.load(open(gp, encoding="utf-8"))
+    bad, n, mb = [], 0, 0.0
+    for gc, objs in G.items():
+        if not isinstance(objs, list):
+            die(f"gallery entry for {gc} is not a list — the multi-object shape change was "
+                f"only half applied")
+        for o in objs:
+            n += 1
+            f = os.path.join(WEB, "img", "gallery", o["file"])
+            if not os.path.exists(f):
+                bad.append(f"{gc}: {o['file']} is in the manifest but not on disk")
+                continue
+            mb += os.path.getsize(f) / 1e6
+            if not o.get("licence"):
+                bad.append(f"{gc}: {o['file']} has no licence recorded")
+    if bad:
+        for b in bad[:20]:
+            print("   " + b)
+        die(f"{len(bad)} gallery problem(s)")
+    multi = sum(1 for v in G.values() if len(v) > 1)
+    print(f"   {n} objects across {len(G)} languages ({multi} with more than one) · "
+          f"{mb:.1f} MB · every one licence-verified")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -347,6 +383,7 @@ if __name__ == "__main__":
     gate_js()
     gate_labels()
     gate_alphabets()
+    gate_gallery()
     gate_registration()
     gate_attribution()
     gate_coverage()

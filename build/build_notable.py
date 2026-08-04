@@ -912,7 +912,402 @@ E = [
  ("Yatzachi Zapotec", "Zapotec Monte Alban inscription",
   "The Zapotec of Monte Albán produced the earliest writing in the Americas, around 500 BCE — "
   "predating Maya script by centuries and still only partly read."),
+
+ #  A batch added because a measurement said so. Ranking every language by the number of people
+ #  who edited its Wikipedia last month — the one number that says a language is being written
+ #  today, and that a bot cannot inflate — showed that 203 of the 316 languages with an
+ #  encyclopedia had no label here at all, and the list was headed by English, Spanish, German,
+ #  French, Japanese and Russian. The museum had gone deep on Hittite and Tocharian and left the
+ #  languages most of its visitors actually read in blank cases.
+ # 
+ #  Search terms are specific named artefacts where one exists, because a free-text query for
+ #  "German manuscript" returns whatever has both words near it.
+
+ ("English", ["Beowulf manuscript Nowell Codex", "Category:English inscriptions",
+              "Lindisfarne Gospels Old English gloss"],
+  "The Germanic language of a small island that ended up with more second-language speakers "
+  "than any language has ever had. Its history is legible in its vocabulary: Old English core "
+  "words, a Norse layer from settlement (they, egg, sky, knife), a French layer of government "
+  "and cuisine from 1066, and a Latin and Greek layer built by scholars — which is why English "
+  "has pairs like kingly, royal and regal meaning almost the same thing. Its spelling froze "
+  "around the time printing arrived and the pronunciation kept moving, which is why 'knight' "
+  "is spelled the way it was said in 1400."),
+ ("Spanish", ["Cantar de mio Cid manuscript", "Glosas Emilianenses",
+              "Category:Spanish inscriptions"],
+  "Castilian began as a border dialect in the north of Iberia and became the language of an "
+  "empire in a single lifetime. Nebrija dedicated the first grammar of any modern European "
+  "language to Isabella in 1492 and told her that language is the instrument of empire; she is "
+  "said to have asked what use it was, since she already spoke it. Today its standard is set "
+  "jointly by twenty-three academies rather than by Madrid, because most of its speakers are "
+  "American."),
+ ("German", ["Codex Argenteus Wulfila", "Luther Bible 1534 title page",
+             "Category:German inscriptions"],
+  "A language with no single centre. It was written in a dozen chancery standards until "
+  "Luther's Bible pulled them towards one, and it still has three national standards and a "
+  "dialect continuum so deep that a Swiss and a north German may not understand each other's "
+  "speech at all. Its grammar keeps four cases and three genders that its cousins dropped, and "
+  "its habit of building words by joining them lets it name things other languages need a "
+  "phrase for."),
+ ("French", ["Serments de Strasbourg", "Chanson de Roland manuscript Oxford",
+             "Category:French inscriptions"],
+  "The first Romance language to be written as a language in its own right rather than as "
+  "misspelled Latin: the Strasbourg Oaths of 842 were set down in it because neither side would "
+  "swear in Latin. It is also the most deliberately governed of the major languages — an academy "
+  "since 1635, an ordinance since 1539 requiring it in law, and a long habit of legislating "
+  "against loanwords. Its spelling preserves consonants that stopped being pronounced six "
+  "hundred years ago."),
+ ("Italian", ["Divina Commedia manuscript", "Placiti Cassinesi",
+              "Category:Italian inscriptions"],
+  "The only major European language whose standard was chosen from a literary corpus rather "
+  "than a capital city: Florentine, because Dante, Petrarch and Boccaccio wrote in it. At "
+  "unification in 1861 perhaps one person in forty in the new kingdom spoke it; the rest spoke "
+  "languages as different from it as Spanish is. Television did more to spread it in twenty "
+  "years than schooling had in a century."),
+ ("Japanese", ["Kojiki manuscript", "Man'yoshu manuscript",
+               "Genji Monogatari emaki", "Category:Japanese calligraphy"],
+  "A language that borrowed a writing system built for a completely unrelated language and "
+  "then had to solve it. Chinese characters carry Japanese meanings and two or more readings "
+  "each — one from Chinese, one native — and around them run two syllabaries, hiragana for "
+  "grammar and katakana for foreign words. All three appear in the same sentence. The "
+  "consequence is a language whose writing records its own history of contact on every line."),
+ ("Russian", ["Ostromir Gospels", "Novgorod birch bark letters",
+              "Category:Russian inscriptions"],
+  "Written in an alphabet made for a different Slavic language: Cyrillic was devised for Old "
+  "Church Slavonic and inherited. Peter the Great redrew the letters in 1708 to look less "
+  "ecclesiastical, and the 1918 reform dropped four of them. The birch-bark letters dug out of "
+  "Novgorod — shopping lists, love notes, a child's alphabet practice — are among the few "
+  "records anywhere of how ordinary medieval people actually wrote."),
+ ("Polish", ["Book of Henrykow", "Psalter of Florian",
+             "Category:Polish inscriptions"],
+  "Kept alive in print for over a century while the state that spoke it did not exist. Its "
+  "oldest recorded sentence, in the Book of Henryków around 1270, is a man telling his wife to "
+  "rest while he grinds the corn. Its spelling uses digraphs — sz, cz, rz — where Czech chose "
+  "diacritics, which is why the two closely related languages look so unlike on the page."),
+ ("Western Farsi", ["Shahnameh manuscript", "Behistun inscription",
+                    "Category:Persian calligraphy"],
+  "A language that survived conquest by becoming the prestige language of the conquerors' "
+  "successors. Persian returned to literary use two centuries after the Arab conquest, written "
+  "in Arabic letters with four added, and for five hundred years was the language of "
+  "administration and poetry from the Balkans to Bengal. Ferdowsi wrote the Shahnameh partly to "
+  "prove it could carry an epic without Arabic vocabulary."),
+ ("Modern Hebrew", ["Dead Sea Scrolls Isaiah", "Gezer calendar",
+                    "Category:Hebrew manuscripts"],
+  "The only language to stop being spoken and start again. Hebrew held on for seventeen "
+  "centuries in prayer, law and correspondence with no native speakers, and then acquired them: "
+  "Ben-Yehuda raised his son in Hebrew alone in the 1880s, and within seventy years it was the "
+  "everyday language of a state. It is not the Hebrew of the Bible — the sound system took a "
+  "great deal from the European languages of its first revivalists."),
+ ("Dutch", ["Hebban olla vogala", "Statenbijbel title page",
+            "Category:Dutch inscriptions"],
+  "Sits exactly between English and German and shows what English might have looked like "
+  "without 1066: Germanic vocabulary, Germanic word order, and no French layer of governance. "
+  "Its standard is set jointly by the Netherlands and Belgium so that neither country decides "
+  "alone, and its oldest sentence is a scribe in Rochester testing a pen."),
+ ("Ukrainian", ["Peresopnytsia Gospel", "Kobzar Shevchenko",
+                "Category:Ukrainian inscriptions"],
+  "Banned from print by imperial decree in 1876 and from the stage as well; the language "
+  "survived in villages, in song, and in books printed abroad. Shevchenko's Kobzar of 1840 gave "
+  "it a literary standard built out of the spoken language rather than out of Church Slavonic, "
+  "which is the main reason it reads as a separate language from Russian rather than a "
+  "provincial version of it."),
+ ("Standard Indonesian", ["Kedukan Bukit inscription", "Sumpah Pemuda 1928",
+                          "Category:Indonesian language"],
+  "A national language chosen precisely because it belonged to almost nobody. At independence "
+  "Javanese had far more speakers, but adopting it would have made one island's language the "
+  "state's; Malay was the trade language of the archipelago and the first language of a small "
+  "minority. It is now spoken by most Indonesians and native to few of them — the clearest case "
+  "anywhere of a national language adopted rather than inherited."),
+ ("Turkish", ["Orkhon inscriptions", "Ottoman Turkish manuscript calligraphy",
+              "Category:Turkish inscriptions"],
+  "The language with the sharpest documented break in modern history. In 1928 the script "
+  "changed from Arabic to Latin in a matter of months, with Atatürk teaching the new letters at "
+  "public blackboards; from 1932 a language commission replaced much of the Arabic and Persian "
+  "vocabulary with Turkic coinages. The result is that a Turkish speaker today needs training "
+  "to read a newspaper from 1920 — both the letters and the words have changed."),
+ ("Vietnamese", ["Chu Nom manuscript", "Truyen Kieu manuscript",
+                 "Category:Vietnamese language"],
+  "Written three ways in a thousand years. Chinese characters first, then chữ Nôm — characters "
+  "invented to fit Vietnamese, one of the few writing systems ever built by adapting another to "
+  "an unrelated language — and finally the Latin quốc ngữ devised by Portuguese missionaries and "
+  "made official in 1945. It is a tonal language with six tones, and quốc ngữ marks every one, "
+  "which is why written Vietnamese carries so many diacritics."),
+ ("Swedish", ["Rok runestone", "Gustav Vasa Bible",
+              "Category:Swedish inscriptions"],
+  "Has more runic inscriptions behind it than any other language — Sweden holds the majority of "
+  "the world's runestones. Modern Swedish and Norwegian and Danish are close enough that their "
+  "speakers often read each other without study; what separates them most is pronunciation and "
+  "spelling convention rather than grammar. Its Wikipedia is one of the largest in the world and "
+  "most of it was written by a bot."),
+ ("Czech", ["Codex Gigas", "Kralice Bible",
+            "Category:Czech inscriptions"],
+  "Gave Europe the háček. Jan Hus proposed around 1412 that a mark above a letter should replace "
+  "clusters of consonants, and the idea spread from Czech into Slovak, Slovene, Croatian, "
+  "Latvian, Lithuanian and beyond — one of the few orthographic inventions that can be traced to "
+  "a named person and a date. Czech nearly lost its written life under Habsburg German before "
+  "the National Revival rebuilt it in the nineteenth century."),
+ ("Thai", ["Ram Khamhaeng inscription", "Thai manuscript samut khoi",
+           "Category:Thai inscriptions"],
+  "An abugida in which vowels are written before, after, above or below the consonant they "
+  "follow in speech, so reading order and speaking order are not the same. Thai is written "
+  "without spaces between words, has five tones and forty-four consonant letters for twenty-one "
+  "consonant sounds — the surplus preserving distinctions that existed in the Indic languages "
+  "the letters were borrowed from."),
+ ("Bulgarian", ["Codex Zographensis", "Preslav inscription",
+                "Category:Bulgarian inscriptions"],
+  "The first Slavic language written down, and the ancestor of the liturgical Old Church "
+  "Slavonic that carried Cyrillic to Russia and Serbia. It then did something no other Slavic "
+  "language did: it lost almost all of its noun cases and grew a definite article stuck to the "
+  "end of the word, which makes it grammatically closer to Romanian and Albanian than to Russian."),
+ ("Danish", ["Jelling stones", "Codex Holmiensis",
+             "Category:Danish inscriptions"],
+  "Famous among its neighbours for being hard to hear. Danish has reduced and swallowed "
+  "consonants far more than Swedish or Norwegian, so it is written much like them and sounds "
+  "very little like them; Danish children acquire vocabulary measurably later than Norwegian "
+  "children, which linguists attribute to how few consonants survive in speech. The Jelling "
+  "stone of about 965 is called Denmark's birth certificate."),
+ ("Norwegian", ["Codex Frisianus", "Category:Norwegian inscriptions",
+                "Category:Norwegian language"],
+  "One language with two official written standards and no official spoken one. Bokmål grew out "
+  "of the Danish used in Norway for four centuries; Nynorsk was assembled in the 1850s by Ivar "
+  "Aasen, who walked the country collecting dialects and built a written language out of what he "
+  "found. Both are taught; neither is a pronunciation, and Norwegians are unusually free to "
+  "speak their own dialect in any setting."),
+ ("Slovak", ["Category:Slovak inscriptions", "Category:Slovak language"],
+  "Standardised twice, both times by choosing a different dialect. Bernolák built one standard "
+  "on western Slovak in 1787; Štúr replaced it with a central Slovak standard in the 1840s "
+  "because it was further from Czech and closer to what most people spoke. Slovak and Czech "
+  "remain mutually intelligible enough that both were used interchangeably on Czechoslovak "
+  "television."),
+ ("Urdu", ["Urdu nastaliq calligraphy", "Diwan-e-Ghalib manuscript",
+           "Category:Urdu language"],
+  "Grammatically the same language as Hindi and, in speech, largely the same vocabulary; the "
+  "two separate in script, in register and in what they borrow from. Urdu is written in the "
+  "flowing nastaʿlīq style of the Perso-Arabic script, which slopes down to the left and is so "
+  "hard to typeset that Urdu newspapers were hand-written by calligraphers into the 1980s."),
+ ("Malayalam", ["Malayalam palm leaf manuscript", "Category:Malayalam script",
+                "Category:Malayalam language"],
+  "Has the largest consonant-cluster inventory of the Indian scripts and a reputation for the "
+  "most complex ligatures. It is also the language of a state with near-universal literacy, and "
+  "the Malayalam word for the language, script and people is the same. Its name is a palindrome "
+  "in Latin letters."),
+ ("Telugu", ["Telugu palm leaf manuscript", "Category:Telugu script",
+             "Category:Telugu inscriptions"],
+  "Called the Italian of the East by nineteenth-century Europeans because so many of its words "
+  "end in a vowel. Dravidian, not Indo-European, though it has taken a great deal of Sanskrit "
+  "vocabulary; its script and Kannada's come from a common ancestor and still look alike enough "
+  "that readers of one can often sound out the other."),
+ ("Georgian", ["Bir el Qutt inscriptions", "Category:Georgian manuscripts",
+               "Category:Georgian calligraphy"],
+  "Written in an alphabet shared with no other language, in three historical forms, all of them "
+  "in Unicode. Georgian has no capital letters, no grammatical gender, and consonant clusters "
+  "that other languages break up with vowels — gvprtskvnis, 'you peel us', has eight consonants "
+  "in a row. Its language family, Kartvelian, has four members and no demonstrated relatives."),
+ ("Belarusian", ["Skaryna Bible", "Category:Belarusian language"],
+  "Has two competing spellings, and choosing one is a political act. The official orthography "
+  "follows a 1933 Soviet reform that moved the language closer to Russian; taraškievica, named "
+  "for the grammarian who codified it in 1918, is used by much of the diaspora and independent "
+  "press. Belarusian Wikipedia exists in both, as two separate encyclopedias."),
+ ("Halh Mongolian", ["Mongolian script manuscript", "Category:Mongolian script",
+                     "Category:Mongolian language"],
+  "Written vertically, top to bottom in lines running left to right — the only major script that "
+  "does. The traditional Mongolian alphabet came from Uyghur, which came from Syriac, which is "
+  "why a script written down the page descends from one written right to left. Mongolia switched "
+  "to Cyrillic in the 1940s and has legislated a return to the vertical script."),
+ ("Kazakh", ["Category:Kazakh language", "Category:Kazakh people"],
+  "Has changed alphabet three times in a century — Arabic to Latin in 1929, Latin to Cyrillic in "
+  "1940, and Cyrillic back to Latin on a schedule now running to 2031. Each change cut a "
+  "generation off from what the previous one had printed, which is the recurring cost of script "
+  "reform and the reason it is always contested."),
+ ("Afrikaans", ["Category:Afrikaans language", "Category:Afrikaans literature"],
+  "The youngest Germanic language with a state standing, grown from seventeenth-century Dutch in "
+  "the Cape and shaped by Malay, Khoe and Portuguese contact. Its grammar is radically "
+  "simplified — no verb conjugation for person, no grammatical gender — and it was first written "
+  "in Arabic script, in madrasas of the Cape Malay community, decades before it was written in "
+  "Latin letters."),
+ ("Kannada", ["Halmidi inscription", "Category:Kannada script",
+              "Category:Kannada inscriptions"],
+  "Has one of the longest continuous inscriptional records of any living language — tens of "
+  "thousands of stone and copper-plate inscriptions, more than any other Indian language. The "
+  "Halmidi inscription of about 450 is the oldest; the language has changed enough since that "
+  "it needs translating for modern readers."),
+ ("Serbian-Croatian-Bosnian", ["Miroslav Gospel", "Category:Serbian inscriptions",
+                               "Category:Croatian inscriptions"],
+  "One language by every linguistic measure and four by every political one. Serbian, Croatian, "
+  "Bosnian and Montenegrin are mutually intelligible in full; they differ in script — Serbian "
+  "uses both Cyrillic and Latin, Croatian only Latin — in vocabulary preferences, and in which "
+  "capital sets the standard. Glottolog files them as a single language, which is a linguistic "
+  "judgement and not a political one."),
+ ("Egyptian Arabic", ["Category:Egyptian Arabic", "Category:Arabic calligraphy"],
+  "The most widely understood spoken Arabic, because Egypt made the films and the music that the "
+  "rest of the Arab world watched. It is a spoken language that is written mostly in informal "
+  "registers — comics, subtitles, social media, song — while Standard Arabic holds the formal "
+  "page, which makes it one of the clearest living examples of diglossia."),
+ ("Northern Uzbek", ["Category:Uzbek language", "Category:Uzbek people"],
+  "Turkic, with more Persian in it than its relatives have, because it grew up in the cities of "
+  "Transoxiana alongside Tajik. Like Kazakh it has cycled through Arabic, Latin and Cyrillic and "
+  "is going back to Latin; unlike Kazakh, Uzbek did so in 1993 and the transition is still "
+  "incomplete, so signs in Tashkent appear in both."),
+ ("North Azerbaijani", ["Category:Azerbaijani language", "Nizami Ganjavi manuscript"],
+  "Split by a border since 1828. North Azerbaijani is written in Latin letters in Azerbaijan; "
+  "South Azerbaijani, with more speakers, is written in Arabic script in Iran. They are the same "
+  "language and their readers cannot read each other's books."),
+ ("Eastern Armenian", ["Matenadaran Armenian manuscript", "Category:Armenian manuscripts",
+                       "Category:Armenian inscriptions"],
+  "An alphabet made for one language and used by no other. Mesrop Mashtots devised it around "
+  "405 to put scripture into Armenian, and the translation programme that followed was so "
+  "thorough that several Greek and Syriac works survive only in Armenian. The language has two "
+  "standards — eastern, a state language in Armenia, and western, which lost its homeland in "
+  "1915 and is now classed as endangered."),
+ ("Northern Tosk Albanian", ["Category:Albanian language", "Meshari Buzuku"],
+  "The only surviving member of its branch of Indo-European, with no close relatives at all. "
+  "It kept enough of its own vocabulary through Latin, Slavic, Greek and Turkish contact to be "
+  "identifiable, and its oldest book is a 1555 missal. Standard Albanian is built on Tosk, the "
+  "southern variety, though Gheg has as many speakers."),
+ ("Central Kurdish", ["Category:Kurdish language", "Category:Kurdish people"],
+  "Written in two scripts in two countries by speakers of two varieties: Sorani in Arabic "
+  "letters in Iraq and Iran, Kurmanji in Latin letters in Turkey and Syria. For most of the "
+  "twentieth century publishing in it was restricted or banned across several of those states, "
+  "and its standardisation is still unfinished as a result."),
+ ("Nepali", ["Category:Nepali language", "Category:Nepal manuscripts"],
+  "The state language of Nepal and one of the languages of Indian Sikkim and Darjeeling, written "
+  "in Devanagari and closely related to Hindi. Nepal holds over a hundred languages from four "
+  "different families in an area the size of England, which makes it one of the densest "
+  "linguistic regions in Asia; Nepali is the one that carries between them."),
+ ("Sinhala", ["Category:Sinhala script", "Category:Sinhala language"],
+  "An Indo-European language at the southern tip of a Dravidian-speaking region, brought to Sri "
+  "Lanka around 500 BCE and separated from its relatives ever since. Its script is rounded "
+  "because it was written on palm leaf, where a straight stroke splits the fibre, and it has one "
+  "of the largest sets of ligatures of any living script."),
+ ("Lithuanian", ["Category:Lithuanian language", "Mazvydas Catechism"],
+  "The most conservative living Indo-European language: it keeps case endings, dual number and "
+  "pitch accent that Sanskrit's other cousins lost, and comparative linguists use it as a "
+  "control. Its first book was printed in 1547, and for forty years from 1864 printing "
+  "Lithuanian in Latin letters was banned in the Russian Empire — books were printed in Prussia "
+  "and smuggled in by people known as book carriers."),
+ ("Slovenian", ["Freising manuscripts", "Category:Slovene language"],
+  "Keeps the dual — a separate grammatical number for exactly two — which almost every other "
+  "European language dropped. It also has one of the steepest dialect gradients in Europe, with "
+  "seven dialect groups and around fifty dialects among two million speakers, some of them not "
+  "mutually intelligible."),
+ ("Kirghiz", ["Category:Kyrgyz language", "Category:Kyrgyz people"],
+  "Carries the Manas, an oral epic of around half a million lines — by most counts the longest "
+  "in the world, twenty times the Odyssey — memorised and performed by reciters called "
+  "manaschy. It was not written down until the nineteenth century and no two performances are "
+  "the same."),
+ ("Tajik", ["Category:Tajik language", "Category:Tajik people"],
+  "Persian written in Cyrillic. Tajik and Iranian Persian are the same language with different "
+  "alphabets and a century of separate vocabulary, which means a Tajik reader cannot follow a "
+  "Tehran newspaper without learning a new script for their own language."),
+ ("Standard Malay", ["Kedukan Bukit inscription", "Category:Jawi script",
+                     "Category:Malay language"],
+  "The trade language of maritime Southeast Asia for a thousand years, written in an Indic "
+  "script, then in the Arabic-based Jawi, then in Latin letters. Jawi is still taught and still "
+  "official in Brunei and used on signage in Malaysia — one of the few places where a language's "
+  "older script survives alongside its newer one in public life."),
+ ("Burmese", ["Myazedi inscription", "Category:Burmese script",
+              "Category:Burmese manuscripts"],
+  "Its round letters come from writing on palm leaf, where a straight line tears along the "
+  "grain. The Myazedi inscription of 1113 carries the same text in Burmese, Pali, Mon and Pyu, "
+  "and is what allowed Pyu — otherwise unknown — to be read at all. Burmese is written without "
+  "spaces between words."),
+ ("Nyanja", ["Category:Chewa language", "Category:Malawi"],
+  "Known as Chichewa in Malawi and Chinyanja in Zambia, one language under two national names — "
+  "a common pattern in Africa, where colonial borders cut through speech communities and each "
+  "state then standardised its own side."),
+ ("Igbo", ["Category:Igbo language", "Category:Nsibidi", "Category:Igbo culture"],
+  "Written now in Latin letters, but the region has an older graphic system: nsibidi, a body of "
+  "signs used on cloth, skin and walls, which encodes meaning without encoding sound. Igbo's "
+  "tone is lexical, and the standard orthography marks it — without the marks, a great many "
+  "words are ambiguous on the page."),
+ ("Wolof", ["Category:Wolof language", "Category:Senegal"],
+  "The language most people in Senegal actually use, in a country whose official language is "
+  "French. It is written in Latin letters officially and in Wolofal, an Arabic script, in "
+  "religious and popular use — so the language has a state orthography and a much older "
+  "vernacular one that most of its readers were never taught in school."),
+ ("Shona", ["Great Zimbabwe", "Category:Shona language"],
+  "Its speakers built Great Zimbabwe, whose stone walls were long attributed by colonial "
+  "archaeology to anyone but them. Shona has a five-vowel system, lexical tone, and a "
+  "standardised orthography assembled in 1931 from several distinct varieties — which means the "
+  "written language is nobody's exact dialect."),
+ ("Tigrinya", ["Category:Tigrinya language", "Category:Ethiopic manuscripts"],
+  "Written in the Ethiopic syllabary it shares with Amharic, and closer than Amharic is to "
+  "Ge'ez, their common ancestor. It is a state language on both sides of the "
+  "Eritrea–Ethiopia border and one of the few Semitic languages outside Arabic and Hebrew with "
+  "millions of speakers and a national standing."),
+ ("Sindhi", ["Shah Jo Risalo manuscript", "Category:Sindhi language"],
+  "Written in Arabic script in Pakistan and Devanagari in India — the same language, two "
+  "scripts, one border. Its Perso-Arabic alphabet has 52 letters, the largest of any, because "
+  "Sindhi has sounds Arabic does not and each needed a letter built for it."),
+ ("Northern Pashto", ["Category:Pashto language", "Khushal Khan Khattak manuscript"],
+  "Has retroflex consonants and a case system that Persian, its neighbour and long-time "
+  "administrative rival, does not — Pashto is Iranian but has taken structure from its Indic "
+  "neighbours. Its Arabic-based alphabet adds letters for sounds no other language using that "
+  "script needs."),
+ ("Yue Chinese", ["Category:Cantonese", "Category:Chinese calligraphy"],
+  "Preserves final consonants and a tone system that Mandarin lost, which is why classical "
+  "Chinese poetry rhymes better read in Cantonese than in Mandarin. It has its own written "
+  "vernacular using characters that exist for no other variety, mostly created in Hong Kong, "
+  "and is one of the few Chinese languages with a substantial written form of its own speech."),
+ ("Min Nan Chinese", ["Category:Hokkien", "Peh-oe-ji romanization"],
+  "Written in Latin letters by Presbyterian missionaries and their converts from the 1830s: "
+  "Pe̍h-ōe-jī gave Taiwanese a full romanised literature, including a newspaper that ran for "
+  "sixty years, at a time when writing a Chinese language in an alphabet was almost unheard of. "
+  "Min Nan split from the rest of Chinese earlier than any other branch."),
+ ("Wu Chinese", ["Category:Shanghainese", "Category:Wu Chinese"],
+  "The language of Shanghai and of a region that held the largest concentration of publishing in "
+  "China. Wu keeps a three-way voicing distinction in its consonants that Mandarin reduced to "
+  "two, and its speaker numbers are falling fast among children as Mandarin becomes the only "
+  "language of schooling."),
+ ("Uighur", ["Category:Uyghur language", "Turfan manuscripts"],
+  "Written in five scripts across its history — Old Turkic runes, Sogdian-derived Old Uyghur, "
+  "Arabic, Latin and Cyrillic — and today in a reformed Arabic alphabet that marks every vowel, "
+  "unusually for that script. The Turfan manuscripts, dug out of the Taklamakan, preserve "
+  "Buddhist, Manichaean and Christian texts in it side by side."),
 ]
+
+
+
+# ---------------------------------------------------------------------------
+# EXTRA OBJECTS, from measured Commons categories rather than authored guesses.
+#
+# probe_categories.py asks Commons which categories actually exist for each of these languages
+# and how many files each holds; 291 do, across 138 languages. Those are appended here as extra
+# gallery subjects so a card can hold four or five objects instead of one.
+#
+# THE PRIORITY ORDER IS THE CURATION. This is a museum of language, so a page of writing beats a
+# photograph of a market. `<Language> people` and `<Language> culture` categories are large and
+# tempting and mostly contain portraits and festivals — real, but about the speakers rather than
+# the speech. They are used last, and capped at one object, so that a card leads with script,
+# manuscript and inscription where those exist and only falls back to context when they do not.
+# ---------------------------------------------------------------------------
+CAT_RANK = ["manuscripts", "inscriptions", "calligraphy", "script", "alphabet",
+            "Books in", "Newspapers in", "Manuscripts in", "Inscriptions in", "Texts in",
+            "literature", "language", "culture", "people"]
+CAT_MAX = 3            # extra categories queried per language
+CONTEXT_MAX = 1        # of those, at most this many may be people/culture
+
+
+def _rank(title: str) -> int:
+    t = title[len("Category:"):]
+    for i, key in enumerate(CAT_RANK):
+        if t.startswith(key + " ") or t.endswith(" " + key) or t.endswith(key):
+            return i
+    return len(CAT_RANK)
+
+
+def extra_subjects(gc: str, cats: dict) -> list[str]:
+    rows = cats.get(gc) or []
+    ordered = sorted(rows, key=lambda r: (_rank(r[0]), -r[1]))
+    out, context = [], 0
+    for title, n in ordered:
+        is_ctx = _rank(title) >= CAT_RANK.index("culture")
+        if is_ctx and context >= CONTEXT_MAX:
+            continue
+        out.append(title)
+        context += 1 if is_ctx else 0
+        if len(out) >= CAT_MAX:
+            break
+    return out
 
 
 def main() -> None:
@@ -921,7 +1316,10 @@ def main() -> None:
         for r in csv.DictReader(f):
             if r["Level"] == "language":
                 names.setdefault(r["Name"], []).append(r["ID"])
+    cp = os.path.join(ROOT, "data", "gallery", "categories.json")
+    cats = json.load(open(cp, encoding="utf-8")) if os.path.exists(cp) else {}
     out, expect, subjects, bad = {}, {}, [], []
+    nextra = 0
     for nm, terms, text in E:
         hit = names.get(nm)
         if not hit:
@@ -934,7 +1332,12 @@ def main() -> None:
         out[gc] = text
         # the gate's keyword: the most distinctive word of the Glottolog name itself
         expect[gc] = max(nm.replace("(", " ").replace(")", " ").split(), key=len)
-        subjects.append((gc, terms))
+        # `terms` may be one query or several. Several means several objects on the card.
+        for q in ([terms] if isinstance(terms, str) else terms):
+            subjects.append((gc, q))
+        for q in extra_subjects(gc, cats):
+            subjects.append((gc, q))
+            nextra += 1
     for b in bad:
         print("  SKIPPED " + b)
     d = os.path.join(ROOT, "web", "data")
@@ -943,7 +1346,9 @@ def main() -> None:
               separators=(",", ":"))
     json.dump(subjects, open(os.path.join(ROOT, "data", "gallery", "subjects.json"), "w"))
     print(f"{len(out)} labels resolved, {len(bad)} skipped · "
-          f"{len(subjects)} gallery subjects queued")
+          f"{len(subjects)} gallery subjects queued "
+          f"({nextra} of them measured Commons categories across "
+          f"{len([1 for gc in out if extra_subjects(gc, cats)])} languages)")
 
 
 if __name__ == "__main__":

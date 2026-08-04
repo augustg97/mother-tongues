@@ -295,3 +295,30 @@ body:not(.tree) #subtitle{max-width:38ch}
   background:var(--panel2,rgba(0,0,0,.025));border:1px solid var(--rule);border-radius:2px}
 .alpha.dense span{min-width:22px;height:24px;font-size:15px;gap:2px}
 .alpha.punct span{font-size:16px;color:var(--ink2)}
+
+/* ---- the plate wall ---------------------------------------------------- */
+/* Two columns of objects under the card, sized so a manuscript page and a coin both read.
+   Captions stay attached to their object and carry the maker — an unattributed object in a
+   museum is a decoration. */
+.exgal{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 2px}
+.exgal figure{margin:0}
+.exgal a{display:block;background:var(--panel2,rgba(0,0,0,.03));border:1px solid var(--rule)}
+.exgal img{display:block;width:100%;height:auto}
+.exgal figcaption{margin-top:4px;font-size:10px;line-height:1.35;color:var(--ink3);
+  font-family:var(--serif)}
+.exgal figcaption span{color:var(--ink3);opacity:.8}
+@media (max-width:1100px){.exgal{grid-template-columns:1fr}}
+
+/* ---- the dated timeline ------------------------------------------------- */
+/* Years in a fixed left column so the gaps between them are visible down the page — the four
+   and a half centuries between hangul being invented and hangul becoming official is the
+   point, and it only reads if the years line up. */
+.mstone{list-style:none;margin:4px 0 0;padding:0;
+  border-left:1px solid var(--rule)}
+.mstone li{display:grid;grid-template-columns:74px 1fr;gap:0 12px;padding:0 0 9px 12px;
+  position:relative;align-items:baseline}
+.mstone li::before{content:"";position:absolute;left:-3.5px;top:7px;width:6px;height:6px;
+  border-radius:50%;background:var(--ink3)}
+.msy{font-size:11px;letter-spacing:.03em;color:var(--ink);font-weight:600;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.mst{font-family:var(--serif);font-size:13.5px;line-height:1.45;color:var(--ink2)}

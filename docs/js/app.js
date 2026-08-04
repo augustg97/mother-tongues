@@ -864,6 +864,11 @@ async function boot() {
     .catch(() => { state.phrases = null; });
   fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
     .catch(() => { state.gallery = null; });
+  // Dated events in the life of a language, and whether anyone writes an encyclopedia in it.
+  fetch(V('data/milestones.json')).then(r => r.json()).then(d => { state.milestones = d; })
+    .catch(() => { state.milestones = null; });
+  fetch(V('data/wikipedia.json')).then(r => r.json()).then(d => { state.wikipedia = d; })
+    .catch(() => { state.wikipedia = null; });
   // The letters. Curated where CLDR reaches the language, measured off our own prose where
   // it does not — the tier field says which, and the card says so too.
   fetch(V('data/alphabets.json')).then(r => r.json()).then(d => { state.alphabets = d; })
