@@ -218,13 +218,18 @@ def gate_gallery() -> None:
             mb += os.path.getsize(f) / 1e6
             if not o.get("licence"):
                 bad.append(f"{gc}: {o['file']} has no licence recorded")
+            # The lightbox shows a full-resolution copy served by Commons; the local file is
+            # downscaled to 460-640 px and would look poor filling a screen. Without this
+            # field an object opens at thumbnail size and the expanded view is pointless.
+            if not str(o.get("big", "")).startswith("https://commons.wikimedia.org/"):
+                bad.append(f"{gc}: {o['file']} has no full-resolution URL for the lightbox")
     if bad:
         for b in bad[:20]:
             print("   " + b)
         die(f"{len(bad)} gallery problem(s)")
     multi = sum(1 for v in G.values() if len(v) > 1)
     print(f"   {n} objects across {len(G)} languages ({multi} with more than one) · "
-          f"{mb:.1f} MB · every one licence-verified")
+          f"{mb:.1f} MB · every one licence-verified and openable full-size")
 
 
 def gate_audio() -> None:

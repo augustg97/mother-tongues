@@ -302,7 +302,6 @@ body:not(.tree) #subtitle{max-width:38ch}
    museum is a decoration. */
 .exgal{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 2px}
 .exgal figure{margin:0}
-.exgal a{display:block;background:var(--panel2,rgba(0,0,0,.03));border:1px solid var(--rule)}
 .exgal img{display:block;width:100%;height:auto}
 .exgal figcaption{margin-top:4px;font-size:10px;line-height:1.35;color:var(--ink3);
   font-family:var(--serif)}
@@ -338,3 +337,50 @@ body:not(.tree) #subtitle{max-width:38ch}
 .hin{font-size:10px;color:var(--ink3);font-style:italic;font-family:var(--serif);
   white-space:nowrap}
 #exau{display:none}
+
+/* ---- the lightbox -------------------------------------------------------- */
+/* A warm ink scrim, not black: the museum is paper, and pure black over parchment reads as a
+   different application. Dark enough that the object is the only thing lit. */
+body.lbopen{overflow:hidden}
+#lightbox{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;
+  justify-content:center;padding:28px 56px;box-sizing:border-box;
+  background:rgba(26,22,16,.88);backdrop-filter:blur(2px)}
+#lightbox[hidden]{display:none}
+.lbfig{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;
+  max-width:100%;max-height:100%}
+.lbfig img{display:block;max-width:min(1400px,88vw);max-height:78vh;width:auto;height:auto;
+  background:#f7f3ea;box-shadow:0 18px 60px rgba(0,0,0,.5);border-radius:2px}
+#lightbox.loading .lbfig img{opacity:.72;transition:opacity .2s}
+.lbfig figcaption{max-width:min(760px,86vw);text-align:center;font-family:var(--serif);
+  font-size:12.5px;line-height:1.55;color:rgba(247,243,234,.78)}
+.lbfig figcaption b{color:#f7f3ea;font-weight:600}
+.lbfig figcaption .lbn{display:block;margin-top:4px;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(247,243,234,.5)}
+.lbfig figcaption a{display:inline-block;margin-top:6px;color:rgba(247,243,234,.62);
+  font-size:11px;text-decoration:underline;text-underline-offset:2px}
+.lbfig figcaption a:hover{color:#f7f3ea}
+.lbx,.lbnav{position:absolute;background:none;border:0;color:rgba(247,243,234,.62);
+  cursor:pointer;font:inherit;line-height:1;padding:10px;border-radius:3px}
+.lbx:hover,.lbnav:hover{color:#f7f3ea;background:rgba(247,243,234,.10)}
+.lbx{top:12px;right:16px;font-size:30px}
+.lbnav{top:50%;transform:translateY(-50%);font-size:44px;padding:6px 14px}
+.lbnav[hidden]{display:none}
+.lbprev{left:8px}
+.lbnext{right:8px}
+/* An object is a button so it can be tabbed to and pressed; it must not look like one. */
+.exfigb,.exgal button{display:block;width:100%;padding:0;border:0;background:none;
+  cursor:zoom-in;font:inherit;color:inherit}
+.exfigb img{display:block;width:100%;height:auto}
+.exfigb:hover img,.exgal button:hover img{opacity:.88}
+.exfigb:focus-visible,.exgal button:focus-visible{outline:2px solid var(--accent2);
+  outline-offset:2px}
+.exgal button{background:var(--panel2,rgba(0,0,0,.03));border:1px solid var(--rule)}
+@media (max-width:700px){
+  /* The arrows sit over the picture's edges. At 375px an 88vw image leaves them 12px of gutter
+     and the whole thing reads as squeezed, so the picture gives up a little width instead. */
+  #lightbox{padding:16px 6px}
+  .lbnav{font-size:32px;padding:4px 6px}
+  .lbfig img{max-width:80vw;max-height:68vh}
+  .lbfig figcaption{max-width:88vw}
+  .lbx{top:8px;right:8px;font-size:26px}
+}

@@ -494,6 +494,124 @@
     return h;
   }
 
+  // ---- the lightbox ------------------------------------------------------
+  // Clicking an object opens it large, in the middle of THIS page. It used to open Wikimedia
+  // Commons in a new tab, which threw the visitor out of the museum to look at an exhibit that
+  // was already in front of them.
+  //
+  // Two sources, in order. The local copy appears immediately — it is 460-640 px and already in
+  // cache, so the image is on screen the instant you click. The full-resolution file then loads
+  // from Commons behind it and swaps in when ready, which is why there is no blank pause and why
+  // this still works with no network. The card's whole set is loaded, so arrow keys walk it.
+  const LB = { objs: [], i: 0, el: null, prev: null };
+
+  // Commons stores a filename; a museum label is not a filename. Strip the extension and turn
+  // underscores into spaces, and stop there — hyphens carry shelfmarks (KBo-14-1) and joining
+  // them would destroy the one part of the name that identifies the object.
+  function objTitle(o) {
+    return String((o && o.title) || '').replace(/\.(jpe?g|png|gif|tiff?|djvu|svg|webp)$/i, '')
+      .replace(/_/g, ' ').trim();
+  }
+
+  function lbBuild() {
+    if (LB.el) return LB.el;
+    const d = document.createElement('div');
+    d.id = 'lightbox';
+    d.setAttribute('role', 'dialog');
+    d.setAttribute('aria-modal', 'true');
+    d.hidden = true;
+    d.innerHTML =
+      '<button type="button" class="lbx" aria-label="Close">\u00D7</button>' +
+      '<button type="button" class="lbnav lbprev" aria-label="Previous">\u2039</button>' +
+      '<button type="button" class="lbnav lbnext" aria-label="Next">\u203A</button>' +
+      '<figure class="lbfig"><img alt=""><figcaption></figcaption></figure>';
+    document.body.appendChild(d);
+    d.addEventListener('click', e => {
+      // the scrim closes; the picture and its caption do not
+      if (e.target === d) lbClose();
+    });
+    d.querySelector('.lbx').addEventListener('click', lbClose);
+    d.querySelector('.lbprev').addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
+    d.querySelector('.lbnext').addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
+    LB.el = d;
+    return d;
+  }
+
+  function lbShow() {
+    const d = lbBuild(), o = LB.objs[LB.i];
+    if (!o) return;
+    const img = d.querySelector('img'), cap = d.querySelector('figcaption');
+    d.classList.add('loading');
+    img.alt = o.subject || o.title || '';
+    // the local copy first, so something is on screen at once
+    img.src = window.V('img/gallery/' + o.file);
+    if (o.big) {
+      const hi = new Image();
+      hi.onload = () => {
+        // guard against a slow load arriving after the visitor has moved on
+        if (LB.objs[LB.i] === o && !d.hidden) { img.src = hi.src; d.classList.remove('loading'); }
+      };
+      hi.onerror = () => { if (LB.objs[LB.i] === o) d.classList.remove('loading'); };
+      hi.src = o.big;
+    } else {
+      d.classList.remove('loading');
+    }
+    const bits = [];
+    if (o.title) bits.push('<b>' + esc(objTitle(o)) + '</b>');
+    if (o.artist) bits.push(esc(o.artist));
+    if (o.licence) bits.push(esc(o.licence));
+    cap.innerHTML = bits.join(' &middot; ') +
+      (LB.objs.length > 1 ? '<span class="lbn">' + (LB.i + 1) + ' of ' +
+        LB.objs.length + '</span>' : '') +
+      (o.page ? '<a href="' + esc(o.page) + '" target="_blank" rel="noopener">' +
+        'source on Wikimedia Commons</a>' : '');
+    const nav = LB.objs.length > 1;
+    d.querySelector('.lbprev').hidden = !nav;
+    d.querySelector('.lbnext').hidden = !nav;
+  }
+
+  function lbOpen(objs, i) {
+    if (!objs || !objs.length) return;
+    LB.objs = objs;
+    LB.i = Math.max(0, Math.min(i | 0, objs.length - 1));
+    LB.prev = document.activeElement;
+    const d = lbBuild();
+    d.hidden = false;
+    document.body.classList.add('lbopen');
+    lbShow();
+    d.querySelector('.lbx').focus();
+  }
+
+  function lbStep(n) {
+    if (LB.objs.length < 2) return;
+    LB.i = (LB.i + n + LB.objs.length) % LB.objs.length;
+    lbShow();
+  }
+
+  function lbClose() {
+    if (!LB.el || LB.el.hidden) return;
+    LB.el.hidden = true;
+    LB.el.querySelector('img').removeAttribute('src');   // stop a download in flight
+    document.body.classList.remove('lbopen');
+    if (LB.prev && LB.prev.focus) LB.prev.focus();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!LB.el || LB.el.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); lbClose(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); lbStep(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); lbStep(1); }
+  });
+
+  // Delegated once. The exhibit's innerHTML is replaced on every card, so a listener written
+  // into that HTML would be rebound on every render.
+  document.addEventListener('click', e => {
+    const t = e.target.closest && e.target.closest('[data-lb]');
+    if (!t) return;
+    e.preventDefault();
+    lbOpen(galOf(t.dataset.lbg), parseInt(t.dataset.lb, 10) || 0);
+  });
+
   // ---- the letters ------------------------------------------------------
   // One block per language, and it renders whatever the data actually is. An alphabet gets
   // its letters; an abugida gets its letters AND its vowel marks as separate rows, because
@@ -646,10 +764,11 @@
     const gal = galOf(n.g);
     if (gal.length) {
       const g0 = gal[0];
-      h += '<figure class="exfig"><img src="' + window.V('img/gallery/' + g0.file) +
-        '" alt="' + esc(g0.subject) + '" loading="lazy">' +
-        '<figcaption>' + esc(g0.title) + (g0.artist ? ' · ' + esc(g0.artist) : '') +
-        '</figcaption></figure>';
+      h += '<figure class="exfig"><button type="button" class="exfigb" data-lb="0" data-lbg="' +
+        esc(n.g) + '" aria-label="See this larger"><img src="' +
+        window.V('img/gallery/' + g0.file) + '" alt="' + esc(g0.subject) + '" loading="lazy">' +
+        '</button><figcaption>' + esc(objTitle(g0)) +
+        (g0.artist ? ' · ' + esc(g0.artist) : '') + '</figcaption></figure>';
     }
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
     if (story) h += '<p class="exstory">' + esc(story) + '</p>';
@@ -780,14 +899,15 @@
     // are the case behind it. Each carries its own caption and maker, because an object with
     // no attribution is a decoration.
     if (gal.length > 1) {
-      h += '<h3>Objects</h3><div class="exgal">' + gal.slice(1).map(o =>
-        '<figure><a href="' + esc(o.page) + '" target="_blank" rel="noopener">' +
-        '<img src="' + window.V('img/gallery/' + o.file) + '" alt="' + esc(o.subject) +
-        '" loading="lazy"></a><figcaption>' + esc(o.title) +
+      h += '<h3>Objects</h3><div class="exgal">' + gal.slice(1).map((o, k) =>
+        '<figure><button type="button" data-lb="' + (k + 1) + '" data-lbg="' + esc(n.g) +
+        '" aria-label="See this larger"><img src="' + window.V('img/gallery/' + o.file) +
+        '" alt="' + esc(o.subject) + '" loading="lazy"></button><figcaption>' + esc(objTitle(o)) +
         (o.artist ? '<span> · ' + esc(o.artist) + '</span>' : '') +
         '</figcaption></figure>').join('') + '</div>';
       h += '<p class="exfine">' + gal.length + ' objects, each admitted on the licence ' +
-        'Wikimedia Commons reports for that individual file. Click one to open it there.</p>';
+        'Wikimedia Commons reports for that individual file. Click any one to see it large; ' +
+        'arrow keys walk the set.</p>';
     }
 
     $('#exhibit').innerHTML = h;
@@ -1117,8 +1237,10 @@
       const story = A.notable && A.notable.by_glottocode[m.g];
       const tx = A.texts && A.texts.by_glottocode[m.g];
       h += '<h3>' + esc(m.au && canRender(m.au[0]) ? m.au[0] + ' · ' + m.n : m.n) + '</h3>';
-      if (gal) h += '<figure class="exfig"><img src="' + window.V('img/gallery/' + gal.file) +
-        '" alt="' + esc(gal.subject) + '" loading="lazy"><figcaption>' + esc(gal.title) +
+      if (gal) h += '<figure class="exfig"><button type="button" class="exfigb" data-lb="0" ' +
+        'data-lbg="' + esc(m.g) + '" aria-label="See this larger"><img src="' +
+        window.V('img/gallery/' + gal.file) + '" alt="' + esc(gal.subject) +
+        '" loading="lazy"></button><figcaption>' + esc(objTitle(gal)) +
         '</figcaption></figure>';
       if (story) h += '<p class="exstory" style="font-size:14px">' + esc(story) + '</p>';
       if (tx && tx.b && tx.b.length) {

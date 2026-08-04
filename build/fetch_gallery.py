@@ -80,6 +80,22 @@ SUBJECTS = [tuple(x) for x in _json.load(open(_sp))] if os.path.exists(_sp) else
 ]
 
 
+def full_size(title: str, width: int = 1400) -> str:
+    """A high-resolution URL for the lightbox, served by Commons.
+
+    The shipped copies are downscaled to 460-640 px because the page draws them at 185-380 and
+    the site has a size budget. Expanding one to fill the screen needs the real thing, and the
+    real thing is already hosted: `Special:FilePath/<name>?width=N` is a documented endpoint
+    that redirects to a scaled thumbnail, or to the original when it is smaller than N. Costs
+    74-712 kB, paid only when a visitor actually opens an image, and it costs this repository
+    nothing (rule 12 — link, do not mirror). Even a .djvu source comes back as image/jpeg.
+
+    Computed from the title, so this needs no extra request and no stored hash.
+    """
+    return ("https://commons.wikimedia.org/wiki/Special:FilePath/"
+            + urllib.parse.quote(title.replace(" ", "_")) + f"?width={width}")
+
+
 def api(params: dict) -> dict:
     q = dict(params)
     q.update({"action": "query", "format": "json", "formatversion": "2"})
@@ -170,6 +186,17 @@ def find(terms: str, want: int = 1, skip: set[str] | None = None,
 PER_SUBJECT = 3
 PER_LANGUAGE = 5
 
+# CATEGORIES ONLY TOP UP LANGUAGES THAT ARE SHORT. `Category:English inscriptions` contains a
+# 1969 ski race photograph and a USAF fighter-wing insignia — both correctly categorised,
+# because both have English words on them, and both useless in a museum of language. For a
+# well-photographed Latin-script language "inscriptions" means "anything with writing on it";
+# for Breton it means writing cut into stone. There is no way to tell those apart by name, so
+# the rule is about sufficiency instead: once a language has this many objects from AUTHORED
+# artefact queries, its categories are not queried at all. English then shows its three Beowulf
+# images and stops. Languages with nothing authored still get topped up, which is the whole
+# reason the categories were probed.
+ENOUGH_AUTHORED = 3
+
 # Commons serves a 760 px thumb; at 814 objects that is 179 MB, which put the site 23 MB over
 # its 420 MB budget. The card's main figure renders about 380 px wide and the plate-wall thumbs
 # about 185, so these caps are retina-sharp at the size they are actually drawn and nothing
@@ -211,6 +238,10 @@ if __name__ == "__main__":
         # A `people` or `culture` category is context, not an artefact of the language, so it
         # contributes ONE object at most. CONTEXT_MAX in build_notable caps how many such
         # CATEGORIES are queried; without this, one of them still returned three portraits.
+        if terms.startswith("Category:"):
+            authored = sum(1 for o in have if not o["subject"].startswith("Category:"))
+            if authored >= ENOUGH_AUTHORED:
+                continue
         ctx = terms.startswith("Category:") and (terms.endswith(" people")
                                                  or terms.endswith(" culture"))
         room = min(1 if ctx else PER_SUBJECT, PER_LANGUAGE - len(have))
@@ -238,6 +269,7 @@ if __name__ == "__main__":
                     continue
                 shrink(dest, WIDE_MAX)     # ordered and re-shrunk once all are in
             have.append({"file": name, "title": hit["title"][5:],
+                         "big": full_size(hit["title"][5:]),
                          "licence": hit["licence"], "artist": hit["artist"],
                          "credit": hit["credit"], "page": hit["page"],
                          "subject": terms})
