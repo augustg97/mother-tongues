@@ -152,6 +152,45 @@ def gate_labels() -> None:
     print(f"   {len(N['by_glottocode'])} labels checked against Glottolog, all correct")
 
 
+def gate_alphabets() -> None:
+    """The letters must be in the script the language is actually written in.
+
+    Scored against an independent witness: the ISO 15924 code recorded for the UDHR
+    translation we ship for that same language. The two come from unrelated places — the CLDR
+    survey process and the UN's translators — so agreement is evidence and disagreement is a
+    lead. The first run of this check found 206 Canadian syllabics characters being reported
+    as a Latin alphabet, which had put a Latin letter-chart on Inuktitut, Swampy Cree and
+    Northwestern Ojibwa. Three languages still disagree and all three are genuine: Sorani,
+    Uyghur and Hmong Njua are each written in two scripts, and the card says so.
+    """
+    print("2d. the letters are in the right script")
+    ap = os.path.join(WEB, "data", "alphabets.json")
+    if not os.path.exists(ap):
+        print("   no alphabets — SKIPPED"); return
+    A = json.load(open(ap, encoding="utf-8"))
+    w = A.get("witness") or {}
+    n = w.get("agree", 0) + w.get("disagree", 0)
+    if not n:
+        die("alphabets.json carries no witness score; rerun build_alphabets.py")
+    rate = w["agree"] / n
+    if rate < 0.98:
+        die(f"only {rate*100:.1f}% of alphabets agree with the script of their own prose "
+            f"({w['disagree']} of {n} disagree) — that is a classification bug, not "
+            f"biscriptal languages")
+    # Every entry must say which tier it came from, and an observed one must carry its sample.
+    for gc, v in A["by_glottocode"].items():
+        if v.get("tier") not in ("curated", "observed"):
+            die(f"{gc} alphabet has no tier")
+        if v["tier"] == "observed" and not v.get("sample"):
+            die(f"{gc} is an observed inventory with no sample size — rule 10 requires that "
+                f"a measurement state what it was measured from")
+        if not v.get("groups"):
+            die(f"{gc} alphabet has no characters in it")
+    print(f"   {A['curated']} curated + {A['observed']} observed · {rate*100:.1f}% agree "
+          f"with the script of their own prose ({w['disagree']} biscriptal, disclosed) · "
+          f"{w.get('no_witness', 0)} have no witness")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -307,6 +346,7 @@ if __name__ == "__main__":
     gate_fields()
     gate_js()
     gate_labels()
+    gate_alphabets()
     gate_registration()
     gate_attribution()
     gate_coverage()

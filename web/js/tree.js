@@ -32,6 +32,7 @@
     laid: null, W: 0, H: 0
   };
   window.TREE = T;
+  T.showByCode = (gc) => showByCode(gc);
 
   // The map's golden-ratio hue, darkened for paper: the same family is recognisably the same
   // colour in both views, but ink on paper needs weight where light on black needed glow.
@@ -418,6 +419,134 @@
     if (mc) mc.addEventListener('click', () => window.APP.showCardFor(gc, p || [lon, lat]));
   }
 
+  // ---- the letters ------------------------------------------------------
+  // One block per language, and it renders whatever the data actually is. An alphabet gets
+  // its letters; an abugida gets its letters AND its vowel marks as separate rows, because
+  // that is the thing that makes it an abugida; a syllabary says so; Han says it is not
+  // letters at all. Korean gets the arithmetic: the jamo, and the number of blocks they build.
+  function alphaGrid(units, lang, cls) {
+    return '<div class="alpha' + (cls ? ' ' + cls : '') + '"' +
+      (lang ? ' lang="' + esc(lang) + '"' : '') + '>' +
+      units.map(u => '<span>' + esc(u) + '</span>').join('') + '</div>';
+  }
+
+  function alphaBlock(v, n, meta) {
+    const lang = n.au ? (n.au[1] || '') : '';
+    const G = meta.unit_gloss || {};
+    let h = '<h3>Its letters</h3>';
+
+    // Name the script once, in the heading. Repeating "Devanagari" on the letters row, the
+    // vowel-marks row and the signs row reads as three scripts rather than three kinds of
+    // sign in one. Where a language really does use several — Japanese — the rows say which.
+    const scripts = [...new Set((v.groups || []).map(g => g.script))];
+    const oneScript = scripts.length === 1;
+    if (v.kind) h += '<p class="alphakind">' + (oneScript ? '<b>' + esc(scripts[0]) +
+      '</b> · ' : '') + '<b>' + esc(v.kind) + '</b> — ' + esc(v.kind_note || '') + '</p>';
+    else if (oneScript) h += '<p class="alphakind"><b>' + esc(scripts[0]) + '</b></p>';
+
+    // Korean, and any script whose "letters" in the data are really composed blocks.
+    if (v.hangul) {
+      const hg = v.hangul;
+      h += '<p class="exfine alphalead">' + hg.letters + ' letters, which combine into ' +
+        hg.blocks.toLocaleString() + ' syllable blocks — so a font needs ' +
+        hg.blocks.toLocaleString() + ' shapes and a reader needs ' + hg.letters + '.</p>';
+      h += '<div class="alpharow"><span class="alphatag">' + hg.initial.length +
+        ' consonants</span><span class="alphanote">that can open a block</span></div>' +
+        alphaGrid(hg.initial, lang);
+      h += '<div class="alpharow"><span class="alphatag">' + hg.medial.length +
+        ' vowels</span></div>' + alphaGrid(hg.medial, lang);
+      h += '<div class="alpharow"><span class="alphatag">' + hg.final.length +
+        ' endings</span><span class="alphanote">consonants and clusters that can close one' +
+        '</span></div>' + alphaGrid(hg.final, lang);
+      if (hg.letters_note) h += '<p class="exfine">' + esc(hg.letters_note) + '</p>';
+    } else {
+      for (const g of (v.groups || [])) {
+        // The gloss arrives as [tag label, explanation] — split in the builder, so nothing
+        // here has to slice a sentence on its commas and cut it in the wrong place.
+        const gl = G[g.unit] || [g.unit.toLowerCase(), ''];
+        h += '<div class="alpharow"><span class="alphatag">' + g.n + ' ' +
+          esc((oneScript || g.any) ? gl[0] : g.script + ' ' + gl[0]) + '</span>' +
+          (gl[1] ? '<span class="alphanote">' + esc(gl[1]) + '</span>' : '') + '</div>' +
+          alphaGrid(g.show, lang, g.n > 200 ? 'dense' : '');
+        if (g.truncated) h += '<p class="exfine">' + g.show.length + ' of ' + g.n +
+          ' shown.</p>';
+      }
+    }
+
+    // CLDR's index is the letters a reader recites and looks words up under — but only when
+    // it is in the same script as the letters themselves. Chinese is indexed by pinyin, so
+    // its index set is the Latin alphabet, and showing that here would say something false.
+    if (v.index && v.index.length && !v.hangul && v.index_n !== v.n) {
+      const own = new Set();
+      for (const g of (v.groups || [])) for (const u of g.show) own.add(u);
+      const shared = v.index.filter(u => own.has(u)).length / v.index.length;
+      if (shared > 0.6) {
+        h += '<div class="alpharow"><span class="alphatag">' + v.index_n +
+          ' in order</span><span class="alphanote">the letters as a reader recites them, ' +
+          'and looks words up under</span></div>' + alphaGrid(v.index, lang);
+      }
+    }
+
+    if (v.digits && v.digits.length) h += '<div class="alpharow"><span class="alphatag">' +
+      'digits</span><span class="alphanote">its own numerals, alongside 0–9</span></div>' +
+      alphaGrid(v.digits, lang);
+
+    if (v.punctuation && v.punctuation.length)
+      h += '<div class="alpharow"><span class="alphatag">marks</span>' +
+        '<span class="alphanote">punctuation this language uses that English does not' +
+        '</span></div>' + alphaGrid(v.punctuation, lang, 'punct');
+
+    for (const alt of (v.also || [])) {
+      const sc = alt.label || ((alt.groups && alt.groups[0]) ? alt.groups[0].script
+        : 'another script');
+      h += '<div class="alpharow alphaalt"><span class="alphatag">also in ' + esc(sc) +
+        '</span>' + (alt.note ? '<span class="alphanote">' + esc(alt.note) + '</span>' : '') +
+        '</div>';
+      for (const g of (alt.groups || [])) h += alphaGrid(g.show, lang,
+        g.n > 200 ? 'dense' : '');
+    }
+
+    // A language written in two scripts, found by comparing the letters against the script of
+    // the prose lower down the card. Uyghur's letters are Arabic; the UDHR translation we hold
+    // is in Latin. Both are true, and the reader should not have to notice the mismatch alone.
+    if (v.prose_script) h += '<p class="exfine">This language is written in more than one ' +
+      'script. The letters above are the ' + esc((v.groups && v.groups[0]) ?
+      v.groups[0].script : '') + ' set; the prose further down this card is in ' +
+      esc(v.prose_script) + '.</p>';
+    if (v.note) h += '<p class="exfine">' + esc(v.note) + '</p>';
+    h += '<p class="exfine">' + (v.tier === 'curated'
+      ? 'The characters literate writers of this language use. Unicode CLDR.'
+      : 'Measured from the ' + (v.sample || 0).toLocaleString() + ' characters of prose held ' +
+        'here — an <b>observed inventory, not a curated alphabet</b>. A short text misses ' +
+        'rare letters and picks up any a loanword brings in.') + '</p>';
+    return h;
+  }
+
+  // Exposed on T so a card can be opened by glottocode without simulating a canvas click.
+  // Every round has to look at a card to verify it (rule 1) and hunting for the pixel a node
+  // was drawn at is how that verification quietly stops happening.
+  function showByCode(gc) {
+    if (!T.tree) return false;
+    // Open every branch above it first. The laid-out node list holds only what is currently
+    // visible, so a language inside a shut branch cannot be found there at all.
+    const chain = [];
+    // ⚠ The DATA tree uses `c` for children; only the laid-out records use `kids`. Walking
+    // `kids` here found one node and silently reported the language as absent.
+    (function walk(n, acc) {
+      if (n.g === gc) { chain.push(...acc); return true; }
+      for (const k of (n.c || [])) if (walk(k, acc.concat([n.g]))) return true;
+      return false;
+    })(T.tree, []);
+    if (!chain.length && T.tree.g !== gc) return false;
+    for (const g of chain) T.collapsed.delete(g);
+    layout();
+    const r = T.laid.nodes.find(z => z.n.g === gc);
+    if (!r) return false;
+    if (r.n.lv === 0 && r.hasKids) branchExhibit(r.n, r); else exhibit(r.n, r);
+    draw();
+    return true;
+  }
+
   function exhibit(n, rec) {
     if (rec && rec.kids && rec.kids.length) return branchExhibit(n, rec);
     T.sel = n;
@@ -480,6 +609,12 @@
     const ty = A.typology && A.typology.by_glottocode && A.typology.by_glottocode[n.g];
     if (ty) h += '<h3>How it works</h3><p class="exstory" style="font-size:14px">' +
       esc(ty) + '</p><p class="exfine">WALS Online (Dryer &amp; Haspelmath, eds.).</p>';
+
+    // The letters, before the words — you look at a script before you read it. The set is
+    // shown taken apart by script and by unit type, because "how many letters" means three
+    // different things in an alphabet, an abugida and a syllabary.
+    const AL = A.alphabets && A.alphabets.by_glottocode && A.alphabets.by_glottocode[n.g];
+    if (AL) h += alphaBlock(AL, n, A.alphabets);
 
     // Authored phrases come FIRST where they exist: for an ancient language they are the
     // only words there are, and they carry the script as well as the meaning.

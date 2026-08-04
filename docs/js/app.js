@@ -864,6 +864,10 @@ async function boot() {
     .catch(() => { state.phrases = null; });
   fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
     .catch(() => { state.gallery = null; });
+  // The letters. Curated where CLDR reaches the language, measured off our own prose where
+  // it does not — the tier field says which, and the card says so too.
+  fetch(V('data/alphabets.json')).then(r => r.json()).then(d => { state.alphabets = d; })
+    .catch(() => { state.alphabets = null; });
   fetch(V('data/typology.json')).then(r => r.json()).then(d => { state.typology = d; })
     .catch(() => { state.typology = null; });
   fetch(V('data/audio.json')).then(r => r.json()).then(d => { state.audio = d; })
