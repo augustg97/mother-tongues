@@ -481,6 +481,17 @@
     if (ty) h += '<h3>How it works</h3><p class="exstory" style="font-size:14px">' +
       esc(ty) + '</p><p class="exfine">WALS Online (Dryer &amp; Haspelmath, eds.).</p>';
 
+    // Authored phrases come FIRST where they exist: for an ancient language they are the
+    // only words there are, and they carry the script as well as the meaning.
+    const ph = A.phrases && A.phrases.by_glottocode && A.phrases.by_glottocode[n.g];
+    if (ph) {
+      h += '<h3>Words and phrases</h3><dl class="phr">' + ph.items.map(it =>
+        '<dt' + (n.au ? ' lang="' + esc(n.au[1] || '') + '"' : '') + '>' + esc(it[0]) + '</dt>' +
+        '<dd>' + (it[1] && it[1] !== it[0] ? '<i>' + esc(it[1]) + '</i> · ' : '') +
+        esc(it[2]) + '</dd>').join('') + '</dl>';
+      if (ph.note) h += '<p class="exfine">' + esc(ph.note) + '</p>';
+    }
+
     const orth = A.words && A.words.orth && A.words.orth[n.g];
     if (orth) {
       const ks = Object.keys(orth);

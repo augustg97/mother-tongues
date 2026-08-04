@@ -859,6 +859,9 @@ async function boot() {
     .catch(() => { state.words = null; });
   fetch(V('data/notable.json')).then(r => r.json()).then(d => { state.notable = d; })
     .catch(() => { state.notable = null; });
+  // Authored words and phrases for languages ASJP cannot reach — every ancient one.
+  fetch(V('data/phrases.json')).then(r => r.json()).then(d => { state.phrases = d; })
+    .catch(() => { state.phrases = null; });
   fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
     .catch(() => { state.gallery = null; });
   fetch(V('data/typology.json')).then(r => r.json()).then(d => { state.typology = d; })
