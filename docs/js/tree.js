@@ -402,7 +402,11 @@
       '</div><h2 class="exname" style="font-size:31px">' + esc(n.n) + '</h2>' +
       '<div class="exalt"><span>a branch of the family, not a language · click it again to ' +
       (T.collapsed.has(n.g) ? 'open' : 'close') + '</span></div>';
-    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    else {
+      const bc = A.descr && A.descr.branches && A.descr.branches[n.g];
+      if (bc) h += '<p class="exdesc excomp">' + esc(bc) + '</p>';
+    }
     const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
     const bits = ['<b>' + s.lang + '</b> language' + (s.lang === 1 ? '' : 's')];
     if (s.ext) bits.push('<b>' + s.ext + '</b> extinct');
@@ -494,6 +498,16 @@
       (w.localname ? ' · ' + esc(w.localname) : '') + ' · Wikimedia site statistics, ' +
       esc(w.retrieved || '') + '.</p>';
     return h;
+  }
+
+  // ⚠ MUST MATCH build_descriptions.py's substantive(). Glottolog's description field is
+  // frequently the bare words "language" or "language family" — truthy, and useless. A plain
+  // `if (n.d)` therefore printed "language family" on a branch card and suppressed the composed
+  // description that had been generated precisely because that field says nothing.
+  const GENERIC_D = /^(language|language family|dialect|extinct language|natural language|macrolanguage|dead language|human language|ancient language|sign language|creole language|pidgin|language group)\.?$/i;
+  function substantiveD(d) {
+    d = (d || '').trim();
+    return !!d && d.length > 16 && !GENERIC_D.test(d);
   }
 
   // ---- why so many of these names look alike ------------------------------
@@ -887,8 +901,19 @@
         '</button><figcaption>' + esc(objTitle(g0)) +
         (g0.artist ? ' · ' + esc(g0.artist) : '') + '</figcaption></figure>';
     }
+    // An authored museum label if there is one; otherwise the description composed from this
+    // build's own record — and the card says which, because a paragraph someone wrote and a
+    // paragraph assembled from database columns are different kinds of claim.
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
-    if (story) h += '<p class="exstory">' + esc(story) + '</p>';
+    if (story) {
+      h += '<p class="exstory">' + esc(story) + '</p>';
+    } else {
+      const comp = A.descr && A.descr.by_glottocode && A.descr.by_glottocode[n.g];
+      if (comp) h += '<p class="exstory excomp">' + esc(comp) + '</p>' +
+        '<p class="exfine">Composed from the record — its place in the catalogue, the ' +
+        'endangerment assessment, the depth of description published about it, and what this ' +
+        'museum holds. Not an authored label.</p>';
+    }
 
     const ms = A.milestones && A.milestones.by_glottocode && A.milestones.by_glottocode[n.g];
     if (ms && ms.length) h += milestoneBlock(ms);
@@ -930,7 +955,11 @@
         esc(Math.abs(n.p[0]).toFixed(2)) + (n.p[0] >= 0 ? '°E' : '°W') +
         ' · click to open the ground</div></div>';
     }
-    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    else {
+      const bc0 = A.descr && A.descr.branches && A.descr.branches[n.g];
+      if (bc0) h += '<p class="exdesc excomp">' + esc(bc0) + '</p>';
+    }
     const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
 
     const facts = [];
@@ -1332,7 +1361,11 @@
     h += '<div class="exalt"><span>' + living + ' living · ' + s2.ext + ' extinct' +
       (s2.oldest !== null ? ' · first written ' + (s2.oldest < 0 ? (-s2.oldest) + ' BCE'
         : s2.oldest + ' CE') : ' · never written') + '</span></div>';
-    if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    else {
+      const bc0 = A.descr && A.descr.branches && A.descr.branches[n.g];
+      if (bc0) h += '<p class="exdesc excomp">' + esc(bc0) + '</p>';
+    }
     const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
     if (living === 0) h += '<p class="exdesc"><b>Nobody speaks any of them.</b></p>';
 

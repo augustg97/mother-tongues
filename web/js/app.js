@@ -864,6 +864,10 @@ async function boot() {
     .catch(() => { state.phrases = null; });
   fetch(V('data/gallery.json')).then(r => r.json()).then(d => { state.gallery = d; })
     .catch(() => { state.gallery = null; });
+  // A description for every language and every branch, composed from this build's own record
+  // where nothing authored exists. 36% of languages had a substantive one before this.
+  fetch(V('data/descriptions.json')).then(r => r.json()).then(d => { state.descr = d; })
+    .catch(() => { state.descr = null; });
   // One card per family, plus the measured naming clusters that explain why Otomanguean has
   // fifty-three languages whose names all end in Mixtec.
   fetch(V('data/families.json')).then(r => r.json()).then(d => { state.families = d; })

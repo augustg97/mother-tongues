@@ -289,6 +289,62 @@ def gate_audio() -> None:
           f"language's own passage here · the archive holds {A.get('available', 0):,}")
 
 
+def gate_descriptions() -> None:
+    """Every language must have something said about it, and a composed sentence must be
+    distinguishable from an authored one.
+
+    The measurement that made this necessary: 7,970 of 8,618 language nodes carried a
+    description field, which reads as 92% coverage until you look at it — 4,627 of them said the
+    single word "language". Real coverage was 36%. Compositions close that to 100%, and the gate
+    holds it there so a later change cannot quietly reopen the hole.
+    """
+    print("2g. every language has a description, and its kind is disclosed")
+    dp = os.path.join(WEB, "data", "descriptions.json")
+    fp = os.path.join(WEB, "data", "families.json")
+    if not os.path.exists(dp) or not os.path.exists(fp):
+        print("   not built — SKIPPED"); return
+    D = json.load(open(dp, encoding="utf-8"))
+    FAM = json.load(open(fp, encoding="utf-8"))
+    comp = D.get("by_glottocode") or {}
+    labels = set(json.load(open(os.path.join(WEB, "data", "notable.json"),
+                                encoding="utf-8"))["by_glottocode"])
+    import glob as _glob
+    import re as _re
+    GEN = _re.compile(r"^(language|language family|dialect|extinct language|natural language|"
+                      r"macrolanguage|dead language|human language|ancient language|"
+                      r"sign language|creole language|pidgin|language group)\.?$", _re.I)
+    missing, total = [], 0
+    for f in _glob.glob(os.path.join(WEB, "data", "tree", "*.json")):
+        if f.endswith("index.json"):
+            continue
+        def walk(n):
+            nonlocal total
+            if n.get("lv") == 1:
+                total += 1
+                gc = n["g"]
+                d = (n.get("d") or "").strip()
+                own = bool(d) and len(d) > 16 and not GEN.match(d)
+                if gc not in labels and gc not in comp and not own:
+                    missing.append(gc)
+            for k in (n.get("c") or []):
+                walk(k)
+        walk(json.load(open(f, encoding="utf-8")))
+    if missing:
+        print("   " + " ".join(missing[:12]))
+        die(f"{len(missing)} of {total} languages have nothing said about them")
+    # The composed text must never be presented as authored: a glottocode cannot be in both.
+    both = set(comp) & labels
+    if both:
+        die(f"{len(both)} languages carry both an authored label and a composed description "
+            f"({' '.join(sorted(both)[:6])}) — the card would show two different kinds of claim "
+            f"as one")
+    nf = len(FAM.get("by_glottocode") or {})
+    nd = len(FAM.get("clusters_by_node") or {})
+    print(f"   {total:,} languages, every one described · {len(comp):,} composed from the "
+          f"record, {len(labels)} authored, the rest their own · {nf} family cards · "
+          f"{nd} nodes explain their own naming")
+
+
 def gate_registration() -> None:
     """Re-check the shipped raster, not the pipeline's memory of it (TRAPS §D5)."""
     print("3. registration, read back from the shipped PNG")
@@ -447,6 +503,7 @@ if __name__ == "__main__":
     gate_alphabets()
     gate_gallery()
     gate_audio()
+    gate_descriptions()
     gate_registration()
     gate_attribution()
     gate_coverage()

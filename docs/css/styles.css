@@ -402,3 +402,7 @@ body.lbopen{overflow:hidden}
 .covl{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
 .covbar{height:6px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden}
 .covbar i{display:block;height:100%;background:var(--accent2);opacity:.75}
+
+/* A composed description is set slightly lighter than an authored label, so the two read as
+   different kinds of claim before the note under them says so. */
+.excomp{color:var(--ink2)}

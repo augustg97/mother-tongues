@@ -421,9 +421,15 @@ def node_clusters(tree: dict) -> dict[str, list]:
     found: dict[str, list] = {}
 
     def walk(n) -> list[str]:
+        # ⚠ A LANGUAGE STOPS THE WALK, whether or not it has children. Glottolog gives most
+        # languages dialect children, and testing `if not kids` first meant a language with
+        # dialects returned its DIALECTS' names instead of its own — so the Mixtec node reported
+        # 40 where the family reported 53, and the two numbers disagreed on screen.
+        if n.get("lv") == 1:
+            return [n.get("n", "")]
         kids = n.get("c") or []
         if not kids:
-            return [n.get("n", "")] if n.get("lv") == 1 else []
+            return []
         names: list[str] = []
         for k in kids:
             names.extend(walk(k))
@@ -507,7 +513,10 @@ def main() -> None:
             y, nm2 = min(att)
             rec["earliest"] = [y, nm2]
         # countries the family is spoken in
-        cs = sorted({c for r in mine for c in (r[F["cc"]] or "").split()}) \
+        # ⚠ SEMICOLONS, not spaces. Glottolog writes "ER;ET;SD"; splitting on whitespace
+        # returned one token per language and the count was meaningless even once the column
+        # had a name.
+        cs = sorted({c for r in mine for c in (r[F["cc"]] or "").split(";") if c}) \
             if "cc" in F else []
         if cs:
             rec["countries"] = len(cs)

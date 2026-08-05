@@ -778,8 +778,13 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
     famnames = {f: (name.get(f) or en.get(f) or f) for f in famset}
     d = os.path.join(ROOT, "web", "data")
     os.makedirs(d, exist_ok=True)
+    # ⚠ TWELVE NAMES FOR FIFTEEN VALUES. The last three columns — level, the (value, year)
+    # speaker triple and the country list — were appended to every row and never named, so every
+    # `F["cc"]` and `F["sp"]` lookup elsewhere silently resolved to nothing and the consumer
+    # quietly went without. build_families.py guarded with `if "cc" in F` and therefore never
+    # counted a single country. A row and its field list have to be written in one place.
     json.dump({"fields": ["code", "name", "lon", "lat", "fam", "med", "aes", "iso", "first",
-                          "autonyms", "scripts", "famid"],
+                          "autonyms", "scripts", "famid", "level", "sp", "cc"],
                "familyNames": famnames, "rows": rows},
               open(os.path.join(d, "languages.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
