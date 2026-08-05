@@ -36,12 +36,17 @@ import csv
 import json
 import os
 import re
+import importlib.util as _ilu
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 WEB = os.path.join(ROOT, "web", "data")
 GL = os.path.join(ROOT, "data", "glottolog", "languages.csv")
+
+_spec = _ilu.spec_from_file_location("_bn", os.path.join(HERE, "build_notable.py"))
+_bn = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_bn)
 
 MIN_CLUSTER = 5        # below this a shared word is coincidence, not a naming convention
 PAREN = re.compile(r"\s*\([^)]*\)\s*$")
@@ -396,6 +401,54 @@ FAM: dict[str, tuple[list[str], str]] = {
   "the language behind it does not, because there is no relative to compare it to and almost "
   "nothing longer than an epitaph survives. Rome took its alphabet, some of its religion and "
   "several of its words, and then wrote its literature in Latin."),
+# A SECOND BATCH, chosen by measurement: every family with five or more languages that still had
+# no description. The first 70 covered the giants; these are the ones a visitor reaches by
+# scrolling, and they were the last families in the list with a blank where their description goes.
+ 'Iroquoian': (['Category:Iroquois', 'Category:Cherokee syllabary'],
+  'The family of the Haudenosaunee confederacy, whose constitution — the Great Law of Peace — was kept on wampum belts rather than paper and is still recited. Its southern outlier is Cherokee, which acquired a syllabary of its own in 1821 and had a printing press by 1828. The northern languages are mostly down to double-digit speaker counts, and Mohawk immersion schooling in Kahnawà:ke is one of the longest-running revival programmes in North America.'),
+ 'Cochimi-Yuman': (['Category:Yuman languages', 'Category:Baja California'],
+  'The lower Colorado and Baja California. Several of its languages have accusative case marking and elaborate verb morphology that made them a testing ground for theories of switch reference — how a language marks whether the subject of the next clause is the same person. Cochimí, the southern branch, is extinct; most of the rest have fewer than a hundred speakers.'),
+ 'Gunwinyguan': (['Category:Arnhem Land', 'Category:Aboriginal Australians'],
+  'Northern Australia, and grammatically among the most complex families described anywhere: a single Bininj Kunwok verb can carry subject, object, tense, mood, direction, body part and instrument in one word. These are non-Pama-Nyungan languages — the older layer of the continent, which is why Arnhem Land holds more distinct families than the rest of Australia put together.'),
+ 'Worrorran': (['Category:Kimberley Western Australia', 'Category:Aboriginal Australians'],
+  'The Kimberley, and the family whose country holds the Gwion Gwion rock paintings. Its languages divide nouns into classes marked by prefixes, which is unusual in Australia and one of the reasons the non-Pama-Nyungan north is treated as a separate linguistic world.'),
+ 'Nyulnyulan': (['Category:Kimberley Western Australia', 'Category:Dampier Peninsula'],
+  "Ten languages on the Dampier Peninsula in Western Australia, all of them severely endangered. Bardi's verb prefixes have been used to argue that this family and its neighbours preserve a grammatical pattern older than the Pama-Nyungan spread that covers the rest of the continent."),
+ 'Western Daly': (['Category:Northern Territory', 'Category:Daly River'],
+  'The Daly River in the Northern Territory. Murrinh-Patha is one of very few Australian languages still being learned by children, and its verbs are built from two conjugating parts at once — a structure that took decades to describe and has no close parallel.'),
+ 'Sko': (['Category:Papua New Guinea', 'Category:Sandaun Province'],
+  'Eleven languages on the north coast at the New Guinea border. Several have tone, which is rare for Papuan languages, and one — Skou — distinguishes words by whether the pitch rises or falls across the whole word rather than on a syllable.'),
+ 'South Bougainville': (['Category:Bougainville', 'Category:Papua New Guinea'],
+  'Bougainville holds four unrelated families on one island, which is among the highest concentrations of deep linguistic diversity anywhere. This is the southern one. Nasioi and its relatives have some of the largest consonant inventories in the Pacific.'),
+ 'Chapacuran': (['Category:Rondônia', 'Category:Indigenous peoples of Brazil'],
+  'The Guaporé river between Brazil and Bolivia. Nine of its twelve languages are extinct and the survivors have a few dozen speakers each; the family is known mostly from wordlists collected by rubber-boom travellers, which is why its internal structure is still argued about.'),
+ 'Surmic': (['Category:South Sudan', 'Category:Ethiopia'],
+  'The Ethiopia–South Sudan borderlands. Several members mark plurality on nouns in three different directions at once — singular from plural, plural from singular, and both from a neutral base — which is one of the more unusual number systems described.'),
+ 'Heibanic': (['Category:Nuba Mountains', 'Category:Sudan'],
+  "The Nuba Mountains of Sudan, and part of the argument about whether Niger-Congo extends this far east: these languages have noun-class prefixes like Bantu's, a thousand miles from the nearest Bantu language, and whether that is inheritance or convergence is unsettled."),
+ 'Songhay': (['Category:Timbuktu', 'Category:Mali', 'Category:Songhai Empire'],
+  "The languages of the Niger bend and of the empire that controlled Timbuktu when it held the largest library in Africa. Songhay's classification is one of the open problems of African linguistics — it has been placed with Nilo-Saharan, with Mande, and on its own, and the evidence is genuinely thin in every direction."),
+ 'Saharan': (['Category:Kanem-Bornu Empire', 'Category:Lake Chad'],
+  'Around Lake Chad. Kanuri was the language of the Kanem-Bornu empire, which lasted a thousand years — one of the longest-lived states in African history — and left a written tradition in Arabic script.'),
+ 'Maban': (['Category:Chad', 'Category:Darfur'],
+  'The Chad–Sudan borderlands. Maba was the language of the Wadai sultanate; the family is small, poorly described, and its position in any wider grouping is unresolved.'),
+ 'Yanomamic': (['Category:Yanomami', 'Category:Amazon rainforest'],
+  "Four languages in the forest between Venezuela and Brazil, spoken by people who had almost no contact with outsiders before the 1950s. The family has no demonstrated relatives, and its speakers' first sustained encounter with the state was an epidemic."),
+ 'Guaicuruan': (['Category:Gran Chaco', 'Category:Argentina'],
+  'The Gran Chaco. Its speakers were among the few peoples of South America to take up horses and hold off colonial expansion for two centuries. Several members distinguish grammatical gender and mark it right through the sentence.'),
+ 'Mataguayan': (['Category:Gran Chaco', 'Category:Wichí'],
+  'Also the Chaco, and unrelated to its neighbours there. Wichí has an unusually large set of verbal suffixes for direction and position — where the action goes and where the speaker is standing are both marked.'),
+ 'Zamucoan': (['Category:Gran Chaco', 'Category:Paraguay'],
+  'Two surviving languages in the Paraguayan Chaco, and one of the strangest facts in the typological literature: Ayoreo and Chamacoco mark nouns for whether they are being used to address someone or to refer to something, a distinction most languages do not make at all.'),
+ 'Kadugli-Krongo': (['Category:Nuba Mountains', 'Category:Sudan'],
+  'The Nuba Mountains again, and a different family from Heibanic despite the same hills — which is what makes this region one of the most linguistically layered in Africa.'),
+ 'Koman': (['Category:Ethiopia', 'Category:South Sudan'],
+  'Five languages on the Ethiopia–Sudan border whose membership in Nilo-Saharan is asserted more often than it is demonstrated. All are endangered and none has a full grammar.'),
+ 'Katla-Tima': ([],
+  'Two languages in the Nuba Mountains of Sudan, sometimes grouped with Niger-Congo and sometimes not. Both are endangered and neither has a published grammar.'),
+ 'Ijoid': (['Category:Niger Delta', 'Category:Ijaw people'],
+  'The Niger Delta. Ijo has subject-object-verb word order, which almost nothing else in West Africa does, and that oddity is a large part of why its position in Niger-Congo is argued about.'),
+
  "Nihali": ([], "A single language in central India, and one of the clearest cases of a language "
                 "that borrowed almost all of its vocabulary and kept its own grammar — which is "
                 "why its classification has been argued for a century."),
@@ -527,7 +580,11 @@ def main() -> None:
             terms, text = authored[gc]
             rec["text"] = text
             for q in terms:
-                subjects.append([gc, q])
+                # ONE predicate, imported rather than copied: a place category holds landscapes
+                # and several were authored in this very file as fallbacks (Category:Chile,
+                # Category:Mali). See build_notable.admissible_subject for why.
+                if _bn.admissible_subject(q):
+                    subjects.append([gc, q])
         out[gc] = rec
 
         # per-node clusters, so branch cards can explain themselves

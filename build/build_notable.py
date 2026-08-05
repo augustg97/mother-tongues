@@ -16,6 +16,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
@@ -1282,9 +1283,43 @@ E = [
 # ---------------------------------------------------------------------------
 CAT_RANK = ["manuscripts", "inscriptions", "calligraphy", "script", "alphabet",
             "Books in", "Newspapers in", "Manuscripts in", "Inscriptions in", "Texts in",
-            "literature", "language", "culture", "people"]
+            "literature", "language"]
 CAT_MAX = 3            # extra categories queried per language
-CONTEXT_MAX = 1        # of those, at most this many may be people/culture
+CONTEXT_MAX = 0        # see ADMISSIBLE_SUBJECT: none, now
+
+
+# ⚠ AN EMPTY CASE IS BETTER THAN A WRONG EXHIBIT, and this is the rule that enforces it.
+#
+# The plate for Atlantic-Congo — the largest family in the atlas — was an MTN WiFi hotspot
+# billboard. Araucanian's was a swimming pool. Bavarian's was a photograph of an egg with two
+# words written on it. Abkhaz, Aguaruna, Aja, Bemba and Berom all led with a portrait of somebody
+# whose connection to the language is that they were filed in the same Commons category.
+#
+# Two sources did that. `Category:<Language> people` and `<Language> culture` are portraits and
+# festivals — about the speakers rather than the speech — and are no longer queried at all.
+# And several BARE PLACE categories were authored here as fallbacks: Category:Chile,
+# Category:Papua New Guinea, Category:Mali. A place category holds landscapes, and a landscape
+# illustrates nothing about a language. Those are refused too, wherever they were written.
+#
+# What stays: an authored query for a NAMED ARTEFACT, and any category about writing. The bare
+# `<Language> language` category is a grab-bag that holds both a Visayan-script page and a
+# generating station, so it stays admissible and is audited by eye instead (audit_gallery.py).
+_WRITING = re.compile(r"(script|alphabet|inscriptions?|manuscripts?|calligraphy|literature"
+                      r"|^Category:(Books|Newspapers|Texts|Manuscripts|Inscriptions) in )",
+                      re.I)
+_PEOPLE = re.compile(r"\b(people|culture)$", re.I)
+_LANGCAT = re.compile(r"\blanguages?$", re.I)
+
+
+def admissible_subject(s: str) -> bool:
+    """Is this subject allowed to contribute an object at all?"""
+    if not s.startswith("Category:"):
+        return True                       # an authored query for a named artefact
+    if _PEOPLE.search(s):
+        return False                      # portraits and festivals
+    if _WRITING.search(s):
+        return True
+    return bool(_LANGCAT.search(s))       # the grab-bag, audited by eye; a place category is not
 
 
 def _rank(title: str) -> int:
@@ -1300,9 +1335,9 @@ def extra_subjects(gc: str, cats: dict) -> list[str]:
     ordered = sorted(rows, key=lambda r: (_rank(r[0]), -r[1]))
     out, context = [], 0
     for title, n in ordered:
-        is_ctx = _rank(title) >= CAT_RANK.index("culture")
-        if is_ctx and context >= CONTEXT_MAX:
+        if not admissible_subject(title):
             continue
+        is_ctx = False
         out.append(title)
         context += 1 if is_ctx else 0
         if len(out) >= CAT_MAX:
@@ -1334,7 +1369,8 @@ def main() -> None:
         expect[gc] = max(nm.replace("(", " ").replace(")", " ").split(), key=len)
         # `terms` may be one query or several. Several means several objects on the card.
         for q in ([terms] if isinstance(terms, str) else terms):
-            subjects.append((gc, q))
+            if admissible_subject(q):
+                subjects.append((gc, q))
         for q in extra_subjects(gc, cats):
             subjects.append((gc, q))
             nextra += 1

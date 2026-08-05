@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import os
+import unicodedata
 import re
 import ssl
 import time
@@ -59,6 +60,28 @@ NOT_AN_ARTEFACT = re.compile(
     r"|\bwikiclub\b|\beditathon\b|\bedit-a-thon\b|\bmeetup\b|\bwikicon\w*"
     r"|\bwikimania\b|\bhackathon\b|\bwiki ?club\b|\bwiki ?camp\b", re.I)
 
+# THE GRAB-BAG NEEDS A SECOND TEST. `Category:<Language> language` is the only broad category
+# still admitted, because it genuinely holds a Visayan-script page and a Book of Mormon in
+# Cebuano — and also, as the contact sheets showed, a British police car, an office interior, a
+# man at a laptop, a tattoo and a photograph of an egg. The category cannot be judged; the FILE
+# can. So a file admitted through it must either name something written, or have a filename in
+# the language's own script — a filename in Devanagari is not going to be a landscape.
+WRITING_TITLE = re.compile(
+    r"(script|text|inscription|manuscript|alphabet|letter|writing|written|book|page|"
+    r"newspaper|poster|sign|signage|dictionar|grammar|bible|qur|gospel|codex|charter|"
+    r"stele|stela|tablet|calligraph|typewriter|keyboard|font|orthograph|syllabar|"
+    r"primer|abecedar|plaque|epitaph|papyrus|scroll|parchment|cuneiform|hieroglyph|"
+    r"lettering|banner|label|menu|placard|monument|memorial|gravestone|tombstone|"
+    r"title page|cover|leaflet|poem|verse|psalm|catechism|testament|schrift|"
+    r"\u00e9criture|escritura|scrittura)", re.I)
+GRAB_BAG = re.compile(r"\blanguages?$", re.I)
+
+
+def mostly_non_latin(t: str) -> bool:
+    ls = [c for c in t if unicodedata.category(c)[0] == "L"]
+    return bool(ls) and sum(1 for c in ls if not c.isascii()) / len(ls) > 0.3
+
+
 # A junk upload: one token, no words, with a run of the same character. "Fdddd.jpg" was
 # admitted as an object illustrating Cebuano.
 JUNK_NAME = re.compile(r"^[^ ]{3,14}$")
@@ -94,6 +117,17 @@ def full_size(title: str, width: int = 1400) -> str:
     """
     return ("https://commons.wikimedia.org/wiki/Special:FilePath/"
             + urllib.parse.quote(title.replace(" ", "_")) + f"?width={width}")
+
+
+# Titles rejected BY EYE, from data/gallery/audit/. The rules above catch classes — project
+# icons, flags, maps, people categories, files with no writing word in their name. What they
+# cannot catch is a correctly-licensed, correctly-categorised photograph of a pile of fossils
+# standing in for the Afar language, a Kushan-empire map for Bactrian, or a JSTOR cover page for
+# Bai. Those were found by laying the collection out as contact sheets and looking at it, and the
+# verdicts live in a file so the next fetch does not undo the audit.
+_rj = os.path.join(HERE, "..", "data", "gallery", "rejected.json")
+REJECTED = set((_json.load(open(_rj, encoding="utf-8")).get("titles") or {})) \
+    if os.path.exists(_rj) else set()
 
 
 def api(params: dict) -> dict:
@@ -171,10 +205,15 @@ def find(terms: str, want: int = 1, skip: set[str] | None = None,
         if p["title"] in skip:
             continue
         t = p["title"][5:]                            # strip the "File:" prefix
+        if t in REJECTED:
+            continue
         if NOT_AN_ARTEFACT.search(t):
             continue
         stem = t.rsplit(".", 1)[0]
         if junk(stem):
+            continue
+        if GRAB_BAG.search(terms) and not (WRITING_TITLE.search(stem)
+                                           or mostly_non_latin(stem)):
             continue
         # Near-duplicates. Commons numbers a photo series 01, 02, 03; the exact-title dedupe let
         # all three in, so Korean showed the same monument twice and Navajo the same radio set
@@ -230,7 +269,17 @@ def shrink(path: str, cap: int) -> None:
     except Exception as e:                                   # noqa: BLE001
         print(f"   unreadable, left as downloaded: {os.path.basename(path)} ({e})")
         return
-    if im.mode not in ("RGB", "L"):
+    # ⚠ COMPOSITE ON WHITE, do not just convert. A transparent PNG or SVG converted straight to
+    # RGB gets black wherever it was transparent, and every one of the 39 images this destroyed
+    # was among the best in the collection: the Cherokee syllabary chart, the Rohingya alphabet,
+    # "Nepali" written in Devanagari, the Shang oracle-bone glyph for tiger. They rendered as
+    # solid black rectangles on their cards. Alphabet charts are drawn as dark strokes on
+    # nothing, which is exactly the case a naive convert ruins.
+    if im.mode in ("RGBA", "LA", "PA") or (im.mode == "P" and "transparency" in im.info):
+        im = im.convert("RGBA")
+        bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
+        im = Image.alpha_composite(bg, im).convert("RGB")
+    elif im.mode not in ("RGB", "L"):
         im = im.convert("RGB")
     if im.width > cap:
         im = im.resize((cap, max(1, round(im.height * cap / im.width))), Image.LANCZOS)

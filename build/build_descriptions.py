@@ -126,6 +126,7 @@ def main() -> None:
 
     out: dict[str, str] = {}
     branch: dict[str, str] = {}
+    famtext: dict[str, str] = {}
     bstats = {"own": 0, "composed": 0}
     stats = {"authored": 0, "composed": 0, "own": 0, "nothing": 0,
              "clause": {k: 0 for k in ("cluster", "where", "placed", "kin", "speakers",
@@ -149,6 +150,51 @@ def main() -> None:
                 describe_branch(n, path)
             for k in kids:
                 walk(k, path + [n], n)
+
+        def compose_family(tree_root):
+            """A floor for every family. The 70 with authored prose keep it; the other 351 — all
+            of them twelve languages or fewer, 177 of them single-language isolates — had nothing
+            at all, and a family card with a blank where its description goes is the same defect
+            this file was written to fix one level down.
+
+            It says only what the card's own fact rows and coverage bars do not: where the family
+            is, which of its languages has the most speakers, and how much of it is still spoken.
+            """
+            if frec.get("text"):
+                return
+            mem = members(tree_root)
+            if not mem:
+                return
+            bits = []
+            if frec.get("isolate") or len(mem) == 1:
+                bits.append("An isolate: one language, with no demonstrated relationship to any "
+                            "other language on earth.")
+            else:
+                bits.append("A family of " + str(len(mem)) + " languages.")
+            cs: dict[str, int] = {}
+            for m in mem:
+                r2 = row.get(m["g"])
+                for c in ((r2[F["cc"]] if r2 else "") or "").split(";"):
+                    if c:
+                        cs[c] = cs.get(c, 0) + 1
+            if cs:
+                top = sorted(cs, key=lambda c: -cs[c])[:3]
+                bits.append(("It is spoken in " if len(mem) == 1 else
+                             "Its languages are spoken in ") +
+                            join([territory(terr.get(c, c)) for c in top]) +
+                            (" and elsewhere" if len(cs) > 3 else "") + ".")
+            spk = [(row[m["g"]][F["sp"]], m.get("n")) for m in mem
+                   if row.get(m["g"]) and row[m["g"]][F["sp"]]]
+            if spk and len(mem) > 1:
+                (v, y), nm2 = max(spk, key=lambda t: t[0][0])
+                bits.append("The most spoken of them is " + nm2 + ", with " + f"{int(v):,}" +
+                            " speakers as of " + str(y) + ".")
+            dead = sum(1 for m in mem if str(m.get("a")) == "6")
+            if dead and dead == len(mem):
+                bits.append("Nobody speaks any of them.")
+            elif dead:
+                bits.append(str(dead) + " of them are recorded as extinct.")
+            famtext[tree_root["g"]] = " ".join(bits)
 
         def members(n) -> list:
             """The LANGUAGES under a node. A language stops the walk even if it has dialects."""
@@ -293,12 +339,13 @@ def main() -> None:
             out[gc] = " ".join(bits)
             stats["composed"] += 1
 
+        compose_family(tree)      # after the defs above: a nested def is not hoisted
         walk(tree, [], None)
 
     json.dump({"note": "Composed from this build's own record, one clause per datum, nothing "
                        "invented. Shown only where no authored museum label exists, and always "
                        "labelled in the card as composed rather than written.",
-               "by_glottocode": out, "branches": branch},
+               "by_glottocode": out, "branches": branch, "families": famtext},
               open(os.path.join(WEB, "descriptions.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
 
@@ -313,6 +360,8 @@ def main() -> None:
     print("   clauses actually emitted:")
     for k, v in stats["clause"].items():
         print(f"      {k:10s} {v:6,}")
+    print(f"   families: {len(famtext):,} newly composed "
+          f"(the 70 with authored prose keep it)")
     print(f"   branches: {bstats['own']:,} had a description of their own, "
           f"{bstats['composed']:,} newly composed")
     kb = os.path.getsize(os.path.join(WEB, 'descriptions.json')) / 1024

@@ -582,6 +582,12 @@
         (g0.artist ? ' · ' + esc(g0.artist) : '') + '</figcaption></figure>';
     }
     if (FS.text) h += '<p class="exstory">' + esc(FS.text) + '</p>';
+    else {
+      const fc = A.descr && A.descr.families && A.descr.families[gc];
+      if (fc) h += '<p class="exstory excomp">' + esc(fc) + '</p>' +
+        '<p class="exfine">Composed from the record. 70 of the 421 families here carry a ' +
+        'written description; this is not one of them yet.</p>';
+    }
 
     const facts = [];
     if (FS.countries) facts.push(['countries', String(FS.countries)]);
