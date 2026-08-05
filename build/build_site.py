@@ -129,9 +129,11 @@ def gate_labels() -> None:
     gl = os.path.join(ROOT, "data", "glottolog", "languages.csv")
     if not os.path.exists(gl):
         print("   Glottolog not present — SKIPPED"); return
+    levels = {}
     with open(gl, newline="", encoding="utf-8") as f:
         for r in _csv.DictReader(f):
             names[r["ID"]] = r["Name"]
+            levels[r["ID"]] = r["Level"]
     bad = []
     for gc in N["by_glottocode"]:
         want = expect.get(gc)
@@ -142,9 +144,15 @@ def gate_labels() -> None:
             bad.append(f"{gc} label is about {want!r} but the glottocode is {got!r}")
     gp = os.path.join(WEB, "data", "gallery.json")
     if os.path.exists(gp):
+        # Objects hang off FAMILIES as well as languages now — a family card carries its own
+        # plate and wall — so the test is that the key is a real Glottolog node, not that it is
+        # specifically a language. It must still be a node: a typo'd key is still refused.
         for gc in json.load(open(gp, encoding="utf-8")):
             if gc not in names:
-                bad.append(f"gallery image keyed to {gc}, which is not a language")
+                bad.append(f"gallery image keyed to {gc}, which is not in Glottolog at all")
+            elif levels.get(gc) not in ("language", "family"):
+                bad.append(f"gallery image keyed to {gc}, a {levels.get(gc)} rather than a "
+                           f"language or family")
     if bad:
         for b in bad:
             print("   " + b)

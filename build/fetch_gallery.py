@@ -106,13 +106,26 @@ def api(params: dict) -> dict:
         return json.load(r)
 
 
+def dedupe_twice(s: str) -> str:
+    """The Commons Artist field is HTML, and a common pattern is the same name in two spans.
+
+    Stripping the tags then leaves "Unknown authorUnknown author" on the caption. Only an exact
+    doubling is collapsed, so a genuine two-name credit is untouched.
+    """
+    s = re.sub(r"\s+", " ", s).strip()
+    n = len(s)
+    if n > 3 and n % 2 == 0 and s[:n // 2] == s[n // 2:]:
+        return s[:n // 2].strip()
+    return s
+
+
 def licence_of(meta: dict) -> tuple[str, str, str] | None:
     em = meta.get("extmetadata") or {}
 
     def val(k):
         return re.sub(r"<[^>]+>", "", str((em.get(k) or {}).get("value", ""))).strip()
     lic = val("LicenseShortName") or val("License")
-    artist = val("Artist")[:160]
+    artist = dedupe_twice(val("Artist"))[:160]
     credit = val("Credit")[:160]
     if not lic:
         return None

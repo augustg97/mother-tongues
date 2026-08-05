@@ -403,6 +403,7 @@
       '<div class="exalt"><span>a branch of the family, not a language · click it again to ' +
       (T.collapsed.has(n.g) ? 'open' : 'close') + '</span></div>';
     if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
     const bits = ['<b>' + s.lang + '</b> language' + (s.lang === 1 ? '' : 's')];
     if (s.ext) bits.push('<b>' + s.ext + '</b> extinct');
     if (s.end) bits.push('<b>' + s.end + '</b> endangered');
@@ -410,6 +411,7 @@
       (s.oldest ? ' The earliest written member is <b>' + esc(s.oldestN.n) + '</b>, attested ' +
         (s.oldest < 0 ? (-s.oldest) + ' BCE' : s.oldest + ' CE') + '.' : '') +
       (s.ext === s.lang && s.lang ? ' <b>Nobody speaks any of them.</b>' : '') + '</p>';
+    h += clusterBlock(CL, s.lang, true);
     if (s.box) {
       h += '<div class="exmapwrap"><canvas class="exmapcv"></canvas>' +
         '<canvas class="exworldcv"></canvas><div class="exmapcap">where its languages are ' +
@@ -492,6 +494,121 @@
       (w.localname ? ' · ' + esc(w.localname) : '') + ' · Wikimedia site statistics, ' +
       esc(w.retrieved || '') + '.</p>';
     return h;
+  }
+
+  // ---- why so many of these names look alike ------------------------------
+  // The measured answer to the most confusing thing about this tree. Otomanguean shows 181
+  // languages of which 56 end in Zapotec and 53 in Mixtec; Quechuan 42 of 43 end in Quechua or
+  // Quichua. Those are cover terms, not languages, and the count is computed per node, so the
+  // family card and the Mixtec branch card each explain their own naming without either being
+  // authored by hand. 24 families and 147 nodes carry one.
+  function clusterBlock(cl, total, forBranch) {
+    if (!cl || !cl.length) return '';
+    const covered = cl.reduce((a, c) => a + c[1], 0);
+    // ⚠ Written out per case rather than concatenated. Gluing the clauses together produced
+    // "This branch holds 40 of them share the same last word in their name."
+    let lead, tail = ' Each of those words is a <b>cover term rather than a single language</b>: ' +
+      'the varieties under it are often no more mutually intelligible than Spanish and ' +
+      'Portuguese, so each is counted separately, and each is named after the town or the ' +
+      'region that speaks it.';
+    if (forBranch && cl.length === 1) {
+      lead = (covered === total
+        ? 'All <b>' + total + '</b> languages in this branch are called <b>'
+        : '<b>' + covered + '</b> of the <b>' + total + '</b> languages in this branch are ' +
+          'called <b>') + esc(cl[0][0]) + '</b>.';
+      tail = ' That is a <b>cover term rather than a single language</b>: the varieties under it ' +
+        'are often no more mutually intelligible than Spanish and Portuguese, so each is ' +
+        'counted separately, and each is named after the town or the region that speaks it.';
+    } else if (forBranch) {
+      lead = 'This branch holds <b>' + covered + '</b> languages in <b>' + cl.length +
+        '</b> groups whose names each end the same way.';
+    } else if (cl.length === 1) {
+      lead = '<b>' + covered + '</b> of the <b>' + total + '</b> languages here share the same ' +
+        'last word in their name.';
+    } else {
+      lead = '<b>' + covered + '</b> of <b>' + total + '</b> languages here fall into <b>' +
+        cl.length + '</b> groups whose names each end the same way.';
+    }
+    let h = '<h3>Why so many of these names look alike</h3>';
+    h += '<p class="exstory" style="font-size:13.5px">' + lead + tail + '</p>';
+    if (!(forBranch && cl.length === 1)) {
+      h += '<div class="clus">' + cl.map(c =>
+        '<div><b>' + esc(c[0]) + '</b><span>' + c[1] + ' languages</span></div>').join('') +
+        '</div>';
+    }
+    return h;
+  }
+
+  // ---- the family card ---------------------------------------------------
+  // Opening a family used to say "Choose a language from the tree." and nothing else — the most
+  // prominent panel in the room was empty at the moment a visitor arrived in it.
+  function familyExhibit(gc) {
+    const A = window.APP;
+    const FS = A.families && A.families.by_glottocode && A.families.by_glottocode[gc];
+    const ex = $('#exhibit');
+    if (!FS) {
+      ex.innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
+      ex.classList.add('empty');
+      return;
+    }
+    ex.classList.remove('empty');
+    // ⚠ NO TITLE AND NO COUNTS HERE. #treehead already carries the family's name, its language
+    // and dialect counts, its extinct and endangered totals, its macroarea and its root age; a
+    // card that repeated all of that put "Otomanguean · 181 languages" on the screen twice,
+    // sixty pixels apart. The card carries only what the head does not.
+    const gal = galOf(gc);
+    let h = '<div class="exkicker">' + (FS.isolate ? 'an isolate — one language, with no known '
+      + 'relatives anywhere' : 'about this family') + '</div>';
+    if (gal.length) {
+      const g0 = gal[0];
+      h += '<figure class="exfig"><button type="button" class="exfigb" data-lb="0" data-lbg="' +
+        esc(gc) + '" aria-label="See this larger"><img src="' +
+        window.V('img/gallery/' + g0.file) + '" alt="' + esc(g0.subject || '') +
+        '" loading="lazy"></button><figcaption>' + esc(objTitle(g0)) +
+        (g0.artist ? ' · ' + esc(g0.artist) : '') + '</figcaption></figure>';
+    }
+    if (FS.text) h += '<p class="exstory">' + esc(FS.text) + '</p>';
+
+    const facts = [];
+    if (FS.countries) facts.push(['countries', String(FS.countries)]);
+    if (FS.earliest) facts.push(['earliest written',
+      FS.earliest[1] + ' · ' + (FS.earliest[0] < 0 ? (-FS.earliest[0]) + ' BCE'
+        : FS.earliest[0] + ' CE')]);
+    facts.push(['glottocode', gc]);
+    h += '<dl class="exfacts">' + facts.map(f =>
+      '<dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd>').join('') + '</dl>';
+
+    h += clusterBlock(FS.clusters, FS.lang, false);
+
+    // What this museum actually holds for the family. A thin family should read as thin rather
+    // than as complete, which is the whole point of printing it.
+    const cov = FS.coverage || {};
+    const ORDER = [['label', 'labels'], ['object', 'objects'], ['prose', 'prose'],
+                   ['words', 'word lists'], ['letters', 'letters'], ['heard', 'recordings'],
+                   ['dated', 'timelines']];
+    const rowsC = ORDER.filter(o => cov[o[0]]);
+    if (rowsC.length) {
+      h += '<h3>What this museum holds for it</h3><div class="cov">' + rowsC.map(o => {
+        const pct = Math.max(2, Math.round(100 * cov[o[0]] / Math.max(FS.lang, 1)));
+        return '<div class="covrow"><span class="covn">' + cov[o[0]] + '</span>' +
+          '<span class="covl">' + esc(o[1]) + '</span>' +
+          '<span class="covbar"><i style="width:' + Math.min(pct, 100) + '%"></i></span></div>';
+      }).join('') + '</div>';
+      h += '<p class="exfine">Out of ' + FS.lang + ' language' + (FS.lang === 1 ? '' : 's') +
+        '. Where a row is short, the record is short — not the family.</p>';
+    }
+
+    if (gal.length > 1) {
+      h += '<h3>Objects</h3><div class="exgal">' + gal.slice(1).map((o, k) =>
+        '<figure><button type="button" data-lb="' + (k + 1) + '" data-lbg="' + esc(gc) +
+        '" aria-label="See this larger"><img src="' + window.V('img/gallery/' + o.file) +
+        '" alt="' + esc(o.subject || '') + '" loading="lazy"></button><figcaption>' +
+        esc(objTitle(o)) + (o.artist ? '<span> · ' + esc(o.artist) + '</span>' : '') +
+        '</figcaption></figure>').join('') + '</div>';
+    }
+    h += '<p class="exfine">Click a language in the tree for its own card, or a fork to open ' +
+      'that branch.</p>';
+    ex.innerHTML = h;
   }
 
   // ---- the lightbox ------------------------------------------------------
@@ -814,6 +931,7 @@
         ' · click to open the ground</div></div>';
     }
     if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
 
     const facts = [];
     if (n.a) facts.push(['vitality', AESN[n.a]]);
@@ -1017,8 +1135,7 @@
     T.sel = null;
     T.q = '';
     const q = $('#treeq'); if (q) q.value = '';
-    $('#exhibit').innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
-    $('#exhibit').classList.add('empty');
+    familyExhibit(gc);
     // Open shut: a family shows its branches, and the visitor opens the ones they want.
     T.collapsed = new Set();
     (function shut(n, d) {
@@ -1216,6 +1333,7 @@
       (s2.oldest !== null ? ' · first written ' + (s2.oldest < 0 ? (-s2.oldest) + ' BCE'
         : s2.oldest + ' CE') : ' · never written') + '</span></div>';
     if (n.d) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    const CL = A.families && A.families.clusters_by_node && A.families.clusters_by_node[n.g];
     if (living === 0) h += '<p class="exdesc"><b>Nobody speaks any of them.</b></p>';
 
     // the members of this branch that the museum actually has something to show for

@@ -384,3 +384,21 @@ body.lbopen{overflow:hidden}
   .lbfig figcaption{max-width:88vw}
   .lbx{top:8px;right:8px;font-size:26px}
 }
+
+/* ---- name clusters and family coverage ---------------------------------- */
+/* The cluster chips are the answer to "why are there fifty things called Mixtec". They read as
+   labels on a case, so the word is set large in the serif and its count small beneath. */
+.clus{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 2px}
+.clus div{display:flex;flex-direction:column;gap:1px;padding:6px 10px;
+  background:var(--panel2,rgba(0,0,0,.025));border:1px solid var(--rule);border-radius:2px}
+.clus b{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);line-height:1.2}
+.clus span{font-size:10px;letter-spacing:.04em;color:var(--ink3)}
+/* Coverage: a count, a label, and a bar as long as the fraction of the family it covers. A short
+   bar is information, so it is never padded to look fuller than it is. */
+.cov{display:flex;flex-direction:column;gap:4px;margin:4px 0 2px}
+.covrow{display:grid;grid-template-columns:38px 82px 1fr;gap:9px;align-items:center}
+.covn{font-size:12px;font-weight:600;color:var(--ink);text-align:right;
+  font-variant-numeric:tabular-nums}
+.covl{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+.covbar{height:6px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden}
+.covbar i{display:block;height:100%;background:var(--accent2);opacity:.75}
