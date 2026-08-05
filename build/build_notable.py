@@ -1338,6 +1338,24 @@ def main() -> None:
         for q in extra_subjects(gc, cats):
             subjects.append((gc, q))
             nextra += 1
+    # OBJECTS FOR LANGUAGES WITH NO LABEL. The probe now covers every language documented enough
+    # that Commons plausibly holds something — its own Wikipedia, a text here, a recording, a
+    # curated alphabet — not just the 283 with authored prose. Those extras get category subjects
+    # too, which is the difference between 242 languages with an object and several hundred.
+    # A label-less language gets fewer, because it has no authored artefact query to lead with and
+    # a category alone is the weaker signal.
+    unlabelled = 0
+    for gc, rows in sorted(cats.items()):
+        if gc in out:
+            continue
+        qs = extra_subjects(gc, cats)[:2]
+        if not qs:
+            continue
+        for q in qs:
+            subjects.append((gc, q))
+        unlabelled += 1
+    print(f"  {unlabelled} languages with no authored label were given category subjects")
+
     for b in bad:
         print("  SKIPPED " + b)
     d = os.path.join(ROOT, "web", "data")

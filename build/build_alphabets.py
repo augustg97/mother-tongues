@@ -910,24 +910,41 @@ if __name__ == "__main__":
 
     # ---- tier 2: observed ------------------------------------------------
     texts = json.load(open(os.path.join(WEB, "texts.json")))["by_glottocode"]
+    sources = {gc: " ".join(html.unescape(v) for _, v in (rec.get("b") or []))
+               for gc, rec in texts.items()}
+    origin = {gc: "the UDHR translation held here" for gc in sources}
+    # A THIRD SOURCE, for the languages neither CLDR nor our own prose reaches. 316 languages
+    # have their own Wikipedia and 75 of those had no letters, with three or more active editors
+    # so the articles are written rather than bot-generated. Same footing as the UDHR tier: a
+    # measurement of a document, labelled as one, with its sample size.
+    wtp = os.path.join(ROOT, "data", "wikipedia", "wikitext.json") \
+        if (ROOT := os.path.join(HERE, "..")) else ""
+    if os.path.exists(wtp):
+        for gc, v in json.load(open(wtp, encoding="utf-8"))["by_glottocode"].items():
+            if gc not in sources:
+                sources[gc] = v["text"]
+                origin[gc] = "articles in this language's own Wikipedia"
     added = 0
     thin = 0
-    for gc, rec in texts.items():
+    for gc, body in sources.items():
         if gc in out or gc not in names:
             continue
-        body = " ".join(html.unescape(v) for _, v in (rec.get("b") or []))
         chars, total, distinct = observed(body)
         if total < 400:               # too little prose to say anything about an inventory
             thin += 1
             continue
         groups = describe(chars)
         rec2 = {"groups": groups, "n": distinct, "tier": "observed",
-                "sample": total, "index": [], "index_n": 0}
+                "sample": total, "index": [], "index_n": 0,
+                "from": origin.get(gc, "prose held here")}
         set_kind(rec2, groups)
         out[gc] = rec2
         added += 1
-    print(f"tier 2 — observed from shipped prose: {added} languages "
-          f"({thin} had under 400 characters of text, too thin to state an inventory)")
+    nwiki = sum(1 for gc, v in out.items()
+                if v.get("from", "").startswith("articles"))
+    print(f"tier 2 — observed from prose: {added} languages "
+          f"({nwiki} of them from their own Wikipedia rather than the UDHR; "
+          f"{thin} had under 400 characters, too thin to state an inventory)")
 
     wc = witness_check(out, texts, names)
     print(f"\nindependent witness — the script of the prose we ship for each language")

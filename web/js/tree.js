@@ -840,9 +840,10 @@
     if (v.note) h += '<p class="exfine">' + esc(v.note) + '</p>';
     h += '<p class="exfine">' + (v.tier === 'curated'
       ? 'The characters literate writers of this language use. Unicode CLDR.'
-      : 'Measured from the ' + (v.sample || 0).toLocaleString() + ' characters of prose held ' +
-        'here — an <b>observed inventory, not a curated alphabet</b>. A short text misses ' +
-        'rare letters and picks up any a loanword brings in.') + '</p>';
+      : 'Measured from ' + (v.sample || 0).toLocaleString() + ' characters of ' +
+        esc(v.from || 'prose held here') + ' — an <b>observed inventory, not a curated ' +
+        'alphabet</b>. A short text misses rare letters and picks up any a loanword brings in.')
+      + '</p>';
     return h;
   }
 

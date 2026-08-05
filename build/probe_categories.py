@@ -84,7 +84,20 @@ if __name__ == "__main__":
     langs = json.load(open(os.path.join(WEB, "languages.json")))
     F = {k: i for i, k in enumerate(langs["fields"])}
     name = {r[F["code"]]: r[F["name"]] for r in langs["rows"]}
-    notable = json.load(open(os.path.join(WEB, "notable.json")))["by_glottocode"]
+    # WIDER THAN THE LABELS. The first pass probed only the 283 languages with an authored
+    # museum label, which is why 7,430 languages had no objects at all. The target set is now
+    # every language documented enough that Commons plausibly holds something: it has its own
+    # Wikipedia, or a text here, or a recording, or a curated alphabet, or a label. 818 of them,
+    # of which 578 had nothing.
+    def keys(path, sub=None):
+        pp = os.path.join(WEB, path)
+        if not os.path.exists(pp):
+            return set()
+        d = json.load(open(pp, encoding="utf-8"))
+        return set((d.get(sub) or d) if sub else d)
+    notable = (keys("notable.json", "by_glottocode") | keys("wikipedia.json", "by_glottocode")
+               | keys("texts.json", "by_glottocode") | keys("audio.json", "by_glottocode")
+               | keys("alphabets.json", "by_glottocode")) & set(name)
 
     # candidate -> the glottocode it would serve
     cand: dict[str, str] = {}
