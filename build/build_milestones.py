@@ -1366,6 +1366,278 @@ M: dict[str, list] = {
                  "designation is not lifted until 1952"),
    (1952, False, "the Act is repealed and the community is denotified"),
  ],
+ # ---- SINO-TIBETAN. The family had 519 languages here and two dated events.
+ # The shape differs from Indo-European's. Chinese varieties get no first attestation of
+ # their own — they were never written as themselves — so their dates are migrations,
+ # rhyme dictionaries, and the twentieth-century moment a state chose which one was THE
+ # language. The hill languages have the opposite record: nothing at all until a
+ # missionary arrives with a press, and then everything at once.
+
+ "Old Chinese": [
+   (-1250, True, "the oracle bones at Anyang — the earliest Chinese writing, questions put to "
+                 "the ancestors and cracked in fire"),
+   (-1045, True, "bronze inscriptions of the early Zhou, longer texts on cast vessels"),
+   (-600, True, "the Shijing, the Book of Songs, whose rhymes are the primary evidence for Old "
+                "Chinese pronunciation"),
+   (-221, False, "Qin unification standardises the script; the small seal form is imposed across "
+                 "the empire"),
+   (-100, True, "clerical script replaces seal script for everyday use, and Chinese characters "
+                "take roughly the shape they still have"),
+ ],
+ "Wu Chinese": [
+   (317, False, "the Jin court flees south to Jiankang; northern speech meets the Wu of the "
+                "lower Yangtze"),
+   (1850, True, "Shanghai's growth makes its Wu the prestige variety over Suzhou's"),
+   (1892, False, "*Haishang Hua Liezhuan*, a novel with all its dialogue in Wu — the high point "
+                 "of written Wu"),
+   (1956, False, "Mandarin is made the national standard; Wu leaves the schools"),
+   (2005, True, "surveys find a sharp fall in transmission to children in Shanghai"),
+ ],
+ "Yue Chinese": [
+   (-214, False, "Qin armies reach the Pearl River delta; Chinese settlement of the south begins"),
+   (1850, True, "emigration from the Siyi counties carries Cantonese to California, Australia "
+                "and Southeast Asia, making it the Chinese heard abroad for a century"),
+   (1913, False, "the first Cantonese-language film industry begins in Hong Kong"),
+   (1997, False, "Hong Kong's handover; Cantonese remains the spoken language of government "
+                 "there, unusually for a Chinese variety"),
+   (2010, False, "protests in Guangzhou against replacing Cantonese television with Mandarin"),
+ ],
+ "Min Nan Chinese": [
+   (300, True, "settlers from the north reach Fujian; Min separates before Middle Chinese and "
+               "keeps distinctions the rest of Chinese loses"),
+   (1566, False, "the Lychee Mirror, a play printed in Min Nan — among the earliest written "
+                 "Chinese vernacular outside the Mandarin area"),
+   (1832, False, "Medhurst's Hokkien dictionary, and with it Pe̍h-ōe-jī, a Latin orthography "
+                 "that thousands learned to read before they learned characters"),
+   (1895, False, "Japan takes Taiwan; Taiwanese Hokkien is written and taught alongside Japanese"),
+   (1956, False, "the Kuomintang's Mandarin-only policy bans it from Taiwanese schools"),
+   (2001, False, "Taiwan restores mother-tongue teaching; Taiwanese enters the curriculum again"),
+ ],
+ "Hakka Chinese": [
+   (900, True, "the migrations that produced the Hakka — 'guest families' — move south from the "
+               "central plain over several centuries"),
+   (1850, False, "the Taiping Rebellion begins among Hakka speakers in Guangxi and kills perhaps "
+                 "twenty million people"),
+   (1905, True, "Hakka Romanised scripture is printed by Basel missionaries"),
+   (1988, False, "the Restore My Mother Tongue march in Taipei demands Hakka broadcasting"),
+   (2003, False, "Taiwan's Hakka Television Service begins"),
+ ],
+ "Jinyu Chinese": [
+   (1000, True, "the entering tone survives in the Shanxi basins while Mandarin around them "
+                "loses it"),
+   (1985, False, "Li Rong proposes separating Jin from Mandarin on exactly that ground"),
+   (1987, False, "the Language Atlas of China adopts the split; it has been argued ever since"),
+ ],
+ "Xiang Chinese": [
+   (1200, True, "Old Xiang keeps the voiced initials of Middle Chinese, which Mandarin has "
+                "already lost"),
+   (1650, True, "resettlement after the Ming–Qing wars brings Mandarin speakers into Hunan; New "
+                "Xiang begins to form"),
+   (1949, True, "recordings of Mao Zedong's speeches become the best-known documentation of the "
+                "accent"),
+ ],
+ "Gan Chinese": [
+   (900, True, "migration into Jiangxi from the north; Gan and Hakka begin to separate from a "
+               "common southern stock"),
+   (1987, False, "the Language Atlas of China treats Gan as a top-level branch of Chinese"),
+ ],
+ "Min Dong Chinese": [
+   (1000, True, "Fuzhou's speech diverges within Min, which had already left the rest of Chinese"),
+   (1870, True, "the Foochow Romanized orthography is developed by missionaries and used in "
+                "print for decades"),
+   (1980, True, "emigration from Fuzhou to New York begins on a large scale; Eastern Min becomes "
+                "the Chinese of Manhattan's Chinatown"),
+ ],
+ "Dungan": [
+   (1862, False, "the Dungan Revolt begins in northwest China"),
+   (1877, False, "the revolt is crushed; survivors cross into Russian Central Asia"),
+   (1928, False, "a Latin alphabet is created for Dungan in the Soviet Union"),
+   (1953, False, "it is replaced by Cyrillic — Dungan becomes the only Sinitic language written "
+                 "alphabetically in regular use"),
+   (1957, True, "Iasyr Shivaza's poetry establishes a Dungan literature"),
+ ],
+ "Old Burmese": [
+   (1113, False, "the Myazedi inscription at Bagan, in Burmese, Pyu, Mon and Pali — the oldest "
+                 "dated Burmese and the key that let Pyu be read at all"),
+   (1287, False, "the Mongols take Bagan; the classical period ends"),
+ ],
+ "Burmese": [
+   (1113, False, "first attested, on the Myazedi inscription"),
+   (1450, True, "the round Burmese letterforms develop, shaped by writing on palm leaf with a "
+                "stylus — a straight stroke would split the leaf"),
+   (1785, False, "the Maniyadanabon and the court chronicles fix a literary standard"),
+   (1824, False, "Judson's Burmese–English dictionary, still in print"),
+   (1948, False, "independence; Burmese becomes the sole official language"),
+   (1980, False, "the Myanmar Language Commission's transcription system is adopted"),
+ ],
+ "Classical Tibetan": [
+   (632, True, "Thonmi Sambhota is credited with adapting an Indic script for Tibetan at the "
+               "court of Songtsen Gampo"),
+   (763, False, "the Zhol pillar inscription at Lhasa, the earliest dated Tibetan monument"),
+   (1000, True, "the Dunhuang cave library is sealed, preserving the largest body of Old Tibetan "
+                "manuscripts anywhere"),
+   (1410, False, "the first printed Kangyur, the Tibetan Buddhist canon"),
+   (1900, False, "the Dunhuang library is reopened, and Old Tibetan enters modern scholarship"),
+ ],
+ "Tangut": [
+   (1036, False, "the Xi Xia emperor commissions a script of nearly six thousand characters, "
+                 "designed to look like Chinese and to work nothing like it"),
+   (1190, False, "the *Sea of Characters*, a Tangut dictionary that later made decipherment "
+                 "possible"),
+   (1227, False, "the Mongols destroy Xi Xia; Tangut writing continues for three more centuries"),
+   (1502, False, "the last dated Tangut inscription"),
+   (1908, False, "Kozlov excavates Khara-Khoto and recovers the Tangut library"),
+   (1966, True, "Sofronov and Kychanov establish the reading of the script"),
+ ],
+ "Naxi": [
+   (1200, True, "the dongba pictographic script is in use for ritual texts — the only "
+                "pictographic writing anywhere still used for its original purpose"),
+   (1913, False, "Rock begins collecting dongba manuscripts; thousands leave China"),
+   (1957, False, "a Latin orthography is created for Naxi in China"),
+   (2003, False, "the dongba manuscripts enter UNESCO's Memory of the World register"),
+ ],
+ "Lisu": [
+   (1915, True, "James O. Fraser and Ba Thaw devise the Fraser alphabet — upright and rotated "
+                "Latin capitals only, so it could be set on any press"),
+   (1968, False, "China briefly replaces it with a pinyin-based script"),
+   (1992, False, "the Fraser alphabet is restored as the official Lisu orthography in China"),
+   (2009, False, "Unicode encodes it"),
+ ],
+ "Sichuan Yi": [
+   (1500, True, "the Yi syllabary is in use among the bimo priests for ritual and divination "
+                "texts"),
+   (1974, False, "the script is standardised to 819 characters for Liangshan Yi and made "
+                 "official"),
+   (1980, False, "Yi-medium schooling begins in Liangshan"),
+   (2000, False, "Unicode encodes the standardised syllabary"),
+ ],
+ "Northern Qiang": [
+   (1950, True, "Qiang is described for the first time; it has no writing of its own"),
+   (1993, False, "a Latin orthography is created and used in a small number of schools"),
+   (2008, False, "the Wenchuan earthquake destroys much of the Qiang heartland and scatters the "
+                 "population"),
+ ],
+ "Manipuri": [
+   (1100, True, "the Meitei script is in use; the Cheitharol Kumbaba court chronicle begins"),
+   (1729, False, "conversion to Vaishnavism; Bengali script begins to replace Meitei Mayek"),
+   (1729, True, "the Puya Meithaba — Meitei manuscripts are burned, and the old script goes out "
+                "of use for two centuries"),
+   (1992, False, "Manipuri is added to the Eighth Schedule of the Indian constitution"),
+   (2006, False, "Meitei Mayek is reintroduced in Manipur's schools"),
+ ],
+ "Mizo": [
+   (1894, False, "Lorrain and Savidge devise a Latin orthography for Mizo"),
+   (1898, False, "the first Mizo primer is printed"),
+   (1959, False, "the mautam famine, and the political movement that follows makes Mizo the "
+                 "language of an autonomy campaign"),
+   (1987, False, "Mizoram becomes a state; Mizo is its official language and literacy is among "
+                 "the highest in India"),
+ ],
+ "Garo": [
+   (1867, False, "the first Garo book is printed in Bengali script"),
+   (1902, True, "Latin script replaces it and becomes standard"),
+   (1996, False, "Garo becomes an associate official language of Meghalaya"),
+ ],
+ "Bodo-Mech": [
+   (1884, False, "Endle's grammar, the first description of Bodo"),
+   (1963, True, "Devanagari is adopted after decades of argument between Latin, Assamese and "
+                "Devanagari scripts"),
+   (2003, False, "Bodo enters the Eighth Schedule of the Indian constitution"),
+ ],
+ "Lepcha": [
+   (1700, True, "the Lepcha script is devised, traditionally attributed to the third Chogyal of "
+                "Sikkim"),
+   (1849, False, "Hooker records Lepcha during his Himalayan journeys"),
+   (1898, False, "Mainwaring's Lepcha dictionary is completed after his death"),
+   (2005, False, "Unicode encodes the Lepcha script"),
+ ],
+ "Limbu": [
+   (1740, True, "Te-ongsi Sirijunga Xin Thebe revives the Limbu script and is executed for "
+                "teaching it"),
+   (1928, True, "the script is revived a second time in Darjeeling"),
+   (2002, False, "Unicode encodes Limbu"),
+ ],
+ "Dzongkha": [
+   (1616, True, "Ngawang Namgyal unifies Bhutan; the language of the dzongs becomes the "
+                "administrative tongue"),
+   (1961, False, "Dzongkha is declared the national language of Bhutan"),
+   (1971, False, "the Dzongkha Development Commission is created to standardise it"),
+   (1991, False, "a Latin transcription, Roman Dzongkha, is officially adopted alongside the "
+                 "Tibetan script"),
+ ],
+ "Kathmandu Valley Newari": [
+   (1114, False, "the earliest dated Newar manuscript — the oldest written Tibeto-Burman "
+                 "language of Nepal"),
+   (1382, True, "the classical Newar period; the Malla courts produce chronicles, drama and "
+                "medical texts"),
+   (1846, False, "the Rana regime begins suppressing Newar in favour of Nepali"),
+   (1941, False, "four Newar writers are imprisoned for publishing in the language; one dies in "
+                 "jail"),
+   (1951, False, "the Rana regime falls and Newar publishing resumes"),
+ ],
+ "S'gaw Karen": [
+   (1832, False, "Jonathan Wade devises the Karen script from Burmese letters"),
+   (1853, False, "the first complete Karen Bible; literacy spreads faster than in most of Burma"),
+   (1949, False, "the Karen conflict begins, and continues longer than any other civil war "
+                 "anywhere"),
+ ],
+ "Southern Jinghpaw": [
+   (1895, False, "Ola Hanson devises a Latin orthography for Jingpho"),
+   (1906, False, "Hanson's dictionary, still the standard"),
+   (1961, False, "the Kachin Independence Organisation is founded; Jingpho becomes the language "
+                 "of its administration"),
+ ],
+ "Wancho Naga": [
+   (2001, True, "Banwang Losu begins devising an alphabet for Wancho"),
+   (2012, False, "the script is complete and taught locally"),
+   (2019, False, "Unicode encodes it — one of very few scripts invented this century to reach "
+                 "the standard"),
+ ],
+ "Solu-Khumbu Sherpa": [
+   (1500, True, "Sherpa families migrate from Kham into the Solu-Khumbu"),
+   (1953, False, "Everest is climbed; the language acquires an international profile it did not "
+                 "seek"),
+   (1970, True, "Sherpa begins to be written in Devanagari as well as Tibetan script"),
+ ],
+ "Leh Ladakhi": [
+   (950, True, "Tibetan settlement of Ladakh; the language descends from Old Tibetan and keeps "
+               "the clusters the spelling records"),
+   (1885, False, "the Moravian mission at Leh begins printing in Ladakhi"),
+   (1979, False, "Koshal's *Ladakhi Grammar*, the first full modern description"),
+ ],
+ "Chepang": [
+   (1976, True, "the Chepang are officially settled; a semi-nomadic way of life ends"),
+   (1982, False, "Caughley's grammar of the Chepang verb"),
+   (2011, False, "Nepal's census records fewer than 40,000 speakers"),
+ ],
+ "Galo": [
+   (2007, False, "Post's *A Grammar of Galo*, unusual for Arunachal Pradesh, where most of the "
+                 "ninety-odd languages have no grammar at all"),
+   (2009, True, "a community orthography is agreed and used in local publishing"),
+ ],
+ "Akha": [
+   (1900, True, "Akha migration south out of Yunnan into Burma, Laos and Thailand accelerates"),
+   (1927, True, "the first Akha Latin orthography is devised by missionaries; several competing "
+                "ones follow"),
+   (2008, True, "a unified Akha orthography is agreed at a cross-border conference"),
+ ],
+ "Ao Naga": [
+   (1872, False, "Baptist missionaries devise an Ao orthography — the first Naga language to be "
+                 "written"),
+   (1883, False, "the first Ao primer"),
+   (2007, False, "Coupe's *A Grammar of Mongsen Ao*"),
+ ],
+ "Khaling": [
+   (1970, True, "Khaling's verb system is described and found to be among the most complex in "
+                "the family"),
+   (2012, False, "a full analysis of its stem alternations is published"),
+ ],
+ "Eastern Tamang": [
+   (1970, True, "Tamang begins to be written in Devanagari for literacy programmes"),
+   (1995, False, "Tamang-language broadcasting begins on Radio Nepal"),
+   (2011, False, "the census records over a million speakers, the largest Tibeto-Burman language "
+                 "of Nepal"),
+ ],
 }
 
 

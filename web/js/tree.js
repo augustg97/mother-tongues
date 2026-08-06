@@ -362,12 +362,24 @@
   /** Everything under a node: leaf count, deaths, the oldest attested member, extent. */
   /** Walk the DATA, not the layout: a collapsed branch must still report its real size. */
   function summarise(rec) {
-    if (rec && rec.shut) rec = fullRec(rec.n);
+    // ALWAYS from the data. The guard used to be `if (rec.shut)`, which rebuilt only when the
+    // TOP node was collapsed — but every COLLAPSED DESCENDANT still contributed exactly 1,
+    // because a shut node has no kids in the layout. Sinitic has four collapsed children and so
+    // reported "4 languages" while its cluster block, computed offline over the real tree, found
+    // 18 called Chinese: the card read "18 of the 4". Every branch card with a collapsed child
+    // was under-counting, which is most of them.
+    rec = fullRec(rec.n);
     let lang = 0, ext = 0, end = 0, oldest = null, oldestN = null, named = [];
     let lo = 999, la = 999, LO = -999, LA = -999;
     (function w(r) {
       const n = r.n;
-      if (!r.kids.length) {
+      // ⚠ A LANGUAGE STOPS THE WALK EVEN WHEN IT HAS DIALECT CHILDREN. Testing `!r.kids.length`
+      // counts leaves, and a language with dialects under it is not a leaf — so Sinitic reported
+      // "4 languages" while the cluster block, which walks by level, found 18 called Chinese and
+      // printed "18 of the 4". The Python cluster walk was fixed for exactly this in
+      // build_families.py; the JS summariser still had it, and it under-counted every branch
+      // card in the atlas.
+      if (n.lv === 1 || !r.kids.length) {
         lang++;
         if ((n.a || 0) >= 6) ext++; else if ((n.a || 0) >= 3) end++;
         if (n.y && (oldest === null || n.y < oldest)) { oldest = n.y; oldestN = n; }
@@ -377,6 +389,7 @@
         }
         if (named.length < 8 && (n.au || (window.APP.notable &&
             window.APP.notable.by_glottocode[n.g]))) named.push(n);
+        return;                       // and do not descend into its dialects
       }
       r.kids.forEach(w);
     })(rec);

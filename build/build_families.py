@@ -699,6 +699,152 @@ IE_BRANCH = {
   "line between language and dialect is drawn by politics rather than by intelligibility.",
 }
 
+ST_BRANCH = {
+ "Sinitic":
+  "Chinese, and the count depends entirely on who is asking. Ten to fifteen mutually "
+  "unintelligible languages by any criterion applied to Europe; one language with dialects by "
+  "the criterion China uses, which is a shared writing system and a shared literary tradition "
+  "reaching back three thousand years. Both statements describe the same facts. The branch split "
+  "early — Min separated before Middle Chinese and cannot be reconstructed from the rhyme "
+  "dictionaries the way the rest can — and its modern spread is the record of a millennium of "
+  "migration southward out of the north China plain.",
+ "Classical-Middle-Modern Sinitic":
+  "Everything descended from the language of the Han and Tang, which is all of Chinese except "
+  "the earliest layer. The rhyme dictionaries of the sixth and eleventh centuries — the Qieyun "
+  "and the Guangyun — were written to standardise poetry and turned out to be a phonological "
+  "record of Middle Chinese precise enough to reconstruct from, which is why Chinese historical "
+  "linguistics rests on evidence no other language family in Asia has.",
+ "Burmo-Qiangic":
+  "A large grouping across Yunnan, Sichuan and northern Myanmar joining Lolo-Burmese to the "
+  "Qiangic languages of the Sichuan highlands. It is one of the more contested nodes in the "
+  "family: the Qiangic languages are agreed to be a group, and whether they belong here rather "
+  "than nearer Tibetan is not.",
+ "Lolo-Burmese":
+  "Burmese and the hundred-odd Ngwi (Loloish) languages of the Yunnan massif — one of the "
+  "best-established branches of the family, and the one with the deepest split between a "
+  "national language with a thousand-year written record and a hundred hill languages with "
+  "almost none. Tone did most of the work here: the branch's history is largely the story of "
+  "what happened to Proto-Lolo-Burmese's initial consonants after they turned into tones.",
+ "Loloish":
+  "The Ngwi languages: over a hundred of them across Yunnan, Sichuan, Myanmar, Thailand, Laos "
+  "and Vietnam, spoken by peoples the Chinese state groups as Yi, Hani, Lisu, Lahu and Naxi. "
+  "Several have scripts of their own — the Yi syllabary, standardised in 1974 with 819 "
+  "characters, and Naxi's dongba, the only pictographic writing still in ritual use anywhere.",
+ "Burmish":
+  "Burmese and its close relatives in the Kachin and Dehong hills — Zaiwa, Lashi, Achang. "
+  "Burmese has been written since the Myazedi inscription of 1113 and the rest have been written "
+  "for about a century, in Latin orthographies that stop at the China–Myanmar border and change "
+  "on the other side of it.",
+ "Kuki-Chin-Naga":
+  "Ninety-odd languages across Nagaland, Manipur, Mizoram, Chin State and the Chittagong Hill "
+  "Tracts. The grouping is geographic as much as genealogical: Naga is a colonial category that "
+  "covers several branches which may not be each other's closest relatives, and the Kuki-Chin "
+  "languages are a real group inside it. This is the least individually described part of "
+  "Sino-Tibetan relative to its size.",
+ "Kuki-Chin":
+  "Mizo, Thado, Hmar, Zou, Tedim and some fifty others across the India–Myanmar border. A "
+  "well-established group with an unusual amount of internal regularity, and a written tradition "
+  "that arrived with Baptist missionaries in the 1890s and produced literacy rates among the "
+  "highest in either country.",
+ "Angami-Ao":
+  "The central Naga languages of Nagaland — Angami, Ao, Lotha, Sema, Rengma. Mutually "
+  "unintelligible enough that Nagaland made English its official language rather than choose "
+  "among them, and the state is now one of the few places in India where English is the everyday "
+  "written language of ordinary administration.",
+ "Patkaian":
+  "The Konyak, Wancho, Phom and Chang languages of the Patkai range on the Myanmar border — the "
+  "last part of the Naga area contacted by the colonial administration, and the least described. "
+  "Wancho acquired a brand-new alphabet in 2012, one of very few scripts invented anywhere in "
+  "this century and encoded in Unicode.",
+ "Bodic":
+  "Tibetan and its relatives, plus the Himalayish languages of Nepal and the western Himalaya. "
+  "A large and only partly settled grouping: Bodish proper is secure, and whether West "
+  "Himalayish and the Kiranti languages belong under the same node is argued.",
+ "Bodish":
+  "The Tibetic languages and their nearest cousins. Everything written in Tibetan script "
+  "descends from the language of the seventh-century Tibetan empire, and the orthography was "
+  "fixed then — which means a modern Lhasa speaker's spelling records a pronunciation thirteen "
+  "hundred years old, and a Ladakhi or Balti speaker still says many of the consonant clusters "
+  "the spelling shows.",
+ "Central Tibetan":
+  "The Tibetan of Lhasa and Ü-Tsang, the prestige variety and the basis of the standard. It has "
+  "developed tone, which Classical Tibetan did not have; the tones arose from the initial "
+  "clusters the script still faithfully writes and the mouth no longer pronounces.",
+ "South-Western Tibetic":
+  "The Tibetic languages of Nepal, Sikkim and Bhutan — Sherpa, Jirel, Lhomi, Dzongkha's "
+  "neighbours. Spoken across a border that is also a religious and administrative boundary, and "
+  "written in Tibetan script wherever they are written at all.",
+ "Early Old Tibetan":
+  "The language of the Tibetan empire's first inscriptions and of the Dunhuang manuscripts "
+  "sealed in a cave library about 1000 and not reopened until 1900. Those documents are the "
+  "oldest substantial record of any Tibeto-Burman language and the reason Tibetan anchors the "
+  "family's historical reconstruction.",
+ "West Himalayish":
+  "Kinnauri, Bunan, Darma and their relatives in Himachal Pradesh, Uttarakhand and western "
+  "Nepal — languages that are not Tibetan and are surrounded by it and by Indo-Aryan. Several "
+  "preserve archaic features and none has a written tradition of its own.",
+ "Himalayish":
+  "The languages of the Nepal Himalaya and the ranges west of it, taken together. A large "
+  "grouping of small languages, most with a few thousand speakers, many described only in the "
+  "last forty years, and a good number not described at all.",
+ "Mahakiranti":
+  "A proposed grouping joining the Kiranti languages to the Newar and Magar languages of central "
+  "Nepal. Whether it is a real clade is disputed — the shared features may be contact rather "
+  "than descent — and the card says so because the tree cannot.",
+ "Kiranti":
+  "The languages of eastern Nepal's Rai and Limbu peoples, about thirty of them, and "
+  "collectively the holders of some of the most complex verb morphology described anywhere in "
+  "the world. A single Kiranti verb can agree with subject and object simultaneously and select "
+  "among several stems to do it; Khaling's system took decades to work out.",
+ "Eastern Kiranti":
+  "Limbu and its neighbours, in the hills between the Arun and the Mechi. Limbu has its own "
+  "script, Sirijanga, revived in the eighteenth century from a tradition said to be far older, "
+  "and encoded in Unicode in 2002.",
+ "Brahmaputran":
+  "The Bodo-Garo, Konyak and Kachin languages of Assam, Meghalaya and the Brahmaputra valley — "
+  "a grouping van Driem proposed and not everyone accepts. Bodo and Garo are among the few "
+  "Tibeto-Burman languages of India with official status in a state.",
+ "Bodo-Garo":
+  "Bodo, Garo, Rabha, Tiwa and their relatives across Assam and Meghalaya. Bodo entered the "
+  "Eighth Schedule of the Indian constitution in 2003 after a long and violent campaign; Garo is "
+  "the majority language of the Garo Hills and is written in Latin letters.",
+ "Karenic":
+  "Twenty-odd languages of eastern Myanmar and western Thailand, and the odd one out in the "
+  "whole family: Karen puts the verb before the object, where nearly every other Tibeto-Burman "
+  "language puts it after. That is almost certainly the result of a thousand years of contact "
+  "with Mon and Tai rather than inheritance. Written in a Burmese-derived script.",
+ "Na-Qiangic":
+  "The Qiangic and Naic languages of the Sichuan–Yunnan highlands, including Naxi and the "
+  "languages of the Mosuo. Structurally among the most complex in the family — Gyalrongic verbs "
+  "carry directional prefixes and person marking of a kind found nowhere else in Sino-Tibetan.",
+ "Qiangic":
+  "The languages of the Sichuan highland corridor: Qiang, Prinmi, Ersu, Tangut's living "
+  "relatives. Tangut itself, the language of the Xi Xia empire destroyed by the Mongols in 1227, "
+  "was written in a script of six thousand characters invented in 1036 and deciphered only in "
+  "the twentieth century.",
+ "Gyalrongic":
+  "A dozen languages of western Sichuan with the most elaborate verbal morphology in the family "
+  "and, unusually for the region, consonant clusters that look like what Proto-Sino-Tibetan is "
+  "reconstructed to have had. They are heavily used in reconstruction for that reason.",
+ "Hani-Jino":
+  "The Hani, Akha and Jino languages of southern Yunnan and the hills across the Burmese, Lao "
+  "and Thai borders. Akha's oral genealogies chain each man's name to the last syllable of his "
+  "father's and are recited back sixty generations — a record kept without writing.",
+ "Lisoid":
+  "Lisu, Lipo, Lolopo and their relatives in Yunnan and northern Myanmar. Lisu is written in the "
+  "Fraser alphabet, invented about 1915 using only upright and rotated Latin capitals so it "
+  "could be set on any press — one of the most ingenious missionary scripts ever devised, and "
+  "still the standard.",
+ "Nisoid":
+  "The Nisu and Nasu languages of Yunnan, written where they are written in the Yi syllabary — "
+  "a script of over a thousand traditional characters, standardised to 819 in 1974 and used for "
+  "ritual texts by the bimo priests for centuries before that.",
+ "Highland Phula":
+  "Fifteen small Ngwi languages of southeastern Yunnan, most of them documented for the first "
+  "time in a single survey published in 2012 — an unusually clear case of a whole subgroup "
+  "entering the record at once.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -793,11 +939,12 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
-    for nm, txt in IE_BRANCH.items():
-        hit = names.get(nm) or []
-        if len(hit) != 1:
-            raise SystemExit(f"branch {nm!r} matched {len(hit)} Glottolog families")
-        branch_text[hit[0]] = txt
+    for src in (IE_BRANCH, ST_BRANCH):
+        for nm, txt in src.items():
+            hit = names.get(nm) or []
+            if len(hit) != 1:
+                raise SystemExit(f"branch {nm!r} matched {len(hit)} Glottolog families")
+            branch_text[hit[0]] = txt
 
     out: dict[str, dict] = {}
     allclusters: dict[str, list] = {}
