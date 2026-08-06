@@ -289,6 +289,44 @@ def gate_audio() -> None:
           f"language's own passage here · the archive holds {A.get('available', 0):,}")
 
 
+def gate_phrases() -> None:
+    """The authored word-and-phrase tier, and the one claim it has to keep honest.
+
+    Some of these languages were written in scripts whose letterforms could not be set here with
+    confidence — Oscan and Umbrian in Old Italic, Sogdian, Khotanese in Brahmi. Their forms are
+    transliterations, which is the right answer, but only if the card SAYS SO. An entry whose
+    forms carry no separate transliteration and no note reads as if the forms were the language's
+    own writing. That is the failure this gate exists to catch.
+    """
+    print("2h. the authored phrases are filed and their script is disclosed")
+    pp = os.path.join(WEB, "data", "phrases.json")
+    if not os.path.exists(pp):
+        die("phrases.json is missing; run build_phrases.py")
+    P = json.load(open(pp, encoding="utf-8"))["by_glottocode"]
+    L = json.load(open(os.path.join(WEB, "data", "languages.json"), encoding="utf-8"))
+    known = {r[0] for r in L["rows"]}
+    bad, translit_only = [], 0
+    for gc, rec in P.items():
+        if gc not in known:
+            bad.append(f"{gc} is not a language in this atlas")
+            continue
+        items = rec.get("items") or []
+        if not items:
+            bad.append(f"{gc} has no forms")
+        for f, t, gl in items:
+            if not f.strip() or not gl.strip():
+                bad.append(f"{gc} has a form or gloss that is empty")
+        if items and not any((t or "").strip() for _, t, _ in items):
+            translit_only += 1
+            if not (rec.get("note") or "").strip():
+                bad.append(f"{gc} shows bare forms with no note saying what script they are in")
+    for b in bad:
+        die(b)
+    n = sum(len(r["items"]) for r in P.values())
+    print(f"   {len(P)} languages, {n} forms, every one filed under a real language · "
+          f"{translit_only} are transliterations, each saying so on the card")
+
+
 def gate_descriptions() -> None:
     """Every language must have something said about it, and a composed sentence must be
     distinguishable from an authored one.
@@ -503,6 +541,7 @@ if __name__ == "__main__":
     gate_alphabets()
     gate_gallery()
     gate_audio()
+    gate_phrases()
     gate_descriptions()
     gate_registration()
     gate_attribution()

@@ -73,11 +73,23 @@ if __name__ == "__main__":
     only_from = None
     if "--from" in sys.argv:
         only_from = sys.argv[sys.argv.index("--from") + 1]
+    # --langs restricts the sheet to a comma-separated list of glottocodes. This is what a new
+    # batch of labels needs: the whole gallery is 873 objects and re-auditing all of it to look at
+    # twenty new ones is how a batch goes unlooked-at.
+    only_langs = None
+    if "--langs" in sys.argv:
+        only_langs = set(sys.argv[sys.argv.index("--langs") + 1].split(","))
 
     items = []
     for gc, objs in sorted(G.items()):
+        if only_langs and gc not in only_langs:
+            continue
         for i, o in enumerate(objs):
             if only_from and not o["subject"].endswith(only_from):
+                continue
+            if only_langs:
+                items.append({"gc": gc, "i": i, "file": o["file"], "n": name.get(gc, gc),
+                              "title": o["title"], "subject": o["subject"]})
                 continue
             if "--walls" in sys.argv and i == 0:
                 continue                    # the plates are audited; these are the cases behind

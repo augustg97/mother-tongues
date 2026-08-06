@@ -1481,6 +1481,258 @@ E = [
   "Arabic, Latin and Cyrillic — and today in a reformed Arabic alphabet that marks every vowel, "
   "unusually for that script. The Turfan manuscripts, dug out of the Taklamakan, preserve "
   "Buddhist, Manichaean and Christian texts in it side by side."),
+ # ---- Indo-European batch 3: the largest languages in the family that still had no
+ # label. The top of this list is bigger than most national languages of Europe.
+
+ ("Bhojpuri", ["Category:Bhojpuri-language films", "Bhojpuri language"],
+  "Fifty-two million speakers and no state: Bhojpuri is spoken across eastern Uttar Pradesh and "
+  "western Bihar, is counted under Hindi by the Indian census, and has been petitioning for "
+  "recognition in the Eighth Schedule since the 1960s. It travelled further than almost any "
+  "Indian language — indentured labourers carried it to Mauritius, Fiji, Trinidad, Guyana and "
+  "Suriname, where its descendants are now separate languages. Its film industry, based in Patna "
+  "and Mumbai, releases more than a hundred titles a year.",
+  "Census of India 2011; Ethnologue 2024 for the diaspora varieties."),
+ ("Chhattisgarhi", ["Category:Chhattisgarh culture", "Chhattisgarhi language"],
+  "The language of the Chhattisgarh plain, spoken by about sixteen million people and treated by "
+  "the census as a dialect of Hindi — a classification its speakers have contested since the "
+  "state was created in 2000. It has a rich oral epic tradition, the Pandavani, in which the "
+  "Mahabharata is performed by a single singer with a tambura.",
+  "Census of India 2011."),
+ ("Haryanvi", ["Category:Culture of Haryana", "Haryanvi language"],
+  "Spoken across Haryana and into Delhi by some fourteen million people, and known outside the "
+  "region mainly through the folk song and the wrestling akhara. Like most of the Hindi belt's "
+  "large languages it is returned as Hindi at the census, so its real extent is inferred rather "
+  "than counted.",
+  "Census of India 2011, which returns Haryanvi under Hindi."),
+ ("Chittagonian", ["Category:Chittagong", "Chittagonian language"],
+  "Thirteen million speakers in and around Chattogram, and mutually unintelligible with the "
+  "Bengali it is officially a dialect of — the gap is about that between Portuguese and Spanish. "
+  "Bangladesh has no separate census category for it.",
+  "Ethnologue 2024; Bangladesh Bureau of Statistics 2022 counts it within Bengali."),
+ ("Southern Pashto", ["Category:Pashto manuscripts", "Category:Kandahar"],
+  "The Kandahar variety, and the one on which literary Pashto's spelling was originally based. "
+  "Pashto has a written tradition going back to the sixteenth century and a national poet, "
+  "Khushal Khan Khattak, who wrote some forty-five thousand couplets while imprisoned by the "
+  "Mughals.",
+  "Ethnologue 2024; no Afghan census since 1979, so all figures are projections."),
+ ("Malvi", ["Category:Malwa", "Malvi language"],
+  "Spoken on the Malwa plateau of Madhya Pradesh by about ten million people. Rajasthani in its "
+  "affiliation but administratively inside a Hindi-speaking state, it is one of the larger "
+  "languages that the Indian census does not name.",
+  "Census of India 2011, under Hindi; Ethnologue 2024 for the separate estimate."),
+ ("Dhundari", ["Category:Jaipur", "Dhundari language"],
+  "The Rajasthani of the Jaipur region, about nine and a half million speakers. Its literary "
+  "record begins with the Ashtak of the sixteenth-century poet Sant Dadu Dayal.",
+  "Ethnologue 2024."),
+ ("Bagheli", ["Category:Rewa, Madhya Pradesh", "Bagheli language"],
+  "Eight million speakers in the Baghelkhand region of Madhya Pradesh and Uttar Pradesh, in the "
+  "band between Awadhi and Chhattisgarhi where the Hindi belt's varieties shade into each other "
+  "with no sharp line anywhere.",
+  "Ethnologue 2024."),
+ ("Sadri", ["Category:Jharkhand", "Sadri language"],
+  "A lingua franca rather than a mother tongue for most of its seven million speakers: Sadri is "
+  "what Munda, Dravidian and Indo-Aryan communities in Jharkhand and the Chotanagpur plateau use "
+  "with each other, and what tea-garden workers taken to Assam in the nineteenth century use "
+  "among themselves.",
+  "Census of India 2011; Ethnologue 2024."),
+ ("Central Pashto", ["Category:Pashto", "Category:Waziristan"],
+  "The Waziri and Bannu group, between the Kandahar and Peshawar standards. Pashto's three main "
+  "varieties differ mainly in how they treat the retroflex consonants, and speakers name them by "
+  "that: the soft, the hard, and the middle.",
+  "Ethnologue 2024."),
+ ("Lambadi", ["Category:Banjara", "Category:Banjara people"],
+  "The language of the Banjara, once the salt and grain carriers of the Deccan, whose caravans "
+  "supplied Mughal and Maratha armies. It is Rajasthani in origin and is now spoken across "
+  "Telangana, Karnataka, Maharashtra and Andhra Pradesh — a thousand kilometres from where its "
+  "grammar comes from.",
+  "Census of India 2011."),
+ ("Mewati", ["Category:Mewat", "Mewati language"],
+  "Spoken in Mewat, on the Haryana–Rajasthan border, by about five million people, most of them "
+  "Meo Muslims. Its oral epic, the Pandun ka Kada, is a Mahabharata retold with Meo heroes.",
+  "Ethnologue 2024."),
+ ("Merwari", ["Category:Ajmer", "Marwari language"],
+  "One of the Marwari group of Rajasthan, around Ajmer and Merwara. Marwari as a whole has some "
+  "of the oldest surviving vernacular prose in North India — merchant account books and bardic "
+  "chronicles from the fifteenth century onward.",
+  "Ethnologue 2024."),
+ ("Bhili", ["Category:Bhil", "Category:Bhil people"],
+  "The language of the Bhil, the largest tribal population in India, spread across the hills "
+  "where Gujarat, Rajasthan, Maharashtra and Madhya Pradesh meet. It is Indo-Aryan, not "
+  "Munda — the Bhil adopted an Indo-Aryan language long ago and their earlier one is unrecoverable.",
+  "Census of India 2011."),
+ ("Eastern Balochi", ["Category:Balochi language", "Category:Balochistan"],
+  "Balochi is an Iranian language whose speakers live mostly in Pakistan, and whose closest "
+  "relatives are the languages of the Caspian coast fifteen hundred kilometres north — evidence "
+  "of a migration that oral tradition remembers and that history does not record.",
+  "Pakistan Census 2023; Korn, Towards a Historical Grammar of Balochi (2005)."),
+ ("Garhwali", ["Category:Garhwal division", "Garhwali language"],
+  "Spoken in the Garhwal Himalaya, about three million people, in the Central Pahari group with "
+  "Kumaoni. Its folk theatre, the Ramman of Saloor Dungra, is on UNESCO's intangible heritage "
+  "list.",
+  "Census of India 2011."),
+ ("Kumaoni", ["Category:Kumaon division", "Kumaoni language"],
+  "The other Central Pahari language, across the ridge from Garhwali in the Kumaon hills. Both "
+  "are losing speakers fast to Hindi as hill villages empty toward the plains.",
+  "Census of India 2011; UNESCO Atlas of the World's Languages in Danger lists it vulnerable."),
+ ("Hazaragi", ["Category:Hazara people", "Category:Hazarajat"],
+  "The Persian of the Hazara of central Afghanistan, with a layer of Mongolic and Turkic "
+  "vocabulary that no other Persian variety has. Its speakers are Shia in a mostly Sunni "
+  "country and have been persecuted for it repeatedly, most severely under the Taliban in 1998 "
+  "and again after 2021.",
+  "Ethnologue 2024."),
+ ("Dogri", ["Category:Dogri language", "Category:Jammu"],
+  "The language of Jammu, recognised in the Eighth Schedule of the Indian constitution in 2003 "
+  "after a campaign lasting decades. It was written in Takri, a script related to Sharada, and "
+  "is now written in Devanagari.",
+  "Census of India 2011; Eighth Schedule, Constitution (Ninety-second Amendment) Act 2003."),
+ ("Cameroon Pidgin", ["Category:Cameroon", "Cameroonian Pidgin English"],
+  "An English-lexifier creole spoken across anglophone Cameroon and well beyond it, in a country "
+  "whose two official languages are French and English and whose most widely understood language "
+  "is neither. Also called Kamtok.",
+  "Ethnologue 2024."),
+ ("Rohingya", ["Category:Rohingya people", "Category:Hanifi Rohingya script"],
+  "Closest to Chittagonian, spoken by the Rohingya of northern Rakhine State and by the very "
+  "large refugee population in Bangladesh. It has its own alphabet, Hanifi Rohingya, devised in "
+  "the 1980s and encoded in Unicode in 2018 — one of the few scripts created in living memory "
+  "and adopted by a whole community.",
+  "Ethnologue 2024; Unicode 11.0 (2018) for the Hanifi Rohingya block."),
+ ("Northern Luri", ["Category:Lurs", "Category:Lorestan Province"],
+  "Spoken in the Zagros by the Lur, and close enough to Persian that Iran treats it as a dialect "
+  "and distinct enough that its speakers do not.",
+  "Ethnologue 2024."),
+ ("Domari", ["Category:Dom people", "Domari language"],
+  "The Indo-Aryan language of the Dom, spread across the Middle East from Egypt to Iran. It is "
+  "not a dialect of Romani but its parallel: two separate migrations out of India, one west "
+  "through Persia into the Levant, one further into Europe.",
+  "Matras, A Grammar of Domari (2012)."),
+ ("Emiliano", ["Category:Emilia-Romagna", "Category:Emilian language"],
+  "Gallo-Italic, spoken across Emilia, and structurally closer to French and Occitan than to the "
+  "Tuscan that became standard Italian. Bologna, Modena and Parma each have their own form of it.",
+  "ISTAT 2015 language-use survey."),
+ ("Romagnol", ["Category:Romagna", "Category:Romagnol language"],
+  "The other half of Emilia-Romagna's pair, spoken from Rimini to Ravenna and in San Marino, "
+  "where it is the historic language of the oldest surviving republic in the world.",
+  "ISTAT 2015 language-use survey."),
+ ("Kabuverdianu", ["Category:Cape Verdean culture", "Category:Cape Verde"],
+  "The oldest living creole in the world — Portuguese-lexifier, formed on the uninhabited Cape "
+  "Verde islands in the fifteenth century, the first place in the Atlantic where a creole "
+  "society was made from nothing. Everyone in Cape Verde speaks it; Portuguese is the language "
+  "of the state.",
+  "Instituto Nacional de Estatística de Cabo Verde 2021 census."),
+ ("Swabian", ["Category:Swabia", "Category:Swabian German"],
+  "An Alemannic dialect of the southwest, and the object of a regional slogan — Wir können alles. "
+  "Außer Hochdeutsch, we can do everything except standard German — that a state government "
+  "actually used in its advertising.",
+  "Ethnologue 2024."),
+ ("Shina", ["Category:Gilgit-Baltistan", "Shina language"],
+  "Dardic, spoken in Gilgit and the upper Indus valleys. The Dardic languages sit at the "
+  "northwest edge of Indo-Aryan and preserve consonant clusters that the rest of the family "
+  "simplified two thousand years ago.",
+  "Pakistan Census 2023; Bailey, Grammar of the Shina Language (1924)."),
+ ("Hawai'i Creole English", ["Category:Hawaiian Pidgin", "Category:Culture of Hawaii"],
+  "Called Pidgin by everyone who speaks it, though it is a creole: it formed on the sugar "
+  "plantations among Hawaiian, Portuguese, Chinese, Japanese, Korean and Filipino workers who "
+  "needed a common language and whose children made one. Long stigmatised in schools; the state "
+  "began counting it as a language in the 2015 census.",
+  "US Census Bureau American Community Survey 2015 onward, which first listed it separately."),
+ ("Krio", ["Category:Krio language", "Category:Sierra Leone"],
+  "Sierra Leone's lingua franca, spoken as a first language by the Krio descendants of freed "
+  "slaves resettled at Freetown from Britain, Nova Scotia, Jamaica and recaptured slave ships. "
+  "It is understood by most of the country and is the language in which Sierra Leone actually "
+  "talks to itself.",
+  "Ethnologue 2024; Statistics Sierra Leone 2021 census."),
+ ("Morisyen", ["Category:Mauritian Creole", "Category:Culture of Mauritius"],
+  "French-lexifier, the mother tongue of nearly all Mauritians, in a country whose official "
+  "language is English, whose parliament debates in English and French, and whose people speak "
+  "Morisyen at home. It gained a standard orthography in 2011 and entered schools as a subject "
+  "in 2012.",
+  "Statistics Mauritius 2022 census; Grafi-larmoni orthography (2011)."),
+ ("Balkan Romani", ["Category:Romani people", "Category:Romani culture"],
+  "Romani is Indo-Aryan — the language its speakers carried out of northwest India around a "
+  "thousand years ago, and the strongest evidence for where the Roma came from, since no written "
+  "record of the migration exists. The Balkan group is the largest, spoken from Greece and "
+  "Bulgaria north through the former Yugoslavia.",
+  "Matras, Romani: A Linguistic Introduction (2002); Council of Europe estimates."),
+ ("Khowar", ["Category:Chitral District", "Khowar language"],
+  "The language of Chitral in northern Pakistan, Dardic, with a written tradition in the "
+  "Perso-Arabic script and a lively tradition of sung poetry accompanied by the sitar.",
+  "Pakistan Census 2023."),
+ ("Chakma", ["Category:Chakma people", "Category:Chakma script"],
+  "Spoken in the Chittagong Hill Tracts and in Mizoram and Tripura, and written in its own "
+  "script, a Brahmic alphabet related to Burmese and encoded in Unicode in 2012.",
+  "Ethnologue 2024; Unicode 6.1 (2012) for the Chakma block."),
+ ("Judeo-Tat", ["Category:Mountain Jews", "Category:Juhuri language"],
+  "Juhuri, the Iranian language of the Mountain Jews of the eastern Caucasus, written "
+  "historically in Hebrew letters and later in Cyrillic and Latin. Most of its speakers now live "
+  "in Israel; the community in Azerbaijan's Qırmızı Qəsəbə is the last mostly-Jewish town "
+  "outside Israel.",
+  "Ethnologue 2024; Authority for Judeo-Tat, Israel."),
+ ("Digor Ossetian", ["Category:Ossetians", "Category:North Ossetia-Alania"],
+  "The western half of Ossetian, and the more conservative one. Ossetian is the last living "
+  "descendant of Scythian and Alanic — the Iranian languages of the steppe nomads Herodotus "
+  "described — and the only one that survived the Turkic and Slavic expansions.",
+  "Russian Federal Census 2021; Thordarson, Ossetic Grammatical Studies (2009)."),
+ ("Gallurese Sardinian", ["Category:Gallura", "Category:Sardinia"],
+  "Spoken in the northeast of Sardinia and structurally Corsican rather than Sardinian, the "
+  "result of medieval settlement across the strait. Sardinia's language map has four distinct "
+  "things on it, and two of them are not Sardinian.",
+  "Regione Autonoma della Sardegna, Legge Regionale 26/1997, which recognises it separately."),
+ ("Sassarese Sardinian", ["Category:Sassari", "Category:Sardinia"],
+  "A transitional language around Sassari, Corsican-Tuscan in its base with heavy Sardinian and "
+  "Catalan and Spanish layers — the sediment of everyone who has governed the island.",
+  "Regione Autonoma della Sardegna, Legge Regionale 26/1997."),
+ ("Saramaccan", ["Category:Saramaka", "Category:Maroons in Suriname"],
+  "The language of the Saramaka Maroons of Suriname, descendants of people who escaped the "
+  "plantations in the seventeenth century and founded independent communities upriver. Its "
+  "vocabulary is about half English, a third Portuguese and the rest African, and it is tonal — "
+  "the only Atlantic creole that clearly is.",
+  "Ethnologue 2024; McWhorter and Good, A Grammar of Saramaccan Creole (2012)."),
+ ("Seselwa Creole French", ["Category:Seychellois Creole", "Category:Seychelles"],
+  "One of the three official languages of Seychelles, alongside English and French, and the only "
+  "French creole anywhere with full official status and a state institute — the Lenstiti Kreol — "
+  "to standardise it.",
+  "National Bureau of Statistics, Seychelles, 2022 census."),
+ ("Shughni", ["Category:Pamiris", "Category:Gorno-Badakhshan"],
+  "A Pamir language of the Iranian branch, spoken in the high valleys of Tajikistan and "
+  "Afghanistan. The Pamir languages are not mutually intelligible with Persian or with each "
+  "other; Shughni serves as the lingua franca among them.",
+  "Tajikistan census 2020; Edelman and Dodykhudoeva in The Iranian Languages (2009)."),
+ ("Wakhi", ["Category:Wakhan", "Category:Wakhi people"],
+  "Spoken in the Wakhan corridor and across the borders into Pakistan, China and Tajikistan — a "
+  "single language in four countries because the corridor was drawn in 1893 to keep the Russian "
+  "and British empires from touching.",
+  "Ethnologue 2024; Anglo-Russian Pamir Boundary Commission (1895) for the corridor."),
+ ("Louisiana Creole French", ["Category:Louisiana Creole", "Category:Louisiana French"],
+  "Distinct from Cajun French, which is a variety of French; this is a creole, formed on "
+  "Louisiana plantations. Both were suppressed by the 1921 state constitution, which banned "
+  "teaching in French, and both are now in revival.",
+  "US Census Bureau American Community Survey 2019; Klingler, If I Could Turn My Tongue Like "
+  "That (2003)."),
+ ("Chitral Kalasha", ["Category:Kalash people", "Category:Kalash Valleys"],
+  "The language of the Kalash of three valleys in Chitral, the last community in the region "
+  "practising its pre-Islamic religion. Roughly seven thousand speakers, and the language and "
+  "the religion are declining together.",
+  "Pakistan Census 2023; UNESCO Atlas lists it definitely endangered."),
+ ("Nuristani Kalasha", ["Category:Nuristan Province", "Category:Nuristani people"],
+  "Waigali, of Nuristan in eastern Afghanistan — a different language from Chitral Kalasha "
+  "despite the shared name, and in a different branch. Nuristani is a third primary branch of "
+  "Indo-Iranian alongside Indo-Aryan and Iranian, or so most specialists now hold.",
+  "Ethnologue 2024; Strand, Nuristani Languages (2001)."),
+ ("Fala", ["Category:Fala language", "Category:Extremadura"],
+  "Galician-Portuguese spoken in three villages of the Jálama valley in Extremadura, seven "
+  "hundred kilometres from Galicia — an isolated survival from medieval resettlement, still the "
+  "everyday language of about eleven thousand people.",
+  "Junta de Extremadura, declared a bien de interés cultural 2001."),
+ ("Palula", ["Category:Chitral District", "Palula language"],
+  "Dardic, spoken in a few valleys of southern Chitral. It got its first orthography in 2004, "
+  "developed with the community, and its first published dictionary in 2013.",
+  "Liljegren, A Grammar of Palula (2016)."),
+ ("Kalo Finnish Romani", ["Category:Finnish Kale", "Category:Romani people"],
+  "The Romani of Finland, whose speakers arrived in the sixteenth century and who have kept a "
+  "distinctive dress and a strong avoidance code. The language is severely endangered — most "
+  "Finnish Kale now speak Finnish — and is taught in schools under a 1995 constitutional "
+  "amendment.",
+  "Finnish Ministry of Education; Constitution of Finland §17 (1995 amendment)."),
 ]
 
 
@@ -1562,6 +1814,151 @@ def extra_subjects(gc: str, cats: dict) -> list[str]:
     return out
 
 
+# ---------------------------------------------------------------------------
+# SOURCE NOTES, KEYED BY NAME
+#
+# A label may carry its citation as a fourth tuple element. The 83 Indo-European labels below
+# were authored before that field existed, and rewriting 83 working tuples by hand is exactly
+# the kind of mechanical edit that has twice clobbered adjacent code in this project. So they
+# live here instead, resolved the same way — by exact Glottolog name — and merged in `main`.
+# Source notes for the 83 Indo-European labels authored before the citation field existed.
+# Keyed by exact Glottolog name, resolved by machine. These are the earliest labels in the
+# project and therefore the biggest languages in the family — the ones a reader is most likely
+# to check.
+SRC = {
+ "English": "Speaker figure Ethnologue 2024; the loan proportions are the counts in the Shorter "
+            "Oxford English Dictionary's etymological survey.",
+ "Hindi": "Census of India 2011 for the mother-tongue return; Ethnologue 2024 for the total. The "
+          "two differ because the census counts Hindi as a group of some fifty varieties.",
+ "Bengali": "Bangladesh Bureau of Statistics 2022 census and Census of India 2011, combined.",
+ "Portuguese": "IBGE 2022 for Brazil, INE Portugal 2021, and national censuses for the African "
+               "Lusophone states.",
+ "Russian": "Russian Federal Census 2021 for the domestic figure; Ethnologue 2024 for the total "
+            "including the near abroad.",
+ "Spanish": "Instituto Cervantes, El español en el mundo 2023, for the global figure. The number "
+            "shown here is the narrower first-language count.",
+ "Marathi": "Census of India 2011.",
+ "French": "Observatoire de la langue française (OIF) 2022 for the global count; INSEE for France.",
+ "Urdu": "Pakistan Census 2023 for the national figure, which counts Urdu as a first language for "
+         "far fewer people than speak it.",
+ "Italian": "ISTAT 2015 language-use survey; Ethnologue 2024 for the total.",
+ "German": "Destatis and the Council for German Orthography's 2023 estimate across the German-"
+           "speaking states.",
+ "Gujarati": "Census of India 2011.",
+ "Western Farsi": "Ethnologue 2024. Persian is counted here as three languages after ISO — "
+                  "Iranian, Dari and Tajik — which no Persian speaker would recognise.",
+ "Polish": "Statistics Poland (GUS) 2021 census.",
+ "Odia": "Census of India 2011. Odia was recognised a classical language of India in 2014.",
+ "Ukrainian": "Ukrainian census 2001, the last completed; Ethnologue 2024 for the current "
+              "estimate. Wartime displacement makes any present figure provisional.",
+ "Sindhi": "Pakistan Census 2023 and Census of India 2011.",
+ "Romanian": "Romanian census 2021 and Moldovan census 2014.",
+ "Dutch": "Nederlandse Taalunie 2023, covering the Netherlands, Flanders and Suriname.",
+ "Northern Pashto": "Ethnologue 2024. No Afghan census has been completed since 1979, so every "
+                    "Pashto figure is an estimate built on projection.",
+ "Serbian-Croatian-Bosnian": "Combined national censuses: Serbia 2022, Croatia 2021, Bosnia and "
+                             "Herzegovina 2013, Montenegro 2023. Glottolog treats these as one "
+                             "language; four states do not.",
+ "Nepali": "Nepal census 2021 and Census of India 2011.",
+ "Sinhala": "Sri Lanka Department of Census and Statistics 2012.",
+ "Assamese": "Census of India 2011.",
+ "Northern Kurdish": "Ethnologue 2024. Turkey does not enumerate Kurdish in its census, so the "
+                     "Turkish share is estimated rather than counted.",
+ "Tajik": "Tajikistan census 2020.",
+ "Czech": "Czech Statistical Office 2021 census.",
+ "Bulgarian": "Bulgarian National Statistical Institute 2021 census.",
+ "Afrikaans": "Statistics South Africa 2022 census. Afrikaans is the first language of more "
+              "coloured South Africans than white ones, a fact its political history obscures.",
+ "Kashmiri": "Census of India 2011.",
+ "Danish": "Statistics Denmark 2023.",
+ "Norwegian": "Statistics Norway 2023. The figure covers both written standards, Bokmål and "
+              "Nynorsk, which are norms for writing rather than separate spoken languages.",
+ "Belarusian": "Belarus census 2019. The census asks separately about mother tongue and language "
+               "spoken at home, and the two answers differ by several million.",
+ "Catalan": "Generalitat de Catalunya, Enquesta d'usos lingüístics 2018, plus Valencia and the "
+            "Balearics.",
+ "Swedish": "Statistics Sweden 2023 and Statistics Finland 2023 for the Finland-Swedish minority.",
+ "Galician": "Instituto Galego de Estatística, Enquisa de condicións de vida 2018.",
+ "Western Frisian": "Provinsje Fryslân language survey 2020.",
+ "Welsh": "Wales census 2021, which recorded a fall from 2011 — the first since the language's "
+          "revival began.",
+ "Icelandic": "Statistics Iceland 2023.",
+ "Breton": "Office public de la langue bretonne, enquête sociolinguistique 2018.",
+ "Faroese": "Statistics Faroe Islands 2023.",
+ "Scottish Gaelic": "Scotland census 2011 and the 2022 return; the Gaelic Crisis report (Ó "
+                    "Giollagáin et al., 2020) for the community-level assessment.",
+ "Occitan": "Ofici public de la lenga occitana sociolinguistic survey 2020. Estimates for Occitan "
+            "range across an order of magnitude depending on what counts as a speaker.",
+ "Sanskrit": "Census of India 2011, which recorded 24,821 people returning Sanskrit as a mother "
+             "tongue — a number that says more about identity than about daily use.",
+ "Upper Sorbian": "Sorbian Institute, Bautzen, 2021 estimate.",
+ "Manx": "Isle of Man census 2021. The last native speaker, Ned Maddrell, died in 1974; every "
+         "speaker counted now learned it.",
+ "Old Prussian": "Ethnologue 2024 for the revival community. The language itself died about 1700; "
+                 "it is known from three catechisms and the Elbing vocabulary.",
+ "Hittite": "Hoffner and Melchert, A Grammar of the Hittite Language (2008); the Chicago Hittite "
+            "Dictionary for the lexicon.",
+ "Gheg Albanian": "Ethnologue 2024; Kosovo Agency of Statistics 2011 census.",
+ "Classical-Middle Armenian": "Thomson, An Introduction to Classical Armenian (1989); the "
+                              "Matenadaran manuscript catalogue for the textual record.",
+ "Tokharian A": "Adams, A Dictionary of Tocharian B (2013), and Malzahn, The Tocharian Verbal "
+                "System (2010). The manuscripts are in the Berlin Turfan collection.",
+ "Northern Tosk Albanian": "Albanian census 2023.",
+ "Eastern Armenian": "Armenian census 2011 and Ethnologue 2024.",
+ "Umbrian": "Poultney, The Bronze Tables of Iguvium (1959); Untermann, Wörterbuch des "
+            "Oskisch-Umbrischen (2000).",
+ "Oscan": "Buck, A Grammar of Oscan and Umbrian (1904), still the standard English grammar; "
+          "Crawford, Imagines Italicae (2011) for the inscriptions.",
+ "Lithuanian": "Statistics Lithuania 2021 census.",
+ "Latvian": "Central Statistical Bureau of Latvia 2021 census.",
+ "Gothic": "The Codex Argenteus at Uppsala; Wright, Grammar of the Gothic Language (2nd ed. 1954); "
+           "Lehmann, A Gothic Etymological Dictionary (1986).",
+ "Avestan": "Hoffmann and Forssman, Avestische Laut- und Flexionslehre (1996); Bartholomae, "
+            "Altiranisches Wörterbuch (1904).",
+ "Latin": "Oxford Latin Dictionary; the Thesaurus Linguae Latinae for the full record.",
+ "Slovak": "Statistical Office of the Slovak Republic 2021 census.",
+ "Church Slavic": "Lunt, Old Church Slavonic Grammar (7th ed. 2001); the Codex Zographensis and "
+                  "Codex Marianus for the canon.",
+ "Slovenian": "Statistical Office of the Republic of Slovenia 2021.",
+ "Ionic-Attic Ancient Greek": "Liddell–Scott–Jones, A Greek–English Lexicon (9th ed. with 1996 "
+                              "supplement); Smyth, Greek Grammar (1920).",
+ "Old Persian (ca. 600-400 B.C.)": "Kent, Old Persian: Grammar, Texts, Lexicon (2nd ed. 1953); "
+                                   "Schmitt, Wörterbuch der altpersischen Königsinschriften (2014).",
+ "Old Norse": "Cleasby–Vigfusson, An Icelandic–English Dictionary (1874); the Codex Regius for the "
+              "Poetic Edda.",
+ "Early Irish": "The Dictionary of the Irish Language (Royal Irish Academy, 1913–76), and its "
+                "revised electronic edition eDIL; Thurneysen, A Grammar of Old Irish (1946).",
+ "Macedonian": "State Statistical Office of North Macedonia 2021 census.",
+ "Bactrian": "Sims-Williams, Bactrian Documents from Northern Afghanistan (1999–2012), and his "
+             "edition of the Rabatak inscription (1996).",
+ "Khotanese": "Bailey, Dictionary of Khotan Saka (1979); Emmerick, A Guide to the Literature of "
+              "Khotan (2nd ed. 1992).",
+ "Old High German (ca. 750-1050)": "Braune and Reiffenstein, Althochdeutsche Grammatik (2004); the "
+                                   "Althochdeutsches Wörterbuch (Leipzig, in progress since 1952).",
+ "Old Saxon": "Tiefenbach, Altsächsisches Handwörterbuch (2010); the Heliand manuscripts in London "
+              "and Munich.",
+ "Logudorese Sardinian": "Ethnologue 2024; Regione Autonoma della Sardegna sociolinguistic survey "
+                         "2007, the last full one.",
+ "Old English (ca. 450-1100)": "Bosworth–Toller, An Anglo-Saxon Dictionary, and the Dictionary of "
+                               "Old English (Toronto, in progress); Mitchell and Robinson, A Guide "
+                               "to Old English (8th ed. 2012).",
+ "Cornish": "Wales and England census 2021 for the speaker return; Cornish Language Office "
+            "estimates for fluent speakers, which are much lower.",
+ "Modern Greek": "Hellenic Statistical Authority 2021 census and Ethnologue 2024.",
+ "Iron Ossetian": "Russian Federal Census 2021; Thordarson, Ossetic Grammatical Studies (2009).",
+ "Sogdian": "Gharib, Sogdian Dictionary (1995); Sims-Williams, The Sogdian Ancient Letters (2001).",
+ "Eastern Yiddish": "Ethnologue 2024. The figure is rising rather than falling — Haredi "
+                    "communities in New York, London, Antwerp and Jerusalem raise children in it.",
+ "Venetian": "ISTAT 2015 language-use survey, which found Venetian the most-spoken regional "
+             "language in Italy after Neapolitan.",
+ "Central Kurdish": "Ethnologue 2024; Kurdistan Region Statistics Office.",
+ "Middle English": "The Middle English Dictionary (Michigan, 1952–2001), now online; the Hengwrt "
+                   "and Ellesmere manuscripts for Chaucer.",
+ "Old French (842-ca. 1400)": "Godefroy, Dictionnaire de l'ancienne langue française (1881–1902); "
+                              "Tobler–Lommatzsch, Altfranzösisches Wörterbuch.",
+}
+# ---------------------------------------------------------------------------
+
 def main() -> None:
     names: dict[str, list] = {}
     with open(GL, newline="", encoding="utf-8") as f:
@@ -1575,7 +1972,7 @@ def main() -> None:
     nextra = 0
     for entry in E:
         nm, terms, text = entry[0], entry[1], entry[2]
-        src = entry[3] if len(entry) > 3 else ""
+        src = entry[3] if len(entry) > 3 else SRC.get(nm, "")
         hit = names.get(nm)
         if not hit:
             bad.append(f"{nm!r}: no language of that name in Glottolog")
@@ -1614,6 +2011,10 @@ def main() -> None:
         unlabelled += 1
     print(f"  {unlabelled} languages with no authored label were given category subjects")
 
+    # A SRC key matching no label is a typo that would otherwise vanish silently, since the
+    # notes are looked up by name and a miss just leaves the label uncited.
+    for u in sorted(set(SRC) - {e[0] for e in E}):
+        bad.append(f"{u!r}: source note matching no label")
     for b in bad:
         print("  SKIPPED " + b)
     d = os.path.join(ROOT, "web", "data")

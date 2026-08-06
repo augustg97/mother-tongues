@@ -1039,11 +1039,15 @@
     // only words there are, and they carry the script as well as the meaning.
     const ph = A.phrases && A.phrases.by_glottocode && A.phrases.by_glottocode[n.g];
     if (ph) {
-      h += '<h3>Words and phrases</h3><dl class="phr">' + ph.items.map(it =>
+      h += '<h3>Words and phrases</h3>';
+      // The note goes ABOVE the list, because it says how to read what follows — which script
+      // these are in, or that the forms are a transliteration because the language's own
+      // letterforms could not be set with confidence. Below the list it arrives too late.
+      if (ph.note) h += '<p class="exfine" style="margin-top:-2px">' + esc(ph.note) + '</p>';
+      h += '<dl class="phr">' + ph.items.map(it =>
         '<dt' + (n.au ? ' lang="' + esc(n.au[1] || '') + '"' : '') + '>' + esc(it[0]) + '</dt>' +
         '<dd>' + (it[1] && it[1] !== it[0] ? '<i>' + esc(it[1]) + '</i> · ' : '') +
         esc(it[2]) + '</dd>').join('') + '</dl>';
-      if (ph.note) h += '<p class="exfine">' + esc(ph.note) + '</p>';
     }
 
     const orth = A.words && A.words.orth && A.words.orth[n.g];
