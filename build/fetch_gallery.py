@@ -57,6 +57,8 @@ NOT_AN_ARTEFACT = re.compile(
     r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
     r"|\bfamily tree\b|\bcladogram\b|\bvenn\b"
     # Photographs of Wikimedia community events are about the project, not the language.
+    # Digitisation wrappers: the scanning service's own front matter, not the book.
+    r"|early journal content|\bjstor\b|\bhathitrust\b|\bgoogle books\b|internet archive"
     r"|\bwikiclub\b|\beditathon\b|\bedit-a-thon\b|\bmeetup\b|\bwikicon\w*"
     r"|\bwikimania\b|\bhackathon\b|\bwiki ?club\b|\bwiki ?camp\b", re.I)
 
@@ -126,8 +128,13 @@ def full_size(title: str, width: int = 1400) -> str:
 # Bai. Those were found by laying the collection out as contact sheets and looking at it, and the
 # verdicts live in a file so the next fetch does not undo the audit.
 _rj = os.path.join(HERE, "..", "data", "gallery", "rejected.json")
-REJECTED = set((_json.load(open(_rj, encoding="utf-8")).get("titles") or {})) \
-    if os.path.exists(_rj) else set()
+_rjd = _json.load(open(_rj, encoding="utf-8")) if os.path.exists(_rj) else {}
+REJECTED = set(_rjd.get("titles") or {})
+# (glottocode, subject) pairs where an object was rejected by eye. Handing back the NEXT
+# photograph from the same category is how Inari Saami went from a snowy roadside to a
+# photograph of Kobe Bryant: the pool is weak, not the individual file. A retired pair is not
+# queried again, and the slot simply stays empty.
+EXHAUSTED = {tuple(x) for x in (_rjd.get("exhausted") or [])}
 
 
 def api(params: dict) -> dict:
@@ -306,6 +313,8 @@ if __name__ == "__main__":
                 continue
         ctx = terms.startswith("Category:") and (terms.endswith(" people")
                                                  or terms.endswith(" culture"))
+        if (gc, terms) in EXHAUSTED:
+            continue
         room = min(1 if ctx else PER_SUBJECT, PER_LANGUAGE - len(have))
         hits = find(terms, want=room, skip=seen.setdefault(gc, set()),
                     skipnorm=seennorm.setdefault(gc, set()))
