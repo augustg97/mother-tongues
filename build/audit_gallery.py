@@ -12,7 +12,7 @@ as numbered contact sheets — plates first, because the plate is what a visitor
 have read a word — and writes an index mapping every cell to its glottocode, title and subject.
 Verdicts go back in as a keep/drop list, and the drops are refetched from a different subject.
 
-Run: python3 audit_gallery.py [--all] [--from people]
+Run: python3 audit_gallery.py [--all | --walls] [--from people]
 """
 from __future__ import annotations
 
@@ -79,7 +79,10 @@ if __name__ == "__main__":
         for i, o in enumerate(objs):
             if only_from and not o["subject"].endswith(only_from):
                 continue
-            if not only_from and "--all" not in sys.argv and i != 0:
+            if "--walls" in sys.argv and i == 0:
+                continue                    # the plates are audited; these are the cases behind
+            if (not only_from and "--all" not in sys.argv and "--walls" not in sys.argv
+                    and i != 0):
                 continue                                     # plates only, by default
             items.append({"gc": gc, "i": i, "file": o["file"], "n": name.get(gc, gc),
                           "title": o["title"], "subject": o["subject"]})
