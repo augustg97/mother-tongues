@@ -2437,6 +2437,169 @@ E = [
   "and one of the national languages of the Republic of the Congo — a Bantu language simplified "
   "by adult learners along the railway and river trade, and then inherited by their children.",
   "Mufwene, in Contact Languages (1997); Ethnologue 2024."),
+ # ---- AUSTRONESIAN batch 1. 1,276 languages here and 25 labels. Includes four entries
+ # that are each a PRIMARY BRANCH of the family with exactly one member — Bunun, Paiwan,
+ # Rukai, Puyuma — which Glottolog files as languages because that is what they are.
+
+ ("Madurese", ["Category:Madurese language", "Category:Madurese script"],
+  "Fifteen million speakers on Madura and eastern Java, and the largest language in Indonesia "
+  "after Javanese, Sundanese and Indonesian itself. It was written in a variant of the Javanese "
+  "script, *carakan Madura*, and is now written in Latin letters; its speaker numbers are high "
+  "and its transmission to children is falling fast.",
+  "Badan Pusat Statistik Indonesia 2010 census; Ethnologue 2024."),
+ ("Hiligaynon", ["Category:Hiligaynon language", "Hiligaynon Ilonggo literature"],
+  "Ilonggo, of Panay and Negros Occidental — one of the major Bisayan languages and the medium "
+  "of a substantial body of poetry and drama. The Philippines has around 180 languages and "
+  "recognises two officially, so Hiligaynon's eight million speakers have no national standing.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Minangkabau", ["Category:Minangkabau language", "Category:Minangkabau culture"],
+  "The language of West Sumatra, and of the largest matrilineal society in the world: property "
+  "and clan membership pass through women, in a Muslim society, and have done so through four "
+  "centuries of Islam. Minangkabau is close to Malay and its speakers' merchant tradition "
+  "carried it across Indonesia and Malaysia.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Coastal-Naga Bikol", ["Category:Bikol language", "Bikol dictionary Lisboa"],
+  "Bikol, of southern Luzon. Marcos de Lisboa's *Vocabulario de la lengua Bicol*, compiled in the "
+  "early seventeenth century and printed in 1754, is one of the great early dictionaries of any "
+  "Philippine language.",
+  "Philippine Statistics Authority 2020 census; Lisboa, Vocabulario de la lengua Bicol (1754)."),
+ ("Kelantan-Pattani Malay", ["Category:Kelantan-Pattani Malay", "Category:Jawi script"],
+  "A Malay variety of the Thai–Malaysian border, and one of the few written mainly in Jawi — the "
+  "Arabic-derived script Malay used for six hundred years before Latin letters replaced it. In "
+  "Pattani, Jawi remains in everyday use and is part of a long conflict over the region's "
+  "identity.",
+  "Ethnologue 2024; Thailand National Statistical Office."),
+ ("Maguindanao", ["Category:Maguindanao language", "Category:Maranao and Maguindanao"],
+  "The language of the Maguindanao sultanate in Mindanao, written historically in Jawi. It is one "
+  "of the official languages of the Bangsamoro autonomous region established in 2019.",
+  "Philippine Statistics Authority 2020 census; Bangsamoro Organic Law (2018)."),
+ ("Tausug", ["Category:Tausug language", "Category:Sulu Archipelago"],
+  "The language of the Sulu sultanate, spoken across the Sulu Archipelago and into Sabah and "
+  "Indonesia. Written in Jawi for centuries and now also in Latin letters; its speakers were "
+  "never fully brought under Spanish rule.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Kinaray-a", ["Category:Kinaray-a language", "Kinaray-a literature Antique"],
+  "Of Antique province on Panay, and the language of the *sugidanon*, a cycle of chanted epics "
+  "recorded from the Panay Bukidnon in the twentieth century and running to tens of thousands of "
+  "lines.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Gorontalo", ["Category:Gorontalo language", "Category:Gorontalo"],
+  "Of northern Sulawesi, and not closely related to its Celebic neighbours — Gorontalo-Mongondow "
+  "is its own branch. Its speakers were Muslim before the Dutch arrived and it was written in "
+  "Arabic script.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Ngaju", ["Category:Ngaju language", "Category:Kaharingan"],
+  "Of central Kalimantan, and the liturgical language of Kaharingan, the indigenous Dayak "
+  "religion that Indonesia recognises administratively as a form of Hinduism because the state "
+  "requires every citizen to hold one of six religions.",
+  "Badan Pusat Statistik Indonesia 2010 census; Ethnologue 2024."),
+ ("Manado Malay", ["Category:Manado Malay", "Category:North Sulawesi"],
+  "A Malay-based creole of North Sulawesi with heavy Portuguese, Dutch and Spanish vocabulary "
+  "from four centuries of contact — *kadera* for chair, *tarigu* for flour. It is the everyday "
+  "language of Manado and a first language for most of the city.",
+  "Ethnologue 2024; Stoel, Focus in Manado Malay (2005)."),
+ ("Maranao", ["Category:Maranao language", "Category:Darangen"],
+  "Of Lanao in Mindanao, and the language of the *Darangen*, an epic of 72,000 lines that takes "
+  "days to sing and is on UNESCO's intangible heritage list. Written in Jawi and in Latin "
+  "letters.",
+  "Philippine Statistics Authority 2020 census; UNESCO Representative List (2008)."),
+ ("Batak Karo", ["Category:Karo language", "Category:Batak script"],
+  "Of the Karo highlands in North Sumatra, and written in Surat Batak — an Indic-derived script "
+  "the Batak peoples used for divination books and magic texts written on folded tree bark, the "
+  "*pustaha*. Latin letters replaced it in general use.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Sabah Malay", ["Category:Sabah Malay", "Category:Sabah"],
+  "The Malay creole that serves as Sabah's lingua franca, spoken across a state with more than "
+  "fifty indigenous languages and no one indigenous majority.",
+  "Ethnologue 2024; Department of Statistics Malaysia."),
+ ("Negeri Sembilan Malay", ["Category:Negeri Sembilan Malay", "Category:Adat perpatih"],
+  "A Malay variety of peninsular Malaysia carried there from Minangkabau in the fifteenth "
+  "century, along with *adat perpatih* — matrilineal customary law, still in force in Negeri "
+  "Sembilan and nowhere else in Malaysia.",
+  "Ethnologue 2024; Department of Statistics Malaysia."),
+ ("Tetum", ["Category:Tetum language", "Category:East Timor"],
+  "A national language of Timor-Leste alongside Portuguese, and the one people actually speak. "
+  "Tetun Dili, the capital's form, absorbed so much Portuguese during four centuries of colonial "
+  "rule and twenty-four years of Indonesian occupation that it is effectively a distinct "
+  "variety, and it is the language independence was argued in.",
+  "Direção-Geral de Estatística, Timor-Leste 2022 census."),
+ ("Ibanag", ["Category:Ibanag language", "Ibanag dictionary Bugarin"],
+  "Of the Cagayan valley in northern Luzon, and once the lingua franca of the whole valley under "
+  "Spanish missionary use. José Bugarin's Ibanag dictionary, completed about 1700, is among the "
+  "earliest for any Philippine language.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Capiznon", ["Category:Capiznon language", "Category:Capiz"],
+  "Of Capiz on Panay, between Hiligaynon and Waray in the Bisayan continuum and taking features "
+  "from both.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Komering", ["Category:Komering language", "Category:Lampung script"],
+  "Of southern Sumatra, and written in Surat Ulu — a branch of the old Indic-derived scripts of "
+  "Sumatra, used on bamboo and bark for law codes and poetry.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Masbatenyo", ["Category:Masbatenyo language", "Category:Masbate"],
+  "Of Masbate island, at the meeting point of the Bikol and Bisayan areas and intermediate "
+  "between them.",
+  "Philippine Statistics Authority 2020 census."),
+ ("Sumbawa", ["Category:Sumbawa language", "Category:Sumbawa"],
+  "Of western Sumbawa, and closer to Sasak and Balinese than to its eastern neighbours on the "
+  "same island — the Tambora eruption of 1815, the largest in recorded history, wiped out the "
+  "island's other language, Tambora, which was not Austronesian at all.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Osing", ["Category:Osing language", "Category:Banyuwangi"],
+  "Of Banyuwangi at Java's eastern tip, and the closest thing to a surviving descendant of the "
+  "language of Blambangan, the last Hindu kingdom on Java. Its speakers were long treated as "
+  "Javanese and now assert otherwise.",
+  "Badan Pusat Statistik Indonesia 2010 census."),
+ ("Kambera", ["Category:Kambera language", "Category:Sumba"],
+  "Of eastern Sumba, and the language of a ritual poetry of paired lines in which every phrase "
+  "has a fixed partner — a form recorded in detail and unusually well described for eastern "
+  "Indonesia.",
+  "Klamer, A Grammar of Kambera (1998)."),
+ ("Iriga Bicolano", ["Category:Bikol language", "Category:Rinconada Bikol"],
+  "Rinconada Bikol, of the Iriga area in Camarines Sur. Bikol is several languages rather than "
+  "one, and Rinconada is distinct enough from coastal Bikol to be hard going for its speakers.",
+  "Philippine Statistics Authority 2020 census."),
+ ("West Coast Bajau", ["Category:Bajau language", "Category:Sama-Bajau"],
+  "One of the Sama-Bajaw languages of the sea nomads, spoken along Sabah's west coast. Bajau "
+  "Laut communities lived aboard boats across the Sulu and Celebes seas into living memory, and "
+  "some remain stateless because they were born at sea.",
+  "Ethnologue 2024; Department of Statistics Malaysia."),
+ # ---- the three with a grammar and nothing here
+ ("Pazeh-Kahabu", ["Category:Pazeh language", "Category:Formosan languages"],
+  "A Northwest Formosan language, and a primary-branch member of Austronesian at the same depth "
+  "as everything from Malagasy to Hawaiian. Its last fluent speaker, Pan Jin-yu, died in 2010 at "
+  "the age of 96; a Kahabu revival community continues with it and a dictionary was published "
+  "in 2013.",
+  "Li and Tsuchida, Pazih Dictionary (2001); Ethnologue 2024."),
+ ("Eastern Tawbuid", ["Category:Tawbuid language", "Category:Mangyan"],
+  "A Mangyan language of Mindoro in the Philippines. Several Mangyan languages are written in "
+  "Surat Mangyan, an Indic-derived syllabary still used for *ambahan* poetry inscribed on bamboo "
+  "— one of very few pre-Hispanic Philippine scripts in continuous use.",
+  "Ethnologue 2024; UNESCO Memory of the World, Philippine paleographs (1999)."),
+ ("Ga'dang", ["Category:Gaddang language", "Category:Cagayan Valley"],
+  "A Northern Luzon language of the Cagayan valley, distinct from the larger Gaddang alongside "
+  "it. Its speakers live in the mountains between the valley and the Cordillera.",
+  "Philippine Statistics Authority 2020 census; Walrod, Discourse Grammar in Ga'dang (1979)."),
+
+ # ---- the single-language primary branches of Austronesian, which Glottolog files as
+ # languages because that is what they are: a whole primary branch, with one member.
+ ("Bunun", ["Category:Bunun language", "Category:Bunun people"],
+  "A single language, and a primary branch of Austronesian in its own right — the same rank as "
+  "everything from Malagasy to Hawaiian put together. Bunun is spoken in Taiwan's central "
+  "mountains and is known for the *pasibutbut*, a polyphonic harvest song sung in gradually ",
+  "Ethnologue 2024; Council of Indigenous Peoples, Taiwan."),
+ ("Paiwan", ["Category:Paiwan language", "Category:Paiwan people"],
+  "Another single-language primary branch, in southern Taiwan. Paiwan has an elaborate system of "
+  "noble and commoner registers and a rich carving tradition; its position in the tree makes it ",
+  "Ethnologue 2024; Council of Indigenous Peoples, Taiwan."),
+ ("Rukai", ["Category:Rukai language", "Category:Formosan languages"],
+  "A primary branch of one language, and the most divergent of all of them — Rukai lacks features "
+  "reconstructed for Proto-Austronesian that every other branch keeps, and several linguists ",
+  "Zeitoun, A Grammar of Mantauran Rukai (2007); Ethnologue 2024."),
+ ("Puyuma", ["Category:Puyuma language", "Category:Formosan languages"],
+  "A primary branch of one language, in southeastern Taiwan. Puyuma, Rukai and Tsouic are the "
+  "three branches most often argued to be the earliest divisions, which would make the whole ",
+  "Teng, A Reference Grammar of Puyuma (2008); Ethnologue 2024."),
 ]
 
 

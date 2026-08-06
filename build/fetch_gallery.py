@@ -59,7 +59,7 @@ NOT_AN_ARTEFACT = re.compile(
     r"|\bwikipedia\b|\bwikimedia\b|\bwiktionary\b|\bwikisource\b|\bwikidata\b"
     # Wikivoyage banners are named "<Language> phrasebook banner" and "banner" is in the
     # WRITING_TITLE allowlist, so they walked straight through it.
-    r"|\bwikivoyage\b|phrasebook banner"
+    r"|\bwikivoyage\b|phrasebook banner|wikimedians|user group"
     r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
     r"|\bfamily tree\b|\bcladogram\b|\bvenn\b"
     # Photographs of Wikimedia community events are about the project, not the language.

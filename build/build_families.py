@@ -1045,6 +1045,127 @@ AC_BRANCH = {
   "invention is documented step by step.",
 }
 
+AN_BRANCH = {
+ "Malayo-Polynesian":
+  "One of Austronesian's ten primary branches, and the one that left: 1,255 languages from "
+  "Madagascar to Rapa Nui, across two oceans and 210 degrees of longitude. The other nine "
+  "branches are all on Taiwan. Everything below this node happened after a crossing of the "
+  "Bashi Channel around 2000 BCE, and it is the largest area any language family reached before "
+  "the age of European empires.",
+ "Atayalic":
+  "One of the nine primary branches of Austronesian confined to Taiwan — Atayal and Truku, in "
+  "the northern mountains. A branch of the family at the same depth as Malayo-Polynesian's "
+  "1,255 languages, with two.",
+ "Tsouic":
+  "Tsou and its relatives in Taiwan's central mountains. A primary branch whose internal unity "
+  "is itself questioned — the languages placed in it may not be each other's closest relatives.",
+ "East Formosan":
+  "Kavalan, Basay, Amis and their relatives along Taiwan's eastern coast and northern tip. Amis "
+  "is the largest surviving Formosan language; Basay and several others are gone.",
+ "Northwest Formosan":
+  "Saisiyat and Kulon-Pazeh, in northwestern Taiwan. Pazeh's last fluent speaker died in 2010; "
+  "Kahabu speakers and a revival community continue with it.",
+ "Western Plains Austronesian":
+  "The languages of Taiwan's western plains — Thao, Papora, Hoanya, Siraya. These were the first "
+  "Formosan peoples to meet Dutch, Chinese and Japanese settlement, and almost all their "
+  "languages are gone. Siraya is being revived from a seventeenth-century Dutch gospel "
+  "translation.",
+ "Eastern Malayo-Polynesian":
+  "The eastern half of the great expansion — the languages of Halmahera, New Guinea's coasts and "
+  "everything in the Pacific beyond. Its Oceanic subgroup is one of the best-reconstructed "
+  "subgroups of any family anywhere.",
+ "Oceanic":
+  "Five hundred and twenty-three languages across the Pacific, all descended from one language "
+  "spoken in the Bismarck Archipelago around 1200 BCE — the language of the people who made "
+  "Lapita pottery. The archaeological trail and the linguistic tree agree with each other "
+  "closely enough that Oceanic is the standard example of the two disciplines confirming a "
+  "single migration.",
+ "Western Oceanic linkage":
+  "The Oceanic languages of New Guinea's north coast, New Britain, New Ireland and the western "
+  "Solomons. Called a linkage rather than a subgroup on purpose: these languages did not descend "
+  "from one ancestor by clean splits but diverged in place, in continuous contact, so the "
+  "boundaries between them run in overlapping bands rather than branching lines.",
+ "Meso Melanesian linkage":
+  "The Oceanic languages of New Ireland, the Solomons and northwest New Britain. Another linkage, "
+  "and one where centuries of trade and intermarriage make the family tree a poor picture of "
+  "what actually happened.",
+ "Papuan Tip linkage":
+  "The Oceanic languages of the southeastern tail of New Guinea and the islands off it, "
+  "including the Trobriands — where Malinowski's fieldwork in Kilivila between 1915 and 1918 "
+  "effectively invented modern ethnography.",
+ "North and Central Vanuatu":
+  "Vanuatu has more languages per head of population than anywhere on earth: about 130 languages "
+  "for 300,000 people, most of them Oceanic and most with a few hundred speakers. Bislama, an "
+  "English-lexifier creole, is what the country actually uses in common.",
+ "Central Pacific linkage":
+  "Fijian, Rotuman and the Polynesian languages together. Polynesian is a subgroup inside Fijian's "
+  "immediate neighbourhood, which is the linguistic form of the fact that the settlement of the "
+  "remote Pacific set out from there.",
+ "Polynesian":
+  "Thirty-nine languages spread over ten million square kilometres of ocean — Hawaiian, Māori, "
+  "Samoan, Tongan, Tahitian, Rapa Nui — and so closely related that a Tongan and a Samoan can "
+  "find their way through each other's speech. That combination, enormous distance and small "
+  "difference, is the signature of a fast deliberate migration by people who knew how to sail "
+  "and how to come back.",
+ "East Polynesian":
+  "Hawaiian, Māori, Tahitian, Rapa Nui, Marquesan and their relatives — the last major "
+  "settlement of empty land anywhere on earth, completed between about 900 and 1300. New Zealand "
+  "was the final large landmass on the planet to be reached by people, and Māori is what they "
+  "brought.",
+ "Micronesian":
+  "The languages of the Carolines, Marshalls, Kiribati and Nauru, spread over a scattering of "
+  "atolls across an area the size of the continental United States. Marshallese and Kiribati "
+  "navigators mapped that ocean with stick charts recording swell patterns rather than "
+  "coastlines.",
+ "Greater Central Philippine":
+  "Tagalog, Bikol, the Bisayan languages, Maranao, Maguindanao and their relatives — the "
+  "majority of the Philippines' population. Tagalog became Filipino, the national language, "
+  "which is one reason Cebuano has more native speakers than Tagalog and less standing.",
+ "Central Philippine":
+  "Tagalog, Bikol and Bisayan proper. The Philippines was written before Spanish contact in "
+  "Baybayin, an Indic-derived script; Spanish printing displaced it within a century, and it has "
+  "been revived as a cultural marker rather than an everyday orthography.",
+ "Bisayan":
+  "Cebuano, Hiligaynon, Waray, Kinaray-a and their relatives across the central Philippines. "
+  "Cebuano has more first-language speakers than Tagalog and no official status of its own, "
+  "which is a live political question rather than a historical one.",
+ "Northern Luzon":
+  "Ilocano, Pangasinan, Ibanag, Kalinga, Ifugao and their neighbours. The Ifugao *hudhud* chants, "
+  "which take days to perform and are sung at harvest and at wakes, are on UNESCO's intangible "
+  "heritage list.",
+ "Malayo-Chamic":
+  "Malay, Indonesian, Minangkabau and the Chamic languages of Vietnam and Cambodia. Chamic is the "
+  "branch that went to the mainland: Cham was the language of a Hindu-Buddhist kingdom in "
+  "central Vietnam, and its earliest inscription of about 350 CE is the oldest written "
+  "Austronesian anywhere.",
+ "Malayic":
+  "Malay and its close relatives across Sumatra, Borneo and the peninsula. Malay's history is "
+  "unusual: it was a trade language of the Straits for a thousand years before it was anyone's "
+  "national language, which is why Indonesia adopted it in 1928 over Javanese, spoken by far "
+  "more people — a lingua franca belongs to nobody, which was the point.",
+ "Chamic":
+  "The Austronesian languages of Vietnam and Cambodia — Cham, Jarai, Rade, Chru. Long contact "
+  "with Mon-Khmer has restructured them so heavily that they have taken on the shape of "
+  "mainland Southeast Asian languages while remaining Austronesian by descent.",
+ "Celebic":
+  "The languages of central and eastern Sulawesi — Bugis's neighbours, Mori, Tolaki, Bungku. "
+  "Sulawesi's shape gives it an unusual linguistic map: four long peninsulas meeting at a "
+  "mountainous centre, with distinct languages up each one.",
+ "North Borneo Malayo-Polynesian":
+  "The languages of Sabah, Brunei and northern Kalimantan — Dusun, Kadazan, Murut, and the "
+  "Sama-Bajaw languages of the sea nomads, whose speakers lived on boats across the Sulu and "
+  "Celebes seas and are among the last maritime nomadic peoples anywhere.",
+ "Greater Barito linkage":
+  "The languages of southeastern Borneo — and the origin of Malagasy. Malagasy's closest "
+  "relatives are here, seven thousand kilometres away across the Indian Ocean, which is how we "
+  "know Madagascar was settled from Borneo around 700 CE. It is the longest prehistoric ocean "
+  "migration attested by language.",
+ "Timor-Babar":
+  "The Austronesian languages of Timor and the islands east of it, including Tetum, a national "
+  "language of Timor-Leste alongside Portuguese. They sit alongside Papuan languages on the same "
+  "islands, and the two families have been exchanging structure for millennia.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -1139,7 +1260,7 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
-    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH):
+    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH, AN_BRANCH):
         for nm, txt in src.items():
             hit = names.get(nm) or []
             if len(hit) != 1:
