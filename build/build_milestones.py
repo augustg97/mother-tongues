@@ -34,6 +34,366 @@ GL = os.path.join(ROOT, "data", "glottolog", "languages.csv")
 
 # (year, approximate?, event). Negative years are BCE.
 M: dict[str, list] = {
+    # ---- INDO-EUROPEAN DEEP PASS ----------------------------------------------------------
+    # 90 Indo-European languages carried a museum label and no dated events. These are the 39
+    # with the most active writing communities. The recurring shape of these timelines is worth
+    # noticing on its own: a first attestation, then a long silence, then a printed Bible or a
+    # dictionary that fixes a standard, then a ban, then a revival. Ukrainian, Lithuanian,
+    # Breton, Belarusian and Silesian all have a ban in them.
+
+ "Ukrainian": [
+   (1056, False, "the Ostromir Gospels, in the Church Slavonic that Ukrainian and Russian both "
+                 "grew out of"),
+   (1556, True, "the Peresopnytsia Gospel, scripture put into a language close to the spoken "
+                "one — Ukrainian presidents are sworn in on it"),
+   (1798, False, "Kotliarevsky's Eneida, the first book written in the living vernacular rather "
+                 "than a bookish register"),
+   (1840, False, "Shevchenko's Kobzar builds a literary standard out of ordinary speech"),
+   (1863, False, "the Valuev Circular declares that a separate Ukrainian language 'never "
+                 "existed, does not exist and cannot exist', and bans most printing in it"),
+   (1876, False, "the Ems Ukaz extends the ban to imports, to the stage and to sheet music"),
+   (1928, False, "the Kharkiv orthography, agreed by a conference of both Soviet and western "
+                 "Ukrainian scholars; it is abolished five years later"),
+   (1991, False, "the state language of an independent Ukraine"),
+ ],
+ "Swedish": [
+   (800, True, "the runic inscriptions begin; Sweden holds more runestones than anywhere else"),
+   (1225, True, "the Västgötalagen, the oldest text in Swedish, a provincial law code"),
+   (1541, False, "the Gustav Vasa Bible fixes a written standard and is the reason 1526 is "
+                 "taken as the start of Modern Swedish"),
+   (1786, False, "the Swedish Academy founded, to 'purity, strength and majesty' of the language"),
+   (1906, False, "a spelling reform replaces hv- with v- and simplifies the verb"),
+   (1974, True, "the du-reform: within a few years almost all formal address disappears and "
+                "everyone is addressed as du"),
+   (2009, False, "Swedish becomes the principal language of Sweden by statute — it had never "
+                 "been declared one before"),
+ ],
+ "Romanian": [
+   (1521, False, "Neacșu's letter, the oldest surviving text in Romanian, warning of an Ottoman "
+                 "movement; written in Cyrillic"),
+   (1582, False, "the Palia de la Orăștie, the first Romanian printing of scripture"),
+   (1688, False, "the Bucharest Bible, the whole scripture in Romanian"),
+   (1780, True, "the Transylvanian School argues Romanian's Latin descent and begins replacing "
+                "Slavic vocabulary with Romance"),
+   (1860, False, "the Latin alphabet replaces Cyrillic officially"),
+   (1953, True, "Soviet Moldova keeps Cyrillic for the same language; it returns to Latin in 1989"),
+   (1993, False, "a spelling reform restores â inside words, reversing a communist-era rule"),
+ ],
+ "Bulgarian": [
+   (886, False, "Cyril and Methodius's pupils arrive in Bulgaria after being expelled from "
+                "Moravia; the Preslav school develops Cyrillic out of Greek uncials"),
+   (900, True, "Old Church Slavonic becomes the liturgical language of Slavic Christianity, and "
+               "carries Cyrillic to Serbia and the Rus"),
+   (1300, True, "Bulgarian loses almost all its noun cases and grows a definite article stuck to "
+                "the end of the word — grammatically it moves toward its Balkan neighbours and "
+                "away from its Slavic relatives"),
+   (1762, False, "Paisius of Hilendar's history begins the national revival"),
+   (1878, False, "an independent Bulgaria adopts the language of the eastern dialects"),
+   (1945, False, "an orthographic reform drops the yat and the big yus"),
+   (2007, False, "Cyrillic becomes the third official script of the European Union"),
+ ],
+ "Norwegian": [
+   (1300, True, "Old Norwegian is written and then goes quiet: the Black Death and union with "
+                "Denmark leave Danish as the written language for four centuries"),
+   (1814, False, "independence from Denmark with no written Norwegian to return to"),
+   (1848, False, "Ivar Aasen publishes a grammar built from dialects he collected on foot, "
+                 "creating Landsmål — the ancestor of Nynorsk"),
+   (1885, False, "parliament makes the two written forms equal"),
+   (1907, True, "the Dano-Norwegian standard is reformed toward Norwegian speech, becoming "
+                "Bokmål"),
+   (1938, False, "a reform tries to merge the two into one Samnorsk; it is resisted and "
+                 "eventually abandoned in 2002"),
+ ],
+ "Serbian-Croatian-Bosnian": [
+   (1186, True, "the Miroslav Gospel, in Cyrillic, one of the great manuscripts of the Balkans"),
+   (1483, False, "the Missale Romanum Glagolitice, the first book printed in Glagolitic"),
+   (1818, False, "Vuk Karadžić's dictionary and his reformed Cyrillic: one letter per sound, "
+                 "'write as you speak'"),
+   (1850, False, "the Vienna Literary Agreement, in which Serb and Croat writers agree on one "
+                 "literary language"),
+   (1954, False, "the Novi Sad Agreement reaffirms it as a single language with two variants"),
+   (1991, True, "the state breaks up and so does the name; the same language is now four"),
+ ],
+ "Danish": [
+   (965, True, "the larger Jelling stone, called Denmark's birth certificate, in runes"),
+   (1241, False, "the Code of Jutland, the oldest substantial Danish prose"),
+   (1550, False, "the Christian III Bible, the first complete Danish scripture"),
+   (1700, True, "Danish consonants weaken and are swallowed far beyond its neighbours' — the "
+                "reason Danish is written like Norwegian and does not sound like it"),
+   (1948, False, "a spelling reform ends the capitalisation of nouns and adds å for aa"),
+ ],
+ "Slovak": [
+   (1787, False, "Bernolák codifies a standard on western Slovak; it does not hold"),
+   (1843, False, "Ľudovít Štúr replaces it with a central Slovak standard, further from Czech "
+                 "and closer to what most people speak"),
+   (1918, False, "an official language of Czechoslovakia, in practice subordinate to Czech"),
+   (1993, False, "the state language of an independent Slovakia"),
+   (1995, False, "a state language law regulates its use in public life"),
+ ],
+ "Lithuanian": [
+   (1503, True, "the earliest surviving Lithuanian writing, a handwritten prayer in a book"),
+   (1547, False, "Mažvydas's Catechism, the first printed Lithuanian book"),
+   (1864, False, "printing Lithuanian in Latin letters is banned in the Russian Empire; books "
+                 "are printed in Prussia and smuggled by the knygnešiai, the book carriers"),
+   (1904, False, "the ban is lifted after forty years"),
+   (1918, False, "the state language of an independent Lithuania"),
+   (1918, True, "comparative linguists adopt Lithuanian as a control for Indo-European, because "
+                "it kept case endings, dual number and pitch accent that Sanskrit's other "
+                "cousins lost"),
+ ],
+ "Latvian": [
+   (1585, False, "the first Latvian book, a Catholic catechism"),
+   (1685, False, "Glück's Bible translation, which fixes a written standard"),
+   (1873, False, "the first Latvian Song Festival, which keeps the language in public voice "
+                 "under German and then Russian administration"),
+   (1908, True, "the modern orthography replaces the old German-based spelling"),
+   (1918, False, "the state language of an independent Latvia"),
+   (1988, False, "restored as the state language before independence itself"),
+ ],
+ "Slovenian": [
+   (1000, True, "the Freising manuscripts, the oldest text in any Slavic language in Latin "
+                "letters"),
+   (1550, False, "Primož Trubar publishes the first printed Slovene book and coins the word "
+                 "Slovenci for its readers"),
+   (1584, False, "Dalmatin's Bible and Bohorič's grammar in the same year"),
+   (1843, True, "the gajica alphabet, borrowed from Croatian, replaces the older bohoričica"),
+   (1991, False, "the state language of an independent Slovenia"),
+ ],
+ "Macedonian": [
+   (1903, True, "Krste Misirkov argues in print for a separate Macedonian literary language"),
+   (1944, False, "codified as the official language of the Macedonian republic within Yugoslavia "
+                 "— the last Slavic language to be standardised"),
+   (1945, False, "its alphabet fixed, one letter per sound, with ѓ and ќ that no other Cyrillic "
+                 "has"),
+   (2018, False, "the Prespa Agreement records that the language is called Macedonian"),
+ ],
+ "Afrikaans": [
+   (1830, True, "written first in Arabic script, in the madrasas of the Cape Malay community, "
+                "decades before it was written in Latin letters"),
+   (1875, False, "the Genootskap van Regte Afrikaners founded to promote it as a written "
+                 "language in its own right"),
+   (1925, False, "replaces Dutch as an official language of South Africa"),
+   (1933, False, "the Bible in Afrikaans"),
+   (1976, False, "the Soweto uprising begins against Afrikaans being made the medium of "
+                 "instruction; the language's association with the state costs it dearly"),
+   (1996, False, "one of eleven official languages of a democratic South Africa"),
+ ],
+ "Galician": [
+   (1200, True, "Galician-Portuguese is the language of lyric poetry across Iberia; Castilian "
+                "kings write their songs in it"),
+   (1350, True, "the Séculos Escuros begin — four centuries in which Galician is spoken "
+                "everywhere and written almost nowhere"),
+   (1863, False, "Rosalía de Castro's Cantares gallegos reopens the written language"),
+   (1906, False, "the Real Academia Galega founded"),
+   (1981, False, "co-official in Galicia under its Statute of Autonomy"),
+ ],
+ "Northern Tosk Albanian": [
+   (1462, True, "the Formula e pagëzimit, a baptismal formula, the oldest recorded Albanian"),
+   (1555, False, "Buzuku's Meshari, the first Albanian book"),
+   (1908, False, "the Congress of Manastir settles on a Latin alphabet, ending decades of "
+                 "competing scripts"),
+   (1972, False, "the Congress of Orthography fixes a unified standard built on Tosk"),
+ ],
+ "Occitan": [
+   (1100, True, "the first troubadour lyrics; the form and its vocabulary spread to Italy, "
+                "Catalonia and Germany"),
+   (1323, False, "the Consistori del Gay Saber founded at Toulouse to regulate the poetry — "
+                 "among the first language academies anywhere"),
+   (1539, False, "the Ordinance of Villers-Cotterêts requires French in all legal acts, removing "
+                 "Occitan from administration"),
+   (1854, False, "Frédéric Mistral and the Félibrige begin a literary revival"),
+   (1904, False, "Mistral takes the Nobel Prize for literature, written in Occitan"),
+   (2010, False, "Aranese, the Occitan of the Val d'Aran, becomes co-official in Catalonia"),
+ ],
+ "Breton": [
+   (800, True, "Old Breton glosses in Latin manuscripts, the earliest record"),
+   (1499, False, "the Catholicon, a Breton-French-Latin dictionary and the first Breton "
+                 "dictionary printed"),
+   (1839, False, "La Villemarqué's Barzaz Breiz collects the ballads, and starts a long argument "
+                 "about how much he rewrote"),
+   (1902, True, "the Symbole: children caught speaking Breton at school are made to wear a "
+                "token and pass it on to the next offender"),
+   (1941, False, "a unified orthography agreed under occupation, which taints it for decades"),
+   (1977, False, "the first Diwan immersion school opens"),
+ ],
+ "Gujarati": [
+   (1592, True, "the earliest Gujarati prose"),
+   (1797, False, "the first Gujarati printing type cut in Bombay"),
+   (1909, False, "Gandhi writes Hind Swaraj in Gujarati; his autobiography follows in the same "
+                 "language"),
+   (1936, False, "the Gujarat Vidyapith standardises the spelling"),
+ ],
+ "Western Frisian": [
+   (1200, True, "Old Frisian law texts, the closest recorded relative of Old English"),
+   (1550, True, "Gysbert Japix begins writing literary Frisian, almost single-handedly reviving "
+                "it as a written language"),
+   (1937, False, "permitted as a subject in Dutch schools"),
+   (1951, False, "Kneppelfreed — a riot over the refusal of Frisian in court — leads to its "
+                 "admission there"),
+   (1956, False, "recognised for use in the courts of Friesland"),
+ ],
+ "Central Kurdish": [
+   (1600, True, "Ahmad Khani's Mem û Zîn, the Kurdish national epic, written in Kurmanji"),
+   (1898, False, "Kurdistan, the first Kurdish newspaper, printed in Cairo"),
+   (1932, False, "Celadet Bedirxan devises the Latin alphabet now used for Kurmanji"),
+   (1938, True, "Sorani's Arabic-based alphabet is reformed to mark every vowel"),
+   (2005, False, "Kurdish becomes an official language of Iraq alongside Arabic"),
+ ],
+ "Northern Kurdish": [
+   (1596, False, "the Sharafnama, a history of the Kurds, though written in Persian"),
+   (1695, True, "Mem û Zîn, in Kurmanji"),
+   (1932, False, "Celadet Bedirxan's Latin alphabet, published in the journal Hawar"),
+   (1983, False, "publishing and broadcasting in Kurdish banned in Turkey; the ban is lifted in "
+                 "1991 and broadcasting permitted from 2002"),
+ ],
+ "Marathi": [
+   (700, True, "the earliest Marathi inscription"),
+   (1290, False, "the Dnyaneshwari, a commentary on the Gita, and the beginning of Marathi "
+                 "devotional literature"),
+   (1600, True, "Modi script comes into administrative use and stays for three centuries"),
+   (1805, False, "the first Marathi book printed"),
+   (1950, True, "Devanagari replaces Modi entirely; Modi is now read only by archivists"),
+   (2024, False, "declared a classical language of India"),
+ ],
+ "Urdu": [
+   (1300, True, "Amir Khusrau writes verse mixing Persian and the speech of Delhi"),
+   (1611, True, "the Deccan sultanates produce the first substantial literature in the language"),
+   (1780, True, "Mir and Sauda establish the ghazal in Urdu at Delhi and Lucknow"),
+   (1837, False, "replaces Persian as the language of the lower courts in British India"),
+   (1867, True, "the Hindi-Urdu controversy begins: the same speech, two scripts, two claimed "
+                "identities"),
+   (1947, False, "the national language of Pakistan, though the first language of a small "
+                 "minority there"),
+ ],
+ "Assamese": [
+   (1200, True, "the Kamarupa inscriptions in an early eastern Indo-Aryan"),
+   (1450, True, "Sankardeva's Vaishnava writings and his one-act ankiya nat plays, still "
+                "performed"),
+   (1836, False, "Bengali is imposed as the language of Assam's courts and schools"),
+   (1873, False, "Assamese restored, after a campaign led partly by American Baptist "
+                 "missionaries who had printed in it"),
+   (2024, False, "declared a classical language of India"),
+ ],
+ "Sinhala": [
+   (-300, True, "Brahmi inscriptions in caves, the earliest Sinhala"),
+   (900, True, "the graffiti on the Sigiriya mirror wall — verses scratched by visitors, the "
+               "oldest Sinhala poetry and among the earliest casual writing anywhere"),
+   (1200, True, "classical Sinhala literature at Polonnaruwa"),
+   (1956, False, "the Sinhala Only Act makes it the sole official language, displacing English "
+                 "and excluding Tamil; the consequences are severe and lasting"),
+   (1987, False, "Tamil is made an official language alongside it"),
+ ],
+ "Nepali": [
+   (1337, True, "the earliest dated Nepali inscription"),
+   (1768, True, "the Gorkha conquest spreads it across the hills as an administrative language"),
+   (1830, True, "Bhanubhakta Acharya translates the Ramayana into Nepali, giving it a literary "
+                "standard"),
+   (1958, False, "the official language of Nepal"),
+   (1992, False, "a scheduled language of India, for Darjeeling and Sikkim"),
+ ],
+ "Odia": [
+   (1051, True, "the earliest Odia inscription"),
+   (1500, True, "Sarala Das's Mahabharata, the first great work in Odia"),
+   (1870, True, "a campaign argues Odia is not a dialect of Bengali; a colonial commission "
+                "agrees"),
+   (1936, False, "Orissa becomes the first Indian province formed on linguistic lines"),
+   (2014, False, "declared a classical language of India, the sixth"),
+ ],
+ "Eastern Panjabi": [
+   (1539, True, "Guru Nanak's compositions, later collected in the Guru Granth Sahib"),
+   (1550, True, "Guru Angad standardises Gurmukhi"),
+   (1604, False, "the Adi Granth compiled at Amritsar"),
+   (1966, False, "Punjab reorganised on linguistic lines after a long agitation"),
+ ],
+ "Tajik": [
+   (1928, False, "the Perso-Arabic script replaced by Latin"),
+   (1940, False, "Latin replaced by Cyrillic; two script changes in twelve years"),
+   (1989, False, "made the state language of the Tajik SSR, with a stated intention to return "
+                 "to Perso-Arabic that has not happened"),
+   (1994, False, "the state language of independent Tajikistan"),
+ ],
+ "Belarusian": [
+   (1517, False, "Francysk Skaryna prints the Bible in Prague, among the first printed books in "
+                 "an East Slavic language"),
+   (1588, False, "the Statutes of Lithuania, written in the Ruthenian chancery language"),
+   (1918, False, "Branislaw Taraškievič codifies a grammar; the standard is named after him"),
+   (1933, False, "a Soviet reform moves the orthography toward Russian; both standards remain "
+                 "in use and the choice is political"),
+   (1995, False, "a referendum makes Russian co-official, and Belarusian recedes from public "
+                 "life"),
+ ],
+ "Bavarian": [
+   (750, True, "Old Bavarian glosses and the Wessobrunn Prayer"),
+   (1500, True, "Bavarian chancery writing gives way to the emerging High German standard"),
+   (1970, True, "dialect literature and broadcasting revive, while transmission to children "
+                "falls"),
+   (2009, False, "UNESCO lists Bavarian as vulnerable"),
+ ],
+ "Scots": [
+   (1375, False, "Barbour's Brus, the first major poem in Scots"),
+   (1494, True, "Scots is the language of the Scottish parliament and courts"),
+   (1603, False, "the union of crowns takes the court to London; printing follows and the "
+                 "written standard is absorbed into English"),
+   (1786, False, "Burns's Kilmarnock edition, written in Scots by choice"),
+   (2001, False, "recognised under the European Charter for Regional or Minority Languages"),
+ ],
+ "Haitian": [
+   (1700, True, "the language forms on the plantations of Saint-Domingue out of French and the "
+                "Gbe languages of West Africa"),
+   (1804, False, "independence, with French kept as the language of state and Creole spoken by "
+                 "everyone"),
+   (1940, True, "the first systematic orthography proposed by Ormonde McConnell"),
+   (1979, False, "the official orthography adopted, phonemic rather than French-based"),
+   (1987, False, "made co-official with French by the new constitution"),
+ ],
+ "Moselle Franconian": [
+   (1829, False, "the first dictionary of the Luxembourg dialect"),
+   (1946, True, "a first official orthography, revised in 1975 and 1999"),
+   (1984, False, "Luxembourgish made a national language of Luxembourg alongside French and "
+                 "German"),
+   (2019, False, "a law establishes a commissioner and a twenty-year plan for the language"),
+ ],
+ "Central Alemannic": [
+   (1900, True, "Standard German is the written language; Swiss German is not written and is "
+                "spoken at every level of society"),
+   (1938, True, "Swiss German broadcasting expands as a deliberate assertion of difference from "
+                "Germany"),
+   (2000, True, "text messaging and then social media put Swiss German into writing for the "
+                "first time at scale, with no agreed spelling"),
+ ],
+ "Venetian": [
+   (1250, True, "Venetian is written in commercial and diplomatic documents across the eastern "
+                "Mediterranean"),
+   (1516, True, "as the language of a trading empire it lends words to Greek, Turkish and "
+                "Arabic — and gives English arsenal, ghetto, lagoon and regatta"),
+   (1760, True, "Goldoni writes his comedies in Venetian"),
+   (2007, False, "recognised by the Veneto region; not recognised by the Italian state"),
+ ],
+ "Silesian": [
+   (1500, True, "Silesian written in German-language administrative contexts, with Polish and "
+                "Czech features"),
+   (2003, False, "given an ISO code, which is often the first formal recognition a contested "
+                 "language gets"),
+   (2011, False, "509,000 people declare it as a home language in the Polish census"),
+   (2024, False, "the Polish parliament votes to recognise it as a regional language; the "
+                 "president vetoes"),
+ ],
+ "Fiji Hindi": [
+   (1879, False, "indentured labour begins from India to Fiji; Awadhi, Bhojpuri and other "
+                 "varieties are carried together"),
+   (1920, True, "the varieties level into one new language within two generations"),
+   (1977, False, "a standard orthography proposed in Latin letters"),
+   (2013, False, "recognised in Fiji's constitution alongside English and Fijian"),
+ ],
+ "Aragonese": [
+   (1100, True, "the Glosas Emilianenses, whose Romance may be Aragonese rather than Castilian — "
+                "the question is argued"),
+   (1300, True, "Aragonese is the chancery language of the Crown of Aragon"),
+   (1500, True, "Castilian displaces it from writing"),
+   (1987, False, "a first modern orthography agreed at Huesca"),
+   (2009, False, "given legal status in Aragon; the law is largely repealed in 2013"),
+ ],
+
     "English": [
         (449, True, "Germanic-speaking Angles, Saxons and Jutes cross into Britain; the "
                     "language they bring has no name yet"),
