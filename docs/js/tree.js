@@ -948,6 +948,15 @@
         '<p class="exfine">Composed from the record — its place in the catalogue, the ' +
         'endangerment assessment, the depth of description published about it, and what this ' +
         'museum holds. Not an authored label.</p>';
+      // The nearest branch above it that someone has written about. A composed paragraph says
+      // where a language sits; its branch says what happened to the speech, and one branch
+      // covers every language under it — Caribbean English Creole explains seventeen at once.
+      const nb = A.descr && A.descr.near_branch && A.descr.near_branch[n.g];
+      const nbt = nb && A.families && A.families.branch_text
+        && A.families.branch_text[nb[0]];
+      if (nbt) h += '<h3>Its branch</h3><p class="exstory" style="font-size:13.5px">' +
+        '<b>' + esc(nb[1]) + '</b> — ' + emph(esc(nbt)) + '</p>' +
+        '<p class="exfine">This describes the branch, not this language on its own.</p>';
     }
 
     const ms = A.milestones && A.milestones.by_glottocode && A.milestones.by_glottocode[n.g];

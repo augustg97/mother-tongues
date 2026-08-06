@@ -101,6 +101,16 @@ def territory(name: str) -> str:
     return ("the " + name) if NEEDS_THE.search(name) else name
 
 
+def article(word: str) -> str:
+    """a or an, by the sound the name starts with.
+
+    "A Indo-European language" was on every unlabelled Indo-European card. Vowel letters take
+    "an" except U, which in family names is consistently the "yoo" sound — a Uralic language,
+    a Uto-Aztecan language — so it takes "a".
+    """
+    return "an" if word[:1].upper() in "AEIO" else "a"
+
+
 def join(items: list[str]) -> str:
     items = [i for i in items if i]
     if not items:
@@ -121,6 +131,7 @@ def main() -> None:
 
     fams = json.load(open(os.path.join(WEB, "families.json"), encoding="utf-8"))
     famrec = fams["by_glottocode"]
+    branch_authored = fams.get("branch_text") or {}
     node_clusters = fams.get("clusters_by_node") or {}
 
     def keys(path, sub=None):
@@ -141,6 +152,12 @@ def main() -> None:
     labelled = keys("notable.json", "by_glottocode")
 
     out: dict[str, str] = {}
+    # THE NEAREST AUTHORED BRANCH ABOVE AN UNLABELLED LANGUAGE. 61 branches carry real prose and
+    # 457 unlabelled languages sit under one of them — Caribbean English Creole explains 17
+    # languages at once, Bihari 23, Rajasthani 22. A composed description says where a language
+    # sits; its branch says what happened to the speech. The card shows both, and says which is
+    # which, because a paragraph about a group is not a paragraph about a language.
+    near_branch: dict[str, list] = {}
     branch: dict[str, str] = {}
     famtext: dict[str, str] = {}
     bstats = {"own": 0, "composed": 0}
@@ -232,7 +249,7 @@ def main() -> None:
             mem = members(n)
             if not mem:
                 return
-            bits = ["A branch of " + fam_name + "."]
+            bits = ["A branch of " + fam_name + "."]   # "of" needs no article
             cs: dict[str, int] = {}
             for m in mem:
                 r2 = row.get(m["g"])
@@ -258,6 +275,13 @@ def main() -> None:
 
         def describe(n, path, parent):
             gc = n["g"]
+            # ⚠ BEFORE the early returns. A language that has its own substantive description
+            # still gains from its branch's; only an authored museum label makes it redundant.
+            if gc not in labelled:
+                for anc in reversed(path):
+                    if anc.get("g") in branch_authored:
+                        near_branch[gc] = [anc["g"], anc.get("n", "")]
+                        break
             if gc in labelled:
                 stats["authored"] += 1
                 return
@@ -287,9 +311,11 @@ def main() -> None:
                             (", " + where if where else "") + ".")
                 stats["clause"]["cluster"] += 1
             elif where:
-                bits.append("A " + fam_name + " language, " + where + ".")
+                bits.append(article(fam_name).capitalize() + " " + fam_name +
+                            " language, " + where + ".")
             elif fam_name:
-                bits.append("A " + fam_name + " language.")
+                bits.append(article(fam_name).capitalize() + " " + fam_name +
+                            " language.")
             if where:
                 stats["clause"]["where"] += 1
 
@@ -361,7 +387,8 @@ def main() -> None:
     json.dump({"note": "Composed from this build's own record, one clause per datum, nothing "
                        "invented. Shown only where no authored museum label exists, and always "
                        "labelled in the card as composed rather than written.",
-               "by_glottocode": out, "branches": branch, "families": famtext},
+               "by_glottocode": out, "branches": branch, "families": famtext,
+               "near_branch": near_branch},
               open(os.path.join(WEB, "descriptions.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
 
@@ -376,6 +403,8 @@ def main() -> None:
     print("   clauses actually emitted:")
     for k, v in stats["clause"].items():
         print(f"      {k:10s} {v:6,}")
+    print(f"   {len(near_branch):,} unlabelled languages point at the nearest authored branch "
+          f"above them")
     print(f"   families: {len(famtext):,} newly composed "
           f"(the 70 with authored prose keep it)")
     print(f"   branches: {bstats['own']:,} had a description of their own, "
