@@ -289,6 +289,47 @@ def gate_audio() -> None:
           f"language's own passage here · the archive holds {A.get('available', 0):,}")
 
 
+def gate_freshness() -> None:
+    """Nothing derived from languages.json may be older than languages.json.
+
+    The measurement that made this necessary: build_descriptions.py crashed on a changed field
+    shape, and build_site.py published anyway — every gate passed, because they all read the
+    STALE descriptions.json still sitting on disk from the previous run. A failed builder is
+    invisible to a gate that only checks the file's contents. This checks its age.
+    """
+    print("2i. every derived file is newer than the record it derives from")
+    base = os.path.join(WEB, "data", "languages.json")
+    if not os.path.exists(base):
+        die("languages.json is missing")
+    t0 = os.path.getmtime(base)
+    # ONLY the composed and name-resolved tiers. These read languages.json directly — for the
+    # rows they describe, or to turn an authored Glottolog NAME into a code — so a changed record
+    # genuinely invalidates them, and every one rebuilds in seconds.
+    #
+    # The fetch-backed files (gallery, alphabets, words, texts, audio, wikipedia) are deliberately
+    # NOT here. They are keyed by glottocode from an upstream fetch and do not read the record at
+    # all; listing them would force a ten-minute refetch after any field rebuild, which is how a
+    # gate stops being run. Their keys are checked by gates 2c–2f instead.
+    derived = ["descriptions.json", "families.json", "notable.json", "phrases.json",
+               "milestones.json"]
+    stale = []
+    for f in derived:
+        p = os.path.join(WEB, "data", f)
+        if not os.path.exists(p):
+            die(f"{f} is missing")
+        if os.path.getmtime(p) < t0:
+            stale.append(f)
+    # The genealogy is 430 per-family files, not one. Any one of them older than the record is
+    # the same defect.
+    td = os.path.join(WEB, "data", "tree")
+    old_trees = [f for f in os.listdir(td) if os.path.getmtime(os.path.join(td, f)) < t0]
+    if old_trees:
+        stale.append(f"{len(old_trees)} of {len(os.listdir(td))} tree/ files")
+    if stale:
+        die("stale, rebuild before publishing: " + ", ".join(stale))
+    print(f"   {len(derived)} derived files, all rebuilt since languages.json")
+
+
 def gate_phrases() -> None:
     """The authored word-and-phrase tier, and the one claim it has to keep honest.
 
@@ -541,6 +582,7 @@ if __name__ == "__main__":
     gate_alphabets()
     gate_gallery()
     gate_audio()
+    gate_freshness()
     gate_phrases()
     gate_descriptions()
     gate_registration()

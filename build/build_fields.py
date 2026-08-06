@@ -675,7 +675,18 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
     if os.path.exists(sp2):
         # Rule 14: a bare number is not a datum. Keep only counts that carry a YEAR, so the
         # triple (value, year, source) is complete; drop the rest rather than imply currency.
-        spk = {k: v for k, v in json.load(open(sp2, encoding="utf-8")).items() if v[1]}
+        spk = {k: [int(v[0]), str(v[1]), "Wikidata (P1098)"]
+               for k, v in json.load(open(sp2, encoding="utf-8")).items() if v[1]}
+    # The authored tier fills the hole that discipline leaves. Wikidata's P1098 frequently has no
+    # point-in-time qualifier, so the rule above drops ~757 counts — correctly, and among them the
+    # national languages of several EU states. build_speakers.py supplies the year and the
+    # authority for those, and an authored triple BEATS an undated or a stale fetched one.
+    spa = os.path.join(ROOT, "data", "master", "speakers_authored.json")
+    if os.path.exists(spa):
+        A = json.load(open(spa, encoding="utf-8"))["by_glottocode"]
+        for gc, (v, y, s) in A.items():
+            spk[gc] = [int(v), str(y), s]
+        log(f"    speakers: {len(A)} authored triples merged over the fetched set")
     # CLDR: a locale's name for ITSELF — "suomi", "русский", "日本語". These are the cleanest
     # autonyms available for the world's widely-spoken languages, which is exactly where
     # Wikidata's P1705 is thinnest. Keys are BCP-47: three-letter ones are ISO 639-3 and join

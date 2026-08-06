@@ -219,7 +219,10 @@ def main() -> None:
             spk = [(row[m["g"]][F["sp"]], m.get("n")) for m in mem
                    if row.get(m["g"]) and row[m["g"]][F["sp"]]]
             if spk and len(mem) > 1:
-                (v, y), nm2 = max(spk, key=lambda t: t[0][0])
+                # sp is the rule-14 triple (value, year, source); the composer needs the
+                # first two. Unpacking it as a pair broke the moment the source arrived.
+                trip, nm2 = max(spk, key=lambda t: t[0][0])
+                v, y = trip[0], trip[1]
                 bits.append("The most spoken of them is " + nm2 + ", with " + f"{int(v):,}" +
                             " speakers as of " + str(y) + ".")
             dead = sum(1 for m in mem if str(m.get("a")) == "6")
@@ -264,7 +267,10 @@ def main() -> None:
             spk = [(row[m["g"]][F["sp"]], m.get("n")) for m in mem
                    if row.get(m["g"]) and row[m["g"]][F["sp"]]]
             if spk:
-                (v, y), nm2 = max(spk, key=lambda t: t[0][0])
+                # sp is the rule-14 triple (value, year, source); the composer needs the
+                # first two. Unpacking it as a pair broke the moment the source arrived.
+                trip, nm2 = max(spk, key=lambda t: t[0][0])
+                v, y = trip[0], trip[1]
                 bits.append("The most spoken of them is " + nm2 + ", with " + f"{int(v):,}" +
                             " speakers as of " + str(y) + ".")
             alive = [m for m in mem if str(m.get("a")) not in ("6",)]

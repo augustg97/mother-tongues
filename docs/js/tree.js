@@ -1014,13 +1014,19 @@
     const facts = [];
     if (n.a) facts.push(['vitality', AESN[n.a]]);
     if (n.y) facts.push(['first attested', n.y < 0 ? (-n.y) + ' BCE' : String(n.y)]);
-    if (n.sp) facts.push(['speakers', n.sp[0].toLocaleString() + '  ·  as of ' + n.sp[1]]);
+    // Rule 14: the count is a TRIPLE. Showing the value and the year without the authority
+    // invites the reader to trust a figure that may have been copied forward for decades.
+    if (n.sp) facts.push(['speakers', n.sp[0].toLocaleString() + '  ·  as of ' + n.sp[1],
+                          n.sp[2] || '']);
     if (n.cc) facts.push(['countries', n.cc]);
     if (n.i) facts.push(['ISO 639-3', n.i]);
     facts.push(['glottocode', n.g]);
     if (tx && tx.s) facts.push(['script', tx.s + (tx.d === 'rtl' ? ', right to left' : '')]);
+    // A fact may carry a third element: the authority behind it, set small under the value.
     h += '<dl class="exfacts">' + facts.map(f =>
-      '<dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd>').join('') + '</dl>';
+      '<dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) +
+      (f[2] ? '<span class="exfine" style="display:block">' + esc(f[2]) + '</span>' : '') +
+      '</dd>').join('') + '</dl>';
 
     const ty = A.typology && A.typology.by_glottocode && A.typology.by_glottocode[n.g];
     if (ty) h += '<h3>How it works</h3><p class="exstory" style="font-size:14px">' +
