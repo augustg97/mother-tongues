@@ -2876,6 +2876,153 @@ E = [
   "families spoken in a single multilingual cultural system where communities intermarry across "
   "language lines and everyone is multilingual by design.",
   "Seki, Gramática do Kamaiurá (2000); IBGE 2010 census."),
+ # ---- FIVE FAMILIES THAT HAD ZERO LABELS — Nilotic, Cariban, Nakh-Daghestanian,
+ # Salishan, Central Sudanic — plus the largest unlabelled in Mayan, Quechuan and Algic.
+
+ # ---------------- NAKH-DAGHESTANIAN. Thirty-six languages in one corner of the Caucasus, and
+ # some of the most complex grammar described anywhere.
+ ("Chechen", ["Category:Chechen language", "Category:Chechen literature"],
+  "The largest Nakh-Daghestanian language, and one of the hardest in the world to learn from "
+  "outside: it has around thirty consonants, up to forty-four vowel distinctions depending on "
+  "the analysis, and eight noun classes with agreement running through the verb. Written in "
+  "Arabic script, then Latin, then Cyrillic from 1938. The 1944 deportation of the entire "
+  "Chechen population to Central Asia and the wars of the 1990s both scattered its speakers.",
+  "Russian Federal Census 2021; Nichols, Chechen (1994)."),
+ ("Avar", ["Category:Avar language", "Category:Dagestan"],
+  "The lingua franca of highland Dagestan, a republic with more than thirty indigenous languages "
+  "in an area the size of Denmark — the densest concentration of unrelated languages in Eurasia. "
+  "Avar served as the common tongue between valleys before Russian did, and it is the language "
+  "of Rasul Gamzatov's poetry.",
+  "Russian Federal Census 2021; Charachidzé, Grammaire de la langue avar (1981)."),
+ ("Lezgian", ["Category:Lezgian language", "Category:Lezgins"],
+  "Spoken on both sides of the Russia–Azerbaijan border, which was closed in 1991 and split the "
+  "Lezgin people between two states. It has eighteen noun cases and a system of spatial cases "
+  "that distinguishes not only where something is but whether it is behind, under, among or "
+  "inside the thing named.",
+  "Russian Federal Census 2021; Haspelmath, A Grammar of Lezgian (1993)."),
+ ("Ingush", ["Category:Ingush language", "Category:Ingushetia"],
+  "Chechen's closest relative and mutually intelligible with it at the margins. The Ingush were "
+  "deported with the Chechens in 1944 and about a quarter died; the language's speaker numbers "
+  "have never recovered their pre-war share.",
+  "Russian Federal Census 2021; Nichols, Ingush Grammar (2011)."),
+ ("Tabasaran", ["Category:Tabasaran language", "Category:Dagestan"],
+  "Long cited in reference works as the language with the most noun cases of any — the figure "
+  "given is usually forty-six, though the count depends on whether the spatial forms are treated "
+  "as cases or as postpositions, and specialists differ.",
+  "Russian Federal Census 2021; Magometov, Tabasaranskii yazyk (1965)."),
+ # ---------------- NILOTIC
+ ("Lango (Uganda)", ["Category:Lango language", "Category:Lango sub-region"],
+  "A Southern Luo language of northern Uganda, and the largest Nilotic language with no previous "
+  "entry here. Nilotic languages are spread from South Sudan to Tanzania and include Dinka, "
+  "Nuer, Luo, Maasai and Kalenjin; most are tonal and several distinguish vowel quality by "
+  "breathiness as well.",
+  "Uganda Bureau of Statistics 2014 census; Noonan, A Grammar of Lango (1992)."),
+ ("Adhola", ["Category:Adhola language", "Category:Tororo District"],
+  "A Luo language spoken in eastern Uganda, geographically separated from the other Luo "
+  "languages by Bantu-speaking neighbours — the trace of a migration that moved past and left it "
+  "behind.",
+  "Uganda Bureau of Statistics 2014 census; Ethnologue 2024."),
+ # ---------------- CARIBAN
+ ("Ye'kwana", ["Category:Ye'kwana", "Category:Orinoco"],
+  "A Cariban language of the upper Orinoco in Venezuela and northern Brazil. Cariban languages "
+  "gave European languages the words *cannibal* and *hurricane* — both by way of Spanish "
+  "misapprehensions of Carib and Taíno words — and *Caribbean* itself is named for their "
+  "speakers.",
+  "Ethnologue 2024; Cáceres, Grammaire fonctionnelle-typologique du ye'kwana (2011)."),
+ ("Trió", ["Category:Tiriyó", "Category:Suriname"],
+  "Tiriyó, of the Suriname–Brazil border, and one of the better-described Cariban languages. Its "
+  "speakers were among the last in the Guianas to be reached by missions, in the 1960s.",
+  "Ethnologue 2024; Meira, A Grammar of Tiriyó (1999)."),
+ ("Wayana", ["Category:Wayana", "Category:Guiana Shield"],
+  "Spoken across the borders of Suriname, French Guiana and Brazil. Wayana basketry encodes "
+  "figures from oral narrative in its weave patterns, so the object and the story are the same "
+  "artefact.",
+  "Ethnologue 2024; Tavares, A Grammar of Wayana (2005)."),
+ ("Kuikúro-Kalapálo", ["Category:Kuikuro", "Category:Xingu Indigenous Park"],
+  "A Cariban language of the Upper Xingu, in the same multilingual system as Kamayurá — a dozen "
+  "languages from four unrelated families whose communities intermarry across language lines. "
+  "The Kuikuro have one of the largest video archives made by an Amazonian people of themselves.",
+  "IBGE 2010 census; Franchetto, Kuikuro documentation, Museu Nacional."),
+ # ---------------- SALISHAN
+ ("Northern Straits Salish", ["Category:Salishan languages", "Category:Coast Salish"],
+  "Of southern Vancouver Island and the San Juan Islands. Salishan languages are known for "
+  "consonant clusters that other languages do not permit — Nuxalk allows whole words without any "
+  "vowel at all — and almost every one of the twenty-three is now spoken by a handful of elders "
+  "with revival programmes behind them.",
+  "Statistics Canada 2021 census; Montler, Saanich Grammar (1986)."),
+ ("Bella Coola", ["Category:Nuxalk", "Category:Bella Coola"],
+  "Nuxalk, of the British Columbia coast, and the language behind one of the most-cited facts in "
+  "phonology: it permits words made entirely of consonants, with no vowel and no syllabic "
+  "sonorant. It has very few remaining first-language speakers and a school programme.",
+  "Nater, The Bella Coola Language (1984); Statistics Canada 2021."),
+ ("Squamish", ["Category:Squamish language", "Category:Squamish Nation"],
+  "Sḵwx̱wú7mesh sníchim, of the Vancouver area. The Squamish Nation declared a language emergency "
+  "in 2018 and runs a full-time adult immersion programme; several first-language-fluent adults "
+  "have been produced by it, which almost no Salishan revival had managed before.",
+  "Statistics Canada 2021 census; Squamish Nation Language Programme."),
+ # ---------------- CENTRAL SUDANIC
+ ("Naba", ["Category:Chad", "Category:Nilo-Saharan languages"],
+  "A Central Sudanic language of Chad and the largest of its family here. Central Sudanic sits "
+  "inside Nilo-Saharan, which is the least secure of the major African groupings — several "
+  "specialists doubt it is a family at all rather than a residue of everything not otherwise "
+  "classified.",
+  "Ethnologue 2024; Institut National de la Statistique, Chad."),
+ ("Ngiti", ["Category:Ituri", "Category:Central Sudanic languages"],
+  "Of the Ituri forest in the Democratic Republic of the Congo, and remarkable for its verb: "
+  "Ngiti verbs inflect for tense, aspect and mood in combinations that run into the hundreds of "
+  "distinct forms, described in a grammar that took fifteen years.",
+  "Kutsch Lojenga, Ngiti: A Central-Sudanic Language of Zaire (1994)."),
+ ("Bagirmi", ["Category:Bagirmi", "Category:Chad"],
+  "The language of the Baguirmi sultanate, a state on the Chari river from the sixteenth century "
+  "until the French conquest. It was written in Arabic script and is one of the few Central "
+  "Sudanic languages with a pre-colonial written record.",
+  "Ethnologue 2024; Stevenson, Bagirmi Grammar (1969)."),
+ # ---------------- MAYAN
+ ("Chuj", ["Category:Chuj language", "Category:Huehuetenango"],
+  "A Mayan language of Guatemala's western highlands and Chiapas. Many Chuj speakers crossed into "
+  "Mexico as refugees during the Guatemalan army's highland campaigns of the early 1980s, and "
+  "the language is now spoken on both sides of that border.",
+  "Instituto Nacional de Estadística, Guatemala 2018 census; Ethnologue 2024."),
+ ("Ch'orti'", ["Category:Ch'orti' language", "Category:Copán"],
+  "The closest living relative of Classic Maya — the language of the hieroglyphic inscriptions —"
+  " and therefore central to their decipherment. Ch'orti' is spoken near Copán, one of the great "
+  "inscription sites, by a community of a few tens of thousands.",
+  "Instituto Nacional de Estadística, Guatemala 2018; Hull, A Dictionary of Ch'orti' (2016)."),
+ ("Huastec", ["Category:Huastec language", "Category:Huasteca"],
+  "The most divergent Mayan language and the only one spoken far from the rest — in San Luis "
+  "Potosí and Veracruz, a thousand kilometres northwest of the Maya heartland. Its separation is "
+  "the family's deepest split, estimated at over three thousand years.",
+  "INEGI 2020 census; Edmonson, Huastec Grammar (1988)."),
+ # ---------------- QUECHUAN
+ ("South Bolivian Quechua", ["Category:Quechua language", "Category:Bolivia"],
+  "The largest Quechua variety in Bolivia. Quechua as a whole has more speakers than any other "
+  "indigenous language family in the Americas, and its spread was largely the work of the Inca "
+  "state, which used it as an administrative language across an empire that had no writing — "
+  "records were kept on knotted-cord *quipu* instead.",
+  "Instituto Nacional de Estadística, Bolivia 2012 census; Ethnologue 2024."),
+ ("Ayacucho Quechua", ["Category:Quechua language", "Category:Ayacucho"],
+  "Of the southern Peruvian highlands. Ayacucho was the centre of the Shining Path conflict, in "
+  "which roughly three-quarters of the dead were Quechua speakers — a fact the Peruvian truth "
+  "commission identified as inseparable from how little the state heard them.",
+  "INEI Peru 2017 census; Comisión de la Verdad y Reconciliación (2003)."),
+ # ---------------- ALGIC
+ ("Plains Cree", ["Category:Cree language", "Category:Canadian Aboriginal syllabics"],
+  "The largest Cree variety, written in Canadian Aboriginal syllabics — a script devised for Cree "
+  "about 1840 and adopted so quickly and completely that literacy was near-universal within a "
+  "generation, before any school system existed. The same syllabary was later adapted for "
+  "Inuktitut and Ojibwe.",
+  "Statistics Canada 2021 census; Wolfart, Plains Cree: A Grammatical Study (1973)."),
+ ("Mi'kmaq", ["Category:Mi'kmaq language", "Category:Mi'kmaw hieroglyphic writing"],
+  "Of the Canadian Maritimes, and the language of one of very few indigenous North American "
+  "writing systems: Mi'kmaw hieroglyphs, recorded by French missionaries in the seventeenth "
+  "century and probably built on an existing mnemonic tradition. Nova Scotia made Mi'kmaw its "
+  "first official language in 2022.",
+  "Statistics Canada 2021 census; Mi'kmaw Language Act (Nova Scotia, 2022)."),
+ ("Montagnais", ["Category:Innu-aimun", "Category:Innu"],
+  "Innu-aimun, of Quebec and Labrador, and one of the stronger indigenous languages in Canada — "
+  "still learned by children in several communities, which is rare enough in North America to be "
+  "the exception that proves the pattern.",
+  "Statistics Canada 2021 census; Ethnologue 2024."),
 ]
 
 
