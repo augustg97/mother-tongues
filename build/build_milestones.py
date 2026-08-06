@@ -1638,6 +1638,186 @@ M: dict[str, list] = {
    (2011, False, "the census records over a million speakers, the largest Tibeto-Burman language "
                  "of Nepal"),
  ],
+ # ---- PAMA-NYUNGAN. The dates here are almost all colonial dates, and that is the
+ # finding rather than a framing choice: with no writing before 1770, a language of this
+ # family enters the record when somebody from outside writes it down and leaves it when
+ # the last speaker dies. Between those points: missions, protection acts, removals — and
+ # from the 1970s, land rights, bilingual schools and revivals. Several of these end going
+ # up.
+
+ "Guugu Yimidhirr": [
+   (1770, False, "Cook's *Endeavour* is beached for repairs; Banks and Cook record about 130 "
+                 "words — the first Australian language written down, and the source of English "
+                 "*kangaroo*"),
+   (1886, False, "the Lutheran mission at Cape Bedford (Hopevale) is founded and begins "
+                 "publishing in the language"),
+   (1942, False, "the Hopevale community is forcibly removed to Woorabinda, 1,500 km south; "
+                 "about a quarter die there"),
+   (1949, False, "they are allowed to return"),
+   (1979, False, "Haviland's account of Guugu Yimidhirr spatial reference — no words for left "
+                 "and right, compass directions for everything — enters the cognitive-science "
+                 "literature"),
+ ],
+ "Dyirbal": [
+   (1963, True, "Dixon begins fieldwork in the Cardwell rainforest"),
+   (1972, False, "*The Dyirbal Language of North Queensland*, including the first full account "
+                 "of *Jalnguy*, the avoidance vocabulary"),
+   (1987, False, "Lakoff's *Women, Fire, and Dangerous Things* takes its title from one Dyirbal "
+                 "noun class"),
+   (1991, True, "Dixon documents the language's collapse in a single generation — young "
+                "speakers' Dyirbal has restructured toward English"),
+ ],
+ "Warlpiri": [
+   (1928, False, "the Coniston massacre; Warlpiri people are driven south and east off their "
+                 "country"),
+   (1946, True, "Yuendumu is established as a government settlement"),
+   (1974, False, "bilingual education begins at Yuendumu — Warlpiri-medium schooling, among the "
+                 "first in Australia"),
+   (1983, False, "Hale's paper on Warlpiri word order makes it a standard reference in syntactic "
+                 "theory"),
+   (1998, False, "the Northern Territory announces the end of bilingual programmes; Warlpiri "
+                 "communities fight it and several survive"),
+   (2022, False, "the *Warlpiri Encyclopaedic Dictionary*, forty years in the making"),
+ ],
+ "Dieri": [
+   (1867, False, "the Lutheran mission at Killalpaninna is founded on Cooper Creek"),
+   (1897, False, "the New Testament is printed in Diyari — one of the first Aboriginal languages "
+                 "to have scripture"),
+   (1900, True, "Diyari people write letters to each other in Diyari; some survive, among the "
+                "earliest writing by Aboriginal Australians in their own language"),
+   (1915, False, "the mission closes; the community is dispersed"),
+   (1981, False, "Austin's grammar, from the last fluent speakers"),
+   (2013, False, "a Diyari revival programme begins"),
+ ],
+ "Gumatj": [
+   (1963, False, "the Yirrkala bark petitions — typed Yolŋu Matha and English pasted onto "
+                 "painted bark, sent to the Australian parliament against a bauxite lease"),
+   (1971, False, "*Milirrpum v Nabalco*: the court accepts that Yolŋu law exists and holds that "
+                 "it confers no title"),
+   (1976, False, "the Aboriginal Land Rights (Northern Territory) Act, passed largely because of "
+                 "that case"),
+   (1992, False, "*Mabo* overturns terra nullius, twenty-one years after Milirrpum"),
+   (2008, False, "the Yolŋu-language *Gurrumul* album reaches number three on the Australian "
+                 "charts"),
+ ],
+ "Dhangu": [
+   (1935, True, "the Methodist mission at Elcho Island is established"),
+   (1957, False, "the Elcho Island memorial — sacred objects set publicly before the mission, a "
+                 "declaration of Yolŋu law in Yolŋu terms"),
+   (1963, False, "the Yirrkala bark petitions"),
+   (1974, True, "Yolŋu Matha bilingual education begins in Arnhem Land schools"),
+ ],
+ "Kala Lagaw Ya": [
+   (1871, False, "the London Missionary Society arrives at Erub — the Coming of the Light, still "
+                 "the Torres Strait's principal holiday"),
+   (1936, False, "the Torres Strait maritime strike, the first organised Indigenous industrial "
+                 "action in Australia"),
+   (1985, True, "an orthography is standardised for the western and central islands"),
+   (1992, False, "*Mabo* is decided; Eddie Mabo was a Meriam man from the eastern strait, whose "
+                 "islands speak Papuan Meriam Mir rather than this language"),
+ ],
+ "Nyunga": [
+   (1829, False, "the Swan River Colony is founded on Noongar country"),
+   (1842, False, "Symmons publishes a grammatical outline of Noongar"),
+   (1905, False, "the Aborigines Act gives the Chief Protector legal guardianship of every "
+                 "Aboriginal child in Western Australia; removals accelerate and transmission "
+                 "stops"),
+   (1976, False, "Douglas's description of the southwest languages"),
+   (1997, False, "Noongar language programmes begin in Western Australian schools"),
+   (2020, False, "*Hecate*, a Noongar-language Shakespeare, is staged in Perth"),
+ ],
+ "Wiradhuri": [
+   (1824, False, "martial law is declared in the Bathurst district during the Wiradjuri "
+                 "resistance led by Windradyne"),
+   (1834, True, "Threlkeld and the missionary record of the region begins"),
+   (1900, True, "the last generation of fluent speakers; transmission stops under the removal "
+                "policies"),
+   (2005, False, "Wiradjuri is taught in NSW schools for the first time"),
+   (2010, False, "Grant and Rudder's *A New Wiradjuri Dictionary*"),
+   (2017, False, "the NSW Aboriginal Languages Act — the first Australian law to recognise "
+                 "Aboriginal languages as belonging to the people whose languages they are"),
+ ],
+ "Kumbainggar": [
+   (1900, True, "transmission stops on the NSW mid-north coast under the Aborigines Protection "
+                "Act"),
+   (1960, True, "Gerald Smythe records Gumbaynggirr from the last fluent speakers"),
+   (1986, False, "Muurrbay Aboriginal Language and Culture Co-operative is founded at Nambucca "
+                 "Heads"),
+   (2001, False, "the Gumbaynggirr dictionary and learner's grammar"),
+   (2016, True, "Gumbaynggirr is taught from preschool upward and has new fluent speakers"),
+ ],
+ "Narrinyeri": [
+   (1859, False, "Taplin founds the Point McLeay mission on Lake Alexandrina"),
+   (1874, False, "Taplin publishes *The Narrinyeri*, with grammar and vocabulary"),
+   (1964, True, "the last fluent speakers die"),
+   (1990, True, "the Ngarrindjeri revival begins from Taplin's records and community memory"),
+   (2009, False, "*Ngarrindjeri Yanun*, a learner's grammar"),
+ ],
+ "Paakantyi": [
+   (1856, True, "the Darling River pastoral frontier reaches Barkindji country"),
+   (1993, False, "Hercus's *Paakantyi Dictionary*, from the last speakers"),
+   (2015, False, "the Barkindji win native title over 128,000 square kilometres, one of the "
+                 "largest determinations in New South Wales"),
+   (2018, True, "Barkindji is taught in Wilcannia and Broken Hill schools"),
+ ],
+ "Western Arrarnta": [
+   (1877, False, "the Lutheran mission at Hermannsburg (Ntaria) is founded"),
+   (1891, False, "the first Arrernte primer is printed"),
+   (1907, False, "Carl Strehlow's *Die Aranda- und Loritja-Stämme* begins publication, written "
+                 "from work conducted in Arrernte"),
+   (1956, False, "T. G. H. Strehlow's *Aranda Traditions*"),
+   (1974, False, "Arrernte bilingual education begins at Ntaria"),
+ ],
+ "Pintupi-Luritja": [
+   (1932, True, "the first sustained contact between Pintupi people and the settler frontier"),
+   (1960, True, "Pintupi families are moved east to Papunya during the desert droughts"),
+   (1971, False, "the Papunya painting movement begins with a school mural"),
+   (1981, False, "Kintore is established and Pintupi families return west toward their country"),
+   (1984, False, "the Pintupi Nine walk out of the Gibson Desert — the last Aboriginal people to "
+                 "make contact"),
+ ],
+ "Yindjibarndi": [
+   (1866, True, "pastoral settlement reaches the Fortescue"),
+   (1946, False, "the Pilbara strike begins — Aboriginal pastoral workers walk off the stations, "
+                 "and it lasts three years"),
+   (1982, False, "Wordick's *The Yindjibarndi Language*"),
+   (2019, False, "*Warrie v Western Australia* recognises exclusive native title over country "
+                 "containing one of the world's largest iron ore mines"),
+ ],
+ "Yankunytjatjara": [
+   (1937, True, "Ernabella mission is founded, with an unusual policy of teaching in the "
+                "language rather than in English"),
+   (1953, False, "the British nuclear tests at Emu Field and then Maralinga; Anangu are moved "
+                 "off their country and some are exposed"),
+   (1981, False, "the Pitjantjatjara Land Rights Act returns freehold title to Anangu"),
+   (1985, False, "Uluru is handed back to its traditional owners"),
+   (1985, False, "Goddard's *A Grammar of Yankunytjatjara*"),
+ ],
+ "Kaytetye": [
+   (1874, False, "the Overland Telegraph line is built through Kaytetye country"),
+   (1928, False, "the Coniston massacre reaches Kaytetye country as well as Warlpiri"),
+   (2012, False, "the *Kaytetye to English Dictionary*, recording the ecological knowledge "
+                 "attached to the words as well as the words"),
+ ],
+ "Yanyuwa": [
+   (1886, True, "pastoral settlement reaches the Gulf country around Borroloola"),
+   (1992, False, "*Yanyuwa Wuka: Language from Yanyuwa Country*, documenting the separate men's "
+                 "and women's noun-class systems"),
+   (2016, True, "fewer than a dozen fluent speakers remain, all of them senior"),
+ ],
+ "Malgana": [
+   (1616, False, "Dirk Hartog lands at Shark Bay — the earliest European landfall on Malgana "
+                 "country, and among the earliest anywhere in Australia"),
+   (1900, True, "transmission stops"),
+   (2019, False, "Austin's *A Reference Dictionary of Malgana*, compiled from archival records"),
+   (2021, True, "Malgana is taught at Shark Bay school and its place names return to the "
+                "country's signage"),
+ ],
+ "Djiwarli": [
+   (1970, True, "Peter Austin begins work with Jack Butler, the last fluent speaker of Jiwarli"),
+   (1986, False, "Butler dies; the recordings and texts are what remains"),
+   (1997, False, "the Jiwarli texts are published — a complete corpus from one man's memory"),
+ ],
 }
 
 

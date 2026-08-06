@@ -845,6 +845,102 @@ ST_BRANCH = {
   "entering the record at once.",
 }
 
+PN_BRANCH = {
+ "Paman":
+  "The languages of Cape York, and the northern half of the family's name — *pama* is the word "
+  "for 'person' there, as *nyunga* is in the southwest, and the family was named for the two ends "
+  "of the continent it spans. Paman is where Australian phonology gets strange: several of these "
+  "languages underwent drastic initial-consonant loss, so words that elsewhere begin with a "
+  "consonant here begin with a vowel or nothing, and the family's usual look breaks down.",
+ "Wik":
+  "The Wik languages of western Cape York, around Aurukun. Wik-Mungkan is one of the stronger "
+  "Australian languages, still learned by children. The Wik peoples' 1996 High Court case "
+  "established that native title and pastoral leases can coexist, which changed Australian "
+  "property law.",
+ "Northern Pama":
+  "The languages of the top of Cape York, several of them with the initial-dropping that makes "
+  "Paman distinctive. Most have no speakers left; the documentation is largely Bruce Sommer's and "
+  "Terry Crowley's fieldwork of the 1960s and 1970s.",
+ "Yuulngu":
+  "The Yolŋu languages of northeast Arnhem Land — the strongest surviving group in the family, "
+  "and the one where language and clan identity are formally bound together. A Yolŋu person "
+  "belongs to a clan and to that clan's variety, speaks several others, and chooses among them "
+  "by who is present. They are Pama-Nyungan surrounded by non-Pama-Nyungan languages, which is "
+  "one of the family's unsolved geographic puzzles.",
+ "Desert Nyungic":
+  "The Western Desert languages: Pitjantjatjara, Yankunytjatjara, Ngaanyatjarra, Pintupi, "
+  "Kukatja, Manyjilyjarra and the rest, mutually intelligible across two thousand kilometres of "
+  "desert — one of the largest dialect continua on earth. Its varieties are named for their word "
+  "for 'come' or 'this', because that is the audible difference between neighbours.",
+ "Wati":
+  "The Wati group inside the Western Desert, and the part of the family with the best prospects: "
+  "several of these languages are still learned by children, taught in schools their communities "
+  "run, and used in media and land administration across an area larger than most countries.",
+ "Ngayarda":
+  "The languages of the inland Pilbara. Most have few or no speakers, and much of what is known "
+  "was recorded by Carl von Brandenstein and Alan Dench within a decade of the last fluent "
+  "generation. Martuthunira's grammar was written from work with Algy Paterson, its last speaker.",
+ "Pilbara":
+  "The Pilbara languages taken together — Ngayarda, Kanyara, Mantharta and their neighbours. "
+  "Colonised late and hard: the region's pastoral industry ran on Aboriginal labour under "
+  "conditions that ended only with the 1946 Pilbara strike, the longest strike in Australian "
+  "history, and the language shift followed the same timeline.",
+ "Karnic":
+  "The languages of the Lake Eyre basin and the Channel Country. Almost none is spoken, and yet "
+  "they are among the best-documented extinct languages anywhere, because Luise Hercus spent "
+  "forty years recording them from the last speakers. Diyari is the exception in another "
+  "direction: Lutheran missionaries printed a New Testament in it in 1897.",
+ "Arandic-Thura-Yura":
+  "Arandic and Thura-Yura, from central Australia down to the Adelaide plains. Arandic phonology "
+  "is unlike anything else in the family — Arrernte has been analysed as having syllables that "
+  "run vowel-consonant rather than consonant-vowel, which almost no language does.",
+ "Thura-Yura":
+  "The languages of the Flinders Ranges, Eyre Peninsula and the Adelaide plains — Adnyamathanha, "
+  "Nukunu, Narungga, Kaurna. Kaurna, the language of Adelaide, stopped being spoken in the "
+  "nineteenth century and has been reconstructed from two German missionaries' 1840 records into "
+  "a taught, spoken language again.",
+ "Maric":
+  "The languages of interior Queensland, covering an enormous area and almost entirely silent "
+  "now. Gavan Breen's grammars of Bidyara, Gungabula and their neighbours, written in the 1970s "
+  "from the last speakers, are most of what survives.",
+ "Greater Maric":
+  "Maric and its nearest relatives across central and southern Queensland. The group is held "
+  "together by shared pronoun and case morphology rather than by sound changes, which is the "
+  "usual situation in this family and the reason its higher nodes stay provisional.",
+ "New South Wales Pama-Nyungan":
+  "Wiradjuri, Gamilaraay, Ngiyambaa, Gumbaynggirr, Dharug and their neighbours — the languages of "
+  "the country colonised first and hardest, all of which stopped being spoken. Nearly all of them "
+  "are now in revival, taught from archival records and community memory; New South Wales passed "
+  "an Aboriginal Languages Act in 2017, the first law in Australia to recognise Aboriginal "
+  "languages as belonging to the people whose languages they are.",
+ "Victorian Pama-Nyungan":
+  "The languages of Victoria, none of them spoken continuously into the present and several now "
+  "in revival — Woiwurrung, Boonwurrung, Wergaia, Gunditjmara. The Victorian Aboriginal "
+  "Corporation for Languages has run reclamation from archival sources since 1994.",
+ "Southeastern Pama-Nyungan":
+  "The whole southeastern quarter of the family, from the Murray to the coast. Its languages were "
+  "the first to meet the frontier and the first to fall silent, which means their record is "
+  "mostly nineteenth-century word lists written by settlers, missionaries and police — and that "
+  "those lists are now the raw material of a dozen revivals.",
+ "South-West Pama-Nyungan":
+  "The languages of southwestern Western Australia, Noongar chief among them. Noongar covers a "
+  "dialect continuum from Perth around to Esperance; its revival has produced dictionaries, "
+  "school programmes, place-name restorations and, in 2020, a Noongar-language Shakespeare.",
+ "Compromise Middle Pama":
+  "A middle-Cape York grouping whose name records an argument: the branch was proposed as a "
+  "compromise between competing classifications of the Paman languages, and Glottolog keeps the "
+  "name. It is a good reminder that a node in this tree can be a negotiated position rather than "
+  "a finding.",
+ "Guwa-Maric":
+  "Maric together with Guwa and Yanda of the Queensland interior. Like most higher nodes in this "
+  "family it rests on shared morphology and on computational phylogeny rather than on classical "
+  "sound-change reconstruction, and it is not universally accepted.",
+ "Kartu":
+  "The languages of the Murchison and Shark Bay coast of Western Australia — Nhanda, Malgana, "
+  "Wajarri, Badimaya. Nhanda is another of the family's phonological outliers: it lost initial "
+  "consonants, like the Paman languages three thousand kilometres away, and did it independently.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -939,7 +1035,7 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
-    for src in (IE_BRANCH, ST_BRANCH):
+    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH):
         for nm, txt in src.items():
             hit = names.get(nm) or []
             if len(hit) != 1:

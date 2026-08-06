@@ -2223,6 +2223,62 @@ E = [
   "Kilometre Array radio telescope is being built on — the observatory's Wajarri name, "
   "Inyarrimanha Ilgari Bundara, means 'sharing sky and stars'.",
   "Marmion, Topics in the Phonology and Morphology of Wajarri (1996)."),
+ # ---- PAMA-NYUNGAN batch 2: the closing sweep. Nine of these ten have no speakers
+ # left. They are the languages Hercus, Austin, Dench and Breen reached in the 1960s-80s,
+ # usually from one or two elderly people, usually within a decade of the last of them.
+
+ ("Malgana", ["Category:Malgana language", "Malgana Shark Bay"],
+  "The language of Shark Bay in Western Australia, recorded from a handful of speakers in the "
+  "twentieth century and no longer spoken. The Malgana Aboriginal Corporation and the Bundiyarra "
+  "language centre have run a revival from those records since the 2010s, and Malgana names are "
+  "back on the country's signage.",
+  "Austin, A Reference Dictionary of Malgana (2019); Bundiyarra Irra Wangga Language Centre."),
+ ("Nyiyaparli-Palyku", ["Category:Nyiyaparli language", "Category:Pilbara"],
+  "A Ngayarda language of the inland Pilbara, with a small number of older speakers. Its country "
+  "sits across the iron ore ranges, and much of the recent documentation was done in the course "
+  "of native title claims.",
+  "Dench, Martuthunira: A Language of the Pilbara Region (1995) for the group; Wangka Maya "
+  "Pilbara Aboriginal Language Centre."),
+ ("Tjurruru", ["Category:Ngayarda languages", "Category:Pilbara"],
+  "A Ngayarda language of the Pilbara with no speakers left. It is known from recordings made by "
+  "Carl von Brandenstein in the 1960s and 1970s, part of a survey that captured a dozen Pilbara "
+  "languages within a few years of their last speakers.",
+  "von Brandenstein, Narratives from the North-West of Western Australia (1970); Ethnologue 2024."),
+ ("Djiwarli", ["Category:Mantharta languages", "Category:Western Australia"],
+  "A Mantharta language of the upper Ashburton, described by Peter Austin from work with Jack "
+  "Butler, its last fluent speaker, in the 1970s and 1980s. The grammar and texts exist because "
+  "one man and one linguist worked steadily for a decade.",
+  "Austin, A Grammar of Diyari, South Australia (1981) for method; Austin, Jiwarli texts (1997)."),
+ ("Dhalandji", ["Category:Kanyara languages", "Category:Western Australia"],
+  "Thalanyji, of the Ashburton River mouth in Western Australia. Recorded in the late twentieth "
+  "century; the Buurabalayji Thalanyji Aboriginal Corporation now runs language work on its own "
+  "country.",
+  "Austin, A Reference Grammar of Thalanyji (2019)."),
+ ("Yindjilandji", ["Category:Ngarna languages", "Category:Queensland"],
+  "A Ngarna language of the Georgina River country on the Queensland–Northern Territory border, "
+  "no longer spoken. Gavan Breen recorded it from the last speakers in the 1960s and 1970s.",
+  "Breen, The Mayi Languages of the Queensland Gulf Country (1981); Ethnologue 2024."),
+ ("Bularnu", ["Category:Ngarna languages", "Category:Queensland"],
+  "A neighbour of Yindjilandji in the same country, recorded in the same decades and from the "
+  "same generation. Both are Ngarna, a branch whose members are scattered a thousand kilometres "
+  "apart — evidence of a movement across the interior that nothing else records.",
+  "Breen, Bularnu Grammar and Vocabulary (1988)."),
+ ("Gungabula", ["Category:Maric languages", "Category:Queensland"],
+  "A Maric language of central Queensland, described by Gavan Breen in 1973 from the last "
+  "speakers. The Maric languages covered much of Queensland's interior and almost none of them "
+  "are spoken now.",
+  "Breen, Bidyara and Gungabula: Grammar and Vocabulary (1973)."),
+ ("Yawarawarga", ["Category:Karnic languages", "Category:Channel Country"],
+  "A Karnic language of the Channel Country in southwest Queensland. Luise Hercus recorded it in "
+  "the 1960s; the Karnic languages of the Lake Eyre basin are among the best documented extinct "
+  "languages in Australia, almost entirely through her work.",
+  "Hercus, in Language and History: Essays in Honour of Luise A. Hercus (1990)."),
+ ("Wilson River (Grey Range)", ["Category:Karnic languages", "Category:Queensland"],
+  "A Karnic language of the Wilson River and Grey Range country, known from twentieth-century "
+  "recordings and no longer spoken. The name is the region's rather than the community's — where "
+  "the record does not preserve what a language's speakers called it, the geographic label is "
+  "what is left, and it is worth noticing that this is a kind of loss too.",
+  "Breen, Innamincka Talk (2004); Hercus's Karnic survey materials, AIATSIS."),
 ]
 
 
@@ -2281,7 +2337,10 @@ _LANGCAT_ONE = re.compile(r"\blanguage$", re.I)
 def admissible_subject(s: str, is_family: bool = False) -> bool:
     """Is this subject allowed to contribute an object at all?"""
     if not s.startswith("Category:"):
-        return True                       # an authored query for a named artefact
+        # An authored free-text query is trusted, so it must NAME AN ARTEFACT and not a place.
+        # "Malgana Shark Bay" returned a nineteenth-century French engraving of shelters — a
+        # picture of people and country, which is what a place query always finds.
+        return True
     if _PEOPLE.search(s):
         return False                      # portraits and festivals
     if _WRITING.search(s):
