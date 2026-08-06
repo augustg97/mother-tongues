@@ -941,6 +941,110 @@ PN_BRANCH = {
   "consonants, like the Paman languages three thousand kilometres away, and did it independently.",
 }
 
+AC_BRANCH = {
+ "Volta-Congo":
+  "Almost the whole family — some 1,343 of its languages, from Senegal to South Africa. The name "
+  "is geographic, for the two rivers between which its oldest divisions sit, and that is the "
+  "point: the deep splits are all in West Africa, in a strip a few hundred kilometres wide, "
+  "while a single sub-branch of one sub-branch covers everything south of the equator.",
+ "Benue-Congo":
+  "A thousand languages, named for the Benue river in Nigeria, and containing both the "
+  "extraordinary density of southeastern Nigeria — where mutually unintelligible languages "
+  "change every few dozen kilometres — and, inside it, the whole Bantu expansion.",
+ "Bantoid":
+  "The branch that contains Bantu and its nearest relatives. Its non-Bantu members are "
+  "concentrated in the Nigeria–Cameroon borderlands, in the Grassfields and the Mambila plateau, "
+  "and that concentration is the main evidence for where the Bantu expansion started.",
+ "Southern Bantoid":
+  "Narrow Bantu together with the Grassfields, Tivoid, Ekoid and Mambiloid languages of the "
+  "Cameroon highlands. Seven hundred languages, of which five hundred and sixty are Bantu and "
+  "the rest sit in an area smaller than Scotland.",
+ "Narrow Bantu":
+  "Five hundred and sixty languages across a third of Africa — Swahili, Zulu, Shona, Kikongo, "
+  "Lingala, Kinyarwanda, Luganda, Xhosa, Sotho — and all of them descended from one language "
+  "spoken in the Cameroon–Nigeria borderlands perhaps three thousand years ago. They share a "
+  "noun-class system of a dozen or more genders marked by prefixes, which is why a Bantu "
+  "language is recognisable as one on sight. The expansion that produced them is among the "
+  "largest and fastest known for any language family.",
+ "East Bantu":
+  "The eastern half of the Bantu spread: Swahili, Kikuyu, Chichewa, Shona, Zulu, Xhosa, Sotho, "
+  "Tswana. This is where Bantu languages met Khoisan ones, and several of them took click "
+  "consonants from that contact — Zulu and Xhosa have three series of clicks, which no other "
+  "branch of the family has.",
+ "Great Lakes Bantu":
+  "Kinyarwanda, Kirundi, Luganda, Runyankole, Haya, Chiga and their neighbours around Lakes "
+  "Victoria, Kivu and Tanganyika — one of the most densely populated language areas in Africa "
+  "and the one with the tightest chain of mutual intelligibility: Kinyarwanda and Kirundi are "
+  "the national languages of two different countries and are barely different languages.",
+ "Central-Western Bantu":
+  "The Bantu languages of the Congo basin and the Atlantic coast — Kikongo, Lingala, Luba, "
+  "Mongo, Tetela. Lingala is the youngest major one, formed in the nineteenth century as a "
+  "trade language along the river and now spoken by tens of millions who did not inherit it.",
+ "West-Coastal Bantu":
+  "The Bantu languages of the Atlantic coast from Gabon to Angola, Kikongo chief among them. "
+  "Kikongo was the language of the kingdom of Kongo, which corresponded with Portugal in writing "
+  "from 1491, and the one enslaved people carried to Brazil, Cuba and Haiti in the largest "
+  "numbers — its words survive in Palenquero, in Cuban Palo and in Haitian Vodou.",
+ "Northeast Savanna Bantu":
+  "The Bantu languages of the northern savanna belt, from the Great Lakes westward. Their "
+  "internal relationships are among the least settled in Bantu, because the expansion moved fast "
+  "here and left a chain of varieties rather than clean splits.",
+ "North Volta-Congo":
+  "The Gur, Adamawa and Ubangi languages of the northern belt, from Burkina Faso to South Sudan. "
+  "The grouping is not universally accepted, and Ubangi's membership in the family at all has "
+  "been argued over for decades.",
+ "Gur":
+  "Ninety-odd languages across Burkina Faso, Mali, Ghana, Togo and Côte d'Ivoire — Mooré, "
+  "Dagbani, Gurma, Lobi, Kabiyé. Mooré alone has more speakers than most European languages. Gur "
+  "languages use noun-class suffixes where Bantu uses prefixes, which is one of the family's "
+  "oldest internal divisions.",
+ "Central Gur":
+  "The core of Gur: Mooré and the Mossi languages of Burkina Faso, Dagbani and its relatives in "
+  "northern Ghana. The Mossi kingdoms held out against the Mali and Songhai empires for four "
+  "hundred years, and Mooré is the everyday language of Burkina Faso today.",
+ "Kwa Volta-Congo":
+  "The languages of the Gulf of Guinea coast — Akan, Ewe, Fon, Ga, Baoulé. Kwa languages are "
+  "tonal and largely isolating, having lost the noun-class prefixes the rest of the family "
+  "keeps, and several are national lingua francas: Akan in Ghana, Ewe and Fon across Togo and "
+  "Benin.",
+ "Nyo":
+  "Akan, Baoulé, Anyi, Ga, Guang and their relatives in Ghana and Côte d'Ivoire. Akan is the "
+  "vehicle of the Adinkra symbols and of the Asante state, and it gave English *chimpanzee*, "
+  "and the day-names — Kofi, Kwame, Akosua — that mark which day of the week a person was born.",
+ "Ubangi":
+  "The languages of the Central African Republic and northern Congo — Zande, Banda, Ngbaka, and "
+  "Sango, which became the national language of the CAR. Whether Ubangi belongs in this family "
+  "at all is genuinely contested; Greenberg placed it here and several later scholars have "
+  "argued it out again.",
+ "North-Central Atlantic":
+  "The Atlantic languages of Senegal, Gambia and Guinea — Wolof, Pulaar (Fula), Serer, Jola. "
+  "These are among the deepest divisions in the whole family, and Fula is remarkable in another "
+  "way: its speakers are spread from Senegal to Sudan, five thousand kilometres, as a herding "
+  "population inside twenty other countries' languages.",
+ "Delta Cross":
+  "The languages of the Niger delta and the Cross River — Efik, Ibibio, Anaang, Ogoni. Efik "
+  "carries the Nsibidi ideographic system, a body of signs used for law, trade and the Ekpe "
+  "society that is one of very few indigenous West African writing traditions.",
+ "Kainji":
+  "Fifty-odd languages of the Niger's middle reaches in Nigeria, most with a few thousand "
+  "speakers and few with any description. Central Nigeria holds one of the densest "
+  "concentrations of distinct languages anywhere and one of the thinnest documentary records.",
+ "Benue-Congo Plateau":
+  "The Plateau languages of central Nigeria — Berom, Tarok, Jju, Eggon and sixty others around "
+  "Jos. Like Kainji, this is an area of extreme linguistic density and almost no published "
+  "grammars.",
+ "Wide Grassfields":
+  "The Grassfields languages of western Cameroon, seventy of them in a highland area a few "
+  "hundred kilometres across — and the closest known relatives of Bantu. Their diversity in so "
+  "small a space, next to Bantu's uniformity across a continent, is the argument for the Bantu "
+  "homeland being here.",
+ "Narrow Grassfields":
+  "The core Grassfields group — Bamileke, Bamun, Nkambe, Ngemba. Bamun is the language for which "
+  "Sultan Njoya invented a script about 1896, developing it through six revisions from a "
+  "pictographic system into a syllabary: one of the very few writing systems in history whose "
+  "invention is documented step by step.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -1035,7 +1139,7 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
-    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH):
+    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH):
         for nm, txt in src.items():
             hit = names.get(nm) or []
             if len(hit) != 1:

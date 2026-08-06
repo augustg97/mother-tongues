@@ -2279,6 +2279,164 @@ E = [
   "the record does not preserve what a language's speakers called it, the geographic label is "
   "what is left, and it is worth noticing that this is a kind of loss too.",
   "Breen, Innamincka Talk (2004); Hercus's Karnic survey materials, AIATSIS."),
+ # ---- ATLANTIC-CONGO batch 1. The largest family in this atlas — 1,408 languages, a
+ # fifth of everything here — and it carried 24 labels. These are its biggest unlabelled
+ # languages plus the eight with a full published grammar and nothing at all.
+
+ ("Rundi", ["Category:Kirundi language", "Kirundi bible"],
+  "Kirundi, the national language of Burundi, and one of the very few African countries where "
+  "essentially the whole population speaks one indigenous language. It is barely distinguishable "
+  "from Kinyarwanda next door — two national languages that a linguist would call one — and the "
+  "boundary between them is a colonial border, not a linguistic one.",
+  "Ethnologue 2024; Institut de Statistiques et d'Études Économiques du Burundi."),
+ ("Mossi", ["Category:Moore language", "Moore bible Burkina Faso"],
+  "Mooré, the language of the Mossi and the everyday tongue of Burkina Faso — more speakers than "
+  "Swedish and Norwegian combined. The Mossi kingdoms held their ground against Mali and Songhai "
+  "for four centuries, which is why a Gur language rather than a Mande one dominates the "
+  "country.",
+  "Ethnologue 2024; Institut National de la Statistique et de la Démographie, Burkina Faso."),
+ ("Luba-Lulua", ["Category:Tshiluba language", "Tshiluba bible"],
+  "Tshiluba, one of the four national languages of the Democratic Republic of the Congo, spoken "
+  "across the Kasai. Its written standard was fixed by Catholic missionaries at the start of the "
+  "twentieth century and it is a language of primary schooling and radio.",
+  "Ethnologue 2024."),
+ ("Pulaar", ["Category:Fula language", "Category:Adlam script"],
+  "Fula — Pulaar in the west, Fulfulde further east — spoken by a herding population spread five "
+  "thousand kilometres from Senegal to Sudan, inside twenty other countries. In 1989 two "
+  "teenage brothers in Guinea, Ibrahima and Abdoulaye Barry, invented the Adlam alphabet for it "
+  "because Arabic and Latin script fit it badly; Unicode encoded Adlam in 2016 and it is now on "
+  "phones.",
+  "Unicode 9.0 (2016) for the Adlam block; Ethnologue 2024."),
+ ("Tsonga", ["Category:Tsonga language", "Xitsonga bible"],
+  "Xitsonga, one of South Africa's eleven official languages, also spoken across southern "
+  "Mozambique and in Zimbabwe. Its written form dates from Swiss missionary work in the 1880s.",
+  "Statistics South Africa 2022 census."),
+ ("Kamba (Kenya)", ["Category:Kamba language", "Kikamba bible"],
+  "Kikamba, of Kenya's eastern highlands, and one of the first East African languages to be "
+  "written: Johann Ludwig Krapf produced a Kikamba vocabulary in the 1840s while based at "
+  "Rabai — the same mission from which the first modern description of Swahili came.",
+  "Kenya National Bureau of Statistics 2019 census."),
+ ("Dagbani", ["Category:Dagbani language", "Dagbani bible"],
+  "The Gur language of Dagbon in northern Ghana, written in Latin letters and taught in schools. "
+  "The Dagbamba drum histories, performed by lunsi drummers, are an oral chronicle of the "
+  "kingdom going back several centuries and are recited in Dagbani.",
+  "Ghana Statistical Service 2021 census."),
+ ("Abron", ["Category:Abron language", "Category:Akan language"],
+  "Brong, an Akan language of the Ghana–Côte d'Ivoire border. Akan as a whole is the largest "
+  "language of Ghana; Brong is the western end of it and is spoken on both sides of a colonial "
+  "line that split the Abron kingdom in two.",
+  "Ethnologue 2024; Ghana Statistical Service 2021."),
+ ("Chiga", ["Category:Kiga language", "Runyankole-Rukiga bible"],
+  "Rukiga, of southwestern Uganda, close enough to Runyankole that the two are taught together "
+  "as Runyankole-Rukiga and printed in a single Bible.",
+  "Uganda Bureau of Statistics 2014 census; Ethnologue 2024."),
+ ("Fon", ["Category:Fon language", "Category:Vodun"],
+  "Fon, the language of the kingdom of Dahomey and of Benin's largest ethnic group. It is also "
+  "one of the principal African sources of Haitian Vodou — the word *vodun* is Fon for spirit, "
+  "and much of the liturgical vocabulary of Vodou in Haiti and Candomblé in Brazil came across "
+  "the Atlantic in this language.",
+  "Ethnologue 2024; Institut National de la Statistique, Benin."),
+ ("Bini", ["Category:Edo language", "Category:Benin Bronzes"],
+  "Edo, the language of the kingdom of Benin — the state whose bronze and ivory work, looted by "
+  "a British expedition in 1897 and scattered through European museums, is among the most "
+  "consequential art of West Africa. The Edo court's oral histories are recited in it.",
+  "Ethnologue 2024; National Population Commission of Nigeria."),
+ ("Gun", ["Category:Gun language", "Gun bible Benin"],
+  "Gun, of Porto-Novo and the Benin–Nigeria border, part of the Gbe cluster with Fon and Ewe. It "
+  "is the language of Benin's capital and a lingua franca along that coast.",
+  "Ethnologue 2024."),
+ ("Venda", ["Category:Venda language", "Tshivenda bible"],
+  "Tshivenda, one of South Africa's official languages and the most isolated of them — it is not "
+  "closely related to its Nguni or Sotho neighbours, and shares features with the Shona "
+  "languages to the north instead.",
+  "Statistics South Africa 2022 census."),
+ ("Aja (Benin)", ["Category:Aja language", "Category:Gbe languages"],
+  "Aja, of the Mono river valley in Benin and Togo, and the source of the name Ajaland for the "
+  "whole Gbe area. The Gbe languages — Ewe, Fon, Aja, Gun — form a continuum along the coast in "
+  "which each village understands its neighbours and the ends do not meet.",
+  "Ethnologue 2024."),
+ ("Urhobo", ["Category:Urhobo language", "Urhobo bible"],
+  "Urhobo, of the western Niger delta in Nigeria. The delta holds one of the densest "
+  "concentrations of distinct languages in Africa, and Urhobo is among the larger of them.",
+  "Ethnologue 2024; National Population Commission of Nigeria."),
+ ("Kabiyé", ["Category:Kabiye language", "Kabiye bible"],
+  "Kabiyè, one of Togo's two national languages alongside Ewe, spoken in the north. It is "
+  "written in a Latin orthography using several African-alphabet letters and is taught in "
+  "schools.",
+  "Ethnologue 2024; Direction Générale de la Statistique, Togo."),
+ ("Isekiri", ["Category:Itsekiri language", "Itsekiri bible"],
+  "Itsekiri, of the Warri kingdom in the Niger delta — Yoruboid in its ancestry but spoken among "
+  "Edo and Ijaw neighbours, with Portuguese loanwords from four centuries of coastal trade.",
+  "Ethnologue 2024."),
+ ("Bulu (Cameroon)", ["Category:Bulu language", "Bulu bible Cameroon"],
+  "Bulu, of southern Cameroon, and for a long period the church and trade language of the "
+  "region — Presbyterian missionaries made it a written standard and it served far beyond its "
+  "own community before French took that role.",
+  "Ethnologue 2024."),
+ ("Farefare", ["Category:Frafra language", "Gurene bible"],
+  "Gurenɛ or Frafra, of the Bolgatanga area in northern Ghana and across the Burkina border. A "
+  "Gur language with a Latin orthography and a growing published literature.",
+  "Ghana Statistical Service 2021 census."),
+ ("Ndonga", ["Category:Ndonga language", "Oshindonga bible"],
+  "Oshindonga, one of the two written standards of Oshiwambo, the largest language of Namibia. "
+  "Finnish missionaries produced its orthography in the 1870s, which is why Namibia's biggest "
+  "language was first written by Finns.",
+  "Namibia Statistics Agency 2023 census."),
+ ("Nupe-Nupe-Tako", ["Category:Nupe language", "Nupe bible"],
+  "Nupe, of the Niger–Kaduna confluence in Nigeria. Its glass and brass work supplied the region "
+  "for centuries, and the Nupe emirate's records were kept in Arabic script before Latin.",
+  "Ethnologue 2024; National Population Commission of Nigeria."),
+ ("Jju", ["Category:Jju language", "Tyap bible"],
+  "Jju, of the Kaduna plateau in Nigeria, one of the larger Plateau languages in an area where "
+  "sixty distinct languages sit within a few hundred kilometres and few have grammars.",
+  "Ethnologue 2024."),
+ ("Konzo", ["Category:Konjo language", "Lhukonzo bible"],
+  "Lhukonzo, spoken on the slopes of the Rwenzori on both sides of the Uganda–Congo border. Its "
+  "speakers straddle a frontier drawn through a mountain range.",
+  "Uganda Bureau of Statistics 2014 census."),
+ ("Jola-Fonyi", ["Category:Jola language", "Jola Fonyi bible"],
+  "Jola-Fonyi, of the Casamance in southern Senegal and the Gambia — an Atlantic language, one "
+  "of the family's deepest branches, and the main language of a region with its own long "
+  "separatist history.",
+  "Agence Nationale de la Statistique et de la Démographie, Senegal."),
+ # ---- the eight with a grammar and nothing here
+ ("Waci Gbe", ["Category:Gbe languages", "Ewe bible"],
+  "A Gbe variety of the Togo–Benin coast, close to Ewe and counted with it in most returns. The "
+  "Gbe continuum is one of the clearest cases anywhere of a chain in which the political "
+  "boundaries between languages are not the linguistic ones.",
+  "Capo, A Comparative Phonology of Gbe (1991)."),
+ ("Izi-Ezaa-Ikwo-Mgbo", ["Category:Igbo language", "Izi bible"],
+  "A cluster of Igboid varieties in Ebonyi State, Nigeria, distinct enough from Standard Igbo to "
+  "have their own scripture. Igbo's internal diversity is much greater than the single "
+  "standard suggests.",
+  "Meier, Meier and Bendor-Samuel, A Grammar of Izi (1975)."),
+ ("Nambya", ["Category:Nambya language", "Nambya bible"],
+  "Nambya, of northwestern Zimbabwe around Hwange, a Shona-related language with substantial "
+  "Kalanga and Tonga contact. It was recognised in Zimbabwe's 2013 constitution, which made "
+  "sixteen languages official.",
+  "Constitution of Zimbabwe (2013), section 6; Ethnologue 2024."),
+ ("Bebele", ["Category:Beti language", "Category:Cameroon"],
+  "A Beti language of central Cameroon, close to Ewondo and Bulu. The Beti languages form a "
+  "continuum around Yaoundé in which Ewondo serves as the common form.",
+  "Ethnologue 2024."),
+ ("Kanu", ["Category:Bantu languages", "Category:Democratic Republic of the Congo"],
+  "A Bantu language of the Democratic Republic of the Congo, one of several hundred in a country "
+  "whose linguistic map is among the least completely surveyed anywhere.",
+  "Ethnologue 2024; Maho's updated Guthrie list (2009)."),
+ ("Mozambican Ngoni", ["Category:Ngoni people", "Category:Nguni languages"],
+  "The language of Ngoni communities in Mozambique, descended from Nguni speakers who moved "
+  "north during the Mfecane of the 1820s — a diaspora that carried Zulu-related languages "
+  "fifteen hundred kilometres into Malawi, Tanzania, Zambia and Mozambique within a generation.",
+  "Ethnologue 2024."),
+ ("Sumayela Ndebele", ["Category:Ndebele language", "Category:South Africa"],
+  "Northern Transvaal Ndebele, distinct from the Southern Ndebele that is one of South Africa's "
+  "official languages, and heavily influenced by Northern Sotho around it.",
+  "Statistics South Africa 2022 census; Ethnologue 2024."),
+ ("Kituba (Congo)", ["Category:Kituba language", "Kituba bible"],
+  "Kituba, a Kikongo-based creole that became the lingua franca of the Congo's southern regions "
+  "and one of the national languages of the Republic of the Congo — a Bantu language simplified "
+  "by adult learners along the railway and river trade, and then inherited by their children.",
+  "Mufwene, in Contact Languages (1997); Ethnologue 2024."),
 ]
 
 
@@ -2337,9 +2495,16 @@ _LANGCAT_ONE = re.compile(r"\blanguage$", re.I)
 def admissible_subject(s: str, is_family: bool = False) -> bool:
     """Is this subject allowed to contribute an object at all?"""
     if not s.startswith("Category:"):
-        # An authored free-text query is trusted, so it must NAME AN ARTEFACT and not a place.
-        # "Malgana Shark Bay" returned a nineteenth-century French engraving of shelters — a
-        # picture of people and country, which is what a place query always finds.
+        # An authored free-text query is TRUSTED — no title filter is applied to it — so it
+        # must name an artefact precisely. Two ways this has gone wrong, both mine:
+        #   * a PLACE. "Malgana Shark Bay" returned a nineteenth-century French engraving
+        #     of shelters, which is what a place query always finds.
+        #   * a COMMON NOUN. "<Language> bible" looks specific and is not: Commons matches
+        #     "bible" across everything, so "Izi bible" returned three European baroque
+        #     paintings of Solomon and the Ark, and "Ewe bible" returned Sahara sand dunes.
+        #     Five of seven such queries were retired in one audit.
+        # Name the object: "Isoama-Ibo Primer", "Yirrkala bark petitions", "Rabatak
+        # inscription". Those work.
         return True
     if _PEOPLE.search(s):
         return False                      # portraits and festivals
