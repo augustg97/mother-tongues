@@ -1980,6 +1980,249 @@ E = [
   "Kho-Bwa is one of the branches whose position inside Tibeto-Burman is genuinely unresolved — "
   "it may not belong where it is currently placed.",
   "Jacquesson, in Linguistics of the Tibeto-Burman Area (2015); Census of India 2011."),
+ # ---- SINO-TIBETAN batch 2: the closing sweep. Every ST language with a full
+ # published grammar that still carried nothing here — fifteen, almost all in Yunnan,
+ # Sichuan and the Tibetan marches, almost all under ten thousand speakers.
+
+ ("Southern Tujia", ["Category:Tujia language"],
+  "Tujia is one of the harder placements in the family — its position inside Sino-Tibetan is "
+  "unresolved, and the northern and southern varieties are not mutually intelligible. Eight "
+  "million people are registered as Tujia in China; a few thousand speak the language, and "
+  "almost none of them speak Southern Tujia.",
+  "Brassett and Brassett, A Study of Tujia (2005); UNESCO Atlas lists it critically endangered."),
+ ("Tosu", ["Tosu script manuscript", "Category:Ersu Shaba script"],
+  "An Ersuic language of Sichuan, and notable for something almost no small language of the "
+  "region has: its own script. The Tosu logographic writing is known from a handful of "
+  "manuscripts and is unrelated to Chinese or to Tibetan.",
+  "Sun Hongkai, in Zhongguo Yuwen (1982); Yu, Ersu and Tosu (2012)."),
+ ("Maang", ["Category:Loloish languages"],
+  "A Mondzish language of the Yunnan–Vietnam border, one of a cluster described for the first "
+  "time in the 2010s. Mondzish sits at the edge of Lolo-Burmese and may be its earliest offshoot.",
+  "Lama, Subgrouping of Nisoic Languages (2012); Hsiu, in the Journal of the Southeast Asian "
+  "Linguistics Society (2018)."),
+ ("Baraamu", ["Category:Baram language"],
+  "A Newaric language of central Nepal with a handful of elderly speakers. It is close to "
+  "Thangmi and both are close to Newar — the only living relatives of the oldest written "
+  "Tibeto-Burman language of Nepal, and neither has ever been written.",
+  "Kansakar et al., A Sociolinguistic Study of the Baram Language (2011)."),
+ ("Shendu", ["Category:Mara language"],
+  "A Maraic language of the India–Myanmar–Bangladesh borderlands. Maraic is Kuki-Chin, and the "
+  "Kuki-Chin languages are among the most numerous and least individually described in the "
+  "family — this one has a grammar and almost nothing else.",
+  "VanBik, Proto-Kuki-Chin (2009); Ethnologue 2024."),
+ ("Darlong", ["Category:Mizo language"],
+  "A Mizoic language of Tripura, written in Latin letters. Its speakers are counted as Mizo in "
+  "most official returns, which is why a language with a published grammar has almost no "
+  "documented speaker figure of its own.",
+  "Census of India 2011; VanBik, Proto-Kuki-Chin (2009)."),
+ ("Lianghe Achang", ["Category:Achang language"],
+  "One of three Achang varieties in Dehong, Yunnan, mutually unintelligible with the others. "
+  "Achang is Burmish — the branch Burmese belongs to — and preserves consonant clusters that "
+  "Burmese lost, which makes it useful for reconstructing the branch.",
+  "Dai and Cui, A Study of Achang (1985); Ethnologue 2024."),
+ ("Buyuan Jinuo", ["Category:Jino language"],
+  "One of two Jino languages in Xishuangbanna, spoken by a people China recognised as a separate "
+  "nationality only in 1979 — the last group to be added to the official list of fifty-six.",
+  "Gai Xingzhi, A Study of Jino (1986); Ethnologue 2024."),
+ ("Dongna", ["Category:Amdo Tibetan language"],
+  "A North-Eastern Tibetic variety of the Amdo region. The Tibetic languages of the northeast "
+  "diverge sharply from Lhasa Tibetan — several have no tone at all, where Central Tibetan "
+  "developed a full tone system.",
+  "Tournadre, in Trans-Himalayan Linguistics (2014)."),
+ ("Ponthai", ["Category:Tangsa language"],
+  "A Tutsic language of the Patkai range in Arunachal Pradesh, among the Tangsa group. Tangsa "
+  "covers dozens of varieties that are counted as one people and are not one language; most "
+  "have no description at all.",
+  "Morey, in North East Indian Linguistics (2017)."),
+ ("Derong-nJol Tibetan", ["Category:Khams Tibetan language"],
+  "A Kham Tibetic variety of the Derong valleys in western Sichuan. Kham Tibetan is a dialect "
+  "continuum across a thousand kilometres of gorge country in which neighbouring valleys "
+  "understand each other and the ends do not.",
+  "Suzuki, in Himalayan Linguistics (2013)."),
+ ("Hlersu", ["Category:Yi languages"],
+  "A Lipo-Lolopo language of central Yunnan, sometimes called Sansu. Its speakers are registered "
+  "as Yi, a category covering several million people and dozens of languages that are not "
+  "mutually intelligible.",
+  "Lama, Subgrouping of Nisoic Languages (2012)."),
+ ("Songlin", ["Category:Tibetic languages"],
+  "A Chamdoic language of eastern Tibet, one of a small group identified as distinct from "
+  "Tibetan only in the last two decades. These languages are surrounded by Tibetan, written in "
+  "nothing, and are the living relatives of Tangut.",
+  "Suzuki and Sonam Wangmo, in Linguistics of the Tibeto-Burman Area (2016)."),
+ ("Lamo", ["Category:Tibetic languages"],
+  "Spoken in a few villages of Chamdo prefecture, and given its first full description in 2019 — "
+  "one of the more recent additions to the record of any language family. Its speakers use "
+  "Tibetan for everything written.",
+  "Suzuki and Sonam Wangmo, in Journal of the Southeast Asian Linguistics Society (2019)."),
+ ("Eastern Lalu", ["Category:Lalo language"],
+  "A Core Lalo language of western Yunnan. The Lalo languages were shown to be several distinct "
+  "languages rather than dialects of one only in 2011, on the basis of a survey that took in "
+  "sixty villages.",
+  "Yang Cathryn, Lalo Regional Varieties: Phylogeny, Dialectometry and Sociolinguistics (2011)."),
+ # ---- PAMA-NYUNGAN batch 1. The family covers seven-eighths of Australia — 250
+ # languages here — and carried NOT ONE authored label, while 44 of them have a full
+ # published grammar. Australian languages are unusually well described relative to
+ # their speaker numbers; the gap was ours, not the record's.
+
+ ("Warlpiri", ["Category:Warlpiri language", "Warlpiri sign language"],
+  "One of the strongest surviving Australian languages, spoken across the Tanami Desert and "
+  "taught in bilingual schools at Yuendumu and Lajamanu since the 1970s. Warlpiri is the "
+  "language on which much of modern syntactic theory's account of free word order was built — "
+  "its case marking is so complete that the words of a sentence can come in almost any order. "
+  "Warlpiri Sign Language, used by women during mourning periods, is a fully developed manual "
+  "language in its own right.",
+  "Hale, in Language (1983); Laughren et al., Warlpiri Encyclopaedic Dictionary (2022)."),
+ ("Guugu Yimidhirr", ["Category:Guugu Yimidhirr language", "Endeavour River Cook vocabulary"],
+  "The language Cook's crew recorded in 1770 while the Endeavour was beached for repairs at what "
+  "is now Cooktown — the first Australian language written down, and the source of the English "
+  "word kangaroo, from *gangurru*. It is also the language that changed how linguists think "
+  "about space: Guugu Yimidhirr has no words for left and right and uses compass directions for "
+  "everything, so a speaker must track their orientation continuously and does.",
+  "Haviland, in Language in Society (1979); Levinson, Space in Language and Cognition (2003)."),
+ ("Dyirbal", ["Category:Dyirbal language", "Dyirbal grammar Dixon"],
+  "Described by R. M. W. Dixon in 1972 in a grammar that became one of the most cited in the "
+  "discipline, partly for its account of *Jalnguy* — an entirely separate vocabulary used when a "
+  "tabooed relative was within earshot, with the same grammar and almost no shared words. Its "
+  "noun classes are the source of the title of Lakoff's *Women, Fire, and Dangerous Things*, "
+  "because one Dyirbal class contains all three.",
+  "Dixon, The Dyirbal Language of North Queensland (1972); Lakoff (1987)."),
+ ("Kala Lagaw Ya", ["Category:Kalaw Lagaw Ya language", "Torres Strait Islander bible"],
+  "The language of the western and central Torres Strait, and a puzzle: it is Pama-Nyungan, "
+  "which makes it the only Australian language spoken on islands within sight of New Guinea, "
+  "where every neighbour is Papuan. Roughly forty per cent of its vocabulary is shared with "
+  "Papuan Meriam Mir next door, from centuries of trade and marriage across the strait.",
+  "Bani and Klokeid, Kala Lagaw Langgus (1971); Australian Bureau of Statistics 2021 census."),
+ ("Yankunytjatjara", ["Category:Yankunytjatjara language", "Pitjantjatjara sign language"],
+  "One of the Western Desert varieties — Pitjantjatjara, Yankunytjatjara, Ngaanyatjarra, Pintupi "
+  "and the rest are mutually intelligible across two thousand kilometres, one of the largest "
+  "dialect continua anywhere. The names come from each variety's word for 'come': *pitjantja*, "
+  "*yankunytja*.",
+  "Goddard, A Grammar of Yankunytjatjara (1985)."),
+ ("Ngaanyatjarra", ["Category:Ngaanyatjarra language", "Ngaanyatjarra bible"],
+  "The Western Desert language of the Ngaanyatjarra Lands in Western Australia, and one of the "
+  "few Australian languages children still learn as a first language. Its speakers run their own "
+  "schools, media and land council across an area the size of Britain.",
+  "Glass and Hackett, Ngaanyatjarra and Ngaatjatjarra to English Dictionary (2003)."),
+ ("Pintupi-Luritja", ["Category:Pintupi language", "Papunya Tula painting inscription"],
+  "Spoken at Papunya and Kintore. The Pintupi were among the last Aboriginal people to make "
+  "contact with settler Australia — the Pintupi Nine walked out of the Gibson Desert in 1984. "
+  "Papunya is also where the Western Desert painting movement began in 1971, and the paintings "
+  "carry the country the language names.",
+  "Hansen and Hansen, Pintupi/Luritja Dictionary (3rd ed. 1992)."),
+ ("Western Arrarnta", ["Category:Arrernte language", "Hermannsburg Aranda bible"],
+  "The Arrernte of Ntaria (Hermannsburg), where Lutheran missionaries began printing in the "
+  "language in the 1890s — one of the earliest Aboriginal languages to have a written standard, "
+  "a Bible and a school. Carl Strehlow's ethnographic work there, and his son T. G. H. "
+  "Strehlow's, was done in Arrernte rather than through interpreters.",
+  "Strehlow, Die Aranda- und Loritja-Stämme (1907–20); Breen, Western Arrarnta Picture "
+  "Dictionary (2000)."),
+ ("Dhuwal", ["Category:Yolngu languages", "Djambarrpuyngu bible"],
+  "One of the Yolŋu languages of northeast Arnhem Land, a region where the languages are still "
+  "learned by children and where clan identity and language variety are formally linked — "
+  "everyone speaks several, and which one you speak in a given moment says who you are to whom.",
+  "Wilkinson, Djambarrpuyŋu: A Yolŋu Variety of Northern Australia (1991)."),
+ ("Dhangu", ["Yirrkala bark petitions", "Category:Yolngu languages"],
+  "A Yolŋu language of the Gove Peninsula and the islands off it. In 1963 Yolŋu leaders sent the "
+  "Australian parliament the Yirrkala bark petitions — typed text pasted onto painted bark, in "
+  "Yolŋu Matha and English — the first traditional documents recognised by the Commonwealth and "
+  "the beginning of Australian land rights law.",
+  "Schebeck, Dialect and Social Groupings in Northeast Arnhem Land (2001); the bark petitions "
+  "are held by Parliament House, Canberra."),
+ ("Gumatj", ["Yirrkala bark petition 1963", "Category:Yolngu languages"],
+  "The Yolŋu clan language of the Gumatj, and the one in which much of the land-rights case Milirrpum "
+  "v Nabalco was argued in 1971 — the court accepted that Yolŋu law existed and held that it "
+  "conferred no title, a finding overturned by Mabo twenty-one years later.",
+  "Milirrpum v Nabalco Pty Ltd (1971) 17 FLR 141; Australian Bureau of Statistics 2021 census."),
+ ("Kuku-Yalanji", ["Category:Kuku Yalanji language", "Kuku Yalanji sign"],
+  "Spoken in the rainforest between Mossman and Cooktown, and one of the relatively few "
+  "Australian languages with several hundred speakers and children among them. Its country "
+  "includes the Daintree, and much of the language's plant and animal vocabulary has entered "
+  "the region's tourism and land-management usage.",
+  "Patz, A Grammar of the Kuku Yalanji Language (2002)."),
+ ("Yindjibarndi", ["Category:Yindjibarndi language", "Yindjibarndi sign Roebourne"],
+  "A Pilbara language, and the subject of a 2020 High Court decision on native title over "
+  "country containing one of the largest iron ore mines in the world. Its community runs its own "
+  "media organisation and has produced films and archives in the language.",
+  "Wordick, The Yindjibarndi Language (1982); Warrie v Western Australia (2019)."),
+ ("Warumungu", ["Category:Warumungu language", "Nyinkka Nyunyu sign"],
+  "Spoken around Tennant Creek. The Nyinkka Nyunyu centre there is one of the earliest Aboriginal "
+  "cultural centres designed and run by the community whose language and country it holds.",
+  "Simpson, Warumungu (Australian — Pama-Nyungan) (2002)."),
+ ("Wiradhuri", ["Category:Wiradjuri language", "Wiradjuri sign New South Wales"],
+  "Wiradjuri, of central New South Wales — a language that stopped being spoken and has been "
+  "brought back. Stan Grant senior and John Rudder built a dictionary from nineteenth-century "
+  "sources and living memory; it is now taught in dozens of NSW schools and is one of the "
+  "clearest revival successes in the country.",
+  "Grant and Rudder, A New Wiradjuri Dictionary (2010); NSW Aboriginal Languages Act 2017."),
+ ("Narrinyeri", ["Category:Ngarrindjeri language", "Taplin Narrinyeri vocabulary"],
+  "Ngarrindjeri, of the Coorong and lower Murray. The missionary George Taplin's word lists and "
+  "the community's own records have supported a revival programme since the 1990s; the language "
+  "is taught in schools along the river.",
+  "Taplin, The Narrinyeri (1874); Gale, Ngarrindjeri Yanun (2009)."),
+ ("Paakantyi", ["Category:Paakantyi language", "Barkindji sign Darling River"],
+  "Barkindji, the language of the Darling River — *paaka* is the river, and the name means river "
+  "people. In 2015 the Barkindji won native title over 128,000 square kilometres, one of the "
+  "largest determinations in New South Wales; the language is in revival.",
+  "Hercus, Paakantyi Dictionary (1993); Barkandji Traditional Owners #8 v NSW (2015)."),
+ ("Dieri", ["Category:Diyari language", "Killalpaninna Diyari testament"],
+  "Diyari, of the Lake Eyre basin, and one of the first Aboriginal languages to be written "
+  "extensively: Lutheran missionaries at Killalpaninna printed a New Testament in it in 1897 and "
+  "ran a Diyari-language school. Letters written in Diyari by Aboriginal people in the 1900s "
+  "survive — among the earliest writing by Aboriginal Australians in their own language.",
+  "Austin, A Grammar of Diyari, South Australia (1981); the Killalpaninna letters are held at "
+  "the Lutheran Archives, Adelaide."),
+ ("Arabana", ["Category:Arabana language", "Arabana sign"],
+  "Spoken west of Lake Eyre. Luise Hercus recorded Arabana and many of its neighbours from the "
+  "1960s onward, often from the last speakers, in fieldwork that is the reason a large part of "
+  "central Australia's linguistic record exists at all.",
+  "Hercus, A Grammar of the Arabana-Wangkangurru Language (1994)."),
+ ("Yanyuwa", ["Category:Yanyuwa language", "Yanyuwa Borroloola sign"],
+  "Spoken at Borroloola on the Gulf of Carpentaria, and unusual even among Australian languages: "
+  "men and women use different noun class prefixes throughout, to the point that men's and "
+  "women's speech are described as separate dialects and boys switch at initiation.",
+  "Bradley and Kirton, Yanyuwa Wuka: Language from Yanyuwa Country (1992)."),
+ ("Kaytetye", ["Category:Kaytetye language", "Kaytetye dictionary"],
+  "A Central Australian language north of Alice Springs, with a full dictionary and grammar "
+  "produced with the community — the *Kaytetye to English Dictionary* records not only words but "
+  "the ecological knowledge attached to them.",
+  "Turpin and Ross, Kaytetye to English Dictionary (2012)."),
+ ("Walmajarri-Juwaliny", ["Category:Walmajarri language", "Walmajarri dictionary"],
+  "A desert language of the Kimberley, whose speakers moved north out of the Great Sandy Desert "
+  "onto cattle stations in the twentieth century. It is still learned by some children, and the "
+  "Walmajarri were central to the 1975 Noonkanbah dispute over drilling on sacred country.",
+  "Richards and Hudson, Walmajarri–English Dictionary (1990)."),
+ ("Yidiñ", ["Category:Yidiny language", "Yidiny grammar"],
+  "A rainforest language of the Cairns area, described by Dixon in a grammar whose account of "
+  "its phonology — where vowel length and stress interact in a way that had not been seen before "
+  "— is still taught.",
+  "Dixon, A Grammar of Yidiny (1977)."),
+ ("Kumbainggar", ["Category:Gumbaynggirr language", "Gumbaynggirr sign"],
+  "Gumbaynggirr, of the New South Wales mid-north coast. The Muurrbay Aboriginal Language and "
+  "Culture Co-operative has run a revival since 1986 from Gerald Smythe's recordings and archival "
+  "sources; it is now taught from preschool upward.",
+  "Eades, The Dharawal and Dhurga Languages (1976) for the region; Muurrbay, Gumbaynggirr "
+  "Dictionary and Learner's Grammar (2001)."),
+ ("Yulparija", ["Category:Yulparija language", "Bidyadanga painting"],
+  "A Western Desert language whose speakers walked out of the Great Sandy Desert in the 1960s to "
+  "Bidyadanga on the coast. Several became painters late in life, and the Yulparija painters of "
+  "Bidyadanga are known for depicting desert country from memory after decades beside the sea.",
+  "Ethnologue 2024; Australian Bureau of Statistics 2021 census."),
+ ("Kukatja", ["Category:Kukatja language", "Balgo Wirrimanu sign"],
+  "Spoken at Balgo (Wirrimanu) in the Kimberley, and one of the Western Desert varieties with "
+  "children still learning it. The Balgo art movement began there in the 1980s.",
+  "Valiquette, A Basic Kukatja to English Dictionary (1993)."),
+ ("Nyunga", ["Category:Noongar language", "Noongar sign Perth"],
+  "Noongar, of the southwest corner of Western Australia — the language of the country Perth "
+  "stands on. It was recorded from the 1830s and stopped being widely spoken within a century; a "
+  "revival has run since the 1990s, and in 2020 *Hecate*, a Noongar-language Shakespeare, was "
+  "staged in Perth.",
+  "Douglas, The Aboriginal Languages of the South-West of Australia (1976); Noongar Boodjar "
+  "Language Centre."),
+ ("Wajarri", ["Category:Wajarri language", "Inyarrimanha Ilgari Bundara"],
+  "A Murchison language of Western Australia, and the language of the country the Square "
+  "Kilometre Array radio telescope is being built on — the observatory's Wajarri name, "
+  "Inyarrimanha Ilgari Bundara, means 'sharing sky and stars'.",
+  "Marmion, Topics in the Phonology and Morphology of Wajarri (1996)."),
 ]
 
 
