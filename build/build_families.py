@@ -839,7 +839,8 @@ def main() -> None:
                 # ONE predicate, imported rather than copied: a place category holds landscapes
                 # and several were authored in this very file as fallbacks (Category:Chile,
                 # Category:Mali). See build_notable.admissible_subject for why.
-                if _bn.admissible_subject(q):
+                # is_family: a plural, branch-wide category IS this card's subject.
+                if _bn.admissible_subject(q, is_family=True):
                     subjects.append([gc, q])
         out[gc] = rec
 
@@ -860,12 +861,12 @@ def main() -> None:
               open(os.path.join(WEB, "families.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
 
-    # append the family subjects to the queue build_notable.py wrote
-    sp = os.path.join(ROOT, "data", "gallery", "subjects.json")
-    existing = json.load(open(sp, encoding="utf-8")) if os.path.exists(sp) else []
-    existing = [x for x in existing if x[0] not in out or x[0] in
-                {r[F["code"]] for r in rows}]        # drop a previous family run's rows
-    json.dump([list(x) for x in existing] + subjects, open(sp, "w"), ensure_ascii=False)
+    # The FAMILY half of the gallery queue, in its own file. It used to be appended to the
+    # single subjects.json build_notable.py writes, which meant the two had to run in one
+    # specific order and nothing said so. They no longer touch each other's file.
+    json.dump([list(x) for x in subjects],
+              open(os.path.join(ROOT, "data", "gallery", "subjects_families.json"), "w"),
+              ensure_ascii=False)
 
     print(f"   {len(branch_text)} branch nodes carry an authored description")
     described = sum(1 for v in out.values() if v.get("text"))

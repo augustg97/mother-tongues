@@ -1733,6 +1733,113 @@ E = [
   "Finnish Kale now speak Finnish — and is taught in schools under a 1995 constitutional "
   "amendment.",
   "Finnish Ministry of Education; Constitution of Finland §17 (1995 amendment)."),
+ # ---- Indo-European batch 4: the closing sweep. Every IE language with a full
+ # published grammar that still carried nothing here but a composed description.
+ # A grammar exists for each, so their emptiness was our gap and not the record's.
+
+ ("Hieroglyphic Luwian", ["Category:Luwian inscriptions", "Category:Anatolian hieroglyphs"],
+  "Written in a hieroglyphic script of its own — unrelated to Egypt's, invented in Anatolia — "
+  "and used alongside cuneiform Hittite for six hundred years. It outlived the Hittite empire: "
+  "after 1200 BCE the successor states of Carchemish and Malatya went on carving Luwian while "
+  "Hittite disappeared. The script was deciphered in stages across the twentieth century, and "
+  "the reading of several signs changed as late as 1973.",
+  "Hawkins, Corpus of Hieroglyphic Luwian Inscriptions (2000); Payne, Hieroglyphic Luwian "
+  "(3rd ed. 2014)."),
+ ("Middle Low German", ["Category:Middle Low German", "Category:Hanseatic League"],
+  "The language of the Hanseatic League, and for three centuries the working tongue of trade "
+  "across the North and Baltic seas. It shaped Danish, Swedish and Norwegian more than any other "
+  "foreign language has — a quarter of the everyday vocabulary of the Scandinavian languages "
+  "came in through it. When the League declined the language went with it, and High German took "
+  "over the north.",
+  "Lasch, Mittelniederdeutsche Grammatik (2nd ed. 1974); the Mittelniederdeutsches Handwörterbuch "
+  "(Lasch, Borchling and Cordes, in progress since 1928)."),
+ ("Old Marathi", ["Category:Marathi manuscripts", "Category:Yadava dynasty"],
+  "Attested from the eleventh century and the vehicle of the Varkari devotional movement: "
+  "Dnyaneshwar's commentary on the Bhagavad Gita, written about 1290, is the work that made "
+  "Marathi a literary language and is still recited. Written in Modi script for administration "
+  "and Devanagari for scripture.",
+  "Tulpule, Classical Marathi Literature (1979); Master, A Grammar of Old Marathi (1964)."),
+ ("Macanese", ["Category:Macanese people", "Category:Macau"],
+  "Patuá — a Portuguese-lexifier creole formed at Macau with Malay, Cantonese and Sinhala in it, "
+  "carried there by Portuguese who came via Malacca and Goa. It has perhaps fifty fluent "
+  "speakers left, and survives mainly in an annual theatre festival that performs comedies in "
+  "it. UNESCO lists it critically endangered.",
+  "Ethnologue 2024; UNESCO Atlas of the World's Languages in Danger; Baxter, "
+  "A Grammar of Kristang (1988) for the related Malacca creole."),
+ ("Trinidadian Creole English", ["Category:Culture of Trinidad and Tobago", "Category:Calypso"],
+  "The everyday language of Trinidad, English-lexifier with a French-creole substrate from the "
+  "island's pre-1797 planters and a layer of Bhojpuri from indenture. It is the language of "
+  "calypso, and calypso is where its wordplay is most visible — the form rewards a singer who "
+  "can say a dangerous thing in a way that survives the censor.",
+  "Winer, Dictionary of the English/Creole of Trinidad and Tobago (2009)."),
+ ("Tobagonian Creole English", ["Category:Tobago", "Category:Culture of Trinidad and Tobago"],
+  "Closer to the creoles of the eastern Caribbean than to Trinidad's, because the two islands "
+  "were settled separately and only joined administratively in 1889. Tobago changed hands "
+  "between European powers more often than almost anywhere in the region, and the language did "
+  "not follow the flag.",
+  "Winer, Dictionary of the English/Creole of Trinidad and Tobago (2009)."),
+ ("Antigua and Barbuda Creole English", ["Category:Antigua and Barbuda", "Category:Leeward Islands"],
+  "The Leeward Islands creole, spoken across Antigua, Barbuda, Anguilla, Montserrat and St Kitts "
+  "with local differences. Formed on the sugar estates in the seventeenth century; used at every "
+  "level of society and taught in none.",
+  "Ethnologue 2024; Aceto and Williams, eds., Contact Englishes of the Eastern Caribbean (2003)."),
+ ("San Andres Creole English", ["Category:San Andrés (island)", "Category:Raizal"],
+  "An English-lexifier creole spoken on Colombian islands three hundred kilometres off "
+  "Nicaragua, by the Raizal, whose ancestors were brought by British planters. Colombia "
+  "recognised it as an official language of the archipelago in 1991, alongside Spanish — one of "
+  "very few creoles anywhere with constitutional standing.",
+  "Constitution of Colombia (1991), Article 10; Bartens, A Comparative Grammar of Creoles (2013)."),
+ ("Limonese Creole", ["Category:Limón Province", "Category:Afro-Costa Ricans"],
+  "Mekatelyu — English-lexifier, spoken on Costa Rica's Caribbean coast by the descendants of "
+  "Jamaicans recruited to build the Atlantic railway and then to work the banana plantations. "
+  "Until 1949, Costa Rican law barred them from leaving the province.",
+  "Herzfeld, Mekaytelyuw: La lengua criolla de Limón (2002)."),
+ ("Tayo", ["Category:New Caledonia", "Category:Kanak people"],
+  "A French-lexifier creole that formed at the Saint-Louis mission near Nouméa in the 1860s, "
+  "among Kanak people from several different language groups settled together by missionaries. "
+  "It is one of very few creoles whose formation can be dated to a specific place and decade, "
+  "and the only French creole in the Pacific.",
+  "Ehrhart, Le créole français de St-Louis (1993); Speedy, in Journal of Pidgin and Creole "
+  "Languages (2007)."),
+ ("Faeto and Celle San Vito Francoprovencal", ["Category:Faeto", "Category:Arpitan language"],
+  "Two villages in Puglia, seven hundred kilometres from the Alps, speaking Franco-Provençal — "
+  "the descendants of soldiers or settlers from Savoy who arrived in the thirteenth century and "
+  "never assimilated. Fewer than a thousand speakers, and the southernmost point Arpitan reaches.",
+  "Italian Law 482/1999, which recognises them; Nagy, Faetar (2000)."),
+ ("Zoroastrian Yazdi", ["Category:Zoroastrians", "Category:Yazd"],
+  "Dari or Behdinani — the language of the Zoroastrians of Yazd and Kerman, and a Central "
+  "Iranian language rather than a form of Persian. It survived because the community was "
+  "isolated by its religion; it is now declining as that isolation ends.",
+  "Ethnologue 2024; Gershevitch, in Handbuch der Orientalistik (1969)."),
+ ("Alviri-Vidari", ["Category:Qazvin Province", "Category:Iranian languages"],
+  "Two neighbouring villages in Qazvin province speaking a Northwest Iranian language that is "
+  "not Persian and not Azerbaijani, surrounded by both. A remnant of the Median-related speech "
+  "that covered the region before Persian expanded into it.",
+  "Ethnologue 2024; Yarshater, in Encyclopaedia Iranica."),
+ ("Kohistani Shina", ["Category:Kohistan District", "Category:Dardic languages"],
+  "Spoken in Indus Kohistan, in valleys reached by road only in the twentieth century. Dardic, "
+  "and conservative even by Dardic standards — it keeps consonant clusters that the rest of "
+  "Indo-Aryan simplified two thousand years ago.",
+  "Schmidt and Kohistani, A Grammar of the Shina Language of Indus Kohistan (2008)."),
+ ("Kachi Koli", ["Category:Kutch district", "Category:Tharparkar District"],
+  "Spoken across the Rann of Kutch on both sides of the India–Pakistan border, by communities "
+  "the partition of 1947 cut in two. Indo-Aryan, close to Gujarati and Sindhi without being "
+  "either.",
+  "Ethnologue 2024; Pakistan Census 2023."),
+ ("Sirmauri", ["Category:Sirmaur district", "Category:Western Pahari"],
+  "A Western Pahari language of the lower Himalaya in Himachal Pradesh, returned as Hindi at "
+  "every census. Western Pahari is one of the least-described branches of Indo-Aryan relative to "
+  "its size — several million speakers across dozens of valley varieties.",
+  "Census of India 2011, under Hindi; Grierson, Linguistic Survey of India vol. IX (1916)."),
+ ("Sirajic", ["Category:Doda district", "Category:Western Pahari"],
+  "Spoken in the Chenab valley of Jammu, between Kashmiri and Dogri and sharing features with "
+  "both. Its speakers are counted variously as Kashmiri, Dogri or Hindi depending on the census.",
+  "Census of India 2011; Grierson, Linguistic Survey of India vol. IX (1916)."),
+ ("Jumli", ["Category:Jumla District", "Category:Karnali Province"],
+  "The speech of Jumla in far-western Nepal, and one of the more conservative Indo-Aryan "
+  "varieties of the Himalaya — it retains features that standard Nepali, its close relative, has "
+  "lost. Jumla was the seat of the Khasa kingdom, whose language is the ancestor of Nepali.",
+  "Ethnologue 2024; Nepal census 2021."),
 ]
 
 
@@ -1780,7 +1887,15 @@ _PEOPLE = re.compile(r"\b(people|culture)$", re.I)
 _LANGCAT = re.compile(r"\blanguages?$", re.I)
 
 
-def admissible_subject(s: str) -> bool:
+# SINGULAR vs PLURAL, and it decides who the category belongs to. `Category:Chakma language` is
+# that language's own; `Category:Iranian languages` is a whole branch, and anything in it will be
+# about SOME Iranian language — which for a family card is right and for a single language is a
+# mis-file. Alviri-Vidari, a language of two villages in Qazvin, was given the Shughni alphabet
+# of 1931 through exactly this route.
+_LANGCAT_ONE = re.compile(r"\blanguage$", re.I)
+
+
+def admissible_subject(s: str, is_family: bool = False) -> bool:
     """Is this subject allowed to contribute an object at all?"""
     if not s.startswith("Category:"):
         return True                       # an authored query for a named artefact
@@ -1788,7 +1903,10 @@ def admissible_subject(s: str) -> bool:
         return False                      # portraits and festivals
     if _WRITING.search(s):
         return True
-    return bool(_LANGCAT.search(s))       # the grab-bag, audited by eye; a place category is not
+    if _LANGCAT_ONE.search(s):
+        return True                       # the grab-bag, audited by eye; a place category is not
+    # plural: a family-wide category, admissible only on a family card
+    return is_family and bool(_LANGCAT.search(s))
 
 
 def _rank(title: str) -> int:
@@ -2023,7 +2141,14 @@ def main() -> None:
                "expect": expect, "sources": sources, "by_glottocode": out},
               open(os.path.join(d, "notable.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
-    json.dump(subjects, open(os.path.join(ROOT, "data", "gallery", "subjects.json"), "w"))
+    # Its OWN file. This used to be a single shared subjects.json that build_families.py
+    # appended to, which made the two builders order-dependent with nothing enforcing the
+    # order. Running this one second wiped the family subjects, and the next fetch then
+    # dropped 22 licence-verified, eye-audited family plates out of the manifest — the
+    # image files still on disk, just no longer reachable. Two files, no order.
+    json.dump(subjects,
+              open(os.path.join(ROOT, "data", "gallery", "subjects_languages.json"), "w"),
+              ensure_ascii=False)
     print(f"   {len(sources)} labels carry a source note")
     print(f"{len(out)} labels resolved, {len(bad)} skipped · "
           f"{len(subjects)} gallery subjects queued "

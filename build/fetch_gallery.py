@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import unicodedata
 import re
 import ssl
@@ -52,6 +53,8 @@ NOT_AN_ARTEFACT = re.compile(
     r"|\bword ?cloud\b|\blogo\b|\bicon\b|\bfavicon\b"
     r"|\bflag\b|coat of arms|\bemblem\b|\bbarnstar\b|\buserbox\b|\btemplate\b"
     r"|\bmap\b|\bmaps\b|\bmapa\b|\blocator\b|\bblank map\b"
+    # A world map captioned "orthographic projection" contains the word "map" nowhere.
+    r"|orthographic projection|\bprojection\b.*\bregions?\b|\bdistribution area\b"
     r"|population growth|\belection\b|\bpie chart\b|\bhistogram\b|\bbar chart\b"
     r"|\bwikipedia\b|\bwikimedia\b|\bwiktionary\b|\bwikisource\b|\bwikidata\b"
     r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
@@ -100,9 +103,17 @@ BAD_PAT = re.compile(r"\bnc\b|noncommercial|non-commercial|\bnd\b|noderiv|fair u
 # Indo-European has an object, plus the deep-past languages the tree otherwise draws as a
 # hollow ring with a date.
 import json as _json
-_sp = os.path.join(OUT, "subjects.json")
-SUBJECTS = [tuple(x) for x in _json.load(open(_sp))] if os.path.exists(_sp) else [
-]
+# TWO queues, written independently by build_notable.py (languages) and build_families.py
+# (families). One shared file made them order-dependent, and the wrong order silently deleted
+# every family plate from the manifest.
+SUBJECTS = []
+for _f in ("subjects_languages.json", "subjects_families.json"):
+    _p = os.path.join(OUT, _f)
+    if os.path.exists(_p):
+        SUBJECTS += [tuple(x) for x in _json.load(open(_p))]
+if not SUBJECTS:
+    raise SystemExit("fetch_gallery: no subject queue — run build_notable.py and "
+                     "build_families.py first")
 
 
 def full_size(title: str, width: int = 1400) -> str:
@@ -135,6 +146,17 @@ REJECTED = set(_rjd.get("titles") or {})
 # photograph of Kobe Bryant: the pool is weak, not the individual file. A retired pair is not
 # queried again, and the slot simply stays empty.
 EXHAUSTED = {tuple(x) for x in (_rjd.get("exhausted") or [])}
+# ⚠ KEYED BY GLOTTOCODE. 13 of these were once written with the language's DISPLAY NAME,
+# because that is what the audit contact sheet prints, and they matched nothing at all —
+# so a rejected subject went straight back to Commons and returned the next thing in it,
+# which is the exact failure retirement exists to prevent. A bad key is now fatal.
+# Shape, not membership: a retired pair whose language has since dropped out of the queue is
+# harmless, but 'Cameroon Pidgin' where 'came1254' belongs is a silent no-op.
+_GC = re.compile(r'^[a-z]{4}\d{4}$')
+_bad_keys = sorted({a for a, _ in EXHAUSTED if not _GC.match(a)})
+if _bad_keys:
+    raise SystemExit("fetch_gallery: rejected.json['exhausted'] keys are display names, "
+                     "not glottocodes: " + ", ".join(_bad_keys))
 
 
 def api(params: dict) -> dict:
@@ -382,6 +404,31 @@ if __name__ == "__main__":
     print(f"\n   {demoted} plates swapped out for being a banner or a tall scroll")
 
     manifest = {k: v for k, v in manifest.items() if v}
+
+    # ⚠ THE MANIFEST IS REBUILT FROM SCRATCH EVERY RUN, so anything that falls out of the subject
+    # queue disappears from the site even though its file is still on disk, licence-verified and
+    # already audited by eye. That is how 22 family plates — the Rosetta Stone, the Nsibidi
+    # scroll, the Kedukan Bukit inscription — vanished in one run when two builders ran in the
+    # wrong order. The queue is split in two now so that particular cause is gone, but a
+    # transient Commons failure would do the same thing just as quietly.
+    #
+    # So: a run that LOSES ground stops and says what it lost. --shrink to accept it (an audit
+    # pass that retires bad objects is a legitimate shrink and passes it deliberately).
+    prev_p = os.path.join(OUT, "gallery.json")
+    if os.path.exists(prev_p) and "--shrink" not in sys.argv:
+        prev = json.load(open(prev_p, encoding="utf-8"))
+        gone = sorted(set(prev) - set(manifest))
+        n_prev, n_now = sum(len(v) for v in prev.values()), sum(len(v) for v in manifest.values())
+        if gone or n_now < n_prev:
+            print(f"\n   REFUSING TO WRITE: {n_prev} objects across {len(prev)} languages became "
+                  f"{n_now} across {len(manifest)}.")
+            if gone:
+                print(f"   {len(gone)} languages lost every object: {', '.join(gone[:12])}"
+                      + (" …" if len(gone) > 12 else ""))
+            print("   The old manifest is untouched. Re-run once more in case Commons was "
+                  "flaking; pass --shrink if the loss is intended.")
+            sys.exit(1)
+
     json.dump(manifest, open(os.path.join(OUT, "gallery.json"), "w"), ensure_ascii=False,
               indent=1)
     # ⚠ AND the shipped copy. Nothing in the build ever copied the manifest out of the
