@@ -848,7 +848,9 @@
       ? 'The characters literate writers of this language use. Unicode CLDR.'
       : 'Measured from ' + (v.sample || 0).toLocaleString() + ' characters of ' +
         esc(v.from || 'prose held here') + ' — an <b>observed inventory, not a curated ' +
-        'alphabet</b>. A short text misses rare letters and picks up any a loanword brings in.')
+        'alphabet</b>. A short text misses rare letters and picks up any a loanword brings in.' +
+        (v.foreign ? ' ' + v.foreign.toLocaleString() + ' further characters in that text were ' +
+          'in another script — quoted names and passages — and are not counted here.' : ''))
       + '</p>';
     return h;
   }

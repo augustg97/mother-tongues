@@ -785,9 +785,12 @@ if __name__ == "__main__":
     F = {k: i for i, k in enumerate(langs["fields"])}
     by_iso: dict[str, str] = {}
     names: dict[str, str] = {}
+    own_scripts: dict[str, list] = {}
     by_name: dict[str, list[str]] = {}
     for r in langs["rows"]:
         names[r[F["code"]]] = r[F["name"]]
+        if r[F["scripts"]]:
+            own_scripts[r[F["code"]]] = r[F["scripts"]]
         by_name.setdefault(r[F["name"]], []).append(r[F["code"]])
         iso = r[F["iso"]]
         if iso:
@@ -933,10 +936,34 @@ if __name__ == "__main__":
         if total < 400:               # too little prose to say anything about an inventory
             thin += 1
             continue
+        # ⚠ AN OBSERVED INVENTORY MUST BE FILTERED TO THE LANGUAGE'S OWN SCRIPT.
+        # A Wikipedia article quotes: names, titles, loanwords, whole sentences of another
+        # language. Counting every letter in it made Atayal — which is written in Latin — report
+        # 138 HAN characters as its dominant script, and gave Mingrelian an inventory containing
+        # Cyrillic, Greek, Arabic, Devanagari, Gujarati and cuneiform. Wikidata P282 records the
+        # script for 140 of these languages; where it does, only matching groups are kept. Where
+        # it does not, the dominant group is kept plus anything at least a quarter its size, which
+        # drops the long tail of quotation without discarding a genuine second script.
         groups = describe(chars)
+        want_s = own_scripts.get(gc) or []
+        dropped_foreign = 0
+        if groups:
+            if want_s:
+                keepg = [g for g in groups
+                         if any(g["script"].lower() in w.lower()
+                                or w.lower().startswith(g["script"].lower())
+                                for w in want_s)]
+                if not keepg:
+                    keepg = [groups[0]]
+            else:
+                lim = max(1, groups[0]["n"] // 4)
+                keepg = [g for g in groups if g["n"] >= lim]
+            dropped_foreign = sum(g["n"] for g in groups if g not in keepg)
+            groups = keepg
         rec2 = {"groups": groups, "n": distinct, "tier": "observed",
                 "sample": total, "index": [], "index_n": 0,
-                "from": origin.get(gc, "prose held here")}
+                "from": origin.get(gc, "prose held here"),
+                "foreign": dropped_foreign}
         set_kind(rec2, groups)
         out[gc] = rec2
         added += 1
