@@ -1840,6 +1840,146 @@ E = [
   "varieties of the Himalaya — it retains features that standard Nepali, its close relative, has "
   "lost. Jumla was the seat of the Khasa kingdom, whose language is the ancestor of Nepali.",
   "Ethnologue 2024; Nepal census 2021."),
+ # ---- SINO-TIBETAN batch 1. The family has 518 languages here and carried 25 labels.
+ # The first four below have 116 million speakers between them and were all filed as
+ # "a Sino-Tibetan language".
+
+ ("Jinyu Chinese", ["Category:Shanxi", "Category:Jin Chinese"],
+  "Forty-seven million speakers in Shanxi and around it, and the reason it is counted separately "
+  "from Mandarin at all is one feature: it kept the entering tone, the abrupt syllable ending in "
+  "a stop that Middle Chinese had and Mandarin lost. Whether that is enough to make it a "
+  "separate language rather than a Mandarin dialect has been argued since Li Rong proposed the "
+  "split in 1985, and Chinese dialectology has not settled it.",
+  "Li Rong, in Fangyan (1985), for the original proposal; Ethnologue 2024 for the count."),
+ ("Xiang Chinese", ["Category:Hunan", "Category:Xiang Chinese"],
+  "The Chinese of Hunan, thirty-seven million speakers, and split by dialectologists into an Old "
+  "Xiang that kept Middle Chinese's voiced initials and a New Xiang that has lost them under "
+  "Mandarin pressure. Mao Zedong spoke it, which is why recordings of his speeches are a "
+  "well-known source for the accent.",
+  "Ethnologue 2024; Language Atlas of China (2nd ed. 2012)."),
+ ("Gan Chinese", ["Category:Jiangxi", "Category:Gan Chinese"],
+  "Twenty-two million speakers, centred on Jiangxi, and grouped with Hakka by some "
+  "dialectologists on the strength of shared treatment of Middle Chinese's voiced stops — the "
+  "two are the outcome of the same medieval migrations south, separated later.",
+  "Ethnologue 2024; Language Atlas of China (2nd ed. 2012)."),
+ ("Min Dong Chinese", ["Category:Fuzhou", "Category:Eastern Min"],
+  "Eastern Min, the Chinese of Fuzhou, ten million speakers, and the language of a very large "
+  "overseas community — most Chinese restaurants in New York run on it. Min is the oldest branch "
+  "of Chinese to split off, before Middle Chinese, which is why it preserves distinctions no "
+  "other variety has and cannot be reconstructed from the rhyme dictionaries the way the rest "
+  "can.",
+  "Ethnologue 2024; Norman, Chinese (1988) for Min's early separation."),
+ ("Dungan", ["Category:Dungan people", "Category:Dungan language"],
+  "Mandarin written in Cyrillic — the language of the Hui Muslims who fled northwest China after "
+  "the revolt of 1877 and settled in what is now Kyrgyzstan and Kazakhstan. It is the only "
+  "Sinitic language with an alphabetic orthography in regular use, and because it was cut off "
+  "before the twentieth-century reforms it keeps Qing-era vocabulary that mainland Mandarin has "
+  "replaced.",
+  "Rimsky-Korsakoff Dyer, Iasyr Shivaza: The Life and Works of a Soviet Dungan Poet (1991)."),
+ ("Bodo-Mech", ["Category:Bodo people", "Category:Bodoland"],
+  "Bodo, spoken in Assam by about a million and a half people, written in Devanagari, and added "
+  "to the Eighth Schedule of the Indian constitution in 2003 after a long and often violent "
+  "campaign for autonomy. It is Tibeto-Burman in a state whose majority language is Indo-Aryan.",
+  "Census of India 2011; Constitution (Ninety-second Amendment) Act 2003."),
+ ("Eastern Tamang", ["Category:Tamang people", "Category:Tamang language"],
+  "The largest Tibeto-Burman language of Nepal, over a million speakers in the hills around "
+  "Kathmandu. It is written in Devanagari and, in Buddhist contexts, in Tibetan script; the "
+  "Tamang are the people the word Gurkha most often meant in British recruitment.",
+  "Nepal census 2021; Mazaudon, in The Sino-Tibetan Languages (2003)."),
+ ("Southern Jinghpaw", ["Category:Kachin people", "Category:Jingpho language"],
+  "Jingpho, the lingua franca of the Kachin hills across the Myanmar–China border, written in a "
+  "Latin orthography devised by the Baptist missionary Ola Hanson in 1895. It is the language of "
+  "the Kachin Independence Organisation and of a literature almost entirely produced by and for "
+  "the churches.",
+  "Hanson, A Dictionary of the Kachin Language (1906); Ethnologue 2024."),
+ ("Akha", ["Category:Akha people", "Category:Akha language"],
+  "Spoken across five countries in the hills of the southern Yunnan massif, by people who kept "
+  "no state and were divided by every border drawn around them. Its oral genealogies are "
+  "recited back sixty generations, each man's name beginning with the last syllable of his "
+  "father's — a chain that functions as a written record without writing.",
+  "Ethnologue 2024; Hansson, in Journal of the Siam Society (1983)."),
+ ("Ao Naga", ["Category:Ao Naga", "Category:Nagaland"],
+  "One of the larger Naga languages, and the first to be written: Baptist missionaries produced "
+  "an Ao orthography in the 1870s, and Ao became a written language a century before most of its "
+  "neighbours. Nagaland has more than a dozen mutually unintelligible languages and uses English "
+  "as its official one for exactly that reason.",
+  "Census of India 2011; Coupe, A Grammar of Mongsen Ao (2007)."),
+ ("Lotha Naga", ["Category:Lotha Naga", "Category:Nagaland"],
+  "Spoken in Wokha district of Nagaland, written in Latin letters since missionary contact, and "
+  "one of the Naga languages with a substantial published literature and a Bible of its own.",
+  "Census of India 2011."),
+ ("Yimchungru Naga", ["Category:Nagaland", "Category:Naga people"],
+  "Spoken in eastern Nagaland along the Myanmar border, in one of the least surveyed parts of "
+  "the Naga area. Like most Naga languages it is written in a Latin orthography that arrived "
+  "with the church and is used almost entirely for it.",
+  "Census of India 2011."),
+ ("Wancho Naga", ["Category:Wancho", "Category:Arunachal Pradesh"],
+  "Spoken in Longding district of Arunachal Pradesh, and one of very few languages anywhere to "
+  "acquire a brand-new script in the twenty-first century: Banwang Losu devised the Wancho "
+  "alphabet between 2001 and 2012, and Unicode encoded it in 2019.",
+  "Unicode 12.0 (2019) for the Wancho block; Census of India 2011."),
+ ("Phom Naga", ["Category:Nagaland", "Category:Naga people"],
+  "Spoken in Longleng district of Nagaland. The Phom were among the last Naga groups contacted "
+  "by the colonial administration, and their language was first written in the 1950s.",
+  "Census of India 2011."),
+ ("Galo", ["Category:Arunachal Pradesh", "Category:Tani languages"],
+  "A Tani language of Arunachal Pradesh, and unusually well described for the region: it has a "
+  "full reference grammar and a community-developed orthography, both rare in a state with more "
+  "than ninety languages and few of them written.",
+  "Post, A Grammar of Galo (2007); Census of India 2011."),
+ ("Zaiwa", ["Category:Kachin State", "Category:Dehong"],
+  "Atsi, a Burmish language of the Kachin hills and Dehong, spoken alongside Jingpho and often "
+  "by the same people. Written in Latin letters in Myanmar and in a separate romanisation in "
+  "China — the border produced two orthographies for one language.",
+  "Ethnologue 2024; Lustig, A Grammar and Dictionary of Zaiwa (2010)."),
+ ("Zou", ["Category:Manipur", "Category:Kuki-Chin languages"],
+  "A Kuki-Chin language of Manipur and Chin State, written in Latin letters. The Kuki-Chin "
+  "languages are among the most numerous and least individually described branches of "
+  "Tibeto-Burman.",
+  "Census of India 2011."),
+ ("Geba Karen", ["Category:Karen people", "Category:Kayin State"],
+  "One of the Karen languages of eastern Myanmar, written in the Burmese-derived Karen script. "
+  "Karen is unusual within Tibeto-Burman for having subject–verb–object word order, the result "
+  "of long contact with Mon and Tai.",
+  "Ethnologue 2024."),
+ ("Bwe Karen", ["Category:Karen people", "Category:Kayah State"],
+  "A Karen language of the Kayah hills, described in detail by Eugénie Henderson in a grammar "
+  "and dictionary that took forty years and was published after her death — one of the most "
+  "thorough descriptions of any language in Myanmar.",
+  "Henderson, Bwe Karen Dictionary, with texts and English–Karen word list (1997)."),
+ ("Lahta-Zayein Karen", ["Category:Karen people", "Category:Kayah State"],
+  "A small Karen language of Kayah and Shan states. The Karen languages number more than twenty "
+  "and are not mutually intelligible; the political category Karen covers all of them.",
+  "Ethnologue 2024."),
+ ("Chepang", ["Category:Chepang people", "Category:Nepal"],
+  "Spoken in the Mahabharat range of central Nepal by a community that was semi-nomadic into the "
+  "twentieth century. Caughley's grammar and dictionary made it one of the better-described "
+  "small languages of the Himalaya.",
+  "Caughley, The Syntax and Morphology of the Verb in Chepang (1982); Nepal census 2021."),
+ ("Khaling", ["Category:Kirati people", "Category:Solukhumbu District"],
+  "A Kiranti language of eastern Nepal with one of the most complex verb systems described "
+  "anywhere in Tibeto-Burman — a single verb can agree with both subject and object and carry "
+  "the stem alternations of an entire conjugation class.",
+  "Jacques et al., in Linguistics of the Tibeto-Burman Area (2012)."),
+ ("Lashi", ["Category:Kachin State", "Category:Burmish languages"],
+  "A Burmish language of the Kachin hills, spoken on both sides of the China–Myanmar border and "
+  "closely related to Zaiwa. Most of its speakers also speak Jingpho.",
+  "Ethnologue 2024."),
+ ("Kurtokha", ["Category:Bhutan", "Category:East Bodish languages"],
+  "An East Bodish language of eastern Bhutan. The East Bodish languages are not descended from "
+  "Classical Tibetan but are its cousins — they split from the same ancestor before Tibetan "
+  "itself was written, which makes them unusually informative about what that ancestor was like.",
+  "van Driem, Languages of the Himalayas (2001); Hyslop, A Grammar of Kurtöp (2017)."),
+ ("Leh Ladakhi", ["Category:Ladakh", "Category:Ladakhi language"],
+  "The Tibetic language of Leh, written in Tibetan script and, unlike Central Tibetan, still "
+  "pronouncing many of the consonant clusters that the classical spelling records — a Ladakhi "
+  "reader sounds closer to the seventh-century orthography than a Lhasa reader does.",
+  "Koshal, Ladakhi Grammar (1979); Census of India 2011."),
+ ("Sherdukpen", ["Category:Arunachal Pradesh", "Category:Kho-Bwa languages"],
+  "A Kho-Bwa language of western Arunachal Pradesh, spoken by fewer than ten thousand people. "
+  "Kho-Bwa is one of the branches whose position inside Tibeto-Burman is genuinely unresolved — "
+  "it may not belong where it is currently placed.",
+  "Jacquesson, in Linguistics of the Tibeto-Burman Area (2015); Census of India 2011."),
 ]
 
 
