@@ -1041,6 +1041,331 @@ M: dict[str, list] = {
         (1600, True, "the last reports of Coptic spoken at home; it continues in the liturgy "
                      "of the Coptic Church to this day"),
     ],
+ # ---- INDO-EUROPEAN BATCH 2: the 48 languages labelled in pass 4, for those whose
+ # record fixes real dates. A creole has an unusually good timeline because its
+ # beginning IS an event — a ship, a plantation, a settlement with a year on it. The
+ # Indo-Aryan varieties of the Hindi belt have the opposite problem: continuous speech,
+ # no founding moment, and a documentary record that opens with a British survey.
+
+ "Bhojpuri": [
+   (1789, False, "the earliest dated Bhojpuri manuscripts, in the Kaithi script that clerks "
+                 "across Bihar used for everything"),
+   (1834, False, "indenture begins; over eighty years Bhojpuri speakers are shipped to "
+                 "Mauritius, Fiji, Trinidad, Guyana, Suriname and South Africa"),
+   (1884, False, "Grierson's *Seven Grammars of the Dialects of the Bihari Language* — the first "
+                 "systematic description"),
+   (1903, False, "the Linguistic Survey of India records it as a language, not a Hindi dialect"),
+   (1949, False, "the Kaithi script is dropped from official use in Bihar in favour of "
+                 "Devanagari"),
+   (1963, False, "*Ganga Maiya Tohe Piyari Chadhaibo*, the first Bhojpuri feature film"),
+   (1969, False, "the first petition to add Bhojpuri to the Eighth Schedule of the Indian "
+                 "constitution; it is still pending"),
+   (2018, False, "Mauritius adds Bhojpuri to its intangible heritage, and it enters schools "
+                 "there before it does in India"),
+ ],
+ "Chhattisgarhi": [
+   (1885, False, "Hira Lal Kavyopadhyay's grammar, the first description of the language"),
+   (1890, True, "the Pandavani begins to be recorded — the Mahabharata performed by one singer "
+                "with a tambura"),
+   (2000, False, "Chhattisgarh becomes a state, and the language acquires a political case"),
+   (2007, False, "Chhattisgarhi is declared the state's official language alongside Hindi"),
+   (2019, False, "the state announces primary schooling in it; implementation is partial"),
+ ],
+ "Dogri": [
+   (1800, True, "Dogri is written in Takri, a script of the western Himalaya related to Sharada"),
+   (1863, False, "the first printed Dogri book, from the Dogra court at Jammu"),
+   (1944, False, "the Dogri Sanstha is founded at Jammu to standardise and publish"),
+   (1969, False, "the Sahitya Akademi recognises Dogri as an independent literary language"),
+   (2003, False, "added to the Eighth Schedule of the Indian constitution, after six decades of "
+                 "campaigning"),
+ ],
+ "Kumaoni": [
+   (989, False, "a copper-plate inscription in the language, in Devanagari — one of the oldest "
+                "dated documents in any Pahari variety"),
+   (1868, False, "Kumaoni appears in the first Census of the North-Western Provinces"),
+   (1916, True, "Gumani Pant's verse establishes a written literary register"),
+   (2010, False, "UNESCO's Atlas lists it vulnerable: hill villages are emptying toward the "
+                 "plains and children arrive there speaking Hindi"),
+ ],
+ "Garhwali": [
+   (1400, True, "Garhwali appears in temple inscriptions of the Garhwal kingdom"),
+   (1913, False, "the Linguistic Survey of India describes it as Central Pahari"),
+   (2009, False, "the Ramman of Saloor Dungra, a Garhwali ritual theatre, joins UNESCO's "
+                 "intangible heritage list"),
+   (2010, False, "UNESCO lists the language itself as vulnerable"),
+ ],
+ "Rohingya": [
+   (1799, False, "Francis Buchanan-Hamilton records a Rohingya word list — the first "
+                 "documentation of the language, and evidence of the community's presence in "
+                 "Arakan two centuries before its citizenship was denied"),
+   (1975, True, "Mohammed Hanif devises the Hanifi Rohingya alphabet, adapting Arabic letters "
+                "to the language's vowels"),
+   (1982, False, "Burma's citizenship law excludes the Rohingya, and with them any state "
+                 "provision for the language"),
+   (2018, False, "Unicode 11.0 encodes Hanifi Rohingya — a script created in living memory and "
+                 "adopted by a whole community"),
+   (2017, False, "over 700,000 people cross into Bangladesh; the largest concentration of "
+                 "Rohingya speakers is now a refugee settlement"),
+ ],
+ "Chakma": [
+   (1800, True, "the Chakma script, a Brahmic alphabet related to Burmese, is in use for "
+                "religious and administrative texts"),
+   (1963, False, "the Kaptai dam floods a large part of the Chittagong Hill Tracts and displaces "
+                 "much of the Chakma population"),
+   (2012, False, "Unicode 6.1 encodes the Chakma script"),
+   (2017, False, "Bangladesh begins printing primary textbooks in Chakma"),
+ ],
+ "Kabuverdianu": [
+   (1462, False, "settlement of Santiago begins; a Portuguese-lexifier creole forms on islands "
+                 "that had no prior population — the first creole society in the Atlantic"),
+   (1856, False, "slavery is abolished in the archipelago"),
+   (1880, True, "Eugénio Tavares writes his *mornas*, giving the language a literature"),
+   (1975, False, "independence from Portugal; Portuguese remains the language of the state"),
+   (1998, False, "the ALUPEC alphabet is proposed as a standard orthography"),
+   (2009, False, "ALUPEC is adopted officially, though Portuguese keeps its position"),
+ ],
+ "Krio": [
+   (1787, False, "the Province of Freedom is settled at Freetown by formerly enslaved people "
+                 "from Britain"),
+   (1792, False, "the Nova Scotian settlers arrive, followed by the Jamaican Maroons in 1800"),
+   (1808, True, "recaptured slave ships land tens of thousands of liberated Africans at "
+                "Freetown; Krio forms among them as the common language"),
+   (1980, False, "the New Testament appears in Krio"),
+   (2013, False, "the full Bible in Krio"),
+ ],
+ "Morisyen": [
+   (1721, False, "French settlement of Mauritius; the creole forms on the sugar estates"),
+   (1810, False, "Britain takes the island but leaves French law and language in place, so the "
+                 "creole keeps its French lexicon"),
+   (1822, False, "Chrestien's *Les Essais d'un bobre africain*, the earliest printed Morisyen"),
+   (2011, False, "the Grafi-larmoni orthography is adopted"),
+   (2012, False, "Morisyen enters primary schools as an optional subject"),
+   (2022, False, "it is used in the National Assembly for the first time"),
+ ],
+ "Saramaccan": [
+   (1690, True, "enslaved people escape the Suriname plantations and establish independent "
+                "communities upriver"),
+   (1762, False, "the Dutch sign a peace treaty recognising Saramaka autonomy — a century before "
+                 "abolition"),
+   (1778, False, "Schumann's Saramaccan–German dictionary, compiled by Moravian missionaries — "
+                 "one of the earliest dictionaries of any creole"),
+   (2007, False, "the Inter-American Court rules for the Saramaka in a land-rights case, the "
+                 "first such judgment for a Maroon people"),
+ ],
+ "Seselwa Creole French": [
+   (1770, False, "French settlement of the Seychelles; the creole forms within a generation"),
+   (1976, False, "independence from Britain"),
+   (1981, False, "Seselwa becomes an official language and the medium of early schooling — the "
+                 "only French creole anywhere to get both"),
+   (1982, False, "the Lenstiti Kreol is founded to standardise it"),
+ ],
+ "Hawai'i Creole English": [
+   (1835, False, "the first sugar plantation opens at Kōloa; labourers arrive from China, "
+                 "Portugal, Japan, Korea and the Philippines"),
+   (1900, True, "the children of the plantations turn the contact pidgin into a creole — a "
+                "first language with a grammar of its own"),
+   (1987, False, "the Board of Education attempts to ban it in schools; the attempt fails after "
+                 "public opposition"),
+   (2000, False, "*Da Jesus Book*, the New Testament in Pidgin"),
+   (2015, False, "the US Census Bureau lists it as a language of the home for the first time"),
+ ],
+ "Louisiana Creole French": [
+   (1719, False, "the first slave ships reach Louisiana from Senegambia; the creole forms on the "
+                 "plantations"),
+   (1803, False, "the Louisiana Purchase brings the territory into an English-speaking country"),
+   (1921, False, "the state constitution bans teaching in French, and both Louisiana Creole and "
+                 "Cajun French begin to collapse"),
+   (1968, False, "CODOFIL is created to promote French; it initially promotes Parisian French "
+                 "rather than either local variety"),
+   (2018, False, "Louisiana joins the Organisation internationale de la Francophonie, and the "
+                 "revival turns toward the local languages"),
+ ],
+ "Cameroon Pidgin": [
+   (1840, True, "an English-lexifier pidgin is in use on the Cameroon coast through the palm-oil "
+                "trade"),
+   (1884, False, "Germany annexes Kamerun; the pidgin survives German rule and outlives it"),
+   (1961, False, "the British Southern Cameroons joins Cameroon; Kamtok is the everyday language "
+                 "of the anglophone regions"),
+   (2016, False, "the anglophone crisis begins, and the language becomes a marker in it"),
+ ],
+ "Domari": [
+   (1000, True, "the Dom leave northwest India, taking an Indo-Aryan language west through "
+                "Persia into the Levant — a separate migration from the one that produced Romani"),
+   (1913, False, "Macalister's *The Language of the Nawar*, the first grammar, from Jerusalem"),
+   (2012, False, "Matras publishes *A Grammar of Domari*, describing the Jerusalem variety, "
+                 "then spoken fluently by fewer than ten people"),
+ ],
+ "Balkan Romani": [
+   (1000, True, "the Roma leave northwest India; the language is the strongest evidence for "
+                "where they came from, since no written record of the migration survives"),
+   (1542, False, "Andrew Borde prints thirteen Romani sentences in England — the earliest "
+                 "recorded Romani anywhere"),
+   (1782, False, "Rüdiger demonstrates that Romani is an Indian language"),
+   (1971, False, "the first World Romani Congress adopts a flag, an anthem and the name Roma"),
+   (2008, False, "Romani becomes a recognised minority language in several Balkan states under "
+                 "the European Charter"),
+ ],
+ "Kalo Finnish Romani": [
+   (1559, False, "the Finnish Kale are first recorded in Finland, arriving via Sweden"),
+   (1971, False, "Finland ends the last of the assimilation policies aimed at the Kale"),
+   (1995, False, "a constitutional amendment gives Romani the right to be maintained and "
+                 "developed; it enters schools"),
+   (2010, True, "surveys find most Finnish Kale no longer speak it; it is severely endangered"),
+ ],
+ "Judeo-Tat": [
+   (1700, True, "Juhuri is written in Hebrew letters by the Mountain Jews of the eastern "
+                "Caucasus"),
+   (1929, False, "the Soviet state switches the language to Latin script"),
+   (1938, False, "and then to Cyrillic, nine years later"),
+   (1990, True, "most speakers emigrate to Israel after the Soviet collapse"),
+   (2010, False, "UNESCO lists Juhuri as endangered"),
+ ],
+ "Digor Ossetian": [
+   (1798, False, "the first printed book in Ossetian, a catechism in Cyrillic"),
+   (1844, False, "Sjögren's grammar establishes the modern Cyrillic orthography"),
+   (1937, False, "Digor is declared a dialect of Iron and its separate literary use is "
+                 "suppressed"),
+   (1957, False, "Digor publishing resumes"),
+   (2009, True, "Ossetian is the last living descendant of the Scythian and Alanic languages of "
+                "the steppe, and the only one to survive the Turkic and Slavic expansions"),
+ ],
+ "Shina": [
+   (1880, True, "Leitner records Shina during the Gilgit surveys"),
+   (1924, False, "Bailey's *Grammar of the Shina Language*"),
+   (1974, True, "Perso-Arabic orthographies for Shina are developed in Gilgit"),
+   (2010, True, "Shina is one of the few Dardic languages with a growing published literature"),
+ ],
+ "Khowar": [
+   (1880, True, "Khowar is recorded during the British surveys of Chitral"),
+   (1919, False, "the first Khowar poetry appears in print"),
+   (1958, False, "Khowar broadcasting begins on Radio Pakistan Peshawar"),
+   (2003, True, "a standard Perso-Arabic orthography is agreed"),
+ ],
+ "Palula": [
+   (1900, True, "Palula is noted in the Linguistic Survey of India as a Dardic language of "
+                "southern Chitral"),
+   (2004, False, "an orthography is developed with the community — the language's first"),
+   (2013, False, "the first Palula dictionary is published"),
+   (2016, False, "Liljegren's *A Grammar of Palula*, the full description"),
+ ],
+ "Chitral Kalasha": [
+   (1896, False, "the Durand Line divides the Kalash from Nuristan, whose people are converted "
+                 "by force the same year; the Chitral Kalash, on the British side, are not"),
+   (1970, True, "anthropologists begin recording the language and the ritual calendar together"),
+   (2003, False, "an orthography is agreed at a community conference in Chitral"),
+   (2010, False, "UNESCO lists Kalasha as definitely endangered; the religion and the language "
+                 "are declining together"),
+ ],
+ "Wakhi": [
+   (1876, False, "Shaw's account of Wakhi, from the first European crossings of the corridor"),
+   (1895, False, "the Anglo-Russian boundary commission fixes the Wakhan corridor, splitting one "
+                 "language across four countries so two empires would not touch"),
+   (1984, True, "Wakhi begins to be written in Cyrillic in Tajikistan and in Perso-Arabic in "
+                "Pakistan"),
+ ],
+ "Shughni": [
+   (1895, False, "the Pamir boundary settlement divides Shughni speakers between Russian "
+                 "Bukhara and Afghanistan"),
+   (1931, False, "Shughni is given a Latin alphabet and used in Soviet schools"),
+   (1937, False, "the experiment is ended and Tajik replaces it"),
+   (1990, True, "Cyrillic-based Shughni publishing resumes in Gorno-Badakhshan"),
+ ],
+ "Fala": [
+   (1200, True, "Galician-Portuguese speakers are resettled in the Jálama valley, seven hundred "
+                "kilometres from Galicia"),
+   (1910, False, "Fala is first described in print, and identified as Galician-Portuguese rather "
+                 "than a Spanish dialect"),
+   (2001, False, "declared a *bien de interés cultural* by the Junta de Extremadura"),
+ ],
+ "Emiliano": [
+   (1200, True, "Gallo-Italic speech is written in Emilia in notarial and devotional texts"),
+   (1901, False, "the *Vocabolario bolognese-italiano* fixes a written form for the Bologna "
+                 "variety"),
+   (1999, False, "Italy's Law 482 recognises twelve minority languages and does not include "
+                 "Emilian, which is classed as an Italian dialect"),
+   (2015, True, "ISTAT finds it still spoken at home by a substantial minority in the region"),
+ ],
+ "Romagnol": [
+   (1300, True, "Romagnol appears in verse and in notarial documents"),
+   (1840, True, "a Romagnol theatre tradition establishes itself around Ravenna and Forlì"),
+   (1979, False, "Tonino Guerra, who wrote in Romagnol, scripts *Amarcord*'s successors and "
+                 "brings the language to a national audience"),
+   (2014, False, "Emilia-Romagna passes a regional law to protect and promote its dialects"),
+ ],
+ "Gallurese Sardinian": [
+   (1400, True, "Corsican settlement of northeastern Sardinia brings a Corsican-based speech "
+                "across the strait"),
+   (1770, True, "Gallurese poetry is established in written form"),
+   (1997, False, "Sardinian regional law 26 recognises Gallurese separately from Sardinian"),
+ ],
+ "Sassarese Sardinian": [
+   (1235, False, "Sassari's statutes are written in a language already distinct from both "
+                 "Sardinian and Tuscan"),
+   (1500, True, "Catalan and then Spanish rule leave their layers on it"),
+   (1997, False, "recognised separately under Sardinian regional law 26"),
+ ],
+ "Swabian": [
+   (1800, True, "Swabian is the everyday speech of a region whose written language is standard "
+                "German"),
+   (1904, False, "Fischer's *Schwäbisches Wörterbuch* begins publication, running to six volumes"),
+   (1999, False, "Baden-Württemberg adopts the slogan *Wir können alles. Außer Hochdeutsch* — a "
+                 "state government advertising its own dialect"),
+ ],
+ "Hazaragi": [
+   (1880, True, "the Hazara wars; Abdur Rahman Khan's campaigns kill or displace a large part of "
+                "the population"),
+   (1962, False, "the first linguistic description of Hazaragi is published"),
+   (1998, False, "the Taliban massacre at Mazar-i-Sharif"),
+   (2021, False, "the Taliban return; Hazara speakers again leave in large numbers"),
+ ],
+ "Southern Pashto": [
+   (1651, True, "Khushal Khan Khattak begins writing; he leaves some forty-five thousand "
+                "couplets, much of it composed in Mughal prisons"),
+   (1936, False, "Pashto is declared a national language of Afghanistan"),
+   (1964, False, "the constitution makes Pashto and Dari the two official languages"),
+   (1978, True, "the Pashto Academy at Kabul standardises orthography on the Kandahar variety"),
+ ],
+ "Eastern Balochi": [
+   (1838, False, "Leech publishes the first Balochi vocabulary"),
+   (1877, True, "Balochi is written in Perso-Arabic script for the first time in any quantity"),
+   (1951, False, "the Balochi Academy is founded at Quetta"),
+   (2005, True, "Korn's historical grammar shows Balochi's closest relatives are the languages "
+                "of the Caspian coast, fifteen hundred kilometres north"),
+ ],
+ "Northern Luri": [
+   (1300, True, "Luri appears in the poetry of the Lur dynasties of the Zagros"),
+   (1963, False, "the first modern linguistic description of Luri"),
+   (2010, True, "Iran counts Luri as a dialect of Persian; its speakers do not"),
+ ],
+ "Nuristani Kalasha": [
+   (1896, False, "Abdur Rahman Khan conquers Kafiristan and converts it by force; the region is "
+                 "renamed Nuristan, the land of light"),
+   (1954, True, "Morgenstierne's surveys establish Nuristani as a third branch of Indo-Iranian, "
+                "alongside Indo-Aryan and Iranian"),
+   (2001, False, "Strand publishes the fullest modern account of the Nuristani languages"),
+ ],
+ "Chittagonian": [
+   (1799, False, "Buchanan-Hamilton records Chittagonian alongside Rohingya, noting the two are "
+                 "close"),
+   (1903, False, "the Linguistic Survey of India treats it as a dialect of Bengali, a "
+                 "classification that has held administratively ever since"),
+   (2010, True, "linguists put the distance between Chittagonian and standard Bengali at about "
+                "that between Portuguese and Spanish"),
+ ],
+ "Sadri": [
+   (1900, True, "Sadri spreads as a lingua franca on the Chotanagpur plateau, used between Munda, "
+                "Dravidian and Indo-Aryan communities"),
+   (1860, True, "tea-garden recruitment carries Sadri speakers to Assam, where their descendants "
+                "speak it still"),
+   (2003, False, "Jharkhand recognises Sadri as a second official language of the state"),
+ ],
+ "Lambadi": [
+   (1600, True, "the Banjara carry salt and grain for Mughal and Maratha armies across the "
+                "Deccan, taking a Rajasthani language a thousand kilometres south"),
+   (1871, False, "the Criminal Tribes Act designates the Banjara a criminal tribe; the "
+                 "designation is not lifted until 1952"),
+   (1952, False, "the Act is repealed and the community is denotified"),
+ ],
 }
 
 
