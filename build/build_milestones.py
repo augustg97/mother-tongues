@@ -1818,6 +1818,264 @@ M: dict[str, list] = {
    (1986, False, "Butler dies; the recordings and texts are what remains"),
    (1997, False, "the Jiwarli texts are published — a complete corpus from one man's memory"),
  ],
+ # ---- ATLANTIC-CONGO and AUSTRONESIAN. Between them 2,684 of the 8,618 languages here,
+ # and they carried seven dated events.
+ #
+ # A pattern that repeats in both and nowhere in Indo-European: the script inventions are
+ # DATED, ATTRIBUTED AND RECENT. Njoya's Bamum syllabary from 1896, the Vai syllabary of
+ # 1833, Adlam in 1989. In Europe the alphabets are anonymous and ancient. In West Africa a
+ # great many have an inventor with a name and a year — they were made AFTER writing
+ # arrived rather than before, by people who had seen it and wanted their own.
+
+ # ---------------- ATLANTIC-CONGO
+ "South-Central Koongo": [
+   (1483, False, "Diogo Cão reaches the Congo river; the kingdom of Kongo and Portugal begin "
+                 "diplomatic contact"),
+   (1491, False, "the Kongo court converts and begins corresponding with Lisbon in writing — "
+                 "some of the earliest letters by sub-Saharan African rulers to survive"),
+   (1556, False, "the first Kikongo catechism, printed in Lisbon"),
+   (1652, False, "Brusciotto's *Regulae*, the first grammar of any Bantu language"),
+   (1900, True, "Kikongo words carried in the slave trade survive in Palenquero in Colombia, in "
+                "Cuban Palo and in Haitian Vodou"),
+ ],
+ "Swahili": [
+   (1000, True, "Swahili towns on the East African coast trade with Arabia, Persia and India; "
+                "Arabic loanwords enter the language"),
+   (1728, False, "the Utendi wa Tambuka, the earliest dated Swahili manuscript, in Arabic script"),
+   (1890, True, "German and British administrations adopt Swahili for local government and "
+                "switch it to Latin letters"),
+   (1930, False, "the Inter-Territorial Language Committee standardises on the Zanzibar dialect"),
+   (1964, False, "Tanzania makes Swahili its national language; Nyerere translates Shakespeare "
+                 "into it"),
+   (2022, False, "UNESCO declares 7 July World Kiswahili Language Day — the first African "
+                 "language to be given one"),
+ ],
+ "Zulu": [
+   (1820, True, "the Mfecane; Nguni-speaking groups scatter across southern Africa and carry "
+                "Zulu-related languages as far as Tanzania"),
+   (1859, False, "the first Zulu Bible, translated by American missionaries"),
+   (1883, False, "*Izwi Labantu* and the early Zulu press begin"),
+   (1930, False, "Vilakazi's poetry establishes a modern Zulu literature"),
+   (1996, False, "Zulu becomes one of South Africa's eleven official languages"),
+ ],
+ "Yoruba": [
+   (1843, False, "Samuel Ajayi Crowther publishes a Yoruba grammar and vocabulary — a language "
+                 "described by one of its own speakers, which was rare"),
+   (1884, False, "the complete Yoruba Bible, largely Crowther's work"),
+   (1929, False, "Fagunwa begins writing Yoruba novels; *Ogboju Ode* appears in 1938"),
+   (1960, True, "Yoruba religious vocabulary, carried to Brazil and Cuba in the slave trade, "
+                "survives as the liturgical language of Candomblé and Santería"),
+ ],
+ "Igbo": [
+   (1857, False, "Samuel Ajayi Crowther's *Isoama-Ibo Primer*, the first book in Igbo"),
+   (1913, False, "the Union Igbo Bible, in an artificial compromise dialect that satisfied "
+                 "nobody and slowed literacy for decades"),
+   (1961, False, "the Ọnwụ orthography is agreed after fifty years of argument over how to "
+                 "write the language"),
+   (1958, False, "Achebe's *Things Fall Apart* — written in English, and about the moment Igbo "
+                 "stopped being the only language in the room"),
+ ],
+ "Akan": [
+   (1600, True, "Adinkra symbols are in use among the Akan, each carrying a proverb"),
+   (1853, False, "Riis's Twi grammar, the first substantial description"),
+   (1871, False, "Christaller's Twi dictionary, which fixed the written standard"),
+   (1978, False, "the Akan Orthography Committee unifies the Asante, Akuapem and Fante "
+                 "spellings"),
+ ],
+ "Wolof": [
+   (1800, True, "Wolof is written in Wolofal, an Arabic-script orthography used by Sufi "
+                "communities and still used today"),
+   (1858, False, "Boilat's *Grammaire de la langue woloffe*"),
+   (1971, False, "Senegal fixes an official Latin orthography by decree"),
+   (1973, False, "Ousmane Sembène's *Xala* — Wolof cinema, in a country whose official language "
+                 "is French"),
+ ],
+ "Bamun": [
+   (1896, False, "Sultan Ibrahim Njoya of Bamum devises a pictographic writing system for his "
+                 "language"),
+   (1910, True, "after six successive revisions Njoya's script has become a syllabary of about "
+                "eighty signs — one of the very few writing systems whose invention is "
+                "documented step by step"),
+   (1921, False, "Njoya establishes schools and a palace archive written in the script"),
+   (1931, False, "the French depose and exile him and destroy the printing press; the script "
+                 "goes out of use"),
+   (2007, False, "the Bamum Scripts and Archives Project begins digitising what survived"),
+ ],
+ "Vai": [
+   (1833, True, "Momolu Duwalu Bukele of Liberia devises the Vai syllabary, reportedly after a "
+                "dream — one of the first indigenous African scripts of the modern era"),
+   (1849, False, "Koelle documents it and confirms it was invented independently, not adapted"),
+   (1962, False, "the syllabary is standardised at 212 characters by the University of Liberia"),
+   (2005, False, "Unicode encodes Vai"),
+ ],
+ "Efik": [
+   (1700, True, "Nsibidi ideographs are in use among the Efik, Ekoi and Igbo for law, trade and "
+                "the Ekpe society"),
+   (1846, False, "Hope Waddell's mission at Calabar begins printing in Efik"),
+   (1862, False, "Goldie's Efik dictionary"),
+   (1900, True, "Efik serves as the church and trade language of the whole Cross River region"),
+ ],
+ "Pulaar": [
+   (1800, True, "Fula is written in Ajami, an Arabic-script orthography, across the Sahel"),
+   (1966, False, "a Latin orthography for Fula is agreed at the Bamako conference on African "
+                 "languages"),
+   (1989, False, "Ibrahima and Abdoulaye Barry, teenagers in Guinea, invent the Adlam alphabet "
+                 "because Arabic and Latin script fit Fula badly"),
+   (2016, False, "Unicode encodes Adlam"),
+   (2019, False, "Adlam ships in Microsoft Windows and on Android keyboards"),
+ ],
+ "Kituba (Congo)": [
+   (1890, True, "Kikongo simplifies among adult workers along the Matadi–Kinshasa railway and "
+                "the river trade"),
+   (1930, True, "children begin acquiring it as a first language; it becomes a creole"),
+   (1992, False, "Kituba is named a national language of the Republic of the Congo"),
+ ],
+ "Kinshasa Lingala": [
+   (1880, True, "Bobangi, the trade language of the middle Congo, restructures among state "
+                "workers and mission stations"),
+   (1903, True, "missionaries standardise it and name it Lingala"),
+   (1950, True, "Congolese rumba carries Lingala across central Africa"),
+   (1971, False, "Mobutu's authenticity campaign makes it the language of the army and of the "
+                 "state's public voice"),
+ ],
+ "Sango": [
+   (1890, True, "a Ngbandi-based pidgin forms along the Ubangi river among traders and soldiers"),
+   (1963, False, "Sango is declared the national language of the Central African Republic — one "
+                 "of very few African creoles to hold that status"),
+   (1984, False, "an official orthography is fixed"),
+ ],
+ "Shona": [
+   (1890, True, "the several Shona varieties are written separately by competing missions"),
+   (1931, False, "Doke's report proposes a unified Shona orthography from five dialects"),
+   (1956, False, "the orthography is revised into the form used today"),
+   (2013, False, "Zimbabwe's constitution makes sixteen languages official, Shona among them"),
+ ],
+ "Amharic": [
+   (1200, True, "Amharic emerges as the language of the Solomonic court, written in the Ge'ez "
+                "script — one of the few writing systems in the world invented in Africa and "
+                "still in daily use"),
+   (1500, True, "the royal songs, the oldest surviving Amharic literature"),
+   (1908, False, "the first Amharic printing press in Ethiopia"),
+   (1955, False, "Amharic is made the official language of the Ethiopian empire"),
+   (1995, False, "the federal constitution ends its exclusive status; regions adopt their own"),
+ ],
+ # ---------------- AUSTRONESIAN
+ "Eastern Cham": [
+   (350, True, "the Đông Yên Châu inscription in central Vietnam — the oldest written "
+               "Austronesian text anywhere, in an Indic-derived script"),
+   (1471, False, "Đại Việt destroys Vijaya; the Cham kingdom's centre of gravity collapses"),
+   (1832, False, "Champa's last remnant is annexed by Vietnam"),
+   (1978, True, "the Akhar Thrah script is standardised for teaching in Vietnam"),
+ ],
+ "Standard Malay": [
+   (683, False, "the Kedukan Bukit inscription at Palembang, the oldest dated Malay"),
+   (1303, False, "the Terengganu Inscription Stone — Malay in Jawi, Arabic-derived script, and "
+                 "evidence of Islam on the peninsula"),
+   (1521, False, "Pigafetta records a Malay word list on Magellan's voyage, the first European "
+                 "collection"),
+   (1901, False, "the Wilkinson spelling introduces Latin letters officially"),
+   (1928, False, "the Youth Pledge in Batavia adopts Malay as the language of a future "
+                 "Indonesia — chosen over Javanese, which had far more speakers, precisely "
+                 "because it belonged to nobody"),
+   (1972, False, "Indonesia and Malaysia agree a common spelling reform"),
+ ],
+ "Javanese": [
+   (804, False, "the Sukabumi inscription, the oldest dated Old Javanese"),
+   (1157, True, "the Kakawin Bharatayuddha, the high point of Old Javanese court poetry"),
+   (1500, True, "Islam arrives and Pegon, an Arabic-script orthography, joins the Javanese "
+                "script"),
+   (1926, False, "the Sriwedari congress standardises Javanese spelling"),
+   (2009, False, "Unicode encodes the Javanese script"),
+ ],
+ "Tagalog": [
+   (900, False, "the Laguna Copperplate Inscription — the oldest written document from the "
+                "Philippines, in Old Malay with Old Tagalog and Old Javanese elements"),
+   (1593, False, "the *Doctrina Christiana*, the first book printed in the Philippines, in "
+                 "Spanish, Tagalog in Latin letters and Tagalog in Baybayin"),
+   (1700, True, "Spanish printing displaces Baybayin almost entirely within a century"),
+   (1937, False, "Tagalog is chosen as the basis of the national language"),
+   (1987, False, "the constitution names that language Filipino"),
+ ],
+ "Plateau Malagasy": [
+   (700, True, "settlers from southeastern Borneo reach Madagascar — the longest prehistoric "
+               "ocean migration attested by language, seven thousand kilometres"),
+   (1600, True, "Malagasy is written in Sorabe, an Arabic-derived script, in the southeast"),
+   (1823, False, "Radama I adopts a Latin orthography for the kingdom"),
+   (1835, False, "the first Malagasy Bible, and then a twenty-six-year ban on Christianity "
+                 "under Ranavalona I during which converts kept it in hiding"),
+   (1958, False, "Malagasy becomes an official language of the republic"),
+ ],
+ "Hawaiian": [
+   (1200, True, "Polynesian voyagers reach Hawaiʻi from the Marquesas and the Society Islands"),
+   (1822, False, "the first printing in Hawaiian; literacy reaches among the highest rates in "
+                 "the world within a generation"),
+   (1896, False, "three years after the overthrow of the kingdom, Hawaiian is banned as a medium "
+                 "of instruction"),
+   (1983, False, "ʻAha Pūnana Leo founds Hawaiian-language preschools with fewer than fifty "
+                 "children under eighteen still speaking it"),
+   (1987, False, "the ban is lifted; Hawaiian-medium schooling resumes"),
+   (2016, True, "there are again thousands of speakers, most of them young — one of the most "
+                "complete language revivals anywhere"),
+ ],
+ "Maori": [
+   (1300, True, "Polynesian voyagers reach Aotearoa — the last large landmass on earth to be "
+                "settled by people"),
+   (1815, False, "the first book printed in Māori"),
+   (1840, False, "the Treaty of Waitangi is signed in Māori and English, and the two texts do "
+                 "not say the same thing — the discrepancy is still litigated"),
+   (1867, False, "the Native Schools Act; English-only instruction begins"),
+   (1982, False, "the first kōhanga reo, Māori-language preschools"),
+   (1987, False, "the Māori Language Act makes it an official language of New Zealand"),
+ ],
+ "Samoan": [
+   (1000, True, "Samoa is a centre of the Polynesian world; voyaging routes radiate east from "
+                "here"),
+   (1839, False, "the first Samoan printing"),
+   (1855, False, "the complete Samoan Bible"),
+   (1962, False, "independence; Samoan is an official language alongside English and remains "
+                 "the everyday language of nearly everyone"),
+ ],
+ "Fijian": [
+   (1835, True, "the Rewa and Bau dialects are written by Methodist missionaries; David "
+                "Cargill's orthography uses single letters for prenasalised stops, so *b* is "
+                "*mb* — an unusual solution still in use"),
+   (1847, False, "the first Fijian New Testament"),
+   (1997, False, "Fijian is named an official language in the constitution"),
+ ],
+ "Rapanui": [
+   (1200, True, "Polynesian voyagers settle Rapa Nui, the most isolated inhabited island on "
+                "earth"),
+   (1770, True, "the rongorongo tablets are made or already in use — an undeciphered script, "
+                "and the only writing system invented anywhere in Oceania before contact"),
+   (1862, False, "Peruvian slave raids take away most of the island's population, including "
+                 "almost everyone who could read rongorongo"),
+   (1864, True, "the tablets are collected by missionaries; twenty-six survive and none can be "
+                "read"),
+ ],
+ "Tetum": [
+   (1700, True, "Tetum spreads as a lingua franca across Timor under Portuguese administration"),
+   (1975, False, "Indonesia invades; Portuguese is banned and Tetum becomes the language of the "
+                 "resistance and of the church"),
+   (2002, False, "independence; Tetum and Portuguese are the official languages"),
+   (2004, False, "a standard orthography for Tetun Dili is fixed by the national language "
+                 "institute"),
+ ],
+ "Pazeh-Kahabu": [
+   (1650, True, "Dutch missionaries record several western-plains Formosan languages in Latin "
+                "script"),
+   (1900, True, "Japanese administration accelerates the shift to Japanese and then Chinese"),
+   (2010, False, "Pan Jin-yu, the last fluent speaker of Pazeh, dies aged 96"),
+   (2013, False, "a Pazeh-Kahabu dictionary is published and a revival community continues"),
+ ],
+ "Chamorro": [
+   (1668, False, "Spanish mission and conquest of the Marianas begins; the population falls by "
+                 "more than ninety per cent over three decades"),
+   (1668, True, "Chamorro absorbs a very large Spanish vocabulary — enough that it was long "
+                "misclassified as a creole rather than an Austronesian language"),
+   (1922, False, "the US Navy bans Chamorro in schools on Guam and orders dictionaries burned"),
+   (1974, False, "bilingual education is restored"),
+   (2013, False, "a Chamorro revitalisation commission is established"),
+ ],
 }
 
 
