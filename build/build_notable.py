@@ -2750,6 +2750,132 @@ E = [
   "Amuzgo of Xochistlahuaca in Guerrero. Amuzgo is one of the more tonally complex Otomanguean "
   "languages, and Amuzgo weavers' backstrap-loom textiles are among the best known in Mexico.",
   "INEGI 2020 census; Ethnologue 2024."),
+ # ---- SEVEN MID-SIZE FAMILIES: Dravidian, Austroasiatic, Tai-Kadai, Mande, Uto-Aztecan,
+ # Arawakan, Tupian. Between them 625 languages and 16 labels. Tamil is here — seventy-five
+ # million speakers and two thousand years of continuous literature, unlabelled until now.
+
+ # ---------------- DRAVIDIAN
+ ("Tamil", ["Category:Tamil language", "Category:Tamil-Brahmi"],
+  "Two thousand years of continuous literature, and the only language of India whose classical "
+  "corpus is read without translation by ordinary speakers today. The Sangam poems were composed "
+  "between roughly 300 BCE and 300 CE and are secular — love and war rather than scripture — "
+  "which is unusual for a classical literature anywhere. Tamil is an official language of India, "
+  "Sri Lanka and Singapore, and in 1965 protests against imposing Hindi on Tamil Nadu were "
+  "violent enough to change national language policy permanently.",
+  "Census of India 2011; Zvelebil, Companion Studies to the History of Tamil Literature (1992)."),
+ ("Kodava", ["Category:Kodava language", "Category:Kodagu district"],
+  "The language of Kodagu (Coorg) in the Western Ghats, written in Kannada script. Its speakers "
+  "hold a distinct legal status in India: the Kodava are among very few communities exempt from "
+  "the Arms Act, permitted to keep firearms without licence.",
+  "Census of India 2011; Ebert, Kodava (1996)."),
+ ("Badaga", ["Category:Badaga language", "Category:Nilgiris"],
+  "Of the Nilgiri hills, and closest to Kannada although its speakers live among Toda, Kota and "
+  "Kurumba. The Nilgiris are a classic case of a small plateau holding four unrelated-enough "
+  "languages in daily contact and a stable division of labour between the communities.",
+  "Census of India 2011; Hockings and Pilot-Raichoor, A Badaga-English Dictionary (1992)."),
+ ("Pengo", ["Category:Dravidian languages", "Category:Odisha"],
+  "A Central Dravidian language of Odisha, spoken by a few hundred thousand people and described "
+  "in a single major grammar. Central Dravidian is the least documented part of the family "
+  "relative to its size.",
+  "Burrow and Bhattacharya, The Pengo Language (1970); Census of India 2011."),
+ # ---------------- AUSTROASIATIC
+ ("Central Khmer", ["Category:Khmer language", "Category:Khmer script"],
+  "The language of Cambodia, written in a Brahmic script since the seventh century — its oldest "
+  "dated inscription, from 611, is the earliest written Khmer and among the earliest writing in "
+  "mainland Southeast Asia. Khmer has no tones, unlike Thai and Vietnamese around it, and the "
+  "largest alphabet in the world by letter count in the Guinness reckoning.",
+  "National Institute of Statistics, Cambodia 2019 census; Jenner, Old Khmer inscriptions."),
+ ("Mon", ["Category:Mon language", "Category:Mon script"],
+  "The language of a civilisation that shaped mainland Southeast Asia and then lost its states: "
+  "the Mon script is the ancestor of Burmese writing, and Mon Buddhism and statecraft were "
+  "adopted wholesale by the Burmese and the Thai. Mon inscriptions from the sixth century are "
+  "among the oldest in the region; its speakers are now a minority in Myanmar and Thailand.",
+  "Ethnologue 2024; Bauer, Notes on Mon Epigraphy (1991)."),
+ ("Khasi", ["Category:Khasi language", "Category:Meghalaya"],
+  "An Austroasiatic language in northeast India, a thousand kilometres from its nearest "
+  "relatives in Southeast Asia — an isolated survival of a family that once stretched across the "
+  "subcontinent. Khasi society is matrilineal, and the language is one of Meghalaya's associate "
+  "official languages.",
+  "Census of India 2011; Nagaraja, Khasi: A Descriptive Analysis (1985)."),
+ ("Northern Khmer", ["Category:Northern Khmer", "Category:Surin Province"],
+  "The Khmer of northeastern Thailand, separated from Cambodian Khmer by a border drawn in the "
+  "colonial period and by Thai schooling since. It has taken on Thai tones, which Cambodian "
+  "Khmer does not have.",
+  "Ethnologue 2024; Thailand National Statistical Office."),
+ ("Santali", ["Category:Santali language", "Category:Ol Chiki"],
+  "The largest Munda language, spoken across Jharkhand, West Bengal and Odisha, and written in "
+  "Ol Chiki — an alphabet devised by Raghunath Murmu in 1925 specifically for it, because Indic "
+  "scripts fit its consonants badly. Santali entered the Eighth Schedule of the Indian "
+  "constitution in 2003 and Ol Chiki is now taught in state schools.",
+  "Census of India 2011; Constitution (Ninety-second Amendment) Act 2003."),
+ # ---------------- TAI-KADAI
+ ("Lao", ["Category:Lao language", "Category:Lao script"],
+  "The national language of Laos, written in a script closely related to Thai and descended from "
+  "the same Khmer model. There are more Lao speakers in northeastern Thailand — where the "
+  "language is called Isan and written in Thai script — than in Laos itself.",
+  "Lao Statistics Bureau 2015 census; Ethnologue 2024."),
+ ("Northern Thai", ["Category:Northern Thai language", "Category:Tai Tham script"],
+  "Kam Mueang, the language of the old Lanna kingdom around Chiang Mai, written in Tai Tham — a "
+  "script used for Buddhist manuscripts on palm leaf across northern Thailand, Laos and the Shan "
+  "states, and encoded in Unicode in 2009.",
+  "Ethnologue 2024; Unicode 5.2 (2009) for the Tai Tham block."),
+ ("Southern Thai", ["Category:Southern Thai language", "Category:Southern Thailand"],
+  "The Thai of the peninsula, distinct enough in tone and vocabulary to be hard going for "
+  "Bangkok speakers, and in contact with Malay along its southern edge.",
+  "Ethnologue 2024; Thailand National Statistical Office."),
+ ("Yongbei Zhuang", ["Category:Zhuang languages", "Category:Sawndip"],
+  "The largest Zhuang variety, in Guangxi. Zhuang was written for a thousand years in Sawndip — "
+  "characters built on the Chinese model but invented locally, never standardised, and estimated "
+  "at over ten thousand distinct signs. A Latin orthography was imposed in 1957 and revised in "
+  "1982; Sawndip is still used in ritual texts.",
+  "Ethnologue 2024; Holm, Mapping the Old Zhuang Character Script (2013)."),
+ # ---------------- MANDE
+ ("Bambara", ["Category:Bambara language", "Category:N'Ko script"],
+  "The everyday language of Mali, spoken by far more people than have it as a mother tongue. It "
+  "is one of the Manding languages, which include Maninka and Dyula and are close enough to form "
+  "a continuum from Senegal to Burkina Faso. Manding is also the language of the N'Ko alphabet, "
+  "devised by Solomana Kanté in 1949 after he read a claim that African languages were "
+  "unwritable.",
+  "Institut National de la Statistique, Mali; Ethnologue 2024."),
+ ("Susu", ["Category:Susu language", "Category:Guinea"],
+  "The coastal language of Guinea and a lingua franca around Conakry, written in Latin letters "
+  "and in Arabic script. Mande languages are the ones most associated with the griot tradition — "
+  "hereditary oral historians whose repertoire includes the Sunjata epic of the Mali empire.",
+  "Institut National de la Statistique, Guinea; Ethnologue 2024."),
+ # ---------------- UTO-AZTECAN
+ ("Central Guerrero Nahuatl", ["Category:Nahuatl", "Category:Nahuatl manuscripts"],
+  "One of some thirty Nahuatl languages. Classical Nahuatl was the administrative language of "
+  "the Aztec empire and then, for two centuries, of Spanish colonial administration too — more "
+  "was printed in Nahuatl in the sixteenth century than in most European vernaculars, and the "
+  "Florentine Codex is a twelve-volume encyclopedia compiled in it by Nahua scholars.",
+  "INEGI 2020 census; Sahagún, Florentine Codex (1577), Biblioteca Medicea Laurenziana."),
+ ("Mayo", ["Category:Mayo language", "Category:Sonora"],
+  "Of Sonora and Sinaloa in northwest Mexico, and close to Yaqui. Both are Cahitan languages, "
+  "and the Jesuit grammars written for them in the seventeenth century are among the earliest "
+  "descriptions of any language of northern Mexico.",
+  "INEGI 2020 census; Ethnologue 2024."),
+ # ---------------- ARAWAKAN
+ ("Asháninka", ["Category:Asháninka", "Category:Peruvian Amazon"],
+  "The largest indigenous language of the Peruvian Amazon, in the eastern Andean foothills. "
+  "Arawakan is one of the most widely spread families in South America — its languages reached "
+  "from the Caribbean to Bolivia, and Taíno, the first American language Europeans recorded, was "
+  "one of them.",
+  "INEI Peru 2017 census; Ethnologue 2024."),
+ ("Wapishana", ["Category:Wapishana", "Category:Rupununi"],
+  "Of the Rupununi savanna on the Guyana–Brazil border, and one of the northern Arawakan "
+  "languages that survived the collapse of the Caribbean Arawak world. Its speakers are "
+  "surrounded by Cariban languages.",
+  "Ethnologue 2024; Guyana Bureau of Statistics."),
+ # ---------------- TUPIAN
+ ("Sateré-Mawé", ["Category:Sateré-Mawé", "Category:Amazonas (Brazilian state)"],
+  "A Tupian language of the lower Amazon, and the only surviving member of its branch. The "
+  "Sateré-Mawé domesticated guaraná, and the word is theirs.",
+  "IBGE 2010 census; Ethnologue 2024."),
+ ("Kamayurá", ["Category:Kamayurá", "Category:Xingu Indigenous Park"],
+  "A Tupi-Guarani language of the Upper Xingu, one of a dozen languages from four unrelated "
+  "families spoken in a single multilingual cultural system where communities intermarry across "
+  "language lines and everyone is multilingual by design.",
+  "Seki, Gramática do Kamaiurá (2000); IBGE 2010 census."),
 ]
 
 

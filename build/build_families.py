@@ -1272,6 +1272,107 @@ MID_BRANCH = {
   "that possible.",
 }
 
+SEVEN_BRANCH = {
+ # ---------------- AUSTROASIATIC
+ "Mundaic":
+  "The Munda languages of eastern India — Santali, Mundari, Ho, Sora — a thousand kilometres "
+  "from every other Austroasiatic language and structurally unlike them: Munda is heavily "
+  "suffixing and polysynthetic where Khmer and Vietnamese are isolating. That divergence is the "
+  "clearest evidence that Austroasiatic once covered ground it no longer holds, and that Munda "
+  "restructured under long contact with Indo-Aryan and Dravidian neighbours.",
+ "Khasi-Palaung":
+  "Khasi in Meghalaya and the Palaungic languages of Myanmar and Yunnan — another Austroasiatic "
+  "outlier group, stranded either side of a gap now filled by Tibeto-Burman and Indo-Aryan.",
+ "Palaungic":
+  "The languages of the Shan hills and southern Yunnan, including Wa, Blang and Palaung. Wa was "
+  "unwritten until the twentieth century and now has competing Latin orthographies on either "
+  "side of the China–Myanmar border.",
+ "Bahnaric":
+  "Thirty-six languages of the Central Highlands of Vietnam, Laos and Cambodia — Bahnar, Sedang, "
+  "Koho, Stieng. Most were written for the first time by French missionaries and then by "
+  "American linguists during the war; several communities have been displaced since.",
+ "Aslian":
+  "The Austroasiatic languages of the Malay peninsula, spoken by Orang Asli communities and "
+  "surrounded entirely by Austronesian Malay. They are the southernmost Austroasiatic languages "
+  "and the last trace of the family's presence there before Malay arrived.",
+ # ---------------- TAI-KADAI
+ "Kam-Tai":
+  "Thai, Lao, Shan, Zhuang and their relatives — the bulk of the family. Tai-Kadai's homeland is "
+  "in southern China, not Thailand: its deepest diversity is in Guangxi, Guizhou and Hainan, and "
+  "the Tai peoples moved south into mainland Southeast Asia only in the last thousand years, "
+  "which is recent enough that the Thai and Lao languages are still very close.",
+ "Southwestern Tai":
+  "Thai, Lao, Shan, Northern Thai, Isan, Tai Dam — a group that spread across mainland Southeast "
+  "Asia within a few centuries and remains largely mutually intelligible. Their scripts all "
+  "descend from the Khmer adaptation of Indic writing, which is why Thai and Lao letters look "
+  "related and Chinese characters play no part.",
+ "Daic":
+  "The wider grouping including the Kam-Sui languages of Guizhou and the Hlai languages of "
+  "Hainan. Hlai is the most divergent branch and the strongest argument for the family's "
+  "southern-Chinese origin.",
+ # ---------------- DRAVIDIAN
+ "South Dravidian":
+  "Tamil, Malayalam, Kannada, Tulu, Kodava and the small languages of the Nilgiris — the branch "
+  "with the literary languages. Tamil's record begins around 300 BCE, Kannada's around 450 CE, "
+  "and Malayalam split off from Tamil late enough that the two share most of their classical "
+  "inheritance.",
+ "Tamil-Kannada":
+  "The core of South Dravidian. Kannada and Tamil both have classical status in India and "
+  "literary traditions well over a thousand years old; Malayalam separated from Tamil around the "
+  "ninth century, largely through heavy Sanskrit borrowing that Tamil resisted.",
+ # ---------------- MANDE
+ "Western Mande":
+  "Bambara, Maninka, Dyula, Soninke, Susu, Mende, Vai and their relatives across West Africa. "
+  "The Manding languages within this group form a continuum from Senegal to Burkina Faso and "
+  "carry the griot tradition — hereditary oral historians whose repertoire includes the Sunjata "
+  "epic of the thirteenth-century Mali empire, still performed.",
+ "Manding-Vai":
+  "Manding together with Vai and Kono. Two indigenous scripts came out of this group: the Vai "
+  "syllabary of about 1833, and N'Ko, devised for Manding by Solomana Kanté in 1949 after he "
+  "read a Lebanese writer's claim that African languages could not be written. N'Ko is written "
+  "right to left and is in use across Guinea, Mali and Côte d'Ivoire.",
+ "Eastern Mande":
+  "The Mande languages of Côte d'Ivoire, Burkina Faso and Nigeria — Dan, Mano, Bisa, Busa. Mande "
+  "as a whole is one of the branches whose place inside Niger-Congo is least settled; several "
+  "specialists treat it as a separate family.",
+ # ---------------- UTO-AZTECAN
+ "Southern Uto-Aztecan":
+  "The languages of northwest Mexico and Mesoamerica — Nahuatl, Cora, Huichol, Yaqui, Mayo, "
+  "Tarahumara, O'odham. Uto-Aztecan is one of very few families to span the Mexico–United States "
+  "divide, reaching from Oregon to El Salvador.",
+ "Aztec":
+  "About thirty Nahuatl languages, from Durango to Veracruz. Classical Nahuatl was the "
+  "administrative language of the Aztec empire and remained an administrative language under "
+  "Spanish rule for two centuries: more was printed in Nahuatl in the sixteenth century than in "
+  "most European vernaculars, and Nahua scholars compiled the twelve-volume Florentine Codex in "
+  "it. Nahuatl gave English chocolate, tomato, avocado, coyote and chilli.",
+ "Northern Uto-Aztecan":
+  "Hopi, Shoshone, Comanche, Paiute, Ute, Luiseño and their relatives across the Great Basin and "
+  "the Southwest. Comanche was the basis of a code-talker programme in the Second World War, as "
+  "Navajo was.",
+ # ---------------- ARAWAKAN
+ "Southern Maipuran":
+  "The Arawakan languages of the southwestern Amazon and the Andean foothills — Asháninka, "
+  "Machiguenga, Piro, Terena. Arawakan is among the most widely spread families in South "
+  "America; its speakers were the first Americans Europeans met, since Taíno in the Caribbean "
+  "was Arawakan and gave English canoe, hammock, hurricane, tobacco and barbecue.",
+ "Caribbean Arawakan":
+  "Lokono, Garifuna and the extinct Taíno and Island Carib. Garifuna is the odd one: its "
+  "speakers are the descendants of Africans and Island Caribs deported from St Vincent to "
+  "Central America in 1797, and the language is Arawakan with a Cariban men's vocabulary layered "
+  "over it.",
+ # ---------------- TUPIAN
+ "Tupi-Guarani":
+  "Guaraní, Tupinambá, Kamayurá, Kaiowá and forty others across Brazil, Paraguay, Bolivia and "
+  "Argentina. Tupinambá became the *língua geral* of colonial Brazil — the working language of "
+  "the whole colony until Portuguese was imposed by decree in 1758 — and Paraguayan Guaraní is "
+  "the only indigenous American language that is the majority language of a country.",
+ "Eastern Tupian":
+  "Tupi-Guarani together with the Aweti and Mawé branches. Tupian's deepest diversity is in "
+  "Rondônia in the southwestern Amazon, which places the family's homeland there rather than on "
+  "the Atlantic coast where Europeans first met it.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -1367,7 +1468,7 @@ def main() -> None:
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
     for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH, AN_BRANCH,
-                MID_BRANCH):
+                MID_BRANCH, SEVEN_BRANCH):
         for nm, txt in src.items():
             hit = names.get(nm) or []
             if len(hit) != 1:

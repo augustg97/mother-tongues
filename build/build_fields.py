@@ -370,6 +370,48 @@ def build_population() -> np.ndarray:
 # languages
 # ---------------------------------------------------------------------------
 
+# Unicode script names as `unicodedata.name()` reports them, mapped onto the way Glottolog and
+# Wikidata write script names in prose. Only the cases that actually differ need an entry.
+_SCRIPT_ALIAS = {"CJK": "chinese", "HAN": "chinese", "HIRAGANA": "japanese",
+                 "KATAKANA": "japanese", "HANGUL": "korean", "DEVANAGARI": "devanagari",
+                 "MEETEI": "meetei", "NKO": "n'ko", "ADLAM": "adlam"}
+
+
+def _script_of(text: str) -> str:
+    """The Unicode script family of the first letter, e.g. 'TAMIL', 'ARABIC', 'LATIN'."""
+    import unicodedata as _ud
+    for ch in text:
+        if ch.isalpha():
+            nm = _ud.name(ch, "")
+            return nm.split()[0] if nm else ""
+    return ""
+
+
+def _own_script_first(names: list, declared: list) -> list:
+    """Order self-names by WHICH of the language's declared scripts they are in.
+
+    Rank is the position of the first declared script the name matches, so a language that
+    declares several gets them in its own stated order of importance. A flat matched/unmatched
+    test is not enough: Tamil declares Tamil script, Vatteluttu, ARABIC script and Koleluttu, so
+    both تَمِۻْ and தமிழ் matched something and the tie left the Arwi form in front.
+    """
+    if len(names) < 2 or not declared:
+        return names
+    keys = [d.lower() for d in declared]
+
+    def rank(n) -> int:
+        s = _script_of(n[0])
+        if not s:
+            return len(keys)
+        k = _SCRIPT_ALIAS.get(s, s.lower())
+        for i, d in enumerate(keys):
+            if k in d:
+                return i
+        return len(keys)
+
+    return sorted(names, key=rank)             # stable: ties keep their original order
+
+
 def load_glottolog() -> tuple[dict, dict, dict]:
     med = {}
     with open(os.path.join(GLOTTOLOG, "values.csv"), newline="", encoding="utf-8") as f:
@@ -775,6 +817,16 @@ def build_language_index(fam: dict, med: dict, name: dict, fam_index: dict,
                                    for t, tg in names])
             # The order the app shows is the order the frame produced, not one rebuilt here.
             names = [[n.text, n.lang or ""] for n in ns.ordered() if n.kind == "autonym"]
+            # RULE 11: autonym first, IN ITS OWN SCRIPT. Wikidata returns self-names in no
+            # useful order and NameSet.ordered() preserves that, so Tamil led with تَمِۻْ — the
+            # Arwi form, Tamil written in Arabic script by Tamil Muslims. Real, and not the
+            # headline. Manipuri led with Bengali script over its own Meetei Mayek; Akkadian
+            # with a Latin transliteration over the cuneiform; 70 others likewise. Any
+            # self-name in a script the language actually declares now sorts first.
+            #
+            # ⚠ THIS MUST COME AFTER THE REBUILD ABOVE. Sorting the earlier `names` list did
+            # nothing at all, because that line throws it away and re-derives from the NameSet.
+            names = _own_script_first(names, scripts)
             rows.append([gc, r["Name"], round(float(r["Longitude"]), 3),
                          round(float(r["Latitude"]), 3), fam_index.get(fid, 255),
                          med.get(gc, -1), aes.get(gc, 0), iso,
