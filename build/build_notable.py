@@ -2600,6 +2600,156 @@ E = [
   "A primary branch of one language, in southeastern Taiwan. Puyuma, Rukai and Tsouic are the "
   "three branches most often argued to be the earliest divisions, which would make the whole ",
   "Teng, A Reference Grammar of Puyuma (2008); Ethnologue 2024."),
+ # ---- AFRO-ASIATIC, TRANS NEW GUINEA and OTOMANGUEAN. The Arabic varieties here are the
+ # largest unlabelled languages left in the atlas — nine with over ten million speakers
+ # each. Trans New Guinea is the least documented large family we hold. Otomanguean is
+ # where the fifty-three-Mixtec naming question comes from.
+
+ # ---------------- AFRO-ASIATIC. The Arabic varieties are the largest unlabelled languages left
+ # in the atlas: nine of them with over ten million speakers each, all reading "an Afro-Asiatic
+ # language" until now.
+ ("Levantine Arabic", ["Category:Levantine Arabic", "Levantine Arabic film poster"],
+  "The Arabic of Syria, Lebanon, Jordan and Palestine, and the variety most widely understood "
+  "across the Arab world after Egyptian — largely because Lebanese and Syrian television and "
+  "music carried it. Like every spoken Arabic it exists alongside Modern Standard Arabic, which "
+  "is the written register everywhere and nobody's first language anywhere.",
+  "Ethnologue 2024; Cowell, A Reference Grammar of Syrian Arabic (1964)."),
+ ("Algerian Arabic", ["Category:Algerian Arabic", "Category:Algeria street signs"],
+  "Darja, the Arabic of Algeria, with a heavy Berber substrate and a large French vocabulary "
+  "from 132 years of colonial rule. It is what forty million people speak and it has no official "
+  "standing: Algeria's official languages are Modern Standard Arabic and Tamazight.",
+  "Office National des Statistiques, Algeria; Ethnologue 2024."),
+ ("Moroccan Arabic", ["Category:Moroccan Arabic", "Darija sign Morocco"],
+  "Darija, and the Arabic variety furthest from all the others — a speaker from Baghdad and a "
+  "speaker from Casablanca cannot hold a conversation in their own varieties. Its Berber "
+  "substrate is deep, and it has begun appearing in print and advertising, which is contested.",
+  "Haut-Commissariat au Plan, Morocco 2024 census; Ethnologue 2024."),
+ ("Sudanese Arabic", ["Category:Sudanese Arabic", "Sudan street sign Arabic"],
+  "The Arabic of the Nile valley in Sudan, with Nubian and Beja influence. It has served as the "
+  "lingua franca of a country with more than seventy languages, and Juba Arabic, its "
+  "pidginised descendant, does the same job in South Sudan.",
+  "Ethnologue 2024; Sudan Central Bureau of Statistics."),
+ ("Saidi Arabic", ["Category:Saidi Arabic", "Category:Upper Egypt"],
+  "The Arabic of Upper Egypt, distinct enough from Cairo's that it is stereotyped in Egyptian "
+  "film and television. Its speakers live in the Nile valley south of Cairo, where Coptic "
+  "survived longest.",
+  "Ethnologue 2024; Central Agency for Public Mobilization and Statistics, Egypt."),
+ ("Hijazi Arabic", ["Category:Hejazi Arabic"],
+  "The Arabic of Mecca, Medina and Jeddah — the western Arabian coast, and the variety spoken "
+  "where pilgrims from the entire Muslim world have converged for fourteen centuries, which has "
+  "left it more mixed than the Arabic of the interior.",
+  "Ethnologue 2024; General Authority for Statistics, Saudi Arabia."),
+ ("Tunisian Arabic", ["Category:Tunisian Arabic", "Tunisian Arabic Wikipedia poster"],
+  "Derja, with Berber, Punic-era, Italian and French layers. Tunisia's Wikipedia in Tunisian "
+  "Arabic and a growing body of published fiction have made it one of the more written of the "
+  "spoken Arabics.",
+  "Institut National de la Statistique, Tunisia; Ethnologue 2024."),
+ ("Sanaani Arabic", ["Category:Sanaani Arabic", "Category:Old City of Sanaa"],
+  "The Arabic of Sanaa and the Yemeni highlands, and among the most conservative varieties — it "
+  "keeps features of Classical Arabic that the rest of the Arab world lost, which is unsurprising "
+  "in the region Arabic came from.",
+  "Ethnologue 2024; Watson, Ṣanʿānī Arabic (1993)."),
+ ("Ta'izzi-Adeni Arabic", ["Category:Ta'izzi-Adeni Arabic"],
+  "The Arabic of southern Yemen, around Taiz and Aden, with British-era English loanwords Aden "
+  "acquired as a coaling port and colony.",
+  "Ethnologue 2024."),
+ ("Chadian Arabic", ["Category:Chadian Arabic"],
+  "Shuwa Arabic, of Chad and the Lake Chad basin, and the westernmost Arabic spoken as a first "
+  "language. It is a lingua franca across a region whose other languages are Chadic and "
+  "Nilo-Saharan.",
+  "Ethnologue 2024; Institut National de la Statistique, Chad."),
+ ("Tarifiyt-Beni-Iznasen-Eastern Middle Atlas Berber",
+  ["Category:Riffian language", "Category:Tifinagh"],
+  "Tarifit, the Berber of the Rif in northern Morocco, and the language of the Rif Republic that "
+  "fought Spain and France to a standstill in the 1920s. Tamazight became an official language "
+  "of Morocco in 2011 and Tifinagh script is now taught in schools.",
+  "Haut-Commissariat au Plan, Morocco; Constitution of Morocco (2011), Article 5."),
+ ("Gedeo", ["Category:Gedeo language", "Category:Gedeo Zone"],
+  "A Cushitic language of southern Ethiopia, spoken in the Gedeo Zone whose terraced coffee "
+  "landscape is a UNESCO World Heritage site. Written in the Ethiopic script.",
+  "Ethiopian Statistics Service 2007 census; Ethnologue 2024."),
+ # ---------------- TRANS NEW GUINEA. The least documented large family here: 317 languages,
+ # 18 labels, one object and no recordings.
+ ("Siane", ["Category:Eastern Highlands Province", "Category:Papua New Guinea"],
+  "A Kainantu-Goroka language of the eastern highlands of Papua New Guinea. The highlands were "
+  "unknown to the outside world until aerial survey in the 1930s found a densely populated "
+  "agricultural landscape where the maps had shown nothing.",
+  "Ethnologue 2024; Papua New Guinea National Statistical Office."),
+ ("Alekano", ["Category:Eastern Highlands Province", "Category:Goroka"],
+  "Gahuku, of the Goroka valley. Its speakers were the subject of Kenneth Read's *The High "
+  "Valley* (1965), one of the first ethnographies to be written as a personal narrative rather "
+  "than a survey.",
+  "Ethnologue 2024."),
+ ("Yagaria", ["Category:Eastern Highlands Province", "Category:Papua New Guinea"],
+  "A Goroka language of the eastern highlands with about twenty thousand speakers, a Latin "
+  "orthography from mission work, and no other written use.",
+  "Ethnologue 2024; Renck, A Grammar of Yagaria (1975)."),
+ ("Moni", ["Category:Papua (province)", "Category:Highland Papua"],
+  "A language of the central highlands of Indonesian Papua, west of the Baliem. This is among "
+  "the least surveyed linguistic regions on earth: the number of languages in Indonesian Papua "
+  "is not known to within several dozen.",
+  "Ethnologue 2024."),
+ ("Guhu-Samane", ["Category:Morobe Province", "Category:Papua New Guinea"],
+  "Of the Waria valley in Morobe Province. It sits at the edge of Trans New Guinea and its "
+  "membership in the family is not settled — a common situation, since the family's outer "
+  "limits rest largely on pronoun evidence.",
+  "Ethnologue 2024; Richert, Guhu-Samane grammar (1975)."),
+ ("Kamoro", ["Category:Mimika Regency", "Category:Asmat-Kamoro"],
+  "Of the swamp coast of southern Papua, west of the Asmat. Kamoro and Asmat carving traditions "
+  "are closely related, and the Kamoro coast is where the Freeport mine's tailings reach the sea.",
+  "Ethnologue 2024; Drabbe, Spraakkunst van het Kamoro (1953)."),
+ ("Narak", ["Category:Jiwaka Province", "Category:Papua New Guinea"],
+  "A Chimbu-Wahgi language of the Jimi valley. Papua New Guinea has around 840 languages for ten "
+  "million people — the highest linguistic density of any country on earth.",
+  "Ethnologue 2024."),
+ ("Aghu", ["Category:South Papua", "Category:Awyu-Dumut languages"],
+  "An Awyu language of the Digul river in southern Papua, described by the missionary linguist "
+  "Peter Drabbe, whose grammars of a dozen Papuan languages in the 1940s and 1950s are still the "
+  "primary sources for most of them.",
+  "Drabbe, Spraakkunst van het Aghu-dialect (1957); Ethnologue 2024."),
+ # ---------------- OTOMANGUEAN. 181 languages, 2 labels — and the family whose naming the whole
+ # cluster question came from.
+ ("Isthmus Zapotec", ["Category:Zapotec languages", "Category:Juchitán de Zaragoza"],
+  "Diidxazá, of the Isthmus of Tehuantepec, and the Zapotec variety with the strongest literary "
+  "tradition — Juchitán has published poetry and periodicals in it since the nineteenth century, "
+  "and its writers have kept it in print through a century in which most Mexican indigenous "
+  "languages lost ground. It is one of fifty-seven languages named Zapotec.",
+  "INEGI 2020 census; Pickett, Vocabulario Zapoteco del Istmo (1959)."),
+ ("Western Tlacolula Valley Zapotec", ["Category:Zapotec languages", "Category:Tlacolula"],
+  "Of the Tlacolula valley near Oaxaca city, and one of the Zapotec varieties with a substantial "
+  "community in Los Angeles — Oaxacan migration has made Zapotec one of the more widely spoken "
+  "indigenous American languages in the United States, and California courts have had to find "
+  "interpreters for it.",
+  "INEGI 2020 census; Munro and Lopez, Di'csyonaary X:tèe'n Dìi'zh Sah Sann Lu'uc (1999)."),
+ ("San Jerónimo Tecóatl Mazatec", ["Category:Mazatec language", "Category:Sierra Mazateca"],
+  "One of the Mazatec languages of the Sierra Mazateca, where men hold whole conversations "
+  "across ravines by whistling the tones of the words — the best-documented whistled speech "
+  "anywhere. Mazatec is also the language of María Sabina's veladas, recorded in the 1950s.",
+  "INEGI 2020 census; Cowan, in Language (1948) for the whistled speech."),
+ ("Chichimeca-Jonaz", ["Category:Chichimeca Jonaz language", "Category:Guanajuato"],
+  "The last surviving language of the Chichimeca, spoken in one town in Guanajuato. Chichimeca "
+  "was a name Nahuatl speakers used for the peoples of the northern deserts; almost all their "
+  "languages are gone.",
+  "INEGI 2020 census; Ethnologue 2024."),
+ ("Chiapanec", ["Category:Chiapanec language", "Category:Chiapas"],
+  "An Otomanguean language of Chiapas, and evidence of a long migration: its closest relative is "
+  "Mangue, spoken a thousand kilometres south in Nicaragua, and the two are the only Otomanguean "
+  "languages ever found outside central Mexico. Chiapanec has no speakers left.",
+  "Ethnologue 2024; Campbell, American Indian Languages (1997)."),
+ ("Mangue", ["Category:Chorotega", "Category:Nicaragua"],
+  "The Chorotega language of Pacific Nicaragua and Costa Rica, and Chiapanec's only close "
+  "relative — the southern end of an Otomanguean migration out of Mexico. It died about 1900 and "
+  "is known from colonial word lists.",
+  "Campbell, American Indian Languages (1997); Quirós Rodríguez, Mangue vocabulary (2002)."),
+ ("Subtiaba", ["Category:Nicaragua", "Category:Tlapanec language"],
+  "An Otomanguean language of León in Nicaragua, gone by the 1930s. Sapir showed in 1925 that "
+  "Subtiaba was related to Tlapanec in Guerrero, sixteen hundred kilometres away — a "
+  "demonstration that is still cited as a model of how to establish a distant relationship.",
+  "Sapir, in American Anthropologist (1925); Campbell, American Indian Languages (1997)."),
+ ("Guerrero Amuzgo", ["Category:Amuzgo language", "Category:Guerrero"],
+  "Amuzgo of Xochistlahuaca in Guerrero. Amuzgo is one of the more tonally complex Otomanguean "
+  "languages, and Amuzgo weavers' backstrap-loom textiles are among the best known in Mexico.",
+  "INEGI 2020 census; Ethnologue 2024."),
 ]
 
 
@@ -2655,8 +2805,20 @@ _LANGCAT = re.compile(r"\blanguages?$", re.I)
 _LANGCAT_ONE = re.compile(r"\blanguage$", re.I)
 
 
-def admissible_subject(s: str, is_family: bool = False) -> bool:
+# Categories about a macro-language in general, which its varieties must not inherit.
+_MACRO = re.compile(r"^Category:(Arabic|Chinese|Malay|Quechua|Persian|Berber|Romani)"
+                    r"\s+(language|calligraphy|script)$", re.I)
+
+
+def admissible_subject(s: str, is_family: bool = False, lang_name: str = "") -> bool:
     """Is this subject allowed to contribute an object at all?"""
+    # A category that IS the language's own name. Commons files variety categories without
+    # the word "language" — `Category:Algerian Arabic`, not `Category:Algerian Arabic
+    # language` — so the rules below refused every one of them, and the five big Arabic
+    # varieties fell back to `Category:Arabic language` and were served identical images.
+    # An exact name match is precise enough that it cannot let a place category in.
+    if lang_name and s == "Category:" + lang_name:
+        return True
     if not s.startswith("Category:"):
         # An authored free-text query is TRUSTED — no title filter is applied to it — so it
         # must name an artefact precisely. Two ways this has gone wrong, both mine:
@@ -2668,6 +2830,16 @@ def admissible_subject(s: str, is_family: bool = False) -> bool:
         #     Five of seven such queries were retired in one audit.
         # Name the object: "Isoama-Ibo Primer", "Yirrkala bark petitions", "Rabatak
         # inscription". Those work.
+        return True
+    # A MACRO-LANGUAGE CATEGORY MUST NOT BE ATTACHED TO ONE OF ITS VARIETIES. This is the
+    # singular-form cousin of the plural rule below, and it is worse in practice, because it
+    # looks right. `Category:Arabic language` on Algerian, Moroccan, Sudanese, Tunisian and
+    # Chadian Arabic returned THE SAME THREE FILES to all five — an inscription panel, a shelf
+    # of surgery books, and a graphic captioned "Azerbaijan" in three scripts, which is about
+    # Azerbaijani. `Category:Arabic calligraphy` did the same to Levantine. A category about a
+    # language IN GENERAL has nothing in it about any one variety.
+    if _MACRO.search(s):
+        return False
         return True
     if _PEOPLE.search(s):
         return False                      # portraits and festivals
@@ -2876,7 +3048,7 @@ def main() -> None:
         expect[gc] = max(nm.replace("(", " ").replace(")", " ").split(), key=len)
         # `terms` may be one query or several. Several means several objects on the card.
         for q in ([terms] if isinstance(terms, str) else terms):
-            if admissible_subject(q):
+            if admissible_subject(q, lang_name=nm):
                 subjects.append((gc, q))
         for q in extra_subjects(gc, cats):
             subjects.append((gc, q))

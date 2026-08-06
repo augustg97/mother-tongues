@@ -143,6 +143,15 @@ def full_size(title: str, width: int = 1400) -> str:
 # verdicts live in a file so the next fetch does not undo the audit.
 _rj = os.path.join(HERE, "..", "data", "gallery", "rejected.json")
 _rjd = _json.load(open(_rj, encoding="utf-8")) if os.path.exists(_rj) else {}
+
+# What each image file on disk is currently a copy of, read from the last manifest. Any slot whose
+# occupant has changed since then must be downloaded again rather than trusted.
+_gp = os.path.join(OUT, "gallery.json")
+PREV_TITLE = {}
+if os.path.exists(_gp):
+    for _objs in _json.load(open(_gp, encoding="utf-8")).values():
+        for _o in _objs:
+            PREV_TITLE[_o["file"]] = _o["title"]
 REJECTED = set(_rjd.get("titles") or {})
 # (glottocode, subject) pairs where an object was rejected by eye. Handing back the NEXT
 # photograph from the same category is how Inari Saami went from a snowy roadside to a
@@ -352,7 +361,14 @@ if __name__ == "__main__":
             idx = len(have)
             name = f"{gc}.jpg" if idx == 0 else f"{gc}-{idx}.jpg"
             dest = os.path.join(IMG, name)
-            if not os.path.exists(dest):
+            # ⚠ THE CACHE IS KEYED TO THE SLOT, AND THE SLOT'S OCCUPANT CHANGES. File names are
+            # positional — gc.jpg, gc-1.jpg — so the moment an audit retires an object, the next
+            # object slides into its slot and `os.path.exists` says "already have it". The card
+            # then shows the REJECTED image under the replacement's caption, which is worse than
+            # either of them alone. Tunisian Arabic was captioned as a film festival poster and
+            # displaying a tiled Arabic inscription that had been rejected minutes earlier.
+            # So: cache on the TITLE the slot currently holds, not on the slot.
+            if PREV_TITLE.get(name) != hit["title"][5:] or not os.path.exists(dest):
                 try:
                     req = urllib.request.Request(hit["thumb"],
                                                  headers={"User-Agent": UA})

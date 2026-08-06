@@ -12,6 +12,14 @@ as numbered contact sheets — plates first, because the plate is what a visitor
 have read a word — and writes an index mapping every cell to its glottocode, title and subject.
 Verdicts go back in as a keep/drop list, and the drops are refetched from a different subject.
 
+AND IT IS THE ONLY CHECK THAT COMPARES THE CAPTION TO THE PIXELS, which is not a nicety. The
+fetcher cached images under POSITIONAL slot names — gc.jpg, gc-1.jpg — so when an audit retired an
+object, the replacement slid into its slot, `os.path.exists` reported the file present, and the
+card shipped the REJECTED image under the new object's caption. Every gate passed: the manifest
+was correct, the licence was correct, the file existed. Only a contact sheet could see that
+Tunisian Arabic was captioned as a film-festival poster and showing a tiled inscription. The
+fetcher now caches on the title; this sheet is why the bug was findable at all.
+
 Run: python3 audit_gallery.py [--all | --walls] [--from people]
 """
 from __future__ import annotations

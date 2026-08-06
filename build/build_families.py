@@ -1166,6 +1166,112 @@ AN_BRANCH = {
   "islands, and the two families have been exchanging structure for millennia.",
 }
 
+MID_BRANCH = {
+ # ---------------- AFRO-ASIATIC (381 languages, 0 branch cards)
+ "Semitic":
+  "Arabic, Hebrew, Amharic, Tigrinya, Aramaic, Maltese — and, through Akkadian, the oldest "
+  "written language of any family: cuneiform tablets from about 2500 BCE. Semitic's defining "
+  "trick is the root: most words are built from three consonants carrying the meaning, with "
+  "vowels slotted between them carrying the grammar, so *k-t-b* gives write, book, writer, "
+  "office and library. That is why an Arabic or Hebrew script can leave the vowels out.",
+ "West Semitic":
+  "Everything except Akkadian — Arabic, the Ethiopian languages, Hebrew, Aramaic, and the "
+  "extinct Canaanite and South Arabian languages. The alphabet was invented here: every "
+  "alphabetic script on earth, Latin and Cyrillic and Greek and Devanagari and Hangul's "
+  "inspiration alike, descends from a West Semitic writing system of about 1800 BCE.",
+ "Central Semitic":
+  "Arabic, Hebrew and Aramaic together with the extinct Canaanite languages. Aramaic was the "
+  "administrative language of the Persian empire, and its script is the ancestor of Hebrew "
+  "square script, Arabic, Syriac, Mongolian and — through Brahmi's likely Aramaic model — much "
+  "of South and Southeast Asian writing.",
+ "Arabic":
+  "Thirty-seven varieties here, and the count is the point: Moroccan and Iraqi Arabic are as "
+  "different as Portuguese and Romanian, and no Arabic speaker calls them separate languages. "
+  "Modern Standard Arabic is the written and formal register everywhere and nobody's mother "
+  "tongue anywhere — a diglossia a thousand years deep, held together by the Qur'an.",
+ "Cushitic":
+  "Oromo, Somali, Afar, Beja and their relatives across the Horn of Africa. Somali is one of "
+  "very few African languages to be made a national medium of government and schooling — in "
+  "1972, with a Latin orthography chosen after a decade of argument, followed by a mass literacy "
+  "campaign.",
+ "Chadic":
+  "Two hundred and ten languages around Lake Chad, and Hausa among them — one of Africa's great "
+  "lingua francas, with tens of millions of second-language speakers across the Sahel. Chadic is "
+  "the largest branch of Afro-Asiatic by language count and the least described.",
+ "Berber":
+  "Tamazight and its relatives across North Africa, from Morocco to the Siwa oasis in Egypt. "
+  "They survived twelve centuries of Arabic as the languages of mountains and desert, and are "
+  "written in Tifinagh — a script descended from ancient Libyco-Berber, kept alive by Tuareg "
+  "women, and made official in Morocco in 2003 after being banned for decades.",
+ "Ta-Ne-Omotic":
+  "The larger half of Omotic, in southwestern Ethiopia — Wolaytta, Gamo, Kafa and their "
+  "relatives. Omotic's membership in Afro-Asiatic is the least secure of any branch: several "
+  "specialists argue it is not Afro-Asiatic at all. Glottolog does not even keep it as one "
+  "node, splitting it into this and South Omotic — which is the doubt made structural.",
+ "South Omotic":
+  "Aari, Hamer-Banna and Dime, in the lower Omo valley. Held apart from the rest of Omotic here "
+  "because the two groups may not be each other's closest relatives, and possibly not related "
+  "at all — one of the genuinely open questions in African historical linguistics.",
+ # ---------------- TRANS NEW GUINEA (317 languages, 0 branch cards)
+ "Madang":
+  "A hundred and eight languages in one province of Papua New Guinea, an area smaller than "
+  "Denmark. New Guinea holds about a fifth of the world's languages on under one per cent of its "
+  "land, and Madang is the densest part of it: valleys a day's walk apart speak languages that "
+  "share no vocabulary.",
+ "Finisterre-Huon":
+  "Sixty-one languages in the mountains behind the Huon Gulf. This is where Trans New Guinea was "
+  "first argued for as a family, in the 1970s, on the strength of shared pronouns — and pronouns "
+  "remain most of the evidence, which is why the family's outer limits are still disputed.",
+ "Kainantu-Goroka":
+  "The languages of the eastern highlands, including several with a few tens of thousands of "
+  "speakers and no writing. The highlands were unknown to the outside world until aerial survey "
+  "in the 1930s revealed a densely populated agricultural landscape where the maps said nothing.",
+ "Asmat-Awyu-Ok":
+  "The languages of the southern lowlands and the Ok mountains, spread across the Indonesian "
+  "border. Ok languages are among the better-described in the family; Asmat is known outside it "
+  "chiefly for wood carving.",
+ "Rai Coast":
+  "The languages of the coast southeast of Madang, where Miklouho-Maclay lived from 1871 and "
+  "wrote the first sustained European description of any New Guinea community — and collected "
+  "word lists that are still the earliest record of several of these languages.",
+ # ---------------- OTOMANGUEAN (181 languages, 0 branch cards)
+ "Eastern Otomanguean":
+  "Mixtec, Zapotec, Mazatec, Amuzgo, Chatino and their relatives — a hundred and forty-five "
+  "languages, most in Oaxaca. Oaxaca is the most linguistically diverse state in Mexico and one "
+  "of the most diverse comparable areas anywhere.",
+ "Mixtec":
+  "Fifty-three languages, all called Mixtec. That is not a naming quirk but a fact about the "
+  "record: they occupy a continuous mountain region, neighbouring valleys understand each other "
+  "and distant ones do not, and no standard variety ever won out — so each is named for its town. "
+  "Ñuu Savi, the People of the Rain, wrote pre-conquest codices in a pictorial system that "
+  "recorded genealogy and conquest, and eight of those codices survive.",
+ "Mixtecan":
+  "Mixtec with Cuicatec and Trique. Otomanguean is a tonal family — most of its languages use "
+  "pitch to distinguish words, and several Mixtec varieties have a whistled register that "
+  "carries the tones across a valley without the words.",
+ "Zapotecan":
+  "Zapotec and Chatino, sixty-four languages. The Zapotec state at Monte Albán produced the "
+  "earliest writing in the Americas outside the Maya area — inscriptions from about 500 BCE that "
+  "are still only partly read.",
+ "Zapotec":
+  "Fifty-seven languages named Zapotec, for the same reason as Mixtec: a mountain landscape, no "
+  "single standard, and a name applied from outside to everyone who spoke something like it. "
+  "Isthmus Zapotec has the strongest literary tradition and Juchitán has published in it since "
+  "the nineteenth century.",
+ "Popolocan-Mazatecan":
+  "Mazatec, Popoloca, Ixcatec and Chocho. Mazatec is the language of the whistled speech of the "
+  "Sierra Mazateca, in which men hold entire conversations across ravines by whistling the tones "
+  "of the words — the best-documented whistled register anywhere.",
+ "Otopamean":
+  "Otomí, Mazahua, Matlatzinca and Pame, in central Mexico. Otomí was written in a pictorial "
+  "system before the conquest and in Latin letters from the 1550s, and it is one of the larger "
+  "indigenous languages of Mexico still spoken near the capital.",
+ "Western Otomanguean":
+  "Otomí, Mazahua, Chinantec, Mazatec and their relatives, north and west of the Zapotec-Mixtec "
+  "block. Chinantec, like Mazatec, has a whistled form; Otomanguean's tone systems are what make "
+  "that possible.",
+}
+
 
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
@@ -1260,7 +1366,8 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
-    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH, AN_BRANCH):
+    for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH, AN_BRANCH,
+                MID_BRANCH):
         for nm, txt in src.items():
             hit = names.get(nm) or []
             if len(hit) != 1:
