@@ -402,7 +402,13 @@
       '</div><h2 class="exname" style="font-size:31px">' + esc(n.n) + '</h2>' +
       '<div class="exalt"><span>a branch of the family, not a language · click it again to ' +
       (T.collapsed.has(n.g) ? 'open' : 'close') + '</span></div>';
-    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    // ⚠ THIS IS THE THIRD OF THREE SITES that render a branch description, and it is the one
+    // branchExhibit actually uses. Patching the other two left Slavic still reading "A branch of
+    // Indo-European" while the authored text sat unused in the data. Three copies of one decision
+    // is the defect; the comment stays until they are one function.
+    const bt0 = A.families && A.families.branch_text && A.families.branch_text[n.g];
+    if (bt0) h += '<p class="exstory" style="font-size:14px">' + emph(esc(bt0)) + '</p>';
+    else if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
     else {
       const bc = A.descr && A.descr.branches && A.descr.branches[n.g];
       if (bc) h += '<p class="exdesc excomp">' + esc(bc) + '</p>';
@@ -504,7 +510,16 @@
   // frequently the bare words "language" or "language family" — truthy, and useless. A plain
   // `if (n.d)` therefore printed "language family" on a branch card and suppressed the composed
   // description that had been generated precisely because that field says nothing.
-  const GENERIC_D = /^(language|language family|dialect|extinct language|natural language|macrolanguage|dead language|human language|ancient language|sign language|creole language|pidgin|language group)\.?$/i;
+  const GENERIC_D = new RegExp('^(a |an |the )?(' +
+    'language|language family|dialect|natural language|macrolanguage|human language|' +
+    'language group|creole language|pidgin' +
+    '|(branch|sub-?family|group|sub-?group|division|cluster|dialect continuum|variety|' +
+    'varieties)\\s+of\\b.{0,70}' +
+    '|.{0,45}\\slanguage family' +
+    '|.{0,45}\\slanguages?' +
+    '|language\\s+(of|in|spoken in|from)\\b.{0,45}' +
+    '|(extinct|ancient|historical|classical|modern|dead|sign)\\s+language.{0,25}' +
+    ')\\.?$', 'i');
   function substantiveD(d) {
     d = (d || '').trim();
     return !!d && d.length > 16 && !GENERIC_D.test(d);
@@ -581,7 +596,7 @@
         '" loading="lazy"></button><figcaption>' + esc(objTitle(g0)) +
         (g0.artist ? ' · ' + esc(g0.artist) : '') + '</figcaption></figure>';
     }
-    if (FS.text) h += '<p class="exstory">' + esc(FS.text) + '</p>';
+    if (FS.text) h += '<p class="exstory">' + emph(esc(FS.text)) + '</p>';
     else {
       const fc = A.descr && A.descr.families && A.descr.families[gc];
       if (fc) h += '<p class="exstory excomp">' + esc(fc) + '</p>' +
@@ -645,6 +660,13 @@
   // Commons stores a filename; a museum label is not a filename. Strip the extension and turn
   // underscores into spaces, and stop there — hyphens carry shelfmarks (KBo-14-1) and joining
   // them would destroy the one part of the name that identifies the object.
+  // Authored prose marks linguistic examples with *asterisks*, because a form quoted as an
+  // example is conventionally italic and a plain sentence cannot show that. Applied AFTER esc(),
+  // so the input is already neutralised and this can only ever emit <i>.
+  function emph(escaped) {
+    return escaped.replace(/\*([^*<>]{1,80})\*/g, '<i>$1</i>');
+  }
+
   function objTitle(o) {
     return String((o && o.title) || '').replace(/\.(jpe?g|png|gif|tiff?|djvu|svg|webp)$/i, '')
       .replace(/_/g, ' ').trim();
@@ -915,7 +937,11 @@
     // paragraph assembled from database columns are different kinds of claim.
     const story = A.notable && A.notable.by_glottocode && A.notable.by_glottocode[n.g];
     if (story) {
-      h += '<p class="exstory">' + esc(story) + '</p>';
+      h += '<p class="exstory">' + emph(esc(story)) + '</p>';
+      // What the checkable claims rest on. Only the labels that carry one show a line; the rest
+      // say nothing rather than pointing at a source that was never consulted.
+      const cite = A.notable.sources && A.notable.sources[n.g];
+      if (cite) h += '<p class="excite">' + esc(cite) + '</p>';
     } else {
       const comp = A.descr && A.descr.by_glottocode && A.descr.by_glottocode[n.g];
       if (comp) h += '<p class="exstory excomp">' + esc(comp) + '</p>' +
@@ -964,7 +990,12 @@
         esc(Math.abs(n.p[0]).toFixed(2)) + (n.p[0] >= 0 ? '°E' : '°W') +
         ' · click to open the ground</div></div>';
     }
-    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    // Authored branch prose first, then Glottolog's own if it says anything, then the composed
+    // floor. "branch of the Indo-European language family" now fails substantiveD and falls
+    // through, which is the whole point of tightening it.
+    const bt = A.families && A.families.branch_text && A.families.branch_text[n.g];
+    if (bt) h += '<p class="exstory" style="font-size:14px">' + emph(esc(bt)) + '</p>';
+    else if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
     else {
       const bc0 = A.descr && A.descr.branches && A.descr.branches[n.g];
       if (bc0) h += '<p class="exdesc excomp">' + esc(bc0) + '</p>';
@@ -1370,7 +1401,12 @@
     h += '<div class="exalt"><span>' + living + ' living · ' + s2.ext + ' extinct' +
       (s2.oldest !== null ? ' · first written ' + (s2.oldest < 0 ? (-s2.oldest) + ' BCE'
         : s2.oldest + ' CE') : ' · never written') + '</span></div>';
-    if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
+    // Authored branch prose first, then Glottolog's own if it says anything, then the composed
+    // floor. "branch of the Indo-European language family" now fails substantiveD and falls
+    // through, which is the whole point of tightening it.
+    const bt = A.families && A.families.branch_text && A.families.branch_text[n.g];
+    if (bt) h += '<p class="exstory" style="font-size:14px">' + emph(esc(bt)) + '</p>';
+    else if (substantiveD(n.d)) h += '<p class="exdesc">' + esc(n.d) + '</p>';
     else {
       const bc0 = A.descr && A.descr.branches && A.descr.branches[n.g];
       if (bc0) h += '<p class="exdesc excomp">' + esc(bc0) + '</p>';

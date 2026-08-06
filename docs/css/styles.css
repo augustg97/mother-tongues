@@ -406,3 +406,8 @@ body.lbopen{overflow:hidden}
 /* A composed description is set slightly lighter than an authored label, so the two read as
    different kinds of claim before the note under them says so. */
 .excomp{color:var(--ink2)}
+
+/* A source note sits under its label, quieter than the prose and set apart by a rule, so it reads
+   as apparatus rather than as part of the description. */
+.excite{margin:6px 0 0;padding-top:6px;border-top:1px solid var(--rule);
+  font-size:10.5px;line-height:1.5;color:var(--ink3);font-family:var(--serif);font-style:italic}

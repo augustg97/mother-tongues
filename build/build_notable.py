@@ -924,6 +924,115 @@ E = [
  #  Search terms are specific named artefacts where one exists, because a free-text query for
  #  "German manuscript" returns whatever has both words near it.
 
+# ---- INDO-EUROPEAN DEEP PASS -------------------------------------------------------------
+# 503 of Indo-European's 586 languages had no authored label. These are the ones anyone is likely
+# to open, ranked by how many people edited their Wikipedia last month and by speaker count.
+# FOUR-TUPLES: the fourth element is a SOURCE NOTE, rendered on the card. It names where the
+# checkable claims come from — a constitution, an act, a dated reform, a classification — and does
+# not dress general knowledge up as a citation. Where a claim is contested it says so in the text.
+ ('Scots', ['Category:Scots language', 'Category:Scottish literature'],
+  'The other language of lowland Scotland, descended from the Northumbrian Old English that crossed the border, not from Gaelic. It had a full literary standard before the union of crowns in 1603 and lost it afterwards, as printing moved to London and the written form was reabsorbed into English — which is why Scots today is often taken for an accent rather than the separate development it is. Burns wrote in it deliberately, a century after it had stopped being the language of record.',
+  'Glottolog 5.3 treats Scots as a language distinct from English; the 2011 Scottish census counted self-reported ability, which is why figures vary so widely.'),
+ ('Asturian-Leonese-Cantabrian', ['Category:Asturian language', 'Category:Asturias'],
+  "The Romance of the Iberian northwest, spoken across Asturias, León and into Portugal as Mirandese. It kept Latin's initial f where Castilian dropped it — Asturian fíu against Spanish hijo — so it preserves a sound Spanish lost. Asturias has been legislating about its status for forty years without granting it co-official standing, and Mirandese, the same language across the Portuguese border, has been co-official there since 1999.",
+  'Glottolog 5.3; the Mirandese statute is Portuguese Law 7/99.'),
+ ('Moselle Franconian', ['Category:Luxembourgish language', 'Category:Luxembourg'],
+  'A West Germanic dialect group that became a national language in one of its corners: Luxembourgish was made an official language of Luxembourg in 1984, alongside French and German, and is the only member of the group with a state behind it. The same speech continues across the borders into Germany and Belgium with no official standing at all, which is a clean demonstration that the line between a language and a dialect is drawn by governments.',
+  "Glottolog 5.3; Luxembourg's language law of 24 February 1984."),
+ ('Irish', ['Category:Irish language', 'Ogham inscription', 'Book of Kells'],
+  'The first vernacular in Europe north of the Alps to be written extensively: Irish monks glossed their Latin manuscripts in Irish from the seventh century, and those glosses are the largest early record of any European language outside Latin and Greek. It is the first official language of Ireland and an official language of the European Union, and it is also the case that most of its daily speakers live in a handful of Gaeltacht districts along the west coast — constitutional status and community transmission are different things.',
+  'Glottolog 5.3; Article 8 of the Constitution of Ireland; Irish became an EU official language on 1 January 2007.'),
+ ('Haitian', ['Category:Haitian Creole', 'Category:Haiti'],
+  'The most widely spoken creole language in the world, and one of very few with full official status: French-lexified, with a grammar owing much to the Gbe languages of West Africa, and spoken by essentially the entire population of Haiti while French is spoken by a minority. Its spelling was standardised phonemically in 1979, which is why written Haitian looks unlike French even where the words are the same — French *eau* is Haitian *dlo*.',
+  'Glottolog 5.3; Haitian became co-official under the 1987 Constitution; the official orthography dates from 1979.'),
+ ('Bavarian', ['Category:Bavarian language', 'Category:Bavaria'],
+  'Spoken across Bavaria, Austria and South Tyrol by more people than speak Danish or Slovak, and treated as a dialect of German because that is what its speakers write. It has sound changes German does not — a distinct set of diphthongs and a two-way distinction in verbs German lost — and UNESCO lists it as vulnerable, which sits oddly beside a speaker count in the millions and is a fair illustration of how vitality assessments work.',
+  "Glottolog 5.3; UNESCO Atlas of the World's Languages in Danger classes Bavarian as vulnerable."),
+ ('Sicilian', ['Category:Sicilian language', 'Category:Sicily'],
+  "The first Romance language in which a school of lyric poetry was written: the Sicilian School at Frederick II's court in the 1230s, which invented the sonnet. Dante praised it and then chose Florentine, and Sicilian's literary line stops there. Its vocabulary carries Greek, Arabic, Norman French and Spanish in layers that match the island's rulers, and it is grammatically distinct from Italian rather than a variant of it.",
+  'Glottolog 5.3; the sonnet is attributed to Giacomo da Lentini of the Sicilian School.'),
+ ('Continental Southern Italian', ['Category:Neapolitan language', 'Category:Naples'],
+  "Neapolitan and the speech of southern mainland Italy — the language of a kingdom that lasted six centuries, and of a song tradition that carried it around the world. 'O Sole Mio is Neapolitan, not Italian. Like Sicilian it is a separate Romance development rather than an Italian dialect, and like Sicilian it is written far less than it is spoken.",
+  'Glottolog 5.3; UNESCO classes Neapolitan as vulnerable.'),
+ ('Lombard', ['Category:Lombard language', 'Category:Lombardy'],
+  'Gallo-Italic: the Romance of the Po valley, closer in its sound history to French and Occitan than to standard Italian, because the Alps were less of a barrier than the Apennines. Milanese had a substantial written literature in the eighteenth and nineteenth centuries and lost it to the national standard after unification.',
+  'Glottolog 5.3 places Lombard in Gallo-Italic; UNESCO classes it as definitely endangered.'),
+ ('Piemontese', ['Category:Piedmontese language', 'Category:Piedmont'],
+  'Also Gallo-Italic, and the language of the state that unified Italy — which then made Florentine the national language rather than its own. Piedmontese has a codified orthography, a body of literature and regional recognition, and no national status.',
+  'Glottolog 5.3; recognised by Piedmont regional law 26/1990, later curtailed by the Constitutional Court.'),
+ ('Corsican', ['Category:Corsican language', 'Category:Corsica'],
+  'Closer to Tuscan than to the French that governs it — Corsica was Genoese until 1768 — which makes it one of the clearest cases of a language whose relatives and whose state are on opposite sides. It is taught in Corsican schools and has no official status in France, which recognises no regional language.',
+  "Glottolog 5.3 places Corsican within Italo-Romance; France's Article 2 recognises only French."),
+ ('Ladin', ['Category:Ladin language', 'Category:Dolomites'],
+  'A Rhaetian language of five Dolomite valleys, co-official in South Tyrol and Trentino, with about thirty thousand speakers and a school system that teaches in three languages at once — Ladin, Italian and German. It survived because the valleys are hard to reach and because it was given legal protection early.',
+  'Glottolog 5.3; co-official under the Autonomy Statute of Trentino-South Tyrol.'),
+ ('Walloon', ['Category:Walloon language', 'Category:Wallonia'],
+  'The Oïl language of southern Belgium, recognised as a regional language there since 1990 and spoken by far fewer people than that recognition suggests. It has a literature going back to the sixteenth century and a theatre tradition still running in Liège.',
+  'Glottolog 5.3; recognised by the French Community of Belgium, decree of 1990.'),
+ ('Aragonese', ['Category:Aragonese language', 'Category:Aragon'],
+  'The Romance of the Pyrenean valleys of Aragon, once the language of a kingdom and now spoken by a few thousand people in the mountains north of Huesca. It sits between Castilian and Catalan and was pushed out of both writing and administration by the fifteenth century.',
+  'Glottolog 5.3; UNESCO classes Aragonese as definitely endangered.'),
+ ('Silesian', ['Category:Silesian language', 'Category:Upper Silesia'],
+  'West Slavic, spoken in Upper Silesia, and the subject of a long argument in Poland about whether it is a language or a dialect of Polish — half a million people gave it as their home language in the 2011 census, and the Polish parliament has repeatedly declined to recognise it. Its vocabulary carries a heavy German layer from centuries of shared administration.',
+  'Glottolog 5.3 treats Silesian as a language; the 2011 Polish census recorded 509,000 declaring it as a home language.'),
+ ('Kashubian', ['Category:Kashubian language', 'Category:Kashubia'],
+  'The last surviving Pomeranian language, spoken west of Gdańsk, and the only regional language with legal recognition in Poland. Its nearest relative, Slovincian, died in the twentieth century. Kashubian can be used as an auxiliary administrative language in several municipalities.',
+  "Glottolog 5.3; Poland's Act on National and Ethnic Minorities and on Regional Language, 2005."),
+ ('Rusyn', ['Category:Rusyn language', 'Category:Carpathian Ruthenia'],
+  'East Slavic, spoken across the Carpathians in Slovakia, Poland, Ukraine, Serbia and Hungary, and recognised as a minority language in most of those — but not in Ukraine, where it is officially a dialect of Ukrainian. Its several written standards differ from one another, because each was made where it was recognised.',
+  'Glottolog 5.3; recognised in Slovakia (1995 codification), Serbia (Vojvodina, official), Poland and Hungary.'),
+ ('Western Armenian', ['Category:Western Armenian', 'Category:Armenian diaspora'],
+  'One of the two standard Armenians, and the one that lost its homeland. Western Armenian was the language of the Armenian communities of Anatolia; after 1915 it survives in the diaspora — Lebanon, Syria, France, the United States, Argentina — with no state and no territory. UNESCO classes it as definitely endangered while Eastern Armenian is a state language.',
+  'Glottolog 5.3; UNESCO Atlas classes Western Armenian as definitely endangered.'),
+ ('Maithili', ['Category:Maithili language', 'Category:Tirhuta script'],
+  "Thirty-odd million speakers in Bihar and southeastern Nepal, counted as a dialect of Hindi until 2003, when a constitutional amendment added it to India's Eighth Schedule after a long campaign. It has its own script, Tirhuta, and a literary tradition running back to Vidyapati in the fourteenth century, whose songs are still sung.",
+  'Glottolog 5.3; added to the Eighth Schedule by the Constitution (Ninety-Second Amendment) Act, 2003.'),
+ ('Eastern Panjabi', ['Category:Punjabi language', 'Category:Gurmukhi'],
+  'The Punjabi of India, written in Gurmukhi — a script devised in the sixteenth century by the second Sikh Guru and used for the Guru Granth Sahib. Punjabi is the only major Indo-Aryan language with lexical tone, which it developed when its voiced aspirated consonants collapsed: the breathiness became pitch.',
+  'Glottolog 5.3; the tone development is standard in descriptions of Punjabi phonology.'),
+ ('Western Panjabi', ['Category:Shahmukhi', 'Category:Punjab, Pakistan'],
+  'The Punjabi of Pakistan, written in Shahmukhi, a Perso-Arabic script — the same language as Indian Punjabi in a different alphabet, so a Lahore reader and an Amritsar reader who speak alike cannot read each other. It has more speakers than any other language of Pakistan and no official status there.',
+  "Glottolog 5.3; Urdu and English are Pakistan's official languages under Article 251."),
+ ('Fiji Hindi', ['Category:Fiji Hindi', 'Category:Indo-Fijians'],
+  'What happened to the Awadhi and Bhojpuri of indentured labourers taken to Fiji from 1879: the regional varieties levelled into one new language, with Fijian and English words in it, diverging far enough from Standard Hindi that speakers of one need practice to follow the other. It is written in Devanagari and in Latin letters, and is a national language of Fiji.',
+  "Glottolog 5.3; recognised in Fiji's 2013 Constitution alongside English and Fijian."),
+ ('Mazanderani', ['Category:Mazandaran', 'Category:Caspian languages'],
+  'A Caspian language of northern Iran, spoken by millions on the wet side of the Alborz mountains and written very little, because Persian occupies every formal register. It is northwestern Iranian and so is not a dialect of Persian, despite being surrounded by it.',
+  'Glottolog 5.3 places Mazanderani in Caspian, within Northwestern Iranian.'),
+ ('Gilaki', ['Category:Gilan', 'Category:Caspian languages'],
+  'The other Caspian language, spoken in Gilan on the coast west of Mazandaran. Like its neighbour it retains features Persian changed, and like its neighbour it has no written standard and is losing children to Persian.',
+  'Glottolog 5.3; UNESCO classes Gilaki as definitely endangered.'),
+ ('Dimli', ['Category:Zaza language', 'Category:Dersim'],
+  'Zazaki, spoken in eastern Turkey, and the object of a political argument: Kurdish nationalism counts it as Kurdish, and historical linguistics does not — it is northwestern Iranian and its closest relatives are the Caspian languages, hundreds of miles east. Both positions are held sincerely and the linguistic evidence points one way.',
+  'Glottolog 5.3 places Zaza in Zaza-Gorani, separate from Kurdish; the classification follows the standard Iranian family literature.'),
+ ('Central Alemannic', ['Category:Swiss German', 'Category:Alemannic German'],
+  'Swiss German: the everyday spoken language of German-speaking Switzerland, at every level of society, while the written language is Standard German. This is diglossia in a wealthy modern state — a Swiss will speak dialect to a colleague and write to them in a language nobody there speaks — and it is why Swiss German is not endangered despite having almost no written form.',
+  'Glottolog 5.3; the Swiss situation is the standard textbook case of medial diglossia.'),
+ ('Eastern Low German', ['Category:Low German', 'Category:Plautdietsch'],
+  "Low German did not undergo the High German consonant shift, which is why it is closer to Dutch and English than to the German above it — Low German *water* against Hochdeutsch Wasser. It was the language of the Hanseatic League and the written language of northern Europe's trade for three centuries before High German displaced it.",
+  'Glottolog 5.3; recognised under the European Charter for Regional or Minority Languages in Germany.'),
+ ('Zeeuws', ['Category:Zeelandic', 'Category:Zeeland'],
+  'Zeelandic, spoken in the southwestern Dutch islands, between Dutch and West Flemish and counted officially as a dialect of Dutch. Its speakers petitioned for recognition as a regional language and were refused in 2005.',
+  'Glottolog 5.3; the Dutch government declined regional-language status for Zeelandic in 2005.'),
+ ('Ghanaian Pidgin English', ['Category:Ghanaian Pidgin English', 'Category:Ghana'],
+  'An English-lexified contact language of Ghana with several million speakers and no official standing, used across ethnic lines in cities and universities and stigmatised in exactly the way contact languages usually are. Its grammar is West African and its vocabulary English.',
+  "Glottolog 5.3; English is Ghana's sole official language."),
+ ('Friulian', ['Category:Friulian language', 'Category:Friuli'],
+  'A Rhaetian language of northeastern Italy with about half a million speakers and legal protection since 1999. Like Ladin and Romansh it preserves a Latin-derived Alpine Romance distinct from Italian, and unlike them it has a substantial modern literature.',
+  'Glottolog 5.3; protected under Italian Law 482/1999 on historic linguistic minorities.'),
+ ('Romansh', ['Category:Romansh language', 'Category:Graubünden'],
+  'An official language of Switzerland since 1938, with about forty thousand speakers across five written varieties in the valleys of Graubünden. A unified written standard, Rumantsch Grischun, was constructed in 1982 and is resented in several valleys that prefer their own.',
+  'Glottolog 5.3; Romansh became a Swiss national language by referendum in 1938 and an official language in 1996.'),
+ ('Dhivehi', ['Category:Thaana', 'Category:Maldives'],
+  'The language of the Maldives, Indo-Aryan and closest to Sinhala, written in Thaana — a script devised in the sixteenth century whose letters come from Arabic numerals and local numerals, written right to left, with vowels obligatory rather than optional. It replaced an earlier Indic script within a generation.',
+  "Glottolog 5.3; Thaana's numeral-derived letterforms are documented in standard script references."),
+ ('Western Balochi', ['Category:Balochi language', 'Category:Balochistan'],
+  'A northwestern Iranian language spoken across Pakistan, Iran and Afghanistan — so, like Kurdish, a language whose territory is divided among states that each treat it as a minority. It is conservative enough to preserve Old Iranian sounds Persian lost, and it has three written traditions and no single standard.',
+  'Glottolog 5.3; Balochi has no official status in any of the three states.'),
+ ('Dari', ['Category:Dari language', 'Category:Afghanistan'],
+  'The Persian of Afghanistan, one of two official languages there, written in Perso-Arabic. The name was made official in 1964 to assert an Afghan rather than an Iranian identity for the same language — a naming decision, not a linguistic one.',
+  "Glottolog 5.3; the name Dari was adopted officially in Afghanistan's 1964 constitution."),
+
  ("English", ["Beowulf manuscript Nowell Codex", "Category:English inscriptions",
               "Lindisfarne Gospels Old English gloss"],
   "The Germanic language of a small island that ended up with more second-language speakers "
@@ -1354,8 +1463,11 @@ def main() -> None:
     cp = os.path.join(ROOT, "data", "gallery", "categories.json")
     cats = json.load(open(cp, encoding="utf-8")) if os.path.exists(cp) else {}
     out, expect, subjects, bad = {}, {}, [], []
+    sources: dict[str, str] = {}
     nextra = 0
-    for nm, terms, text in E:
+    for entry in E:
+        nm, terms, text = entry[0], entry[1], entry[2]
+        src = entry[3] if len(entry) > 3 else ""
         hit = names.get(nm)
         if not hit:
             bad.append(f"{nm!r}: no language of that name in Glottolog")
@@ -1365,6 +1477,8 @@ def main() -> None:
             continue
         gc = hit[0]
         out[gc] = text
+        if src:
+            sources[gc] = src
         # the gate's keyword: the most distinctive word of the Glottolog name itself
         expect[gc] = max(nm.replace("(", " ").replace(")", " ").split(), key=len)
         # `terms` may be one query or several. Several means several objects on the card.
@@ -1395,10 +1509,13 @@ def main() -> None:
     for b in bad:
         print("  SKIPPED " + b)
     d = os.path.join(ROOT, "web", "data")
-    json.dump({"note": "Authored museum labels.", "expect": expect, "by_glottocode": out},
+    json.dump({"note": "Authored museum labels. `sources` carries a citation note for the "
+                       "labels that have one — what the checkable claims rest on.",
+               "expect": expect, "sources": sources, "by_glottocode": out},
               open(os.path.join(d, "notable.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
     json.dump(subjects, open(os.path.join(ROOT, "data", "gallery", "subjects.json"), "w"))
+    print(f"   {len(sources)} labels carry a source note")
     print(f"{len(out)} labels resolved, {len(bad)} skipped · "
           f"{len(subjects)} gallery subjects queued "
           f"({nextra} of them measured Commons categories across "

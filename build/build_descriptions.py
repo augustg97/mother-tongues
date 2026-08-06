@@ -63,12 +63,28 @@ HOLDS = [("letters", "its letters"), ("words", "a word list"), ("prose", "connec
          ("heard", "recordings of people speaking it"), ("object", "objects"),
          ("dated", "a timeline"), ("phrases", "words and phrases")]
 
-GENERIC = re.compile(r"^(language|language family|dialect|extinct language|natural language|"
-                     r"macrolanguage|dead language|human language|ancient language|"
-                     r"sign language|creole language|pidgin|language group)\.?$", re.I)
+# ⚠ "LONGER THAN SIXTEEN CHARACTERS" WAS NOT ENOUGH OF A TEST. August pointed at cards reading
+# "branch of the Indo-European language family" and "A Sino-Tibetan language" and asked what they
+# were supposed to tell anyone. They passed the old filter because they are long and are not on a
+# list of exact stock phrases — but they say only what the tree already shows. A description that
+# restates the classification is not a description. 110 language and 108 branch descriptions fail
+# this and fall through to the composed floor, which at least names the countries, the biggest
+# member and the state of the record.
+GENERIC = re.compile(
+    r"^(a |an |the )?("
+    r"language|language family|dialect|natural language|macrolanguage|human language|"
+    r"language group|creole language|pidgin"
+    r"|(branch|sub-?family|group|sub-?group|division|cluster|dialect continuum|variety|"
+    r"varieties)\s+of\b.{0,70}"
+    r"|.{0,45}\slanguage family"
+    r"|.{0,45}\slanguages?"
+    r"|language\s+(of|in|spoken in|from)\b.{0,45}"
+    r"|(extinct|ancient|historical|classical|modern|dead|sign)\s+language.{0,25}"
+    r")\.?$", re.I)
 
 
 def substantive(d: str) -> bool:
+    """Does this say anything the tree does not already say?"""
     d = (d or "").strip()
     return bool(d) and not GENERIC.match(d) and len(d) > 16
 

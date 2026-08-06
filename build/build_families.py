@@ -455,6 +455,251 @@ FAM: dict[str, tuple[list[str], str]] = {
 }
 
 
+IE_BRANCH = {
+ "Classical Indo-European":
+  "Everything in Indo-European except Anatolian. Hittite and its relatives split off first and "
+  "kept consonants — the laryngeals — that the rest had already lost, which is why their "
+  "decipherment in 1915 forced the family tree to be redrawn with Anatolian outside everything "
+  "else rather than inside it.",
+ "Indo-Iranian":
+  "The eastern half of the family, and the branch with the oldest continuous texts: the Rigveda "
+  "in India and the Avesta in Iran are close enough in language that a line of one can often be "
+  "converted into the other by regular sound rules. Its speakers called themselves *arya, which "
+  "is where the name Iran comes from and which nineteenth-century Europe stole for a racial "
+  "theory the languages have nothing to do with.",
+ "Indo-Aryan":
+  "From Sanskrit to Hindi, Bengali, Punjabi and two hundred others across northern India, "
+  "Pakistan, Nepal, Bangladesh and Sri Lanka. The branch lost Sanskrit's elaborate case system "
+  "and rebuilt grammar out of postpositions and auxiliaries, and it did so in the open: Prakrit "
+  "and then Apabhramsha are written stages of that collapse, so the change can be read rather "
+  "than reconstructed.",
+ "Middle-Modern Indo-Aryan":
+  "Everything after Sanskrit stopped being spoken. The Middle stage — the Prakrits — is the "
+  "language of Ashoka's rock edicts and of the Buddhist and Jain canons, and is the reason the "
+  "transition out of Old Indo-Aryan is one of the best-documented grammatical collapses in any "
+  "family.",
+ "Continental Indo-Aryan":
+  "The mainland group, excluding Sinhala and Dhivehi, which went to sea early and developed "
+  "apart for two thousand years.",
+ "Iranian-Nuristani":
+  "Iranian plus the Nuristani languages of the Hindu Kush, whose position is one of the family's "
+  "long-running arguments: they share features with both Iranian and Indo-Aryan and are placed "
+  "sometimes inside one, sometimes as a third branch of Indo-Iranian on their own.",
+ "Iranian":
+  "From Old Persian cut into the cliff at Behistun to Persian, Pashto, Kurdish, Balochi and "
+  "Ossetian today. The branch is defined by a sound change anyone can hear: Indo-Iranian *s "
+  "became h, so Sanskrit sindhu is Persian hind — which is how India got its name in Europe, by "
+  "way of Persian.",
+ "Germanic":
+  "Defined by one sound shift, and it is the reason English *father* and Latin *pater* look "
+  "alike but not identical: Grimm's Law turned every inherited p, t and k into f, th and h. "
+  "Germanic also fixed stress on the first syllable, which eroded the endings that Latin and "
+  "Greek kept, and it holds about a third of its vocabulary from no known source — words like "
+  "sea, ship, sword and drink have no Indo-European etymology at all.",
+ "Northwest Germanic":
+  "Everything except Gothic and its lost East Germanic relatives. The split shows in one word: "
+  "Gothic keeps *z* where the northwest turned it into *r* — Gothic maiza against Old Norse "
+  "meiri, English more.",
+ "West Germanic":
+  "English, German, Dutch, Frisian, Afrikaans, Yiddish and the continuum between them. Whether "
+  "it is a real branch or three parallel developments out of a dialect network is argued; what "
+  "is not is that every member doubled its consonants before *j* and lost the old reflexive.",
+ "North Sea Germanic":
+  "The coastal group — English, Frisian, and the Saxon that stayed behind. Its members drop the "
+  "nasal before a fricative, which is why English has *us*, *goose* and *five* where German has "
+  "uns, Gans and fünf.",
+ "Anglo-Frisian":
+  "English and Frisian, the closest relatives English has. Both fronted Germanic long a to æ and "
+  "both palatalised k before front vowels, which is why English has *cheese* and *church* where "
+  "German has Käse and Kirche — and why the Frisian sentence 'bûter, brea en griene tsiis' is "
+  "recognisable to an English speaker who has never studied it.",
+ "Anglic":
+  "English and Scots, plus the creoles and pidgins built on English across the Atlantic and "
+  "Pacific. Glottolog counts 38 of them as separate languages, which is why this branch is so "
+  "much larger than one language deep.",
+ "Later Anglic":
+  "English after the Norman conquest, and everything descended from it. The three hundred years "
+  "in which French was the language of English government are the reason this stage looks so "
+  "different from Old English.",
+ "Macro-English":
+  "English and the languages built out of it in the Atlantic and Pacific trade: Krio, Jamaican, "
+  "Tok Pisin, Bislama, Gullah and two dozen more. Each has an English lexicon over a grammar "
+  "that is not English, and each is a separate language rather than a dialect.",
+ "Guinea Coast Creole English":
+  "The West African creoles — Krio, Nigerian, Ghanaian, Cameroonian — which grew out of the "
+  "trade forts of the Guinea coast and now have millions of speakers each. Krio carried back "
+  "across the Atlantic in the resettlement of freed slaves in Sierra Leone, so its history runs "
+  "in both directions.",
+ "Caribbean English Creole":
+  "Jamaican, Guyanese, Trinidadian, Bajan and their neighbours. The grammar came out of West "
+  "African languages and the shipboard contact of the Middle Passage, and the vocabulary from "
+  "English, which is why a written line looks familiar and a spoken one may not be.",
+ "High German":
+  "Named for the highlands, not for prestige. A second consonant shift ran through the south "
+  "and turned p, t and k again — Low German *pund*, *water*, *maken* against High German Pfund, "
+  "Wasser, machen — and the line it stopped at, the Benrath line, still divides German dialects.",
+ "Italic":
+  "Latin and its Italian neighbours — Oscan, Umbrian, Faliscan — most of which Rome absorbed. "
+  "Whether Latin and Oscan-Umbrian descend from one Italic parent or converged in Italy is one "
+  "of the family's open questions; the vocabulary agrees and some of the morphology does not.",
+ "Latino-Faliscan":
+  "Latin and Faliscan, its close neighbour fifty kilometres north of Rome, which was written for "
+  "four centuries and then disappeared into Latin.",
+ "Romance":
+  "The only branch whose parent is not reconstructed but recorded. Latin is written down, so "
+  "every Romance sound change can be checked rather than inferred, which makes this the "
+  "laboratory in which comparative method was tested. Its members lost Latin's case system, "
+  "invented articles out of demonstratives and built a future tense out of 'have to' — French "
+  "*chanterai* is *cantare habeo*, sing I-have.",
+ "Italo-Western Romance":
+  "The main body of Romance, from Portugal to central Italy. It excludes Sardinian, which kept "
+  "Latin's vowels almost unchanged and is the most conservative Romance language living.",
+ "Western Romance":
+  "Everything west of a line across northern Italy. Its members voiced Latin's intervocalic "
+  "consonants — Latin *vita* to Spanish vida, French vie — and made plurals with -s where Italian "
+  "and Romanian use a vowel.",
+ "Gallo-Rhaetian":
+  "French, Occitan's northern neighbours, Franco-Provençal and the Rhaetian languages of the "
+  "Alps: Romansh, Ladin and Friulian. The group is a Celtic substrate and a Germanic superstrate "
+  "on Latin, and the Alpine members survived because their valleys were hard to reach.",
+ "Oil":
+  "The northern French group — Picard, Norman, Walloon, Gallo, Champenois and standard French. "
+  "Named for how each said yes: *oïl* in the north against *oc* in the south. Norman is the one "
+  "that crossed to England in 1066 and put a third of its vocabulary into English.",
+ "West Ibero-Romance":
+  "Portuguese, Galician, Asturian, Leonese and Spanish. Its members lost Latin's initial f — "
+  "Latin *filius* to Spanish hijo — and Portuguese and Galician were one language until a "
+  "political border separated them in the twelfth century.",
+ "Balto-Slavic":
+  "Baltic and Slavic, and whether they are one branch or two that sat next to each other for a "
+  "thousand years is among the oldest disputes in the field. The shared innovations are real but "
+  "few; the shared vocabulary is large and could be contact. Lithuanian is the most "
+  "conservative living Indo-European language by most measures, which makes this branch the "
+  "control group for the whole family.",
+ "Slavic":
+  "The most recently diverged major branch: its members were still mutually intelligible around "
+  "the ninth century, which is why Old Church Slavonic could serve as a liturgical language from "
+  "Bulgaria to Novgorod. That late split is why Russian, Polish and Serbian remain far closer to "
+  "one another than the Romance or Germanic languages are.",
+ "Celtic":
+  "Once spoken from Ireland to central Anatolia, now confined to the Atlantic fringe. Every "
+  "Celtic language mutates the beginning of a word to mark grammar — Welsh *cath* a cat, *ei "
+  "gath* his cat, *ei chath* her cat — a feature almost nothing else in Europe has, and one that "
+  "makes the family instantly recognisable in writing.",
+ "Indo-Aryan Eastern zone":
+  "Bengali, Assamese, Odia, Bihari and their neighbours. The zone lost grammatical gender "
+  "entirely, which sets it apart from Hindi and Gujarati to the west, and its scripts descend "
+  "from a common eastern form of Brahmi.",
+ "Bihari":
+  "Bhojpuri, Magahi and Maithili — three languages with tens of millions of speakers each that "
+  "were long counted as dialects of Hindi and are not. Maithili was given its own place in the "
+  "Indian constitution in 2003 after a long campaign.",
+ "Gauda-Kamrupa":
+  "Bengali, Assamese and their close relatives around the Brahmaputra and the Ganges delta. "
+  "Assamese and Bengali share a script with two letters' difference.",
+ "Indo-Aryan Central zone":
+  "The Hindi belt in the broad sense — Braj, Awadhi, Bundeli, Kanauji and the varieties that the "
+  "census counts as Hindi and linguists do not. Braj and Awadhi carried most of the literature "
+  "before the dialect that became standard Hindi did.",
+ "Indo-Aryan Northwestern zone":
+  "Punjabi, Sindhi, Lahnda and the Dardic borderlands. Punjabi is the only major Indo-Aryan "
+  "language with lexical tone, which it developed when its voiced aspirates collapsed.",
+ "Gujarati-Rajasthani":
+  "Gujarati, Marwari, Mewari and the languages of the northwest desert. Gujarati dropped the "
+  "line along the top of Devanagari, which is why its script looks lighter on the page.",
+ "Rajasthani":
+  "The languages of Rajasthan, counted by the Indian census as Hindi and by Glottolog as "
+  "twenty-two separate languages — a disagreement about splitting that has real political weight, "
+  "because census numbers decide what gets taught.",
+ "Bhil":
+  "The languages of the Bhil peoples across Gujarat, Rajasthan and Madhya Pradesh, sitting "
+  "between the Gujarati and Marathi standards and absorbed into both by schooling.",
+ "Himachali":
+  "The Western Pahari languages of the Himalayan foothills, most counted as Hindi in the census "
+  "and most with no written standard of their own.",
+ "Sindhi-Lahnda":
+  "Sindhi and the Lahnda group of western Punjab, including Saraiki. Sindhi's Perso-Arabic "
+  "alphabet has 52 letters, the largest of any, because Sindhi has sounds Arabic does not.",
+ "Oriya-Gauda-Kamrupa":
+  "Odia and the eastern group. Odia has the longest unbroken literary record of the eastern "
+  "Indo-Aryan languages and was the sixth language granted classical status in India.",
+ "Apabhramsic":
+  "The last Middle Indo-Aryan stage, and the immediate parent of most modern northern Indian "
+  "languages. Apabhramsha literally means 'falling away' — the name grammarians gave the speech "
+  "that had drifted from Sanskrit, and the stage in which the modern grammar took shape.",
+ "Shaurasenic":
+  "The Prakrit of the Mathura region and its descendants, which include the Hindi belt. In "
+  "Sanskrit drama the high characters speak Sanskrit and the women and servants speak "
+  "Shauraseni, which is how a spoken register got written down at all.",
+ "Eastern Dardic":
+  "Kashmiri, Shina, Khowar and the languages of the mountain valleys between Afghanistan and "
+  "Kashmir. Whether Dardic is a branch or simply the Indo-Aryan languages that were left behind "
+  "in the hills is unsettled — they are conservative rather than shared-innovative.",
+ "Northwestern Iranian":
+  "Kurdish, Balochi, Zaza, Gilaki, Mazanderani, Talysh and the Caspian languages. The group is "
+  "defined against Persian by sounds Persian changed and these did not, which makes 'northwestern' "
+  "a statement about conservatism rather than geography.",
+ "Southwestern Iranian":
+  "Persian and its close relatives — Dari, Tajik, Luri, Bakhtiari. The prestige of Persian from "
+  "the tenth century onward drew the whole group toward it, so the boundaries here are unusually "
+  "blurred.",
+ "Modern Southwestern Iranian":
+  "Persian in its three national forms — Iranian Persian, Dari and Tajik — plus Luri and the "
+  "dialects of Fars. One language in three alphabets: Arabic script in Iran and Afghanistan, "
+  "Cyrillic in Tajikistan.",
+ "Middle-Modern Persian":
+  "Persian after the Sasanians. Middle Persian was written in an Aramaic-derived script so "
+  "ambiguous that scribes wrote Aramaic words and read them aloud in Persian; New Persian, in "
+  "Arabic letters, is far easier to read and begins the literature.",
+ "Central Iranian PBS":
+  "Parthian, Bactrian, Sogdian and the Central Asian Iranian languages of the Silk Road. Sogdian "
+  "was the trade language from Samarkand to Chang'an, and the letters found in a mailbag "
+  "abandoned in a watchtower west of Dunhuang around 313 are among the oldest personal letters "
+  "in any Iranian language.",
+ "Tatic":
+  "Tati, Talysh and the small Iranian languages of the Iranian-Azerbaijani borderland, several "
+  "of them down to a few thousand speakers and none with an official standing.",
+ "Shifted Western Romance":
+  "The Romance languages that carried Latin's stress shift through — the main body of Iberian "
+  "and Gallo-Romance.",
+ "Southwestern Shifted Romance":
+  "Spanish, Portuguese, Galician, Asturian and the languages of the Iberian peninsula, plus the "
+  "creoles built on them in the Atlantic and the Pacific.",
+ "Northwestern Shifted Romance":
+  "French, Occitan and the Gallo-Romance group north of the Pyrenees.",
+ "Galician Romance":
+  "Galician and Portuguese and everything Portuguese became overseas — the creoles of Cape Verde, "
+  "Guinea-Bissau, São Tomé and Macau. Galician and Portuguese were a single literary language in "
+  "the thirteenth century, and Castilian kings wrote their lyric poetry in it.",
+ "Macro-Portuguese":
+  "Portuguese and the fifteen creoles built on it, from Cape Verde to Sri Lanka and Macau — the "
+  "trace of the first European seaborne empire, and the reason Portuguese-lexified creoles are "
+  "found on four continents.",
+ "Central Oil":
+  "The dialects around Paris out of which standard French was made — Francien and its neighbours. "
+  "Standard French is not a dialect that won on merit; it is the speech of the region that held "
+  "the court.",
+ "Latinic":
+  "Latin and everything descended from it, as against the Faliscan side of the branch.",
+ "Imperial Latin":
+  "Latin from the empire onward, and the Romance languages that grew out of the spoken form. The "
+  "written standard barely moved for a thousand years while the speech underneath it became "
+  "French, Spanish and Italian — which is why the Council of Tours in 813 had to order priests "
+  "to preach in the local tongue.",
+ "Nuclear Eastern Dardic":
+  "The core Dardic group of the Chitral and Kashmir valleys, several of its members spoken in a "
+  "single valley and none with more than a few thousand speakers except Kashmiri.",
+ "Adharic":
+  "A small group of central Iranian languages, most of them undescribed beyond a wordlist.",
+ "Central Iranian PB":
+  "Parthian and Bactrian: the languages of the Arsacid empire and of Kushan Afghanistan. "
+  "Bactrian is the only Iranian language ever written in Greek letters, a legacy of Alexander.",
+ "Midlands Indo-Aryan":
+  "The great central block of northern India — the Hindi belt, Rajasthan and Gujarat — where the "
+  "line between language and dialect is drawn by politics rather than by intelligibility.",
+}
+
+
 def strip_paren(name: str) -> str:
     # ⚠ Glottolog disambiguates with a trailing bracket — "Murik (Malaysia)", "Aja (Benin)".
     # Taking the last word of the raw name reported "Malaysia" and "Indonesia" as clusters.
@@ -543,6 +788,17 @@ def main() -> None:
             continue
         authored[hit[0]] = (terms, text)
 
+    # BRANCH DESCRIPTIONS. Internal nodes are Level='family' in Glottolog, so they resolve
+    # through exactly the same name gate as the top-level families — a name that matches nothing
+    # or matches twice stops the build. These replace "branch of the Indo-European language
+    # family", which passed the old substantive() test while restating the tree.
+    branch_text: dict[str, str] = {}
+    for nm, txt in IE_BRANCH.items():
+        hit = names.get(nm) or []
+        if len(hit) != 1:
+            raise SystemExit(f"branch {nm!r} matched {len(hit)} Glottolog families")
+        branch_text[hit[0]] = txt
+
     out: dict[str, dict] = {}
     allclusters: dict[str, list] = {}
     subjects: list[list] = []
@@ -599,7 +855,8 @@ def main() -> None:
                        "are measured from this build; the description is authored and keyed by "
                        "exact Glottolog name.",
                "min_cluster": MIN_CLUSTER,
-               "by_glottocode": out, "clusters_by_node": allclusters},
+               "by_glottocode": out, "clusters_by_node": allclusters,
+               "branch_text": branch_text},
               open(os.path.join(WEB, "families.json"), "w"), ensure_ascii=False,
               separators=(",", ":"))
 
@@ -610,6 +867,7 @@ def main() -> None:
                 {r[F["code"]] for r in rows}]        # drop a previous family run's rows
     json.dump([list(x) for x in existing] + subjects, open(sp, "w"), ensure_ascii=False)
 
+    print(f"   {len(branch_text)} branch nodes carry an authored description")
     described = sum(1 for v in out.values() if v.get("text"))
     withcl = sum(1 for v in out.values() if v.get("clusters"))
     print(f"{len(out)} families · {described} with an authored description · "
