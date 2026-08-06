@@ -3023,6 +3023,182 @@ E = [
   "still learned by children in several communities, which is rare enough in North America to be "
   "the exception that proves the pattern.",
   "Statistics Canada 2021 census; Ethnologue 2024."),
+ # ---- THE LAST THIRTY-FOUR. Every language in the atlas with a FULL PUBLISHED GRAMMAR
+ # and nothing here but a composed description. After this the fixable gap is zero:
+ # everything still bare is bare because nobody has written a grammar of it. Almost all
+ # of these are moribund or gone, and most were described once, thoroughly, by one person
+ # who got there in time. That is the shape of the list.
+
+ ("Sakhalin Ainu", ["Category:Ainu language", "Category:Sakhalin"],
+  "The Ainu of Sakhalin, distinct from the Hokkaido variety and extinct since 1994, when Take "
+  "Asai died. Ainu is a language isolate — no demonstrated relative anywhere — and its epic "
+  "*yukar*, chanted narratives running to thousands of lines, were recorded from a handful of "
+  "speakers in the twentieth century.",
+  "Murasaki, Karafuto Ainugo (1976); Ethnologue 2024."),
+ ("Urartian", ["Category:Urartian language", "Category:Urartu"],
+  "The language of the kingdom of Urartu around Lake Van, written in cuneiform borrowed from "
+  "Assyria between about 850 and 600 BCE. Its only known relative is Hurrian, and the pair form "
+  "a family with no other members and no descendants — the Armenian spoken in the same place "
+  "today is Indo-European and unrelated.",
+  "Wilhelm, in The Ancient Languages of Asia Minor (2008)."),
+ ("Classical Quechua", ["Category:Quechua language", "Category:Quipu"],
+  "The Quechua of the Inca state and of the colonial grammars — Domingo de Santo Tomás published "
+  "the first in 1560, twenty-eight years after the conquest. The Inca administered an empire of "
+  "ten million people with no writing, keeping records on *quipu*, knotted cords whose numeric "
+  "content is read and whose narrative content, if any, is not.",
+  "Santo Tomás, Grammatica o arte de la lengua general (1560); Cerrón-Palomino, Lingüística "
+  "quechua (1987)."),
+ ("Arizona Tewa", ["Category:Tewa language", "Category:Hopi Reservation"],
+  "Tewa spoken on the Hopi mesas in Arizona, four hundred kilometres from the other Tewa "
+  "villages in New Mexico — the descendants of refugees who fled the Spanish reconquest after "
+  "the Pueblo Revolt of 1680 and were given land by the Hopi. They kept their language for three "
+  "centuries while living inside another one, which is unusual enough to be a standard case in "
+  "the study of language maintenance.",
+  "Kroskrity, Language, History, and Identity: Ethnolinguistic Studies of the Arizona Tewa (1993)."),
+ ("Tule-Kaweah Yokuts", ["Category:Yokuts language", "Category:San Joaquin Valley"],
+  "One of the Yokuts languages of California's San Joaquin Valley. Yokuts vowel harmony and "
+  "templatic morphology were central to the development of generative phonology in the 1960s, "
+  "which means a language with almost no speakers left shaped how the field thinks.",
+  "Newman, Yokuts Language of California (1944); Kuroda, Yawelmani Phonology (1967)."),
+ ("Ipai", ["Category:Kumeyaay", "Category:San Diego County"],
+  "The northern Kumeyaay language of San Diego County and Baja California. Cochimí-Yuman "
+  "languages straddle the US–Mexico border, and the border cuts through several of the "
+  "communities that speak them.",
+  "Langdon, A Grammar of Diegueño (1970); Ethnologue 2024."),
+ ("Xinka-Jumaytepeque", ["Category:Xinca languages", "Category:Guatemala"],
+  "One of the Xincan languages of southeastern Guatemala — a small family with no demonstrated "
+  "relatives, surrounded by Mayan languages and unrelated to them. All four are gone; a revival "
+  "movement works from the twentieth-century records.",
+  "Rogers, The Use and Development of the Xinkan Languages (2016)."),
+ ("Xinca-Chiquimulilla", ["Category:Xinca languages", "Category:Santa Rosa Department"],
+  "Another Xincan language, recorded from its last speakers in the 1970s. Xincan's isolation "
+  "makes it one of the few windows onto what Mesoamerica held before Maya and Nahua expansion.",
+  "Rogers, The Use and Development of the Xinkan Languages (2016)."),
+ ("Kagoshima", ["Category:Kagoshima dialect", "Category:Satsuma Domain"],
+  "The Japanese of Satsuma, historically so hard for outsiders to follow that the domain was "
+  "said to have kept it that way deliberately against Tokugawa spies. Whether that is true or "
+  "not, it is far enough from standard Japanese to be subtitled on national television.",
+  "Ethnologue 2024; Kibe, Kagoshima hōgen (2000)."),
+ ("Ter Saami", ["Category:Sami languages", "Category:Kola Peninsula"],
+  "The easternmost Saami language, on the Kola Peninsula, with two speakers recorded in the last "
+  "survey. Soviet resettlement of the 1930s and the closure of the coastal villages ended its "
+  "transmission.",
+  "Ethnologue 2024; Rießler, Kola Saami documentation."),
+ ("Forest Nenets", ["Category:Nenets languages", "Category:Yamalo-Nenets"],
+  "Distinct from the much larger Tundra Nenets and not mutually intelligible with it. Its "
+  "speakers are forest reindeer herders in western Siberia; the language has no written standard "
+  "of its own.",
+  "Salminen, Tundra Nenets Inflection (1997) for the family; Ethnologue 2024."),
+ ("Surgut Khanty", ["Category:Khanty language", "Category:Khanty-Mansi"],
+  "One of the Khanty languages of the Ob basin, mutually unintelligible with the others. Khanty "
+  "and Mansi are Hungarian's closest relatives — the Ob-Ugric branch — separated from it by "
+  "three thousand kilometres and about three thousand years.",
+  "Csepregi, Szurguti osztják chrestomathia (1998); Russian Federal Census 2021."),
+ ("Obdorsk Khanty", ["Category:Khanty language", "Category:Salekhard"],
+  "The northernmost Khanty, around Salekhard on the Arctic Circle. The Khanty languages are "
+  "counted as one people and are several languages, which is why their speaker figures look "
+  "larger than any single one of them is.",
+  "Russian Federal Census 2021; Nikolaeva, Ostyak (1999)."),
+ ("Kilen", ["Category:Tungusic languages", "Category:Heilongjiang"],
+  "A Tungusic language of the Amur, with a handful of elderly speakers. Tungusic includes "
+  "Manchu, the language of the Qing dynasty that ruled China for 268 years and now has almost no "
+  "native speakers at all — one of the steepest falls in the history of any language.",
+  "Ethnologue 2024; Zhang, Kilen Grammar (1989)."),
+ ("Kur-Urmi", ["Category:Tungusic languages", "Category:Khabarovsk Krai"],
+  "A Tungusic variety of the Kur and Urmi rivers in the Russian Far East, sometimes counted as "
+  "Evenki and sometimes as its own language.",
+  "Ethnologue 2024; Sunik, Kur-Urmiiskii dialekt (1958)."),
+ ("Zialo", ["Category:Mande languages", "Category:Guinea"],
+  "A Southwestern Mande language of Guinea, described for the first time in 2010 by a Russian "
+  "expedition — one of the more recent first descriptions of any African language.",
+  "Babaev, Zialo: The Newly-Discovered Mande Language of Guinea (2010)."),
+ ("Kagoro", ["Category:Mande languages", "Category:Mali"],
+  "A Manding language of Mali, distinct enough from Bambara to be counted separately and close "
+  "enough that its speakers mostly use Bambara in public.",
+  "Ethnologue 2024; Vydrin, Manding-English Dictionary (1999)."),
+ ("Gagnoa Bété", ["Category:Kru languages", "Category:Côte d'Ivoire"],
+  "A Kru language of central Côte d'Ivoire. Kru languages have among the most elaborate tone "
+  "systems in West Africa — Gagnoa Bété is analysed with four level tones plus contours, and "
+  "tone alone distinguishes both words and grammatical categories.",
+  "Marchese, Atlas linguistique kru (1983); Ethnologue 2024."),
+ ("Kouya", ["Category:Kru languages", "Category:Côte d'Ivoire"],
+  "A small Kru language of Côte d'Ivoire with a community orthography and a New Testament "
+  "produced with its speakers in the 1990s.",
+  "Saunders, A Grammar of Kouya (2011)."),
+ ("Southern Gumuz", ["Category:Gumuz", "Category:Benishangul-Gumuz"],
+  "A Gumuz language on the Ethiopia–Sudan border. Gumuz is usually placed in Nilo-Saharan, the "
+  "least secure of the major African groupings, and may well be an isolate family of its own.",
+  "Ahland, A Grammar of Northern and Southern Gumuz (2012)."),
+ ("Kuku", ["Category:Bari language", "Category:South Sudan"],
+  "A Bari variety of South Sudan and northern Uganda. The Bari languages are Eastern Nilotic and "
+  "were among the first in the region to be written, by Austrian missionaries at Gondokoro in "
+  "the 1850s.",
+  "Ethnologue 2024; Spagnolo, Bari Grammar (1933)."),
+ ("Massalat", ["Category:Chad", "Category:Maban languages"],
+  "A Maban language of Chad with very few speakers, most of whom have shifted to Chadian Arabic. "
+  "Maban is another of the groups whose place inside Nilo-Saharan rests on thin evidence.",
+  "Ethnologue 2024; Edgar, A Masalit Grammar (1989) for the family."),
+ ("Miisiirii", ["Category:Nuba Mountains", "Category:Sudan"],
+  "A Tamaic language of the Nuba Mountains in Sudan — a region holding around fifty languages "
+  "from several unrelated families, and one that has been a war zone for most of the last forty "
+  "years. Its documentation is correspondingly thin and mostly old.",
+  "Ethnologue 2024; Stevenson, Nuba Mountain language survey."),
+ ("Tagdal", ["Category:Songhay languages", "Category:Niger"],
+  "A mixed language of Niger: Songhay grammar with Tuareg (Berber) vocabulary, spoken by "
+  "communities of Tuareg descent who shifted to Songhay and kept their lexicon. Mixed languages "
+  "of this kind are rare and each one is evidence about how far a language can be rebuilt "
+  "without becoming a different one.",
+  "Benítez-Torres, Tagdal: A Mixed Language (2021); Ethnologue 2024."),
+ ("Eastern Ong-Be", ["Category:Hainan", "Category:Kra-Dai languages"],
+  "A Be language of northern Hainan, and one of the smaller primary branches of Tai-Kadai. "
+  "Hainan holds the family's deepest diversity, which is the main evidence that Tai-Kadai "
+  "originated in southern China rather than Southeast Asia.",
+  "Hansell, The Be Language (1988); Ethnologue 2024."),
+ ("Phuan", ["Category:Tai languages", "Category:Xiangkhouang"],
+  "A Southwestern Tai language of Laos and Thailand, whose speakers were forcibly resettled from "
+  "Xiangkhouang into Siam in the nineteenth century — which is why Phuan villages sit scattered "
+  "across central Thailand far from the language's home.",
+  "Ethnologue 2024; Thailand National Statistical Office."),
+ ("Mullu Kurumba", ["Category:Nilgiris", "Category:Dravidian languages"],
+  "One of the Kurumba languages of the Nilgiri hills, spoken by a forest-dwelling community. The "
+  "Nilgiris hold several unrelated-enough Dravidian languages in a small plateau with a stable "
+  "division of labour between the communities that speak them.",
+  "Census of India 2011; Kapp, Alu-Kurumbaru Nudi (1982)."),
+ ("Paniya", ["Category:Wayanad", "Category:Dravidian languages"],
+  "A South Dravidian language of Wayanad and the Nilgiris. Its speakers were held in bonded "
+  "labour on plantations into the second half of the twentieth century, and the language carries "
+  "the marks of that history in its sociolinguistic position rather than its grammar.",
+  "Census of India 2011; Ethnologue 2024."),
+ ("Malaryan", ["Category:Kerala", "Category:Dravidian languages"],
+  "A small Dravidian language of the Kerala hills, close to Malayalam and no longer separately "
+  "transmitted.",
+  "Census of India 2011; Ethnologue 2024."),
+ ("Coatzospan Mixtec", ["Category:Mixtec languages", "Category:Oaxaca"],
+  "One of the fifty-three languages called Mixtec, in the far north of the Mixtec area and "
+  "unusually divergent from the rest. Its nasal harmony has been described in detail and is "
+  "cited well outside Mesoamerican linguistics.",
+  "INEGI 2020 census; Gerfen, Phonology and Phonetics of Coatzospan Mixtec (1999)."),
+ ("Warekena do San Miguel", ["Category:Arawakan languages", "Category:Rio Negro"],
+  "An Arawakan language of the upper Rio Negro on the Venezuela–Brazil border, with very few "
+  "speakers. The Rio Negro is another multilingual system in which people are expected to marry "
+  "outside their language.",
+  "Aikhenvald, Warekena (1998); Ethnologue 2024."),
+ ("Shanenawa", ["Category:Pano languages", "Category:Acre (state)"],
+  "A Panoan language of Acre in western Brazil. Panoan languages are known for evidential "
+  "systems that oblige a speaker to mark how they know what they are saying — seen, heard, "
+  "inferred or reported — in every sentence.",
+  "IBGE 2010 census; Cândido, Shanenawa grammar (2004)."),
+ ("Latundê", ["Category:Nambikwara", "Category:Rondônia"],
+  "A Nambikwaran language of Rondônia with about ten speakers. The Nambikwara were the subject "
+  "of Lévi-Strauss's fieldwork in 1938 and of the chapter in *Tristes Tropiques* about writing — "
+  "in which a chief who could not read mimicked writing to hold authority, and Lévi-Strauss drew "
+  "conclusions from it that anthropologists have argued about ever since.",
+  "Telles, Fonologia e gramática Latundê/Lakondê (2002); Lévi-Strauss, Tristes Tropiques (1955)."),
+ ("Sanapaná", ["Category:Enlhet-Enenlhet languages", "Category:Paraguayan Chaco"],
+  "A Lengua-Mascoy language of the Paraguayan Chaco. The Chaco holds several small families and "
+  "its languages were among the last in South America to be described; most of the grammars date "
+  "from the last thirty years.",
+  "Gomes, Sanapaná grammar (2013); Paraguay Dirección General de Estadística 2012 census."),
 ]
 
 
