@@ -534,9 +534,19 @@ if __name__ == "__main__":
         return 1
 
     def extreme(o) -> bool:
+        # ⚠ READ THE CACHE, NOT THE SLOT. Slot names are assigned during the fetch loop and the
+        # subject reorder above moves objects without renaming them, so o["file"] points at
+        # wherever this object USED to sit. This check was opening a different image entirely:
+        # for Udmurt it reordered the 1882 alphabet to the front, then measured a 3.43-ratio
+        # chart still sitting in slot -4, declared the leader a banner, and swapped the alphabet
+        # back out for a photograph of a media-school class. Slots are only truthful after the
+        # manifest is written; the cache is truthful throughout.
         try:
             from PIL import Image
-            with Image.open(os.path.join(IMG, o["file"])) as im:
+            src = os.path.join(CACHE, _cache_name(o["title"]))
+            if not os.path.exists(src):
+                src = os.path.join(IMG, o["file"])
+            with Image.open(src) as im:
                 w, h = im.size
         except Exception:                                    # noqa: BLE001
             return True
@@ -553,9 +563,15 @@ if __name__ == "__main__":
             objs = [objs[best]] + [o for i, o in enumerate(objs) if i != best]
             manifest[gc] = objs
             demoted += 1
-        # 2. shape: only ever breaks an unusable leader.
+        # 2. shape: only ever breaks an unusable leader, AND ONLY FOR AN EQUALLY GOOD SUBJECT.
+        # A wide crop of the Book of Henryków — the first sentence written in Polish — is 3.99:1
+        # and was being swapped out for a photograph of a MONUMENT to the Book of Henryków.
+        # A strip of the manuscript is still the manuscript; a statue of it is not. So a shape
+        # swap may only promote something whose subject rank is no worse than the leader's.
         if extreme(objs[0]):
-            alt = next((i for i, o in enumerate(objs) if i and not extreme(o)), None)
+            lead_rank = plate_rank(objs[0])
+            alt = next((i for i, o in enumerate(objs)
+                        if i and not extreme(o) and plate_rank(o) <= lead_rank), None)
             if alt is not None:
                 manifest[gc] = [objs[alt]] + [o for i, o in enumerate(objs) if i != alt]
                 demoted += 1
