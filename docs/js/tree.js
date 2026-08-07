@@ -411,7 +411,48 @@
     const ex = $('#exhibit');
     ex.innerHTML = html;
     ex.scrollTop = 0;
+    buildSpine(ex);
     return ex;
+  }
+
+  // THE CARD'S SPINE. English's card is 6,055 px in a 642 px column — nine and a half screens,
+  // eight sections, and nothing on screen says they are there. A reader scrolls blind past
+  // Dated, Heard, How it works, Its letters, Written today, Words as spoken, In its own words
+  // and Objects, or more likely does not scroll at all.
+  //
+  // Built here rather than in each renderer, from the <h3>s that are already in the markup, so
+  // a section added anywhere gets a spine entry for free and none can be forgotten. It also
+  // makes richness legible before a word is read: a card with seven marks looks deep.
+  //
+  // Short cards do not get one — a spine over two paragraphs is furniture, not navigation.
+  function buildSpine(ex) {
+    const hs = [...ex.querySelectorAll('h3')];
+    if (hs.length < 3 || ex.scrollHeight < ex.clientHeight * 1.8) return;
+    hs.forEach((h, i) => { h.id = 'sec' + i; });
+    const nav = document.createElement('nav');
+    nav.className = 'spine';
+    nav.innerHTML = hs.map((h, i) =>
+      '<a href="#" data-s="' + i + '">' + esc(h.textContent) + '</a>').join('');
+    ex.insertBefore(nav, ex.firstChild);
+
+    nav.addEventListener('click', e => {
+      const a = e.target.closest('a'); if (!a) return;
+      e.preventDefault();
+      const h = ex.querySelector('#sec' + a.dataset.s);
+      // scroll the container, not the page: #exhibit is the scrolling element.
+      ex.scrollTo({ top: h.offsetTop - nav.offsetHeight - 8, behavior: 'smooth' });
+    });
+
+    // scroll-spy, so the spine says where you are as well as what exists
+    const links = [...nav.querySelectorAll('a')];
+    const spy = () => {
+      const y = ex.scrollTop + nav.offsetHeight + 24;
+      let cur = -1;
+      hs.forEach((h, i) => { if (h.offsetTop <= y) cur = i; });
+      links.forEach((a, i) => a.classList.toggle('on', i === cur));
+    };
+    ex.addEventListener('scroll', spy, { passive: true });
+    spy();
   }
 
   function branchExhibit(n, rec) {
@@ -1199,6 +1240,45 @@
     return best;
   }
 
+  // ONE SEARCH OVER EVERY LANGUAGE. Before this there were two boxes — 429 families, and
+  // "within this family" once you had opened one — so a visitor who wanted Warlpiri and did not
+  // know it was Pama-Nyungan had no way in. The same field now searches all 7,672 languages by
+  // reference name and by autonym, folded, so "Yoruba" finds Yorùbá and "Nahuatl" finds Nāhuatl.
+  // ⚠ LOADED LAZILY, ON FIRST KEYSTROKE. tree.js is parsed BEFORE app.js, which is where
+  // window.V lives, so fetching at module scope threw ReferenceError into a .catch and left the
+  // index permanently null — a search box that silently found nothing.
+  let SEARCH = null, SEARCH_ASKED = false;
+  function loadSearch() {
+    if (SEARCH_ASKED) return;
+    SEARCH_ASKED = true;
+    fetch(window.V('data/search.json')).then(r => r.json()).then(d => {
+      SEARCH = d;
+      $('#famq').placeholder = 'search ' + d.rows.length.toLocaleString() + ' languages…';
+      renderFamilyList();
+    }).catch(() => { SEARCH = null; });
+  }
+
+  function foldq(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  // Rank: a name that STARTS with the query beats one that merely contains it, and among equals
+  // the language with more speakers comes first — otherwise "Ma" leads with something nobody
+  // speaks and the list reads as noise.
+  function langMatches(q, limit) {
+    if (!SEARCH || q.length < 2) return [];
+    const f = foldq(q), out = [];
+    for (let i = 0; i < SEARCH.folded.length; i++) {
+      const at = SEARCH.folded[i].indexOf(f);
+      if (at < 0) continue;
+      const r = SEARCH.rows[i];
+      out.push({ r, score: (at === 0 ? 0 : 1), sp: r[4] });
+      if (out.length > 4000) break;
+    }
+    out.sort((a, b) => a.score - b.score || b.sp - a.sp);
+    return out.slice(0, limit).map(x => x.r);
+  }
+
   function renderFamilyList() {
     const q = $('#famq').value.toLowerCase();
     const fams = T.index.families.filter(f => !q || f.n.toLowerCase().includes(q));
@@ -1210,7 +1290,19 @@
     const real = fams.filter(f => !f.pseudo && !f.isolate);
     const iso = fams.filter(f => f.isolate);
     const ps = fams.filter(f => f.pseudo);
+    const hits = langMatches($('#famq').value.trim(), 40);
+    const lbtn = r =>
+      '<button class="lang" data-lg="' + r[2] + '" data-fam="' + r[3] + '">' +
+      '<span class="sw" style="background:' + famColour(T.famIdx[r[3]] ?? 0) + '"></span>' +
+      '<span class="fn">' + esc(r[1] || r[0]) +
+      (r[1] ? ' <i>' + esc(r[0]) + '</i>' : '') + '</span>' +
+      '<span class="fc">' + esc((SEARCH.famnames[r[3]] || '').slice(0, 18)) + '</span></button>';
+
     $('#famlist').innerHTML =
+      (hits.length ? '<div class="grp">' + hits.length +
+        (hits.length === 40 ? '+' : '') + ' language' + (hits.length === 1 ? '' : 's') +
+        '</div>' + hits.map(lbtn).join('') +
+        (real.length ? '<div class="grp">families</div>' : '') : '') +
       real.slice(0, 400).map(btn).join('') +
       (iso.length ? '<div class="grp">' + iso.length + ' isolates — no known relatives</div>'
         + iso.slice(0, 250).map(btn).join('') : '') +
@@ -1513,9 +1605,16 @@
     });
     $('#famlist').addEventListener('click', async e => {
       const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.lg) {                       // a language: open its family, then its card
+        if (T.family !== b.dataset.fam) await openFamily(b.dataset.fam);
+        renderFamilyList(); renderHead();
+        showByCode(b.dataset.lg);
+        return;
+      }
       await openFamily(b.dataset.g); renderFamilyList(); renderHead();
     });
-    $('#famq').addEventListener('input', renderFamilyList);
+    $('#famq').addEventListener('focus', loadSearch, { once: true });
+    $('#famq').addEventListener('input', () => { loadSearch(); renderFamilyList(); });
     $('#treeq').addEventListener('input', e => {
       T.q = e.target.value; layout();
       const h = $('#treecv').clientHeight || 600;

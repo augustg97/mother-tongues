@@ -127,6 +127,11 @@ body.tree #topbar{background:none}
 #famlist button.on{background:var(--ink);color:var(--paper)}
 #famlist button.on .fc{color:rgba(247,243,234,.65)}
 #famlist .sw{width:9px;height:9px;border-radius:50%;transform:translateY(-1px)}
+/* a language hit in the rail: its autonym leads, the reference name follows in italic, and the
+   family sits on the right where a language count sits for a family row */
+#famlist button.lang .fn i{font-style:italic;opacity:.55;font-size:11px}
+#famlist button.lang{padding-top:5px;padding-bottom:5px}
+#famlist button.lang .fc{font-size:10px;letter-spacing:.02em;opacity:.6}
 #famlist .fc{color:var(--ink3);font-size:10.5px;font-variant-numeric:tabular-nums;font-family:inherit}
 #famlist .grp{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
   margin:12px 0 3px;padding:9px 7px 0;border-top:1px solid var(--rule)}
@@ -411,3 +416,19 @@ body.lbopen{overflow:hidden}
    as apparatus rather than as part of the description. */
 .excite{margin:6px 0 0;padding-top:6px;border-top:1px solid var(--rule);
   font-size:10.5px;line-height:1.5;color:var(--ink3);font-family:var(--serif);font-style:italic}
+
+
+/* ---- the card's spine ---------------------------------------------------
+   A sticky index of a long card's sections. Sits above the headline so that the headline can
+   scroll away and the spine cannot; scrolls sideways rather than wrapping, because a card with
+   eight sections should not spend three lines saying so. */
+.spine{position:sticky;top:0;z-index:6;display:flex;gap:0;overflow-x:auto;
+  margin:0 -26px 10px -24px;padding:7px 24px 6px;background:var(--paper);
+  border-bottom:1px solid var(--rule);scrollbar-width:none}
+.spine::-webkit-scrollbar{display:none}
+.spine a{flex:0 0 auto;font-family:var(--serif);font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:rgba(40,38,34,.42);text-decoration:none;
+  padding:3px 9px 3px 0;white-space:nowrap;border-bottom:1px solid transparent;
+  transition:color .15s}
+.spine a:hover{color:var(--ink)}
+.spine a.on{color:var(--accent);border-bottom-color:var(--accent)}
