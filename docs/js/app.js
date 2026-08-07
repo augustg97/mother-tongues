@@ -720,6 +720,11 @@ function setView(v) {
   ['#leftrail', '#rightrail', '#readout'].forEach(id => {
     const e = $(id); if (e) e.style.display = tree ? 'none' : '';
   });
+  // The ground card belongs to the ground. It was only ever hidden by its own close button, so
+  // switching to the genealogy left it sitting over the tree, dimmed by the body.tree styling
+  // into an unreadable dark slab that nothing on screen explained.
+  const card = $('#card');
+  if (card && tree) card.classList.add('hidden');
   if (tree && window.TREE) window.TREE.show();
 }
 state.setView = setView;
@@ -885,6 +890,12 @@ async function boot() {
     .catch(() => { state.typology = null; });
   fetch(V('data/audio.json')).then(r => r.json()).then(d => { state.audio = d; })
     .catch(() => { state.audio = null; });
+  // buildAbout() runs as soon as level 0 is painted, which is usually before this resolves, so
+  // rebuild the panel if the log lands after it.
+  fetch(V('data/updates.json')).then(r => r.json()).then(d => {
+    state.updates = d;
+    if (state.ready) buildAbout();
+  }).catch(() => { state.updates = null; });
   // Level 0 is the whole world in 5 MB and it is the fallback every other level falls back
   // TO, so it is the one thing worth blocking first paint on. Everything above it streams.
   const base = [];
@@ -903,6 +914,10 @@ async function boot() {
       'mapped language area. Unpainted land is missing data, not empty ground.</div>');
   }
   updateReadout(state.centre[0], state.centre[1]);
+  // GENEALOGY IS THE FRONT DOOR. The ground is what a language sits on; the tree is what the
+  // museum is about, and it is where the labels, branch cards, timelines and objects live. The
+  // ground stays one click away and the map keeps rendering behind it.
+  setView('tree');
 }
 
 // The Sources list is GENERATED from the shipped attribution ledger, never typed here.
@@ -948,6 +963,27 @@ function coverageHtml() {
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+// The update log is GENERATED FROM GIT HISTORY, never typed here — same reason as the sources
+// list. A hand-written changelog drifts from the build the first time somebody ships without
+// editing it, and nothing catches the drift. A round is in this list if and only if it was
+// committed.
+function updatesHtml() {
+  const U = state.updates && state.updates.rounds;
+  if (!U || !U.length) return '<p class="fine">The update log failed to load.</p>';
+  const SHOWN = 24;
+  const rows = U.slice(0, SHOWN).map(r =>
+    '<li style="margin-bottom:7px"><b>' + esc(r.title) + '</b>' +
+    '<div class="fine" style="margin-top:1px;opacity:.7">' + esc(r.date) + ' · ' +
+    esc(r.sha) + '</div>' +
+    (r.summary ? '<div class="fine" style="margin-top:2px">' + esc(r.summary) + '</div>' : '') +
+    '</li>').join('');
+  return '<p class="fine">' + U.length + ' rounds since ' + esc(U[U.length - 1].date) +
+    ', newest first. Generated from the repository, so it cannot drift from what shipped.</p>' +
+    '<ul style="padding-left:16px">' + rows + '</ul>' +
+    (U.length > SHOWN ? '<p class="fine">…and ' + (U.length - SHOWN) + ' earlier rounds.</p>'
+                      : '');
 }
 
 function buildAbout() {
@@ -1056,6 +1092,7 @@ function buildAbout() {
   'in its own script and orthography — title, preamble and five articles where they exist: ' +
   '<b>446 languages, 37 scripts, 3,083 passages</b>. UN translations, via UDHR in XML.</p>' +
   '<h3>How much of the ground is data</h3>' + coverageHtml() +
+  '<h3>Updates</h3>' + updatesHtml() +
   '<h3>Sources</h3>' + sourcesHtml() +
   '<p class="fine">Elevation is encoded 16-bit linear over −11000…+9000 m. That was measured, not ' +
   'inherited: an 8-bit signed-square-root encoding tuned for sea level would have created relief ' +
