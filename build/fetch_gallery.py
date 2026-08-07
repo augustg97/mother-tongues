@@ -69,6 +69,11 @@ NOT_AN_ARTEFACT = re.compile(
     # Photographs of Wikimedia community events are about the project, not the language.
     # Digitisation wrappers: the scanning service's own front matter, not the book.
     r"|early journal content|\bjstor\b|\bhathitrust\b|\bgoogle books\b|internet archive"
+    # ⚠ A MULTI-VOLUME WORK DEFEATS A TITLE REJECTION. "The Sacred Books and Early Literature
+    # of the East" is a 1917 English anthology; volumes 02 and 03 were rejected by eye and
+    # Commons served volume 06 to the same card. Block the series, not the volume. These are
+    # English books ABOUT a language, which is the class August named first of all.
+    r"|sacred books and early literature|a history of the .* people by"
     r"|\bwikiclub\b|\beditathon\b|\bedit-a-thon\b|\bmeetup\b|\bwikicon\w*"
     r"|\bwikimania\b|\bhackathon\b|\bwiki ?club\b|\bwiki ?camp\b", re.I)
 
@@ -85,8 +90,23 @@ WRITING_TITLE = re.compile(
     r"primer|abecedar|plaque|epitaph|papyrus|scroll|parchment|cuneiform|hieroglyph|"
     r"lettering|banner|label|menu|placard|monument|memorial|gravestone|tombstone|"
     r"title page|cover|leaflet|poem|verse|psalm|catechism|testament|schrift|"
-    r"\u00e9criture|escritura|scrittura)", re.I)
+    r"\u00e9criture|escritura|scrittura|"
+    # Commons filenames are in the uploader's language, and this filter reads filenames.
+    # "Lo Batifel de la Gisen - premi\u00e9ri p\u00e1gina" is the first page of a printed work in
+    # Arpitan and it failed because the English word "page" is not inside "p\u00e1gina".
+    r"p[\u00e1a]gina|seite|blatt|folha|sida|blad|"
+    r"livre|libro|libru|buch|kniga|kitab|"
+    r"lettre|carta|brief|lettera)", re.I)
 GRAB_BAG = re.compile(r"\blanguages?$", re.I)
+# A category that IS about writing needs no title filter — its whole contents are the subject.
+_WRITING_CAT = re.compile(r"(script|alphabet|inscription|manuscript|calligraph|literature|"
+                          r"syllabar|orthograph|epigraph|codex|typograph)", re.I)
+# Cultural artefacts, which August's rule admits: an object made by the people who speak it.
+ARTEFACT_TITLE = re.compile(
+    r"(pottery|pot\b|vessel|bowl|jar|urn|carving|carved|sculpture|statue|figurine|mask|"
+    r"textile|weaving|woven|embroider|basket|beadwork|amulet|talisman|drum|flute|horn\b|"
+    r"lyre|harp|coin|seal\b|stamp|jewellery|jewelry|pendant|brooch|loom|shield|"
+    r"artefact|artifact|museum|relic|regalia|costume|headdress)", re.I)
 
 
 def mostly_non_latin(t: str) -> bool:
@@ -118,6 +138,14 @@ for _f in ("subjects_languages.json", "subjects_families.json"):
     _p = os.path.join(OUT, _f)
     if os.path.exists(_p):
         SUBJECTS += [tuple(x) for x in _json.load(open(_p))]
+# --part i/n runs one slice of the queue. A full pass is ~1,500 Commons queries at the backed-off
+# rate, which is longer than a single foreground run survives here; the title-keyed cache makes
+# slices safe, because a slice writes no manifest and no slot files.
+if "--part" in sys.argv:
+    _i, _n = (int(x) for x in sys.argv[sys.argv.index("--part") + 1].split("/"))
+    SUBJECTS = [s for k, s in enumerate(SUBJECTS) if k % _n == _i - 1]
+    print(f"part {_i}/{_n}: {len(SUBJECTS)} subjects")
+
 if not SUBJECTS:
     raise SystemExit("fetch_gallery: no subject queue — run build_notable.py and "
                      "build_families.py first")
@@ -132,6 +160,9 @@ if not SUBJECTS:
 # the manifest is actually written, and a refused run therefore changes nothing a reader sees.
 CACHE = os.path.join(OUT, "cache")
 os.makedirs(CACHE, exist_ok=True)
+_served_from_cache = False
+QCACHE = os.path.join(OUT, "qcache")
+os.makedirs(QCACHE, exist_ok=True)
 
 
 def _cache_name(title: str) -> str:
@@ -245,17 +276,33 @@ def find(terms: str, want: int = 1, skip: set[str] | None = None,
     skipnorm = skipnorm if skipnorm is not None else set()
     common = {"prop": "imageinfo", "iiprop": "url|extmetadata|mime|size",
               "iiurlwidth": "760"}
-    try:
-        if terms.startswith("Category:"):
-            q = dict(common, generator="categorymembers", gcmtitle=terms,
-                     gcmtype="file", gcmlimit="80")
-        else:
-            q = dict(common, generator="search", gsrsearch=terms, gsrnamespace="6",
-                     gsrlimit="30")
-        j = api(q)
-    except Exception as e:                                   # noqa: BLE001
-        print(f"   lookup failed for {terms!r}: {e}")
-        return []
+    # THE SEARCH RESULT IS CACHED TOO, keyed by subject. A full pass is ~1,560 Commons queries at
+    # the backed-off rate, which is longer than one run survives here, and repeating them to
+    # rebuild a manifest is both slow and rude to the source. The cache holds the raw API reply,
+    # so the filtering below still runs fresh against the current reject list. Delete
+    # data/gallery/qcache to force real queries.
+    global _served_from_cache
+    _qp = os.path.join(QCACHE, _cache_name("Q:" + terms)[:-4] + ".json")
+    j = None
+    if os.path.exists(_qp):
+        try:
+            j = json.load(open(_qp, encoding="utf-8"))
+        except Exception:                                    # noqa: BLE001
+            j = None
+    _served_from_cache = j is not None
+    if j is None:
+        try:
+            if terms.startswith("Category:"):
+                q = dict(common, generator="categorymembers", gcmtitle=terms,
+                         gcmtype="file", gcmlimit="80")
+            else:
+                q = dict(common, generator="search", gsrsearch=terms, gsrnamespace="6",
+                         gsrlimit="30")
+            j = api(q)
+        except Exception as e:                               # noqa: BLE001
+            print(f"   lookup failed for {terms!r}: {e}")
+            return []
+        json.dump(j, open(_qp, "w"), ensure_ascii=False)
     hits = []
     for p in (j.get("query", {}) or {}).get("pages", []) or []:
         ii = (p.get("imageinfo") or [{}])[0]
@@ -273,8 +320,20 @@ def find(terms: str, want: int = 1, skip: set[str] | None = None,
         stem = t.rsplit(".", 1)[0]
         if junk(stem):
             continue
-        if GRAB_BAG.search(terms) and not (WRITING_TITLE.search(stem)
-                                           or mostly_non_latin(stem)):
+        # THE GRAB-BAG TEST, and it now covers the language's own bare category too.
+        # `Category:<Language> languages` was always a grab-bag. `Category:Akha` is worse: it is
+        # a category about the Akha PEOPLE, and it returned three portraits. `Category:Cheyenne`
+        # returned two nineteenth-century battle paintings; `Category:Haitian Creole` returned
+        # three photographs of individuals; `Category:Kabyle` returned a map. So a file admitted
+        # through a category that is not explicitly about writing must name something written,
+        # or carry a filename in the language's own script.
+        #
+        # Cultural artefacts survive this by name — pots, carvings, instruments read as objects
+        # and August's rule allows them; a photograph of a person or a town does not.
+        bare_cat = terms.startswith("Category:") and not _WRITING_CAT.search(terms)
+        if (GRAB_BAG.search(terms) or bare_cat) and not (WRITING_TITLE.search(stem)
+                                                         or ARTEFACT_TITLE.search(stem)
+                                                         or mostly_non_latin(stem)):
             continue
         # Near-duplicates. Commons numbers a photo series 01, 02, 03; the exact-title dedupe let
         # all three in, so Korean showed the same monument twice and Navajo the same radio set
@@ -409,7 +468,8 @@ if __name__ == "__main__":
         # Commons rate-limits, and a long queue is exactly when it does. 1,802 subjects at
         # 0.35s got 429s and doubled the number of subjects returning nothing, which cost 43
         # languages their objects. Back off as the queue grows.
-        time.sleep(0.35 if len(SUBJECTS) < 1000 else 0.6)
+        if not _served_from_cache:
+            time.sleep(0.35 if len(SUBJECTS) < 1000 else 0.6)
     # THE PLATE IS CHOSEN BY SUBJECT FIRST, AND SHAPE ONLY BREAKS AN UNUSABLE ONE.
     #
     # A first attempt sorted each language's objects purely by how close they were to 4:3, and it
@@ -486,6 +546,13 @@ if __name__ == "__main__":
     #
     # So: a run that LOSES ground stops and says what it lost. --shrink to accept it (an audit
     # pass that retires bad objects is a legitimate shrink and passes it deliberately).
+    # A SLICE NEVER WRITES. It exists only to warm the title-keyed cache, so it must stop before
+    # the guard, before the manifest and before the slot files — a partial queue always looks
+    # like a catastrophic shrink, because it is one.
+    if "--part" in sys.argv:
+        print("   slice complete — cache warmed, manifest and slots untouched")
+        sys.exit(0)
+
     # A CEILING ON WHAT --shrink WILL ACCEPT. The flag exists for an audit that retires a
     # handful of bad objects. It was once passed for an expected loss of 6 languages and then
     # left on for a run that lost 43, because a throttled fetch looks exactly like a small

@@ -26,3 +26,4 @@ scratchpad/
 # The gallery's title-keyed download cache. Regenerable from Commons and 800 MB of duplicates
 # of what already ships in web/img/gallery.
 /data/gallery/cache/
+/data/gallery/qcache/
