@@ -712,20 +712,26 @@ state.showCardFor = function (gc, p) {
 };
 
 function setView(v) {
-  const tree = v === 'tree';
-  document.body.classList.toggle('tree', tree);
+  // Three views now. `ground` is the one that owns the rails, the readout and the card; the two
+  // paper views borrow the body.tree styling for the light chrome, which is why that class is
+  // set for both of them and not only for the tree.
+  const tree = v === 'tree', ix = v === 'index', ground = !tree && !ix;
+  document.body.classList.toggle('tree', !ground);
   $('#treeview').classList.toggle('hidden', !tree);
-  $('#vMap').classList.toggle('on', !tree);
+  $('#indexview').classList.toggle('hidden', !ix);
+  $('#vMap').classList.toggle('on', ground);
   $('#vTree').classList.toggle('on', tree);
+  $('#vIndex').classList.toggle('on', ix);
   ['#leftrail', '#rightrail', '#readout'].forEach(id => {
-    const e = $(id); if (e) e.style.display = tree ? 'none' : '';
+    const e = $(id); if (e) e.style.display = ground ? '' : 'none';
   });
   // The ground card belongs to the ground. It was only ever hidden by its own close button, so
   // switching to the genealogy left it sitting over the tree, dimmed by the body.tree styling
   // into an unreadable dark slab that nothing on screen explained.
   const card = $('#card');
-  if (card && tree) card.classList.add('hidden');
+  if (card && !ground) card.classList.add('hidden');
   if (tree && window.TREE) window.TREE.show();
+  if (ix && window.IX) window.IX.show();
 }
 state.setView = setView;
 
@@ -1102,6 +1108,7 @@ function buildAbout() {
 
 $('#vMap').addEventListener('click', () => setView('map'));
 $('#vTree').addEventListener('click', () => setView('tree'));
+$('#vIndex').addEventListener('click', () => setView('index'));
 
 boot().catch(e => {
   $('#loading').textContent = 'Failed to load: ' + e.message;

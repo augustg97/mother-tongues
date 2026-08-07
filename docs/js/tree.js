@@ -68,6 +68,9 @@
     return `rgb(${Math.round(255 * f(5) * m)},${Math.round(255 * f(3) * m)},${Math.round(255 * f(1) * m)})`;
   }
   const colOf = () => famColour(T.famIdx[T.family]);
+  // The index view paints 7,672 cells in family hues and must use THIS function, not a copy of
+  // it: two implementations of the same colour drift the moment one of them is touched.
+  T.famColour = famColour;
 
   const _fontOK = new Map();
   function canRender(str) {
@@ -1701,6 +1704,12 @@
       }
       await openFamily(b.dataset.g); renderFamilyList(); renderHead();
     });
+    // One call for "show me this language", used by the family list and by the index view.
+    T.openLang = async (gc, fam) => {
+      if (T.family !== fam) await openFamily(fam);
+      renderFamilyList(); renderHead();
+      showByCode(gc);
+    };
     $('#famq').addEventListener('focus', loadSearch, { once: true });
     $('#famq').addEventListener('input', () => { loadSearch(); renderFamilyList(); });
     $('#treeq').addEventListener('input', e => {

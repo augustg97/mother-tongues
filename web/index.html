@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="data-version" content="1786097583">
+<meta name="data-version" content="1786098558">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mother Tongues — every human language, on the ground it is spoken on</title>
-<link rel="stylesheet" href="css/styles.css?v=1786097583">
+<link rel="stylesheet" href="css/styles.css?v=1786098558">
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 <div id="topbar">
   <div id="title">
     <h1>MOTHER TONGUES <span id="aboutBtn" title="About, and what this does not know">ⓘ</span></h1>
-    <div id="views"><button id="vTree" class="on">GENEALOGY</button><button id="vMap">GROUND</button></div>
+    <div id="views"><button id="vTree" class="on">GENEALOGY</button><button id="vMap">GROUND</button><button id="vIndex">INDEX</button></div>
     <div id="subtitle">Every human language we know of, on the ground it is spoken on</div>
   </div>
   <div id="readout">
@@ -75,9 +75,26 @@
   </div>
   <aside id="exhibit" class="empty"><p class="exempty">Choose a language from the tree.</p></aside>
 </div>
+<div id="indexview" class="hidden">
+  <div id="ixhead">
+    <h2>Every language at once</h2>
+    <div id="ixcap" class="sub"></div>
+    <div id="ixbar">
+      <span class="lab">area</span>
+      <button id="ixCount" class="on">one cell each</button><button id="ixSp">by speakers</button>
+      <span class="lab">colour</span>
+      <button id="ixFam" class="on">by family</button><button id="ixAes">by vitality</button>
+      <span class="hint">hover to name one · click to open it</span>
+    </div>
+  </div>
+  <canvas id="ixcv"></canvas>
+  <div id="ixlegend"></div>
+  <div id="ixtip" class="hidden"></div>
+</div>
 <div id="loading">rendering the surface…</div>
 
-<script src="js/tree.js?v=1786097583"></script>
-<script src="js/app.js?v=1786097583"></script>
+<script src="js/atlas.js?v=1786098558"></script>
+<script src="js/tree.js?v=1786098558"></script>
+<script src="js/app.js?v=1786098558"></script>
 </body>
 </html>
