@@ -209,6 +209,30 @@
     const labelled = rowH >= 9.5;
     const fs = Math.max(9.5, Math.min(14, rowH * 1.15));
 
+    // ---- the depth axis ------------------------------------------------------------
+    // "Distance from left is depth of descent, not time" is printed above the tree in words,
+    // and until now it was only words: the horizontal axis carried a real quantity with no
+    // scale on it, which is the one thing a chart may never do. Faint rules at each column,
+    // numbered, so the claim is checkable off the surface.
+    g.save();
+    g.font = '9.5px ' + SANS;
+    g.textBaseline = 'alphabetic';
+    for (let d = 0; d <= L.maxDepth; d++) {
+      const gx = X(d);
+      if (gx < padL - 40 || gx > w - padR + 40) continue;
+      g.strokeStyle = d === 0 ? 'rgba(120,112,102,.18)' : 'rgba(120,112,102,.085)';
+      g.lineWidth = 1;
+      g.beginPath(); g.moveTo(gx + 0.5, 22); g.lineTo(gx + 0.5, h); g.stroke();
+      if (colW >= 34) {
+        g.fillStyle = 'rgba(140,132,122,.75)';
+        g.textAlign = 'center';
+        g.fillText(String(d), gx, 16);
+      }
+    }
+    g.textAlign = 'left';
+    g.restore();
+    g.textBaseline = 'middle';
+
     // branches, thickest first so thin twigs draw over trunks cleanly
     const sorted = L.nodes.slice().sort((a, b) => b.leaves - a.leaves);
     for (const r of sorted) {
@@ -219,10 +243,14 @@
         if (Math.max(y0, y1) < -40 || Math.min(y0, y1) > h + 40) continue;
         // thickness carries the number of LIVING descendants: a family that is mostly
         // extinct visibly thins towards its tips instead of looking as healthy as any other
-        const tw = 0.7 + 5.2 * Math.sqrt(k.living / L.leafN);
-        g.lineWidth = Math.max(0.6, tw);
+        // ⚠ THE SLAB. sqrt() at 5.2px put Volta-Congo's 3,093 living languages into a band
+        // wide enough to swallow its own children, and at alpha .55 every overlapping curve
+        // compounded until the trunk read as one solid mass. A quarter-power ramp keeps the
+        // thin twigs visible while capping the trunk at a width you can still see through.
+        const tw = 0.7 + 3.6 * Math.pow(k.living / L.leafN, 0.38);
+        g.lineWidth = Math.max(0.55, tw);
         g.strokeStyle = k.living === 0 ? 'rgba(120,112,102,.34)' : col;
-        g.globalAlpha = k.living === 0 ? 1 : 0.55;
+        g.globalAlpha = k.living === 0 ? 1 : 0.44;
         g.beginPath();
         g.moveTo(x0, y0);
         const mx = x0 + (x1 - x0) * 0.55;
@@ -238,6 +266,18 @@
     g.textBaseline = 'middle';
     const byY = L.nodes.slice().sort((a, b) => a.y - b.y);
     let lastLeafY = -1e9, lastNodeY = -1e9;
+    // ⚠ ONE SET OF BOXES, NOT TWO COUNTERS. lastLeafY and lastNodeY were tracked separately, so
+    // a tip label and an internal label could land on the same line and print through each
+    // other — "North-Central Atlantic" over "Jaad", "Volta-Congo" over "Kwa Volta-Congo". They
+    // are different KINDS of label but they occupy the same canvas. Boxes are compared on both
+    // axes because an internal label sits at a different x from the tips beside it.
+    const placed = [], forks = [];
+    const fits = (y0, y1, x0, x1) => {
+      for (const b of placed) {
+        if (y0 < b.y1 && y1 > b.y0 && x0 < b.x1 && x1 > b.x0) return false;
+      }
+      return true;
+    };
     for (const r of byY) {
       const x = X(r.depth), y = Y(r.y);
       if (y < -20 || y > h + 20) continue;
@@ -254,15 +294,21 @@
       }
       // A shut branch is drawn as a bud with its size on it: the affordance is the shape,
       // not an icon you have to learn.
+      r._bud = 0;
       if (r.shut && labelled) {
-        const rad = Math.min(9, 4 + Math.sqrt(r.leaves) * 0.5);
+        const cnt = String(r.leaves);
+        g.font = '600 ' + Math.max(8, Math.min(10, (4 + Math.sqrt(r.leaves) * 0.5) * 1.15)).toFixed(1) + 'px ' + SANS;
+        // ⚠ THE BUD MUST FIT ITS OWN NUMBER. The radius came only from sqrt(leaves), capped at
+        // 9, so a three-digit count — Benue-Congo's 231 — was drawn centred on an 18px bud and
+        // spilled out both sides into the name beside it. Size the bud to the text it carries.
+        const rad = Math.max(Math.min(9, 4 + Math.sqrt(r.leaves) * 0.5), g.measureText(cnt).width / 2 + 3);
         g.beginPath(); g.arc(x, y, rad, 0, 6.2832);
         g.fillStyle = col; g.globalAlpha = 0.22; g.fill(); g.globalAlpha = 1;
         g.strokeStyle = col; g.lineWidth = 1.3; g.stroke();
-        g.font = '600 ' + Math.max(8, Math.min(10, rad * 1.15)).toFixed(1) + 'px ' + SANS;
         g.fillStyle = col; g.textAlign = 'center';
-        g.fillText(String(r.leaves), x, y + 0.5);
+        g.fillText(cnt, x, y + 0.5);
         g.textAlign = 'left';
+        r._bud = rad;
       }
 
       if (T.sel === n) {
@@ -289,12 +335,16 @@
       const need = fs * 0.95;
       if (leaf) { if (y - lastLeafY < need) continue; lastLeafY = y; }
       else { if (y - lastNodeY < need) continue; lastNodeY = y; }
-      let tx = x + 8 + (r._vig || 0);
+      let tx = x + Math.max(8, (r._bud || 0) + 4) + (r._vig || 0);
       if (leaf) {
         const au = n.au && canRender(n.au[0]) ? n.au[0] : null;
         g.font = fs.toFixed(1) + 'px ' + SERIF;
         g.fillStyle = a >= 6 ? 'rgba(96,90,82,.85)' : '#20242a';
         const main = au || n.n;
+        const mw = g.measureText(main).width;
+        if (!fits(y - fs * 0.55, y + fs * 0.55, tx, tx + mw)) continue;
+        placed.push({ y0: y - fs * 0.55, y1: y + fs * 0.55,
+                      x0: x - Math.max(7, (r._bud || 0) + 1), x1: tx + mw });
         g.fillText(main, tx, y);
         tx += g.measureText(main).width + 8;
         if (au) {
@@ -315,13 +365,51 @@
           g.fillText(bits.join(' · '), tx, y);
         }
       } else {
-        const ny = y - Math.min(9, fs * 0.72);
-        g.font = '600 ' + Math.max(9, fs * 0.82).toFixed(1) + 'px ' + SANS;
-        g.fillStyle = 'rgba(58,54,50,.9)';
-        g.fillText(n.n, tx - 4, ny);
+        // Deferred. A tip label is a language; an internal label is scaffolding naming a fork.
+        // Drawing them in one y-ordered pass let a fork name win a line from a language purely
+        // by sitting a few pixels higher — "Volta-Congo 3093" taking the line from "Kwa
+        // Volta-Congo". Second pass, so every tip is placed before any fork asks for room.
+        forks.push({ r, n, x, y, tx, fs });
+      }
+    }
+
+    for (const f of forks) {
+      const { r, n, tx, fs } = f;
+      const ny = f.y - Math.min(9, fs * 0.72);
+      g.font = '600 ' + Math.max(9, fs * 0.82).toFixed(1) + 'px ' + SANS;
+      // ⚠ MEASURE BEFORE CHANGING THE FONT. This measured the name AFTER switching to the
+      // smaller count face, so the width came back short and the count was drawn on top of
+      // the name's own tail: "Atlantic-Congo" with 8261 printed through it, "Volta-Congo"
+      // through 2093, on every internal node in the atlas.
+      const nameW = g.measureText(n.n).width;
+      const cntW = 7 + Math.max(9, fs * 0.72) * 0.62 * String(r.leaves).length;
+      const y0 = ny - fs * 0.5, y1 = ny + fs * 0.5;
+      // Four placements, in order of preference. A fork label wants to sit to the right of its
+      // node; when the next column's buds are in the way it can sit to the LEFT instead, in
+      // the empty span back towards its parent. Only if neither side has room for the number
+      // is the number dropped — a fork with no count still says where you are, a count with
+      // no name says nothing.
+      const cands = [];
+      for (const cnt of [true, false]) {
+        const wide = nameW + (cnt ? cntW : 0);
+        cands.push({ x0: tx - 4, cnt });                       // right of the fork
+        cands.push({ x0: f.x - 7 - wide, cnt, alt: true });    // left of it, back up the branch
+      }
+      cands.sort((a, b) => (b.cnt - a.cnt) || (a.alt ? 1 : -1));
+      let put = null;
+      for (const c of cands) {
+        const wide = nameW + (c.cnt ? cntW : 0);
+        if (c.x0 < 2) continue;
+        if (fits(y0, y1, c.x0, c.x0 + wide)) { put = { ...c, wide }; break; }
+      }
+      if (!put) continue;
+      placed.push({ y0, y1, x0: put.x0, x1: put.x0 + put.wide });
+      g.fillStyle = 'rgba(58,54,50,.9)';
+      g.fillText(n.n, put.x0, ny);
+      if (put.cnt) {
         g.font = Math.max(8.5, fs * 0.72).toFixed(1) + 'px ' + SANS;
         g.fillStyle = 'rgba(130,122,112,.8)';
-        g.fillText('  ' + r.leaves, tx - 4 + g.measureText(n.n).width + 4, ny);
+        g.fillText(String(r.leaves), put.x0 + nameW + 7, ny);
       }
     }
 
