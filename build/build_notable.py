@@ -3324,6 +3324,64 @@ def extra_subjects(gc: str, cats: dict) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
+# EXTRA ARTEFACT SUBJECTS, keyed by name and merged in `main`.
+#
+# Added for labels that had no object, or whose only object was a street sign, a market photo
+# or something the plate sweep rejected. Every entry NAMES A SPECIFIC THING — a manuscript, an
+# inscription, a first printed book, a script — because a free-text subject is trusted and a
+# vague one returns landscapes and baroque paintings.
+ARTEFACT = {
+ # ---- plates rejected in the full sweep, which now need a better one
+ "Danish":            ["Codex Runicus", "Category:Codex Holmiensis"],
+ "Finnish":           ["Abckiria Agricola", "Category:Kalevala manuscripts"],
+ "Faroese":           ["Seyðabrævið", "Category:Færeyinga saga"],
+ "Japanese":          ["Category:Kojiki", "Category:Man'yōshū"],
+ "Old Japanese":      ["Category:Man'yōshū", "Category:Kojiki"],
+ "Nyanja":            ["Category:Chichewa"],
+ "Nigerian Pidgin":   ["Category:Nigerian Pidgin"],
+ "Eastern Panjabi":   ["Category:Gurmukhi", "Guru Granth Sahib manuscript"],
+ "Fore":              ["Category:Fore language"],
+ "Ao Naga":           ["Category:Ao Naga language"],
+ "Lotha Naga":        ["Category:Lotha language"],
+ "Levantine Arabic":  ["Category:Levantine Arabic"],
+ # ---- languages whose only object is a street sign or a market photo: give them a real plate
+ "Lower Sorbian":     ["Category:Lower Sorbian literature", "Wendish Bible Sorbian"],
+ "Goan Konkani":      ["Category:Konkani language", "Category:Goykanadi"],
+ # ---- the largest labelled languages with no object at all
+ "Telugu":            ["Category:Telugu inscriptions", "Category:Telugu manuscripts"],
+ "Yue Chinese":       ["Category:Written Cantonese", "Category:Cantonese"],
+ "Western Panjabi":   ["Category:Shahmukhi", "Category:Punjabi manuscripts"],
+ "Hausa":             ["Category:Ajami script", "Category:Hausa language"],
+ "Northern Uzbek":    ["Category:Chagatai manuscripts", "Category:Uzbek language"],
+ "Sindhi":            ["Category:Sindhi language", "Category:Sindhi manuscripts"],
+ "Modern Greek":      ["Category:Greek manuscripts", "Category:Greek inscriptions"],
+ "Kazakh":            ["Category:Kazakh language", "Category:Kazakh Arabic alphabet"],
+ "Haitian":           ["Category:Haitian Creole"],
+ "Bavarian":          ["Category:Bavarian language"],
+ "Magahi":            ["Category:Magahi language", "Category:Kaithi"],
+ "Jinyu Chinese":     ["Category:Jin Chinese"],
+ "Xiang Chinese":     ["Category:Xiang Chinese"],
+ "Min Dong Chinese":  ["Category:Eastern Min", "Category:Foochow Romanized"],
+ "Saraiki":           ["Category:Saraiki language"],
+ "Chhattisgarhi":     ["Category:Chhattisgarhi language"],
+ "Haryanvi":          ["Category:Haryanvi language"],
+ "Rundi":             ["Category:Kirundi"],
+ "Kinshasa Lingala":  ["Category:Lingala"],
+ "Southern Pashto":   ["Category:Pashto manuscripts", "Category:Pashto literature"],
+ "Sudanese Arabic":   ["Category:Sudanese Arabic"],
+ "Moroccan Arabic":   ["Category:Moroccan Arabic"],
+ "Algerian Arabic":   ["Category:Algerian Arabic"],
+ "Saidi Arabic":      ["Category:Saidi Arabic"],
+ "Hijazi Arabic":     ["Category:Hejazi Arabic"],
+ "Sanaani Arabic":    ["Category:Sanaani Arabic"],
+ "Ta'izzi-Adeni Arabic": ["Category:Ta'izzi-Adeni Arabic"],
+ "Malvi":             ["Category:Malvi language"],
+ "Dhundari":          ["Category:Dhundhari language"],
+ "Hausa States Fulfulde": ["Category:Fula language", "Category:Adlam script"],
+}
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
 # SOURCE NOTES, KEYED BY NAME
 #
 # A label may carry its citation as a fourth tuple element. The 83 Indo-European labels below
@@ -3469,6 +3527,10 @@ SRC = {
 # ---------------------------------------------------------------------------
 
 def main() -> None:
+    # What already has an object, read from the shipped manifest — a fact, not a guess.
+    _gp = os.path.join(ROOT, "web", "data", "gallery.json")
+    HAVE_OBJECT = set(json.load(open(_gp, encoding="utf-8"))) if os.path.exists(_gp) else set()
+
     names: dict[str, list] = {}
     with open(GL, newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
@@ -3499,6 +3561,24 @@ def main() -> None:
         for q in ([terms] if isinstance(terms, str) else terms):
             if admissible_subject(q, lang_name=nm):
                 subjects.append((gc, q))
+        for q in ARTEFACT.get(nm, []):
+            if admissible_subject(q, lang_name=nm):
+                subjects.append((gc, q))
+        # THE LANGUAGE'S OWN CATEGORY — but ONLY for a label that has no object at all yet.
+        # Commons files many languages as `Category:<Name>` with no "language" in it, which every
+        # other rule here refuses, so this reaches material nothing else can.
+        #
+        # ⚠ IT WAS ADDED FOR ALL 666 LABELS FIRST AND THAT WAS WRONG TWICE OVER. It took the
+        # queue from 895 subjects to 1,802; Commons began refusing; the number of subjects
+        # returning nothing doubled from 446 to 1,016, and 43 languages LOST objects they already
+        # had — the Isoama-Ibo Primer, the Halmidi Old Kannada inscription, Miroslav's Gospel,
+        # Tamil's letter table. And what a generic category returns is mostly villages, battle
+        # paintings and portraits, because `Category:Tamil` is about Tamils, not about Tamil.
+        # Restricted to the languages that have nothing, it is a gap-filler rather than a flood.
+        if gc not in HAVE_OBJECT:
+            own = "Category:" + nm
+            if own not in ([terms] if isinstance(terms, str) else terms):
+                subjects.append((gc, own))
         for q in extra_subjects(gc, cats):
             subjects.append((gc, q))
             nextra += 1
@@ -3522,6 +3602,8 @@ def main() -> None:
 
     # A SRC key matching no label is a typo that would otherwise vanish silently, since the
     # notes are looked up by name and a miss just leaves the label uncited.
+    for u in sorted(set(ARTEFACT) - {e[0] for e in E}):
+        bad.append(f"{u!r}: artefact subjects matching no label")
     for u in sorted(set(SRC) - {e[0] for e in E}):
         bad.append(f"{u!r}: source note matching no label")
     for b in bad:

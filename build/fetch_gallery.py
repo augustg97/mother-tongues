@@ -61,6 +61,10 @@ NOT_AN_ARTEFACT = re.compile(
     # WRITING_TITLE allowlist, so they walked straight through it.
     r"|\bwikivoyage\b|phrasebook banner|wikimedians|user group"
     r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
+    # A KEYBOARD IS A PICTURE OF A COMPUTER. `WRITING_TITLE` lists "keyboard" as a writing
+    # word, which let layouts through as though they were letterforms; they are not, and
+    # August named them specifically. Rejected outright rather than demoted.
+    r"|\bkeyboard\b|\bkeypad\b|\bklaviatur\b|\btastatur\b|key layout"
     r"|\bfamily tree\b|\bcladogram\b|\bvenn\b"
     # Photographs of Wikimedia community events are about the project, not the language.
     # Digitisation wrappers: the scanning service's own front matter, not the book.
@@ -77,7 +81,7 @@ NOT_AN_ARTEFACT = re.compile(
 WRITING_TITLE = re.compile(
     r"(script|text|inscription|manuscript|alphabet|letter|writing|written|book|page|"
     r"newspaper|poster|sign|signage|dictionar|grammar|bible|qur|gospel|codex|charter|"
-    r"stele|stela|tablet|calligraph|typewriter|keyboard|font|orthograph|syllabar|"
+    r"stele|stela|tablet|calligraph|typewriter|font|orthograph|syllabar|"
     r"primer|abecedar|plaque|epitaph|papyrus|scroll|parchment|cuneiform|hieroglyph|"
     r"lettering|banner|label|menu|placard|monument|memorial|gravestone|tombstone|"
     r"title page|cover|leaflet|poem|verse|psalm|catechism|testament|schrift|"
@@ -117,6 +121,22 @@ for _f in ("subjects_languages.json", "subjects_families.json"):
 if not SUBJECTS:
     raise SystemExit("fetch_gallery: no subject queue — run build_notable.py and "
                      "build_families.py first")
+
+
+# ⚠ IMAGES ARE CACHED UNDER THEIR TITLE, NOT UNDER THE POSITIONAL SLOT THEY WILL OCCUPY.
+# Slot names — gc.jpg, gc-1.jpg — move whenever an audit retires an object or the plate ordering
+# changes, and a download written straight into a slot has twice now left the wrong picture under
+# a caption. Worse, a run REFUSED by the shrink guard still downloaded: the manifest stayed put
+# while the files under it changed, so Hakka Chinese was captioned as a remittance letter and
+# showing a migration map. The cache is keyed to what the file IS; slots are assigned only when
+# the manifest is actually written, and a refused run therefore changes nothing a reader sees.
+CACHE = os.path.join(OUT, "cache")
+os.makedirs(CACHE, exist_ok=True)
+
+
+def _cache_name(title: str) -> str:
+    import hashlib
+    return hashlib.sha1(title.encode("utf-8")).hexdigest()[:20] + ".jpg"
 
 
 def full_size(title: str, width: int = 1400) -> str:
@@ -360,7 +380,7 @@ if __name__ == "__main__":
             seen[gc].add(hit["title"])
             idx = len(have)
             name = f"{gc}.jpg" if idx == 0 else f"{gc}-{idx}.jpg"
-            dest = os.path.join(IMG, name)
+            dest = os.path.join(CACHE, _cache_name(hit["title"][5:]))
             # ⚠ THE CACHE IS KEYED TO THE SLOT, AND THE SLOT'S OCCUPANT CHANGES. File names are
             # positional — gc.jpg, gc-1.jpg — so the moment an audit retires an object, the next
             # object slides into its slot and `os.path.exists` says "already have it". The card
@@ -368,7 +388,7 @@ if __name__ == "__main__":
             # either of them alone. Tunisian Arabic was captioned as a film festival poster and
             # displaying a tiled Arabic inscription that had been rejected minutes earlier.
             # So: cache on the TITLE the slot currently holds, not on the slot.
-            if PREV_TITLE.get(name) != hit["title"][5:] or not os.path.exists(dest):
+            if not os.path.exists(dest):
                 try:
                     req = urllib.request.Request(hit["thumb"],
                                                  headers={"User-Agent": UA})
@@ -379,14 +399,17 @@ if __name__ == "__main__":
                 except Exception as e:                       # noqa: BLE001
                     print(f"   download failed {name}: {e}")
                     continue
-                shrink(dest, WIDE_MAX)     # ordered and re-shrunk once all are in
+                # the cache keeps a generous copy; slots are shrunk when written, below
             have.append({"file": name, "title": hit["title"][5:],
                          "big": full_size(hit["title"][5:]),
                          "licence": hit["licence"], "artist": hit["artist"],
                          "credit": hit["credit"], "page": hit["page"],
                          "subject": terms})
             print(f"   {gc:10s} {hit['licence']:20s} {hit['title'][5:58]}")
-        time.sleep(0.35)
+        # Commons rate-limits, and a long queue is exactly when it does. 1,802 subjects at
+        # 0.35s got 429s and doubled the number of subjects returning nothing, which cost 43
+        # languages their objects. Back off as the queue grows.
+        time.sleep(0.35 if len(SUBJECTS) < 1000 else 0.6)
     # THE PLATE IS CHOSEN BY SUBJECT FIRST, AND SHAPE ONLY BREAKS AN UNUSABLE ONE.
     #
     # A first attempt sorted each language's objects purely by how close they were to 4:3, and it
@@ -400,6 +423,29 @@ if __name__ == "__main__":
     # object is a banner or a tall scroll (wider than 3:1 or narrower than 1:3) it swaps with the
     # first object that is not. On 243 languages that demoted two. Nothing is discarded, because a
     # palm-leaf manuscript is genuinely long and thin and belongs on the wall.
+    # AND THE PLATE HAS A HIGHER BAR THAN THE WALL. August's rule, and it is the right one: the
+    # main image for a language should be WRITING, a book, a cultural artefact or a landmark
+    # associated with it. A street sign or an advertisement is real evidence of a language in use
+    # and belongs in the card — but not as the first thing a visitor sees, because it says
+    # "somebody printed this here" rather than "this is what the language looks like".
+    #
+    # So a plate is scored, and a lower score wins the front position. Nothing is discarded.
+    PLATE_BEST = re.compile(
+        r"(manuscript|inscription|codex|tablet|stele|stela|papyrus|scroll|palm.?leaf|"
+        r"alphabet|syllabar|script|abecedar|primer|dictionar|grammar|gospel|bible|qur|"
+        r"testament|charter|epitaph|calligraph|folio|page|book|letter|poem|verse)", re.I)
+    PLATE_WEAK = re.compile(
+        r"(sign|signage|signboard|billboard|placard|poster|advert|banner|plaque|label|"
+        r"menu|shopfront|storefront|graffiti|mural|sticker|keyboard|layout|logo)", re.I)
+
+    def plate_rank(o) -> int:
+        ttl = o.get("title", "")
+        if PLATE_BEST.search(ttl):
+            return 0
+        if PLATE_WEAK.search(ttl):
+            return 2
+        return 1
+
     def extreme(o) -> bool:
         try:
             from PIL import Image
@@ -412,14 +458,21 @@ if __name__ == "__main__":
         return (w / h) > 3.0 or (w / h) < 0.34
     demoted = 0
     for gc, objs in manifest.items():
-        if len(objs) > 1 and extreme(objs[0]):
+        if len(objs) < 2:
+            continue
+        # 1. subject: writing and artefacts to the front, signs and adverts to the back.
+        best = min(range(len(objs)), key=lambda i: (plate_rank(objs[i]), i))
+        if best:
+            objs = [objs[best]] + [o for i, o in enumerate(objs) if i != best]
+            manifest[gc] = objs
+            demoted += 1
+        # 2. shape: only ever breaks an unusable leader.
+        if extreme(objs[0]):
             alt = next((i for i, o in enumerate(objs) if i and not extreme(o)), None)
             if alt is not None:
                 manifest[gc] = [objs[alt]] + [o for i, o in enumerate(objs) if i != alt]
                 demoted += 1
-        for i, o in enumerate(manifest[gc]):
-            if i:
-                shrink(os.path.join(IMG, o["file"]), THUMB_MAX)
+        # shrinking happens when the slot is written, below — the cache keeps full size.
     print(f"\n   {demoted} plates swapped out for being a banner or a tall scroll")
 
     manifest = {k: v for k, v in manifest.items() if v}
@@ -433,6 +486,11 @@ if __name__ == "__main__":
     #
     # So: a run that LOSES ground stops and says what it lost. --shrink to accept it (an audit
     # pass that retires bad objects is a legitimate shrink and passes it deliberately).
+    # A CEILING ON WHAT --shrink WILL ACCEPT. The flag exists for an audit that retires a
+    # handful of bad objects. It was once passed for an expected loss of 6 languages and then
+    # left on for a run that lost 43, because a throttled fetch looks exactly like a small
+    # intended shrink until you read the list. Past the ceiling, --shrink is not enough.
+    SHRINK_CEILING = 15
     prev_p = os.path.join(OUT, "gallery.json")
     if os.path.exists(prev_p) and "--shrink" not in sys.argv:
         prev = json.load(open(prev_p, encoding="utf-8"))
@@ -447,6 +505,33 @@ if __name__ == "__main__":
             print("   The old manifest is untouched. Re-run once more in case Commons was "
                   "flaking; pass --shrink if the loss is intended.")
             sys.exit(1)
+    elif os.path.exists(prev_p):
+        prev = json.load(open(prev_p, encoding="utf-8"))
+        gone = sorted(set(prev) - set(manifest))
+        if len(gone) > SHRINK_CEILING and "--force-shrink" not in sys.argv:
+            print(f"\n   REFUSING TO WRITE even with --shrink: {len(gone)} languages lost every "
+                  f"object, over the ceiling of {SHRINK_CEILING}.")
+            print(f"   {', '.join(gone[:14])}" + (" …" if len(gone) > 14 else ""))
+            print("   That is the shape of a throttled fetch, not an audit. Re-run; pass "
+                  "--force-shrink only if it really is intended.")
+            sys.exit(1)
+
+    # ONLY NOW are slot files written, from the title-keyed cache, with the ordering settled.
+    # Everything above this point has touched nothing a reader sees.
+    import shutil as _sh
+    for gc, objs in manifest.items():
+        for i, o in enumerate(objs):
+            slot = f"{gc}.jpg" if i == 0 else f"{gc}-{i}.jpg"
+            src = os.path.join(CACHE, _cache_name(o["title"]))
+            if os.path.exists(src):
+                _sh.copyfile(src, os.path.join(IMG, slot))
+                shrink(os.path.join(IMG, slot), WIDE_MAX if i == 0 else THUMB_MAX)
+            o["file"] = slot
+    live = {f"{gc}.jpg" if i == 0 else f"{gc}-{i}.jpg"
+            for gc, objs in manifest.items() for i in range(len(objs))}
+    for f in os.listdir(IMG):
+        if f not in live:
+            os.remove(os.path.join(IMG, f))
 
     json.dump(manifest, open(os.path.join(OUT, "gallery.json"), "w"), ensure_ascii=False,
               indent=1)
