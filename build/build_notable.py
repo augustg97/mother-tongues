@@ -3348,6 +3348,9 @@ ARTEFACT = {
  "Lower Sorbian":     ["Category:Lower Sorbian literature", "Wendish Bible Sorbian"],
  "Goan Konkani":      ["Category:Konkani language", "Category:Goykanadi"],
  # ---- the largest labelled languages with no object at all
+ "Huastec":           ["Category:Huastec civilization", "Huastec sculpture"],
+ "Ingush":            ["Category:Ingush language", "Category:Nakh peoples"],
+ "Nyanja":            ["Category:Chichewa", "Chichewa New Testament"],
  "Telugu":            ["Category:Telugu inscriptions", "Category:Telugu manuscripts"],
  "Yue Chinese":       ["Category:Written Cantonese", "Category:Cantonese"],
  "Western Panjabi":   ["Category:Shahmukhi", "Category:Punjabi manuscripts"],

@@ -33,6 +33,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import re
 import sys
 
 import numpy as np
@@ -660,11 +661,20 @@ GENERIC_LANG_WORDS = {
 }
 
 
+# A NAME IS NOT A URI. Wikidata returns a blank-node identifier —
+# http://www.wikidata.org/.well-known/genid/<hash> — when a statement's value has no item behind
+# it, and two of those were shipping as autonyms: Celtiberian's card headline was a URL. The
+# fetcher takes P1705 at its word, so the check belongs here, on the way in.
+_NOT_A_NAME = re.compile(r"^\s*(https?://|www\.)|/\.well-known/|wikidata\.org|^Q\d+$", re.I)
+
+
 def _is_exonym_phrase(label: str, iso: str, refname: str = "") -> bool:
     """Only reject a label that is literally "<another language's word for 'language'> +
     <our own reference name>" — "bahasa Pyu" for the language we call Pyu. Anything else is
     kept: a name a community is recorded under is worth showing, and an over-tight rule threw
     away 818 candidates to remove a few hundred descriptions."""
+    if _NOT_A_NAME.search(label):
+        return True                       # a URI, an identifier — never a self-name
     parts = label.strip().split(" ")
     if len(parts) < 2:
         return False

@@ -103,10 +103,29 @@ _WRITING_CAT = re.compile(r"(script|alphabet|inscription|manuscript|calligraph|l
                           r"syllabar|orthograph|epigraph|codex|typograph)", re.I)
 # Cultural artefacts, which August's rule admits: an object made by the people who speak it.
 ARTEFACT_TITLE = re.compile(
-    r"(pottery|pot\b|vessel|bowl|jar|urn|carving|carved|sculpture|statue|figurine|mask|"
-    r"textile|weaving|woven|embroider|basket|beadwork|amulet|talisman|drum|flute|horn\b|"
-    r"lyre|harp|coin|seal\b|stamp|jewellery|jewelry|pendant|brooch|loom|shield|"
-    r"artefact|artifact|museum|relic|regalia|costume|headdress)", re.I)
+    # ⚠ WORD BOUNDARIES, EVERY ONE OF THEM. Without them "harp" matched "harpiste" and Breton's
+    # plate became a photograph of a harpist. 56 objects were admitted by substring alone.
+    #
+    # ⚠ AND "museum" IS NOT AN ARTEFACT WORD. It let in every "COLLECTIE TROPENMUSEUM …" file,
+    # which is a colonial photographic archive: weddings, riders fording a river, a rickshaw
+    # puller, portraits of groups of men. A photograph taken IN a museum is not an object.
+    #
+    # Non-English words are here for the same reason the writing list has them — Commons
+    # filenames are in the uploader's language, and the genuine Tropenmuseum artefacts are
+    # labelled "houten beeld", "aardewerk", "muziekinstrument".
+    r"\b(pottery|pots?|vessels?|bowls?|jars?|urns?|carvings?|carved|sculptures?|statues?|"
+    r"statuettes?|figurines?|masks?|textiles?|weaving|woven|embroider\w*|baskets?|beadwork|"
+    r"amulets?|talismans?|drums?|flutes?|horns?|lyres?|harps?|coins?|seals?|jewell?ery|"
+    r"pendants?|brooch(?:es)?|looms?|shields?|artefacts?|artifacts?|relics?|regalia|"
+    # postage stamps carry the language on them; rings and ornaments are worked objects. Both
+    # were lost when "museum" went, and both are exactly what August's rule admits.
+    r"stamps?|rings?|(?:hals|oor|pols|arm|neck|ear|wrist|finger)ring|ornaments?|bracelets?|"
+    r"necklaces?|earrings?|beads?|"
+    r"headdress(?:es)?|"
+    r"beeld|aardewerk|muziekinstrument|weefsel|mand|masker|"
+    r"skulptur|keramik|gef\u00e4\u00df|schmuck|"
+    r"c\u00e9ramique|poterie|sculpture|masque|"
+    r"cer\u00e1mica|escultura|m\u00e1scara|tejido)\b", re.I)
 
 
 def mostly_non_latin(t: str) -> bool:
