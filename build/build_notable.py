@@ -3575,7 +3575,10 @@ def main() -> None:
         # Tamil's letter table. And what a generic category returns is mostly villages, battle
         # paintings and portraits, because `Category:Tamil` is about Tamils, not about Tamil.
         # Restricted to the languages that have nothing, it is a gap-filler rather than a flood.
-        if gc not in HAVE_OBJECT:
+        # Not conditioned on already having an object: a subject that produced one must stay in
+        # the queue, or the next pass drops what it found. See build_families for the run where
+        # that cost four families their only object.
+        if True:
             own = "Category:" + nm
             if own not in ([terms] if isinstance(terms, str) else terms):
                 subjects.append((gc, own))

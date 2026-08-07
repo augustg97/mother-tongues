@@ -1415,6 +1415,54 @@ def node_clusters(tree: dict) -> dict[str, list]:
     return found
 
 
+# NAMED ARTEFACTS FOR BRANCH AND FAMILY CARDS. Asking Commons for `Category:<Branch> languages`
+# returns maps and classification charts, and the artefact filter correctly refuses them — a
+# family category is about the family, not about anything anyone wrote. So the branches that can
+# be illustrated are named, one artefact each, the same discipline as the language labels.
+NODE_ARTEFACT = {
+ "Oceanic":            ["Category:Lapita pottery"],
+ "Polynesian":         ["Category:Rongorongo", "Category:Marshall Islands stick charts"],
+ "East Polynesian":    ["Category:Petroglyphs in Hawaii"],
+ "Micronesian":        ["Category:Marshall Islands stick charts"],
+ "Narrow Bantu":       ["Category:Kikongo manuscripts", "Category:Ge'ez manuscripts"],
+ "Semitic":            ["Category:Aramaic inscriptions", "Category:Ugaritic"],
+ "West Semitic":       ["Category:Phoenician inscriptions"],
+ "Central Semitic":    ["Category:Aramaic inscriptions"],
+ "Berber":             ["Category:Tifinagh", "Category:Libyco-Berber inscriptions"],
+ "Cushitic":           ["Category:Ge'ez script"],
+ "Chadic":             ["Category:Ajami script"],
+ "Gur":                ["Category:Adinkra symbols"],
+ "Kwa Volta-Congo":    ["Category:Adinkra symbols"],
+ "Nyo":                ["Category:Adinkra symbols"],
+ "Delta Cross":        ["Category:Nsibidi"],
+ "Narrow Grassfields": ["Category:Bamum script"],
+ "Sinitic":            ["Category:Oracle bone script", "Category:Chinese bronze inscriptions"],
+ "Bodish":             ["Category:Tibetan manuscripts"],
+ "Karenic":            ["Category:Karen script"],
+ "Lolo-Burmese":       ["Category:Yi script", "Category:Dongba symbols"],
+ "Loloish":            ["Category:Yi script"],
+ "Kiranti":            ["Category:Limbu script"],
+ "Malayo-Polynesian":  ["Category:Baybayin", "Category:Kawi script"],
+ "Malayic":            ["Category:Jawi script"],
+ "Central Philippine": ["Category:Baybayin"],
+ "Greater Central Philippine": ["Category:Baybayin"],
+ "Mundaic":            ["Category:Ol Chiki"],
+ "Tamil-Kannada":      ["Category:Tamil inscriptions"],
+ "South Dravidian":    ["Category:Tamil-Brahmi"],
+ "Western Mande":      ["Category:N'Ko script", "Category:Vai syllabary"],
+ "Manding-Vai":        ["Category:Vai syllabary"],
+ "Aztec":              ["Category:Aztec codices"],
+ "Southern Uto-Aztecan": ["Category:Aztec codices"],
+ "Zapotecan":          ["Category:Zapotec script"],
+ "Mixtec":             ["Category:Mixtec codices"],
+ "Mixtecan":           ["Category:Mixtec codices"],
+ "Eastern Otomanguean": ["Category:Mixtec codices"],
+ "Tupi-Guarani":       ["Category:Guarani language"],
+ "Karnic":             ["Category:Australian Aboriginal art"],
+ "Yuulngu":            ["Category:Yirrkala bark petitions"],
+}
+
+
 def main() -> None:
     # A true ISOLATE has Level='language' and no family: the language is its own top node, so
     # there is no family row to match "Basque" or "Sumerian" against. Both levels are indexed,
@@ -1467,6 +1515,7 @@ def main() -> None:
     # or matches twice stops the build. These replace "branch of the Indo-European language
     # family", which passed the old substantive() test while restating the tree.
     branch_text: dict[str, str] = {}
+    branch_name: dict[str, str] = {}
     for src in (IE_BRANCH, ST_BRANCH, PN_BRANCH, AC_BRANCH, AN_BRANCH,
                 MID_BRANCH, SEVEN_BRANCH):
         for nm, txt in src.items():
@@ -1474,6 +1523,7 @@ def main() -> None:
             if len(hit) != 1:
                 raise SystemExit(f"branch {nm!r} matched {len(hit)} Glottolog families")
             branch_text[hit[0]] = txt
+            branch_name[hit[0]] = nm
 
     out: dict[str, dict] = {}
     allclusters: dict[str, list] = {}
@@ -1540,6 +1590,37 @@ def main() -> None:
     # The FAMILY half of the gallery queue, in its own file. It used to be appended to the
     # single subjects.json build_notable.py writes, which meant the two had to run in one
     # specific order and nothing said so. They no longer touch each other's file.
+    # BRANCH CARDS AND UNILLUSTRATED FAMILIES. 202 branch cards carried authored prose and NOT
+    # ONE object, because only families with a hand-written `terms` entry were ever queued. A
+    # branch is a node with a name — Oceanic, Narrow Bantu, Polynesian, Semitic — and Commons
+    # files those, so ask for them by name. The plural form is admissible here and only here:
+    # `Category:Bantu languages` is exactly what a Bantu branch card is about, and the same
+    # category on a single Bantu language would be a mis-file (see admissible_subject).
+    have = set(json.load(open(os.path.join(ROOT, "web", "data", "gallery.json"),
+                              encoding="utf-8"))) \
+        if os.path.exists(os.path.join(ROOT, "web", "data", "gallery.json")) else set()
+    queued = {gc for gc, _ in subjects}
+    n_node = 0
+    # ⚠ BRANCH NODES ARE NOT IN `out`. `out` holds the 421 top-level families; the 202 authored
+    # branch cards are interior nodes and only two of them appear there, which is why a first
+    # attempt at this queued four subjects and illustrated nothing.
+    for gc, name in list(branch_name.items()) + [(g, r.get("n") or "") for g, r in out.items()]:
+        # ⚠ DO NOT SKIP A NODE BECAUSE IT ALREADY HAS AN OBJECT. That was the first version and
+        # it eats its own output: the object came FROM this subject, so dropping the subject
+        # drops the object on the next pass. Arawakan lost a Wapishana book, Iroquoian a
+        # nineteenth-century spelling book, Hmong-Mien a Nyiakeng Puachue script sample and
+        # Songhay its soraïh writing, all in one run. The per-node cap limits how many arrive;
+        # the queue does not need pruning as well.
+        if gc in queued or not name:
+            continue
+        for q in (NODE_ARTEFACT.get(name, [])
+                  + [f"Category:{name} languages", f"Category:{name} language",
+                     f"Category:{name}"]):
+            if _bn.admissible_subject(q, is_family=True):
+                subjects.append([gc, q])
+        n_node += 1
+    print(f"   {n_node} family and branch nodes asked for by name")
+
     json.dump([list(x) for x in subjects],
               open(os.path.join(ROOT, "data", "gallery", "subjects_families.json"), "w"),
               ensure_ascii=False)
