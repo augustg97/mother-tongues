@@ -403,6 +403,17 @@
     return { n, kids, leaves: kids.length ? kids.reduce((a, k) => a + k.leaves, 0) : 1 };
   }
 
+  // ⚠ #exhibit IS THE SCROLL CONTAINER, and setting innerHTML does not move it. Open a long
+  // card, scroll halfway down it, then open another long card and you land halfway down THAT
+  // one — reading its middle with no idea you have missed the top. Every write to the card goes
+  // through here so the next one cannot forget.
+  function setExhibit(html) {
+    const ex = $('#exhibit');
+    ex.innerHTML = html;
+    ex.scrollTop = 0;
+    return ex;
+  }
+
   function branchExhibit(n, rec) {
     const A = window.APP, s = summarise(rec);
     const path = [];
@@ -445,7 +456,7 @@
         '<div><b>' + esc(m.au && canRender(m.au[0]) ? m.au[0] : m.n) + '</b><span>' +
         esc(m.n) + '</span></div>').join('') + '</div>';
     }
-    $('#exhibit').innerHTML = h;
+    setExhibit(h);
     $('#exhibit').classList.remove('empty');
     if (s.box) drawMaps(s.box[0], s.box[1], s.box[2], n.g, null);
     T.sel = n; draw();
@@ -589,7 +600,7 @@
     const FS = A.families && A.families.by_glottocode && A.families.by_glottocode[gc];
     const ex = $('#exhibit');
     if (!FS) {
-      ex.innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
+      setExhibit('<p class="exempty">Choose a language from the tree.</p>');
       ex.classList.add('empty');
       return;
     }
@@ -656,7 +667,7 @@
     }
     h += '<p class="exfine">Click a language in the tree for its own card, or a fork to open ' +
       'that branch.</p>';
-    ex.innerHTML = h;
+    setExhibit(h);
   }
 
   // ---- the lightbox ------------------------------------------------------
@@ -1129,7 +1140,7 @@
         'arrow keys walk the set.</p>';
     }
 
-    $('#exhibit').innerHTML = h;
+    setExhibit(h);
     $('#exhibit').classList.remove('empty');
     const mc = $('#exhibit .exmapcv');
     if (mc && n.p) {
@@ -1420,7 +1431,7 @@
     h += '<p class="exfine">Horizontal position is when a language was first written down, ' +
       'not when it split from its sisters. Those are different kinds of date and only the ' +
       'first one exists for most of these languages.</p>';
-    $('#exhibit').innerHTML = h;
+    setExhibit(h);
     $('#exhibit').classList.remove('empty');
   }
 
@@ -1480,7 +1491,7 @@
     if (!rich.length) h += '<p class="exfine">Nothing in this branch has a recorded text or ' +
       'an object yet. That is the next pass of the enrichment loop, not a statement about ' +
       'the languages.</p>';
-    $('#exhibit').innerHTML = h;
+    setExhibit(h);
     $('#exhibit').classList.remove('empty');
   }
 
@@ -1495,7 +1506,7 @@
       if (T.story) {
         storyTitle();
       } else {
-        $('#exhibit').innerHTML = '<p class="exempty">Choose a language from the tree.</p>';
+        setExhibit('<p class="exempty">Choose a language from the tree.</p>');
         $('#exhibit').classList.add('empty');
       }
       draw();

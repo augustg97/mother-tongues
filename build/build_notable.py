@@ -3348,6 +3348,7 @@ ARTEFACT = {
  "Lower Sorbian":     ["Category:Lower Sorbian literature", "Wendish Bible Sorbian"],
  "Goan Konkani":      ["Category:Konkani language", "Category:Goykanadi"],
  # ---- the largest labelled languages with no object at all
+ "Paniya":            ["Category:Paniya language", "Category:Wayanad"],
  "Huastec":           ["Category:Huastec civilization", "Huastec sculpture"],
  "Ingush":            ["Category:Ingush language", "Category:Nakh peoples"],
  "Nyanja":            ["Category:Chichewa", "Chichewa New Testament"],
@@ -3567,6 +3568,10 @@ def main() -> None:
         for q in ARTEFACT.get(nm, []):
             if admissible_subject(q, lang_name=nm):
                 subjects.append((gc, q))
+        # ⚠ AND A BARE NAME CAN BE A HOMONYM IN A LANGUAGE THAT HAS NOTHING TO DO WITH IT.
+        # `Category:Paniya` on Commons is Пания, a karst spring in Crimea, and it became the
+        # plate for a Dravidian language of Wayanad. No rule catches that — only looking does.
+        #
         # THE LANGUAGE'S OWN CATEGORY — but ONLY for a label that has no object at all yet.
         # Commons files many languages as `Category:<Name>` with no "language" in it, which every
         # other rule here refuses, so this reaches material nothing else can.
