@@ -276,12 +276,15 @@
       : 'Area is <b>one cell per language</b>, every one the same size, grouped into its ' +
         'family. This is the atlas as a census: <b>' + IX.total.toLocaleString() +
         '</b> languages in <b>' + IX.fams.length + '</b> families and isolates.';
-    if (IX.colour === 'aes') {
+    // Only when there is something laid out. The counts describe the cells on screen, and with
+    // no cells the sentence reads "0 of the languages drawn here", which is true and useless.
+    if (IX.colour === 'aes' && IX.cells.length) {
       const gone = IX.cells.filter(c => c.l.aes >= 5).length;
       const safe = IX.cells.filter(c => c.l.aes === 1).length;
-      cap += ' Colour is the <b>AES vitality scale</b>: <b>' + gone.toLocaleString() +
-        '</b> of the languages drawn here are nearly extinct or already gone, and only <b>' +
-        safe.toLocaleString() + '</b> are assessed as not endangered.';
+      cap += ' Colour is the <b>AES vitality scale</b>: of the <b>' +
+        IX.cells.length.toLocaleString() + '</b> drawn here, <b>' + gone.toLocaleString() +
+        '</b> are nearly extinct or already gone and <b>' + safe.toLocaleString() +
+        '</b> are assessed as not endangered.';
     }
     $('#ixcap').innerHTML = cap;
 

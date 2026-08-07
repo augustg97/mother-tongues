@@ -8,8 +8,8 @@ Paste this whole file as the first message of a new session.
 
 **Mother Tongues** — Every human language we know of, on the ground it is spoken on
 
-- Repo: `/Users/augustgweon/Mother Tongues` · GitHub: not yet created (first ship makes `augustg97/mother-tongues`)`
-- Live: none yet. First ship enables Pages on `main:/docs` → https://augustg97.github.io/mother-tongues/
+- Repo: `/Users/augustgweon/Mother Tongues` · GitHub: `augustg97/mother-tongues`
+- Live: https://augustg97.github.io/mother-tongues/ — Pages on `main:/docs`, served locally on 8146
 - **Read `README.md` first.** It documents the goals, the standing working rules (§2), every
   subsystem, the traps that have cost time (§7), and the known limits (§9).
 - `SCOPE.md` is the contract: the claim, the layer table, the canonical frame, the evidence
@@ -17,11 +17,27 @@ Paste this whole file as the first message of a new session.
 
 ## The current task
 
-**Rounds 1–13 COMPLETE. Eight-pass enrichment loop finished. LIVE:** https://augustg97.github.io/mother-tongues/ (stamp 1785701549)
+**LIVE.** 90 rounds. Deep research passes closed for Indo-European, Sino-Tibetan and
+Pama-Nyungan, and the atlas-wide fixable gap — a language with a published grammar and nothing
+here — is at zero.
 
-Two views: **GROUND** (16384×8192 tile pyramid, measured surface) and **GENEALOGY** (429
-families, 8,618 languages, dated roots for 19). Cards lead with the autonym and carry Article 1
-of the UDHR in the language's own script.
+**THREE views**, and GENEALOGY is the default:
+
+- **GENEALOGY** — 429 families, 8,618 languages, dated roots for 19. A global search over all
+  7,672 rows by reference name and autonym (diacritics folded). Tip labels win their line over
+  fork labels; forks fall back to the left of their node and drop their count before their
+  name; a numbered depth axis; collapsed buds sized to the number they carry.
+- **GROUND** — 16384×8192 tile pyramid, measured surface. Two chrome panels, not four; the
+  cursor readout is a fact table on a plate; the legend folds.
+- **INDEX** — the whole atlas as one squarified treemap, 7,672 cells. Area is one-cell-each or
+  by-speakers; colour is by-family or by-vitality. Clicking a cell hands you to the genealogy.
+
+Moving between places is a Van Wijk flight (`state.flyTo`), not a cut, and pressing GROUND with
+a language selected in the genealogy flies you to it at span 26.
+
+Cards lead with the autonym, carry Article 1 of the UDHR in the language's own script, and long
+ones grow a sticky section spine. Every card write goes through `setExhibit()`, which resets
+scroll — do not write `#exhibit.innerHTML` directly.
 
 **Next, in priority order:**
 

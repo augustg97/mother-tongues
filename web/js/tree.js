@@ -1212,6 +1212,11 @@
         esc(it[2]) + '</dd>').join('') + '</dl>';
     }
 
+    // ⚠ NOT BUILT YET. words.json carries `transcription`, `concepts` and `by_glottocode` and
+    // no `orth`, so this section has never rendered for any language. The intended source is
+    // Wikidata Lexemes (CC0, reachable through the Query Service); until that pipeline exists
+    // the gate below is correct — it shows nothing rather than showing IPA under a heading
+    // that promises spelling.
     const orth = A.words && A.words.orth && A.words.orth[n.g];
     if (orth) {
       const ks = Object.keys(orth);

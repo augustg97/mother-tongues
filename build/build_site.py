@@ -538,6 +538,24 @@ def gate_no_year_on_before_contact() -> None:
     print("   clean — the earlier snapshot is labelled as a state, not a date")
 
 
+def refresh_updates() -> None:
+    """Regenerate the update log from git before publishing.
+
+    ⚠ IT WAS NEVER WIRED IN. build_updates.py existed and was run once by hand, so the log on
+    the live site froze at the round it was written in and sat five rounds stale while every
+    other derived file was rebuilt. A derived file that is not derived by the build is a file
+    that is wrong. The log necessarily lags by one round — this build's own commit does not
+    exist yet — and that is stated in the panel.
+    """
+    print("3e. update log, from git")
+    p = subprocess.run([sys.executable, os.path.join(HERE, "build_updates.py")],
+                       capture_output=True, text=True)
+    if p.returncode != 0:
+        print(p.stdout[-600:] or p.stderr[-600:])
+        die("build_updates.py failed")
+    print("   " + (p.stdout.strip().splitlines() or ["done"])[-1])
+
+
 def stamp() -> str:
     """Bump the data version in web/index.html BEFORE anything is copied."""
     print("4. data-version stamp")
@@ -589,4 +607,5 @@ if __name__ == "__main__":
     gate_attribution()
     gate_coverage()
     gate_no_year_on_before_contact()
+    refresh_updates()
     publish(stamp())
