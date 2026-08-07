@@ -60,6 +60,11 @@ NOT_AN_ARTEFACT = re.compile(
     # Wikivoyage banners are named "<Language> phrasebook banner" and "banner" is in the
     # WRITING_TITLE allowlist, so they walked straight through it.
     r"|\bwikivoyage\b|phrasebook banner|wikimedians|user group"
+    # ⚠ AN ADVERTISEMENT IS NOT AN ARTEFACT, even when it advertises books. "Books offered for
+    # sale by the kilo, in Goa" is a hoarding with a phone number on it, and the text on it is
+    # MARATHI, in Kolhapur, which is not Goa and not Konkani. It was the plate for Goan
+    # Konkani twice over because "Books" scored it into the BEST plate class.
+    r"|for sale|\bfor sale\b|\bsale\b|\bprice\b|\bper kg\b|\brs\.? ?\d|discount|shop ?front|storefront|hoarding|billboard"
     r"|\bscreenshot\b|\bdiagram\b|\bpie ?graph\b"
     # A KEYBOARD IS A PICTURE OF A COMPUTER. `WRITING_TITLE` lists "keyboard" as a writing
     # word, which let layouts through as though they were letterforms; they are not, and
@@ -518,11 +523,14 @@ if __name__ == "__main__":
         r"menu|shopfront|storefront|graffiti|mural|sticker|keyboard|layout|logo)", re.I)
 
     def plate_rank(o) -> int:
+        # ⚠ WEAK IS TESTED FIRST. Checking PLATE_BEST first meant one writing word anywhere in a
+        # title outranked everything else in it, so a billboard reading "Books offered for sale
+        # by the kilo" scored as a book and led the card.
         ttl = o.get("title", "")
-        if PLATE_BEST.search(ttl):
-            return 0
         if PLATE_WEAK.search(ttl):
             return 2
+        if PLATE_BEST.search(ttl):
+            return 0
         return 1
 
     def extreme(o) -> bool:

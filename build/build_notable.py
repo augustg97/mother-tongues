@@ -3348,6 +3348,8 @@ ARTEFACT = {
  "Lower Sorbian":     ["Category:Lower Sorbian literature", "Wendish Bible Sorbian"],
  "Goan Konkani":      ["Category:Konkani language", "Category:Goykanadi"],
  # ---- the largest labelled languages with no object at all
+ "Goan Konkani":      ["Shravanabelagola Konkani inscription", "Category:Goykanadi",
+                       "Doutrina Christam Konkani", "Category:Konkani literature"],
  "Paniya":            ["Category:Paniya language", "Category:Wayanad"],
  "Huastec":           ["Category:Huastec civilization", "Huastec sculpture"],
  "Ingush":            ["Category:Ingush language", "Category:Nakh peoples"],
