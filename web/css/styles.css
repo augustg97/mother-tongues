@@ -25,18 +25,37 @@ html,body{margin:0;height:100%;overflow:hidden;background:#080b0a;color:var(--in
 #aboutBtn:hover{color:var(--accent)}
 #subtitle{color:var(--dim);font-size:11.5px;margin-top:2px;max-width:44ch}
 
-#readout{pointer-events:auto;text-align:right;display:grid;gap:1px;
-  font-variant-numeric:tabular-nums}
-.ro{display:grid;grid-template-columns:auto auto;gap:10px;justify-content:end;align-items:baseline}
-.ro span{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
-.ro b{font-weight:500;font-size:12px;min-width:11ch;text-align:right}
+/* The readout used to float bare in the top bar, its labels set in --dim over whatever the
+   map happened to be underneath. On the cream ground that is light grey on light grey and
+   effectively unreadable. It now sits in the right panel, on a plate, as a fact table — the
+   same shape the cards use for the same kind of information. */
+#readout{pointer-events:auto;display:grid;gap:2px;font-variant-numeric:tabular-nums}
+.ro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:baseline}
+.ro span{color:var(--dim);font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;
+  line-height:1.35}
+.ro b{font-weight:500;font-size:12px;text-align:right;white-space:nowrap}
 
-#leftrail{position:fixed;left:14px;top:96px;width:212px;display:grid;gap:10px;z-index:3}
-#rightrail{position:fixed;right:14px;top:132px;width:224px;display:grid;gap:10px;z-index:3}
+/* Two panels, not four. Four floating cards over a rendered world is four separate things
+   asking to be read before the world is; the rails now hold one panel each, sectioned. */
+#leftrail{position:fixed;left:14px;top:104px;width:214px;z-index:3;
+  max-height:calc(100vh - 122px);overflow:auto}
+#rightrail{position:fixed;right:14px;top:104px;width:236px;z-index:3;
+  max-height:calc(100vh - 122px);overflow:auto}
+.psec + .psec{margin-top:10px;padding-top:10px;border-top:1px solid var(--edge)}
+/* The legend is reference, not control: it is read once and then it is in the way. It folds. */
+#readsec > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px;
+  margin-bottom:7px}
+#readsec > summary::-webkit-details-marker{display:none}
+#readsec > summary::after{content:"–";margin-left:auto;font-size:11px;line-height:1}
+#readsec:not([open]) > summary::after{content:"+"}
+#readsec:not([open]) > summary{margin-bottom:0}
+#rightrail label{padding:2px 0}
+.legend{font-size:10.8px;line-height:1.42}
 .panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;
   padding:10px 11px;backdrop-filter:blur(9px)}
 .panel-h{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
   margin-bottom:7px}
+.panel-h i{font-style:normal;opacity:.7;letter-spacing:.08em;margin-left:5px}
 .panel.hidden{display:none}
 
 #rightrail label{display:flex;align-items:center;gap:7px;padding:2.5px 0;cursor:pointer;
@@ -48,7 +67,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
 .note{margin-top:5px;color:var(--accent);font-size:11px}
 
-#tour{display:grid;gap:2px;max-height:42vh;overflow:auto}
+#tour{display:grid;gap:2px;max-height:34vh;overflow:auto}
 #tour button{all:unset;cursor:pointer;padding:4px 6px;border-radius:2px;font-size:11.5px;
   color:#cdd6d2}
 #tour button:hover{background:rgba(111,208,189,.13);color:#fff}
@@ -83,10 +102,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 code{font:11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
 
 @media (max-width:900px){
-  #leftrail{left:8px;top:auto;bottom:8px;width:calc(50vw - 12px)}
-  #rightrail{right:8px;top:auto;bottom:8px;width:calc(50vw - 12px)}
+  #leftrail{left:8px;top:auto;bottom:8px;width:calc(50vw - 12px);max-height:46vh}
+  #rightrail{right:8px;top:auto;bottom:8px;width:calc(50vw - 12px);max-height:46vh}
   #readout .ro:nth-child(n+4){display:none}
-  #tour{max-height:22vh}
+  #tour{max-height:18vh}
 }
 
 /* ---- the genealogy: a museum room. Paper, ink, and type that respects the subject. ---- */
@@ -220,8 +239,9 @@ body:not(.tree) #topbar{background:linear-gradient(rgba(247,243,234,.92),rgba(24
 body:not(.tree) #title h1{color:#20242a}
 body:not(.tree) #subtitle{color:#5d564c}
 body:not(.tree) #aboutBtn{color:#8b8377}
-body:not(.tree) #readout .ro span{color:#8b8377}
+body:not(.tree) #readout .ro span{color:#7b7366}
 body:not(.tree) #readout .ro b{color:#20242a}
+body:not(.tree) .psec + .psec{border-top-color:rgba(60,52,42,.14)}
 body:not(.tree) .panel{background:rgba(250,247,240,.93);border-color:rgba(60,52,42,.18);
   color:#20242a;box-shadow:0 1px 10px rgba(40,34,26,.10)}
 body:not(.tree) .panel-h{color:#8b8377}

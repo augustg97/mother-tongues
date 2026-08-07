@@ -536,6 +536,95 @@ state.jumpTo = (lon, lat, span) => {
   state.centre = [lon, lat]; if (span) state.span = span; render();
 };
 
+/* ---- the flight ------------------------------------------------------------------------
+ * Every move between two places on the ground used to be a cut: the tour jumped, and coming
+ * from the genealogy the map was simply already somewhere else. Two views of one world that
+ * teleport between each other are two pictures, not one object.
+ *
+ * This is Van Wijk & Nuij's smooth-and-efficient zoom-and-pan (2003): pull back far enough
+ * that the two places are in the same frame, travel, drop in. It is not decoration — it is
+ * the only motion that keeps the WHOLE PATH legible, and the reason a viewer arrives knowing
+ * where they went rather than just where they are.
+ */
+let flight = null;
+const RHO = 1.42, RHO2 = RHO * RHO;
+const cosh = x => (Math.exp(x) + Math.exp(-x)) / 2;
+const sinh = x => (Math.exp(x) - Math.exp(-x)) / 2;
+
+state.flyTo = (lon, lat, span, done) => {
+  const c0 = state.centre.slice(), w0 = state.span;
+  const w1 = span || state.span;
+  let dx = lon - c0[0], dy = lat - c0[1];
+  while (dx > 180) dx -= 360;            // always take the short way round
+  while (dx < -180) dx += 360;
+  const d = Math.hypot(dx, dy);
+  const still = d < 0.02 && Math.abs(Math.log(w1 / w0)) < 0.02;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still || reduce) {
+    flight = null;
+    state.centre = [lon, lat]; state.span = w1; render();
+    updateReadout(lon, lat);
+    if (done) done();
+    return;
+  }
+
+  let path;
+  if (d < 1e-4) {
+    // Straight up or straight down: no pan, so the general solution degenerates.
+    path = s => ({ f: 1, w: w0 * Math.exp(s) });
+    path.S = Math.log(w1 / w0);
+  } else {
+    const bi = i => {
+      const n = w1 * w1 - w0 * w0 + (i ? -1 : 1) * RHO2 * RHO2 * d * d;
+      return n / (2 * (i ? w1 : w0) * RHO2 * d);
+    };
+    const r = i => { const b = bi(i); return Math.log(-b + Math.sqrt(b * b + 1)); };
+    const r0 = r(0), r1 = r(1);
+    path = s => {
+      const u = w0 / (RHO2 * d) * (cosh(r0) * Math.tanh(RHO * s + r0) - sinh(r0));
+      return { f: u / d, w: w0 * cosh(r0) / cosh(RHO * s + r0) };
+    };
+    path.S = (r1 - r0) / RHO;
+  }
+  const S = Math.abs(path.S) || 1e-6;
+  const ms = Math.min(1700, 380 + S * 340);
+  const t0 = performance.now();
+  const id = (state._flightId = (state._flightId || 0) + 1);
+  flight = { t0, ms, S: path.S, path, c0, dx, dy, done, id };
+  requestAnimationFrame(step);
+  // ⚠ A BACKGROUNDED TAB DOES NOT RUN requestAnimationFrame. Without this the flight simply
+  // never starts and the map is left at the old place with no error anywhere — the arrival
+  // matters, the animation is a courtesy. Land it either way.
+  setTimeout(() => {
+    if (flight && flight.id === id) { flight = null; land(lon, lat, w1, done); }
+  }, ms + 400);
+};
+
+function step(now) {
+  if (!flight) return;
+  const k = Math.min(1, (now - flight.t0) / flight.ms);
+  // Ease the PARAMETER, not the position: Van Wijk's s is already constant-perceived-speed,
+  // and easing it only softens the departure and the arrival.
+  const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  const { f, w } = flight.path(e * flight.S);
+  state.centre = [flight.c0[0] + flight.dx * f, flight.c0[1] + flight.dy * f];
+  state.span = w;
+  render();
+  if (k < 1) { requestAnimationFrame(step); return; }
+  const fin = flight; flight = null;
+  land(fin.c0[0] + fin.dx, fin.c0[1] + fin.dy, state.span, fin.done);
+}
+
+function land(lon, lat, span, done) {
+  state.centre = [((lon + 180) % 360 + 360) % 360 - 180, lat];
+  state.span = span;
+  render();
+  updateReadout(state.centre[0], state.centre[1]);
+  if (done) done();
+}
+// A drag or a wheel cancels the flight: the viewer's hand outranks the animation.
+state.stopFlight = () => { flight = null; };
+
 // ---------------------------------------------------------------------------------------
 // CPU sampling — the readout and the cards read the same pixels the shader does
 // ---------------------------------------------------------------------------------------
@@ -702,12 +791,10 @@ state.showCardFor = function (gc, p) {
   const r = state.langs.rows.find(x => x[0] === gc);
   const lonlat = r ? [r[2], r[3]] : (p || null);
   if (lonlat) {
-    state.centre = [lonlat[0], lonlat[1]];
-    state.span = Math.min(state.span, 12);
     setView('map');
-    render();
-    updateReadout(lonlat[0], lonlat[1]);
-    showCard(lonlat[0], lonlat[1]);
+    // Arrive, then open the card. Opening it first puts a panel over the flight.
+    state.flyTo(lonlat[0], lonlat[1], Math.min(state.span, 12),
+                () => showCard(lonlat[0], lonlat[1]));
   }
 };
 
@@ -732,6 +819,19 @@ function setView(v) {
   if (card && !ground) card.classList.add('hidden');
   if (tree && window.TREE) window.TREE.show();
   if (ix && window.IX) window.IX.show();
+
+  // THE TWO VIEWS ARE ONE OBJECT. Pressing GROUND with a language open in the genealogy used
+  // to land you wherever the map happened to be left — usually the whole world — and you had
+  // to find the place yourself. It now flies there, which is also how you learn where it is.
+  if (ground && window.TREE && window.TREE.sel && window.TREE.sel.p && !state._carried) {
+    const s = window.TREE.sel;
+    state._carried = s.g;
+    // 26 degrees is the house framing for "a language in its setting" — the same span the
+    // exhibit's own minimaps use. Going in to 14 lands you inside the raster's resolution and
+    // the ground arrives as a blur, which is a worse answer than arriving further out.
+    state.flyTo(s.p[0], s.p[1], Math.min(state.span, 26));
+  }
+  if (!ground) state._carried = null;
 }
 state.setView = setView;
 
@@ -747,6 +847,7 @@ function toLonLat(ev) {
 }
 let drag = null;
 cv.addEventListener('mousedown', e => {
+  state.stopFlight();
   drag = { x: e.clientX, y: e.clientY, c: state.centre.slice(), moved: 0 };
 });
 addEventListener('mouseup', e => {
@@ -767,6 +868,7 @@ addEventListener('mousemove', e => {
 });
 cv.addEventListener('wheel', e => {
   e.preventDefault();
+  state.stopFlight();
   state.span = Math.max(1.2, Math.min(360, state.span * Math.exp(e.deltaY * 0.0016)));
   render();
 }, { passive: false });
@@ -823,11 +925,13 @@ const TOUR = [
   ['Austronesian — half the planet', 150, 0, 200]
 ];
 $('#tour').innerHTML = TOUR.map((t, i) => '<button data-i="' + i + '">' + t[0] + '</button>').join('');
+// The list is taller than its box and scrolls. Without the count it simply looks like it ends
+// at whatever entry the window happens to cut off.
+$('#tourN').textContent = TOUR.length + ' places';
 $('#tour').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const t = TOUR[+b.dataset.i];
-  state.jumpTo(t[1], t[2], t[3]);
-  updateReadout(t[1], t[2]);
+  state.flyTo(t[1], t[2], t[3]);
 });
 
 $('#legend').innerHTML =
